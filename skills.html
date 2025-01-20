@@ -1,0 +1,58 @@
+<section id="skills">
+    <h2>Skills</h2>
+    <p>대표 기술들을 확인하세요.</p>
+    <div class="skills-container">
+        <div class="skills-card cards">
+            <img src="assets/images/sections/skills/c++.png" alt="프로그래밍 아이콘">
+            <h3>프로그래밍</h3>
+        </div>
+        <div class="skills-card cards">
+            <img src="assets/images/sections/skills/cad.png" alt="CAD/기구 설계 아이콘">
+            <h3>CAD/기구 설계</h3>
+        </div>
+        <div class="skills-card cards">
+            <img src="assets/images/sections/skills/pcb.png" alt="전자 회로/소자 아이콘">
+            <h3>전자 회로/소자</h3>
+        </div>
+    </div>
+</section>
+
+<!-- CSS -->
+<style>
+    .skills-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
+        gap: 20px;
+    }
+
+    .skills-card {
+        display: flex;
+        flex-direction: column; /* 세로 정렬 */
+        align-items: center;
+        padding: 10px;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .skills-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .skills-card img {
+        width: auto;
+        height: 50px;
+        margin-bottom: 10px;
+    }
+
+    .skills-card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    .skills-card p {
+        font-size: 0.9rem;
+        margin-top: 10px;
+        margin-bottom: 1px;
+        color: #555;
+    }
+</style>

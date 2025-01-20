@@ -1,0 +1,85 @@
+<section id="contact">
+    <h2>Contact Me</h2>
+    <p>문의사항이 있으시면 연락 주세요!</p>
+    <ul class="contact-list">
+        <li>
+            <a href="https://github.com/KimTeddy" target="_blank">
+                <img class="link-icon-contact link-icon-contact-github" src="assets/images/logos/github-mark.svg" alt="GitHub" />
+                <span class="link-text">KimTeddy</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.instagram.com/Teddy_Electronics" target="_blank">
+                <img class="link-icon-contact" src="assets/images/logos/instagram.svg" alt="Instagram" />
+                <span class="link-text">@teddy_electronics</span>
+            </a>
+        </li>
+        <li>
+            <a href="mailto:teddy_02@naver.com">
+                <img class="link-icon-contact" src="assets/images/logos/gmail.svg" alt="Mail" />
+                <span class="link-text">teddy_02@naver.com</span>
+            </a>
+        </li>
+    </ul>
+</section>
+
+<style>
+#contact {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+#contact h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+#contact p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.contact-list li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.contact-list a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #2C4399;
+    transition: color 0.3s ease;
+    transition: transform 0.3s ease;
+}
+
+.contact-list a:hover {
+    color: #0078d7;
+    transform: scale(1.05);
+}
+
+.contact-list img.link-icon-contact {
+    width: 30px;
+    height: auto;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+.contact-list img.link-icon-contact:hover {
+    transform: scale(1.1);
+}
+
+.contact-list .link-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+</style>

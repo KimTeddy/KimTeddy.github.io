@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TeddyElectronics">
+    <meta property="og:title" content="TeddyElectronics">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="TeddyElectronics">
+    <meta property="og:image" content="https://avatars.githubusercontent.com/u/68770209?v=4">
+    <meta property="og:url" content="https://kimteddy.github.io/">
+    <title>TeddyElectronics - 테디의 전자공학</title>
+    <link rel="TeddyElectronics icon" type="image/x-icon" href="/assets/images/site/TeddyElectronics.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <script>
+        function toggleService(event) {
+            const service = event.currentTarget.parentElement;
+            const isExpanded = service.classList.contains('expanded');
+            document.querySelectorAll('.service').forEach(s => s.classList.remove('expanded'));
+            if (!isExpanded) {
+                service.classList.add('expanded');
+            }
+        }
+
+        window.addEventListener('scroll', () => {
+        const scrollProgressBars = document.querySelectorAll('.scroll-progress-bar');
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPosition = window.scrollY;
+            const scrollPercentage = (scrollPosition / scrollHeight) * 100;
+
+            // 모든 선택된 요소에 대해 width를 업데이트
+            scrollProgressBars.forEach((bar) => {
+                bar.style.width = `${scrollPercentage}%`;
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <!-- Include navigation -->
+    <div id="navigation">
+        <!-- Navigation content will be dynamically included -->
+        <script>
+            fetch('nav.html').then(res => res.text()).then(data => document.getElementById('navigation').innerHTML = data);
+        </script>
+    </div>
+    <div class="container">
+        <div class="sidebar">
+            <img src="https://avatars.githubusercontent.com/u/68770209?v=4" alt="Profile Picture" class="profile-pic">
+            <h2>Teddy Kim</h2>
+            <p>Embedded System Developer</p>
+            <div class="skills">
+                <h3>📚Tech Stack📚</h3>
+                <div class="skill">
+                    <h3>Languages</h3>
+                    <h5>Basic<br>
+                        <img src="https://img.shields.io/badge/C-A8B9CC?style=flat&logo=c&logoColor=white">
+                        <img src="https://img.shields.io/badge/C++-00599C?style=flat&logo=cplusplus&logoColor=white">
+                    </h5>
+                    <h5>Web<br>
+                        <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white">
+                        <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white">
+                        <img
+                            src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=white">
+                    </h5>
+                    <h5>Windows<br>
+                        <a href="https://github.com/KimTeddy/Batchfile">
+                            <img
+                                src="https://img.shields.io/badge/Repository-Windows batch-4D4D4D?style=flat&logo=windowsterminal&logoColor=white">
+                        </a>
+                        <a href="https://github.com/KimTeddy/VBScript/tree/main">
+                            <img
+                                src="https://img.shields.io/badge/Repository-Windows VBScript-0078D6?style=flat&logo=windows10&logoColor=white">
+                        </a>
+                    </h5>
+                    <h5>Digital Logic Circuit<br>
+                        <a href="https://github.com/KimTeddy/DigitalSystem" target="_blank">
+                            <img
+                                src="https://img.shields.io/badge/Repository-Verilog-E01F27?style=flat&logo=v&logoColor=white">
+                        </a>
+                    </h5>
+                    <h5>Others<br>
+                        <img
+                            src="https://img.shields.io/badge/Markdown-101010?style=flat&logo=markdown&logoColor=white">
+                    </h5>
+                    <h3>Library<br>
+                        <a href="https://github.com/KimTeddy/OpenGL" target="_blank">
+                            <img
+                                src="https://img.shields.io/badge/Repository-OpenGL-5586A4?style=flat&logo=opengl&logoColor=white">
+                        </a>
+                        <a href="https://github.com/KimTeddy/OpenCV" target="_blank">
+                            <img
+                                src="https://img.shields.io/badge/Repository-OpenCV-5C3EE8?style=flat&logo=opencv&logoColor=white">
+                        </a>
+                    </h3>
+
+                    <h3>Terminal & OS<br>
+                        <img
+                            src="https://img.shields.io/badge/PowerShell-5391FE?style=flat&logo=powershell&logoColor=white">
+                        /
+                        <a href="" target="_blank">
+                            <img src="https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=white">
+                        </a>
+                        (<img src="https://img.shields.io/badge/Zsh-F15A24?style=flat&logo=zsh&logoColor=white">
+                        <img src="https://img.shields.io/badge/Jupyter-F37626?style=flat&logo=jupyter&logoColor=white">)
+                    </h3>
+                    <h3>Home IoT<br>
+                        <a href="https://www.home-assistant.io/" target="_blank">
+                            <img
+                                src="https://img.shields.io/badge/Home Assistant-41BDF5?style=flat&logo=homeassistant&logoColor=white">
+                        </a>
+                        <a href="https://www.esphome.io/" target="_blank">
+                            <img
+                                src="https://img.shields.io/badge/ESPHome-000000?style=flat&logo=esphome&logoColor=white">
+                        </a>
+                        <a href="https://nodered.org/" target="_blank">
+                            <img
+                                src="https://img.shields.io/badge/Node--RED-8F0000?style=flat&logo=nodered&logoColor=white">
+                        </a>
+                        <a href="https://yaml.org/" target="_blank">
+                            <img src="https://img.shields.io/badge/YAML-CB171E?style=flat&logo=yaml&logoColor=white">
+                        </a>
+                        <br>
+                        <img
+                            src="https://img.shields.io/badge/Google Assistant SDK-4285F4?style=flat&logo=googleassistant&logoColor=white">
+                        <img
+                            src="https://img.shields.io/badge/Google Home-4285F4?style=flat&logo=googlehome&logoColor=white">
+                        <img
+                            src="https://img.shields.io/badge/Google Assistant-4285F4?style=flat&logo=googleassistant&logoColor=white">
+                    </h3>
+                    <h6>Not Using Now
+                        <a href="https://ifttt.com/explore" target="_blank">
+                            <img src="https://img.shields.io/badge/IFTTT-000000?style=flat&logo=ifttt&logoColor=white">
+                        </a>
+                        <a href="https://io.adafruit.com/" target="_blank">
+                            <img
+                                src="https://img.shields.io/badge/Adafruit IO-000000?style=flat&logo=adafruit&logoColor=white">
+                        </a>
+                        <a href="https://cloud.arduino.cc/" target="_blank">
+                            <img
+                                src="https://img.shields.io/badge/Arduino Cloud-00878F?style=flat&logo=arduino&logoColor=white">
+                        </a>
+                    </h6>
+                    <h3>📱 Hardwares 📱</h3>
+                    <a href="https://www.st.com/en/microcontrollers-microprocessors/stm32-32-bit-arm-cortex-mcus.html"
+                        target="_blank">
+                        <img src="https://img.shields.io/badge/Arm(STM32)-0091BD?style=flat&logo=arm&logoColor=white">
+                    </a>
+                    <a href="" target="_blank">
+                        <img src="https://img.shields.io/badge/ATmega-EC1C24?style=flat&logo=atmega&logoColor=white">
+                    </a>
+                    <a href="https://digilent.com/reference/programmable-logic/zybo-z7/start" target="_blank">
+                        <img src="https://img.shields.io/badge/FPGA-588A49?style=flat&logo=&logoColor=white">
+                    </a>
+                    <a href="https://www.arduino.cc/" target="_blank">
+                        <img src="https://img.shields.io/badge/Arduino-00878F?style=flat&logo=arduino&logoColor=white">
+                    </a>
+                    <a href="https://www.raspberrypi.com/" target="_blank">
+                        <img
+                            src="https://img.shields.io/badge/Raspberry Pi-A22846?style=flat&logo=raspberrypi&logoColor=white">
+                    </a>
+
+                    <h3>🛠 Tools 🛠</h3>
+                    <h3>IDEs
+                        <br>
+                        <a href="https://visualstudio.microsoft.com/ko/#vs-section">
+                            <img
+                                src="https://img.shields.io/badge/Visual Studio-5C2D91?style=flat&logo=visualstudio&logoColor=white">
+                        </a>
+                        <a href="[https://visualstudio.microsoft.com/ko/#vs-section](https://code.visualstudio.com/)">
+                            <img
+                                src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=flat&logo=visualstudiocode&logoColor=white">
+                        </a>
+                        <a href="https://www.arduino.cc/en/software">
+                            <img
+                                src="https://img.shields.io/badge/Arduino-00979D?style=flat&logo=arduino&logoColor=white">
+                        </a>
+                        <br>
+                        <a href="https://www.iar.com/products/architectures/arm/iar-embedded-workbench-for-arm/">
+                            <img src="https://img.shields.io/badge/IAR-000000?style=flat&logo=arm&logoColor=white">
+                        </a>
+                        <a href="https://www.st.com/en/development-tools/stm32cubeide.html">
+                            <img
+                                src="https://img.shields.io/badge/Cube IDE-3BB5E5?style=flat&logo=stmicroelectronics&logoColor=white">
+                        </a>
+                        <a href="https://www.st.com/en/development-tools/stm32cubemx.html">
+                            <img
+                                src="https://img.shields.io/badge/Cube MX-3BB5E5?style=flat&logo=stmicroelectronics&logoColor=white">
+                        </a>
+                        <br>
+                        <a href="https://www.xilinx.com/products/design-tools/vivado.html" target="_blank">
+                            <img src="https://img.shields.io/badge/Vivado-D5D66A?style=flat&logo=amd&logoColor=white">
+                        </a>
+                        <a href="https://www.xilinx.com/products/design-tools/vitis.html" target="_blank">
+                            <img src="https://img.shields.io/badge/Vitis-D22D1D?style=flat&logo=amd&logoColor=white">
+                        </a>
+                    </h3>
+                    <h3>CAD(PCB, 3D)
+                        <br>
+                        <a href="https://www.kicad.org/">
+                            <img src="https://img.shields.io/badge/KiCad-314CB0?style=flat&logo=kicad&logoColor=white">
+                        </a>
+                        <a href="https://www.solidworks.com/ko">
+                            <img
+                                src="https://img.shields.io/badge/SOLIDWORKS-FF0000?style=flat&logo=dassaultsystemes&logoColor=white">
+                        </a>
+                    </h3>
+                    <h3>VirtualMachine
+                        <br>
+                        <a href="https://www.virtualbox.org/">
+                            <img
+                                src="https://img.shields.io/badge/VirtualBox-183A61?style=flat&logo=virtualbox&logoColor=white">
+                        </a>
+                    </h3>
+                    <h3>3D</h3>
+                    <h5>Modeling/Animation/Rendering<br>
+                        <a href="https://www.blender.org/">
+                            <img
+                                src="https://img.shields.io/badge/Blender-F5792A?style=flat&logo=blender&logoColor=white">
+                        </a>
+                    </h5>
+                    <h5>Slicer<br>
+                        <a href="https://ultimaker.com/software/ultimaker-cura/">
+                            <img src="https://img.shields.io/badge/Cura-196EF0?style=flat&logo=c&logoColor=white">
+                        </a>
+                        <a
+                            href="https://www.creality.com/pages/download-ender-5-plus?spm=..page_1934481.products_display_1.1">
+                            <img
+                                src="https://img.shields.io/badge/Creality Slicer-00A3C6?style=flat&logo=creality&logoColor=white">
+                        </a>
+                        <a href="https://bambulab.com/en/download/studio">
+                            <img
+                                src="https://img.shields.io/badge/Bambu Studio-00AE42?style=flat&logo=&logoColor=white">
+                        </a>
+                    </h5>
+                    <h3>Others</h3>
+                    <h5>3D Modeling, Digital Logic Circuit<br>
+                        <a href="https://www.minecraft.net/ko-kr">
+                            <img
+                                src="https://img.shields.io/badge/Minecraft-62B47A?style=flat&logo=minecraft&logoColor=white">
+                        </a>
+                    </h5>
+                    <h5>Music<br>
+                        <a href="https://musescore.org/ko">
+                            <img
+                                src="https://img.shields.io/badge/MuseScore-1A70B8?style=flat&logo=musescore&logoColor=white">
+                        </a>
+                        <a href="https://www.presonus.com/en/start">
+                            <img
+                                src="https://img.shields.io/badge/Studio One 5-0083FF?style=flat&logo=&logoColor=white">
+                        </a>
+                        <a href="https://apps.apple.com/kr/app/garageband/id408709785">
+                            <img
+                                src="https://img.shields.io/badge/GarageBand-F2653A?style=flat&logo=itunes&logoColor=white">
+                        </a>
+                        <a href="">
+                            <img
+                                src="https://img.shields.io/badge/GoldWave-F2653A?style=flat&logo=goldwave&logoColor=white">
+                        </a>
+                    </h5>
+                    <h5>Video Edit<br>
+                        <a href="https://www.minecraft.net/ko-kr">
+                            <img
+                                src="https://img.shields.io/badge/DavinciResolve-233A51?style=flat&logo=davinciresolve&logoColor=white">
+                        </a>
+                    </h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="main">
+            <h1>Discover My Amazing Embedded System Space!</h1>
+            <p><code>I build Home IoT HW/SW.</code></p>
+            <div class="stats">
+                <h3>Stats</h3>
+                <p>10+ Years Experience</p>
+                <p>20+ Completed Projects</p>
+                <p>7+ Honors and Awards</p>
+            </div>
+            <div class="services">
+                <div class="service">
+                    <h3>Embedded Systems</h3>
+                    <p>임베디드 시스템 설계가 전공이며, 이를 취미로 합니다.</p>
+                    <a href="#" class="button" onclick="toggleService(event)">See More</a>
+                    <div class="service-content">
+                        <p>전자공학과에서 임베디드 트랙을 선택하여 임베디드, RTL 회로 설계 강의를 수강했습니다.</p>
+                    </div>
+                </div>
+                <div class="service">
+                    <h3>Home IoT</h3>
+                    <p>Home IoT HW, SW 설계가 main 취미입니다.</p>
+                    <a href="#" class="button" onclick="toggleService(event)">See More</a>
+                    <div class="service-content">
+                        <p>2021년 12월부터 현재까지 점점 발전시켜가며 진행하고 있습니다.</p>
+                        <p>Home Assistant 기반의 프로젝트를 진행하고 있습니다.</p>
+                    </div>
+                </div>
+                <div class="service">
+                    <h3>OpenGL</h3>
+                    <p>컴퓨터비전시스템 대학 전공 강의를 수강하였으며, LLM 서비스가 없던 시기에 프로젝트를 진행했습니다.</p>
+                    <a href="#" class="button" onclick="toggleService(event)">See More</a>
+                    <div class="service-content">
+                        <p>OpenGL 대학 전공 강의를 수강했습니다.</p>
+                        <p>LLM 서비스가 없던 시기에 프로젝트를 진행했습니다.</p>
+                        <p>다음 프로젝트를 진행했습니다.</p>
+                        <h1>OpenGL</h1>
+                        <h2>📖Studied - 2023.03~06</h2>
+                        <h2>💻Projects</h2>
+                        <table>
+                            <tbody>
+                                <tr align="center">
+                                    <th>Phase</th>
+                                    <th>Date</th>
+                                    <th>Lines of Code</th>
+                                    <th>Go to Description</th>
+                                </tr>
+                                <tr align="center">
+                                    <td rowspan="3">While Studying📖</td>
+                                    <td>2023.03.04</td>
+                                    <td>302</td>
+                                    <td align="left"><a href="/KimTeddy/OpenGL/blob/main/230324_PONG_by_KimTeddy">PONG
+                                            GAME</a>
+                                    </td>
+                                </tr>
+                                <tr align="center">
+                                    <td>2023.05.03</td>
+                                    <td>379</td>
+                                    <td align="left"><a
+                                            href="/KimTeddy/OpenGL/blob/main/230503_CARS_puzzle_game_by_KimTeddy">2D
+                                            CAR Escape Game</a></td>
+                                </tr>
+                                <tr align="center">
+                                    <td>2023.06.07</td>
+                                    <td>915</td>
+                                    <td align="left"><a
+                                            href="/KimTeddy/OpenGL/blob/main/230607_CARS_puzzle_game-3D_by_KimTeddy">3D
+                                            CAR(?) Escape Game</a></td>
+                                </tr>
+                                <tr align="center">
+                                    <td>After⌨️</td>
+                                    <td>2023.09~12</td>
+                                    <td>954</td>
+                                    <td align="left"><a
+                                            href="/KimTeddy/OpenGL/blob/main/2309-12_Drivers_license_test_Simulation">Drivers
+                                            license test Simulation</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="service">
+                    <h3>OpenCV</h3>
+                    <p>컴퓨터비전시스템 대학 전공 강의를 수강하였으며, LLM 서비스가 없던 시기에 프로젝트를 진행했습니다.</p>
+                    <a href="#" class="button" onclick="toggleService(event)">See More</a>
+                    <div class="service-content">
+                        <p>OpenCV 대학 전공 강의를 수강했습니다.</p>
+                        <p>LLM 서비스가 없던 시기에 프로젝트를 진행했습니다.</p>
+                        <p>다음 프로젝트를 진행했습니다.</p>
+                        <h1>OpenCV</h1>
+                        <h2>📖Studied - 2023.09~12</h2>
+                        <h2>💻Projects</h2>
+                        <table>
+                            <tbody>
+                                <tr align="center">
+                                    <th>Phase</th>
+                                    <th>Date</th>
+                                    <th>Lines of Code</th>
+                                    <th>Go to Description</th>
+                                </tr>
+                                <tr align="center">
+                                    <td rowspan="2">While Studying📖</td>
+                                    <td>2023.12.01</td>
+                                    <td>867</td>
+                                    <td align="left"><a href="https://github.com/KimTeddy/OpenCV/tree/main/231201_Video_player_with_video_analyzer">동영상 영상처리 프로그램</a>
+                                    </td>
+                                </tr>
+                                <tr align="center">
+                                    <td>2023.05.03</td>
+                                    <td>808</td>
+                                    <td align="left"><a
+                                            href="https://github.com/KimTeddy/OpenCV/tree/main/231208_Image_viewer_with_image_analyzer">이미지 영상처리 프로그램</a></td>
+                                </tr>
+                                <tr align="center">
+                                    <td>After⌨️</td>
+                                    <td>2023.12.19</td>
+                                    <td>867</td>
+                                    <td align="left"><a
+                                            href="https://github.com/KimTeddy/OpenCV/tree/main/231219_Video_to_bmp">동영상을 10프레임 간격으로 BMP 이미지로 저장하는 프로그램</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="service">
+                    <h3>Web Development</h3>
+                    <p>웹프로그래밍은 비전문적으로 필요에 따라 합니다.</p>
+                    <a href="#" class="button" onclick="toggleService(event)">See More</a>
+                    <div class="service-content">
+                        <p>웹프로그래밍 기초 대학 교양 강의를 수강했습니다.</p>
+                        <p>이 페이지를 직접 디자인하고 만들었습니다.</p>
+                    </div>
+                </div>
+                <div class="service">
+                    <h3>Seminars</h3>
+                    <p>세미나 진행, 주최, 수강한 내용입니다.</p>
+                    <a href="#" class="button" onclick="toggleService(event)">See More</a>
+                    <div class="service-content">
+                        <p>Go to > <a href="#seminars">Seminars</a></p>
+                    </div>
+                </div>
+                <div class="service">
+                    <h3>Photography</h3>
+                    <p>전자 제품, 작품 사진 등을 촬영합니다.</p>
+                    <a href="#" class="button" onclick="toggleService(event)">See More</a>
+                    <div class="service-content">
+                        <a href="https://www.instagram.com/teddy_electronics/">
+                           <img src="https://img.shields.io/badge/Instagram-E4405F?style=flat&logo=instagram&logoColor=white" />
+                       </a>
+                    </div>
+                </div>
+                <div class="service">
+                    <h3>Compose Music</h3>
+                    <p>가끔 작곡을 합니다.</p>
+                    <a href="#" class="button" onclick="toggleService(event)">See More</a>
+                    <div class="service-content">
+                        <a href="https://www.youtube.com/@composingteddy">
+                            <img
+                                src="https://img.shields.io/badge/YouTube-ff0000?style=flat&logo=youtube&logoColor=white">
+                        </a>
+                        <a href="https://soundcloud.com/teddy-kim-818221387">
+                            <img
+                                src="https://img.shields.io/badge/SOUNDCLOUD-FF3300?style=flat&logo=soundcloud&logoColor=white">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <main class="main">
+        <!-- Include about -->
+        <div id="about">
+            <!-- About content will be dynamically included -->
+            <script>
+                fetch('about.html')
+                    .then(res => res.text())
+                    .then(data => {
+                        // 'about'에 로드된 내용을 삽입
+                        document.getElementById('about').innerHTML = data;
+
+                        // 로드된 후 'code-display' 요소를 가져와 애니메이션 초기화
+                        const typingElement = document.getElementById("code-display");
+                        if (!typingElement) {
+                            console.error("Element with ID 'code-display' not found.");
+                            return;
+                        }
+
+                        // Initialize typing animation
+                        initializeTypingAnimation(typingElement);
+                    })
+                    .catch(error => console.error('Error loading about.html:', error));
+
+                // 시스템 설정에 따라 다크모드 설정
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.body.classList.add('dark-mode');
+                }
+
+                function initializeTypingAnimation(typingElement) {
+                    const sentences = [
+                        "My major is electronic engineering.",
+                        "I am an embedded developer.",
+                        "Home IoT is my hobby.",
+                        "I want to be an embedded engineer."
+                    ];
+
+                    const languages = [
+                        { language: "C", comment: "//", output: `<span class='keyword'>printf</span>(<span class='string'>\"{sentence}\\n\"</span>);` },
+                        { language: "Python", comment: "#", output: `<span class='keyword'>print</span>(<span class='string'>\"{sentence}\"</span>)` },
+                        { language: "Java", comment: "//", output: `<span class='keyword'>System.out.println</span>(<span class='string'>\"{sentence}\"</span>);` },
+                        {
+                            language: "HTML<span class='language-comment'>--&gt;</span>", comment: "&lt;!--", outputs: [
+                                "<span class='tag'>&lt;h1&gt;</span>{sentence}<span class='tag'>&lt;/h1&gt;</span>",
+                                "<span class='tag'>&lt;h2&gt;</span>{sentence}<span class='tag'>&lt;/h2&gt;</span> <span class='language-comment'>--&gt;</span>",
+                                "<span class='tag'>&lt;h3&gt;</span>{sentence}<span class='tag'>&lt;/h3&gt;</span> <span class='language-comment'>--&gt;</span>",
+                                "<span class='tag'>&lt;h4&gt;</span>{sentence}<span class='tag'>&lt;/h4&gt;</span> <span class='language-comment'>--&gt;</span>",
+                                "<span class='tag'>&lt;h5&gt;</span>{sentence}<span class='tag'>&lt;/h5&gt;</span> <span class='language-comment'>--&gt;</span>",
+                                "<span class='tag'>&lt;h6&gt;</span>{sentence}<span class='tag'>&lt;/h6&gt;</span> <span class='language-comment'>--&gt;</span>"
+                            ]
+                        }
+                    ];
+
+                    let currentSentenceIndex = 0;
+                    let currentLanguage = languages[Math.floor(Math.random() * languages.length)];
+                    let charIndex = 0;
+                    let isDeleting = false;
+                    let currentOutput = "";
+
+                    const cursor = `<span class="cursor"></span>`;
+
+                    function typeEffect() {
+                        typingElement.innerHTML = typingElement.innerHTML.replace(cursor, "");
+
+                        const currentSentence = sentences[currentSentenceIndex];
+                        if (currentLanguage.language === "HTML<span class='language-comment'>--&gt;</span>") {
+                            const randomOutput = currentLanguage.outputs[Math.floor(Math.random() * currentLanguage.outputs.length)];
+                            currentOutput = randomOutput.replace("{sentence}", currentSentence);
+                        } else {
+                            currentOutput = currentLanguage.output.replace("{sentence}", currentSentence);
+                        }
+
+                        if (!isDeleting && charIndex <= currentOutput.length) {
+                            typingElement.innerHTML = `<span class="language-comment">${currentLanguage.comment}</span> <span class="language-comment">${currentLanguage.language}</span>\n` +
+                                currentOutput.slice(0, charIndex) + cursor;
+                            charIndex++;
+                            setTimeout(typeEffect, 25);
+                        } else if (isDeleting && charIndex >= 0) {
+                            typingElement.innerHTML = `<span class="language-comment">${currentLanguage.comment}</span> <span class="language-comment">${currentLanguage.language}</span>\n` +
+                                currentOutput.slice(0, charIndex) + cursor;
+                            charIndex--;
+                            setTimeout(typeEffect, 10);
+                        } else {
+                            isDeleting = !isDeleting;
+
+                            if (!isDeleting) {
+                                currentSentenceIndex = (currentSentenceIndex + 1) % sentences.length;
+                                currentLanguage = languages[Math.floor(Math.random() * languages.length)];
+                                charIndex = 0;
+                                setTimeout(typeEffect, 250);
+                            } else {
+                                setTimeout(typeEffect, 1000);
+                            }
+                        }
+                    }
+                    typeEffect();
+                }
+            </script>
+        </div>
+
+        <!-- Include skills -->
+        <div id="skills">
+            <!-- Skills content will be dynamically included -->
+            <script>
+                fetch('skills.html').then(res => res.text()).then(data => document.getElementById('skills').innerHTML = data);
+            </script>
+        </div>
+
+        <!-- Include awards -->
+        <div id="awards">
+            <!--awards content will be dynamically included-->
+            <script>
+                fetch('awards.html').then(res => res.text()).then(data => document.getElementById('awards').innerHTML = data);
+            </script>
+        </div>
+
+        <!-- Include projects -->
+        <div id="projects">
+            <!-- Projects content will be dynamically included -->
+            <script>
+                fetch('projects.html').then(res => res.text()).then(data => document.getElementById('projects').innerHTML = data);
+            </script>
+        </div>
+
+
+        <!-- Include seminars -->
+        <div id="seminars">
+            <!-- Seminars content will be dynamically included -->
+            <script>
+                fetch('seminars.html').then(res => res.text()).then(data => document.getElementById('seminars').innerHTML = data);
+            </script>
+        </div>
+
+        <!-- Include contact -->
+        <div id="contact">
+            <!-- Contact content will be dynamically included -->
+            <script>
+                fetch('contact.html').then(res => res.text()).then(data => document.getElementById('contact').innerHTML = data);
+            </script>
+        </div>
+
+        <button id="back-to-top" title="Go to top">⇪</button>
+        <button id="dark-mode-toggle">🌙</button>
+    </main>
+    <!-- Include footer -->
+    <div id="footer">
+        <!-- Footer content will be dynamically included -->
+        <script>
+            fetch('footer.html').then(res => res.text()).then(data => document.getElementById('footer').innerHTML = data);
+        </script>
+    </div>
+
+
+    </div>
+    <!--<script src="assets/js/about-animation.js"></script> -->
+    <!-- Include the script -->
+    <!-- Include the JS-YAML library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <!-- Include loading script -->
+    <script src="assets/js/load_awards.js"></script>
+    <script src="assets/js/load_projects.js"></script>
+    <script src="assets/js/load_seminars.js"></script>
+    <script>
+        // Wait for the animation to finish, then show the content
+        /*
+        setTimeout(() => {
+            document.querySelector('.content').classList.add('show');
+        }, 10); // 3s fadeOut starts after 1.5s slideIn
+*/
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // class로 선택된 모든 요소를 가져옴
+        });
+
+        // Back-to-top button functionality
+        document.addEventListener("DOMContentLoaded", function () {
+            const backToTopButton = document.getElementById("back-to-top");
+
+            // Show/hide button on scroll
+            window.addEventListener("scroll", function () {
+                if (window.scrollY > 300) {
+                    backToTopButton.classList.add("visible");
+                } else {
+                    backToTopButton.classList.remove("visible");
+                }
+            });
+
+            // Scroll to top on click
+            backToTopButton.addEventListener("click", function () {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            });
+            /*
+                        // 시스템 설정에 따라 다크모드 설정
+                        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                            document.body.classList.add('dark-mode');
+                        }
+            */
+            // 다크모드 토글 버튼 기능 추가
+            document.getElementById('dark-mode-toggle').addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+            });
+
+        });
+    </script>
+</body>
+
+</html>

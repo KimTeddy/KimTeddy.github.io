@@ -1,0 +1,73 @@
+<!-- seminar.html -->
+<section id="seminars">
+    <h2>Seminars</h2>
+    <p>주최/진행한 세미나를 확인하세요.</p>
+    <div class="seminar-container">
+        <!-- Seminars will be dynamically added here -->
+    </div>
+</section>
+
+<!-- CSS -->
+<style>
+    .seminar-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .seminar-card {
+        padding: 0px 10px;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .seminar-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .seminar-card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    .seminar-card p {
+        font-size: 0.9rem;
+        color: #555;
+        margin: 5px 0;
+    }
+
+    .seminar-card a {
+        display: inline-block;
+        margin-top: 5px;
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+    }
+    
+    .seminar-card a img {
+        width: 50px;
+        height: auto;
+    }
+    .seminar-card a:hover {
+        text-decoration: underline;
+    }
+
+    .seminar-card-image {
+        width: auto;
+        max-width: 300px;
+        height: 10em;
+        border-radius: 14px;
+        margin-bottom: 15px; /* 이미지와 텍스트 간 간격 */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: block; /* 이미지가 없는 경우 숨김 처리 */
+    }
+
+    .seminar-card img[src="undefined"], /* src 속성이 빈 문자열일 경우 */
+    .seminar-card img:not([src]) /* src 속성이 아예 없을 경우 */ {
+        display: none;
+    }
+    /* 부모 요소도 숨기고 싶을 경우 */
+    .experience-card:not(:has(img[src])) {
+        display: none;
+    }
+</style>

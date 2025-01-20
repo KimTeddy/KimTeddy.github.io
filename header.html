@@ -1,0 +1,66 @@
+<header id="site-header">
+    <div class="logo-container">
+        <a href="index.html" class="teddy-logo">
+            <img src="/assets/images/logos/TeddyElectronics.svg" alt="TeddyElectronics">
+        </a>
+    </div>
+</header>
+
+<!-- CSS -->
+<style>
+    #site-header {
+        display: flex;
+        padding: 2px;
+        justify-content: center;
+        /* 가로로 가운데 정렬 */
+        align-items: center;
+        /* 세로로 가운데 정렬 */
+        background-color: #ffffff;
+        transform: translateY(1em);
+        opacity: 0;
+        animation: startIn 0.5s ease forwards, setIn 0.8s ease-out 3s forwards, setColor 3.0s ease-out 2.5s forwards;
+    }
+
+    .logo-container {
+        height: 80%;
+        /* 헤더 높이의 80%로 로고 크기 조정 */
+    }
+
+    .logo-container img {
+        height: 100%;
+        border: none;
+        border-radius: 0px;
+        /* 컨테이너 높이에 맞춤 */
+        /*object-fit: contain;
+        /* 비율 유지 */
+    }
+
+    @keyframes startIn {
+        0% {}
+
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+            height: 8em;
+            padding-top: 5em;
+        }
+    }
+
+    @keyframes setIn {
+        0% {}
+
+        100% {
+            height: 3em;
+            padding-top: 0;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes setColor {
+        0% {
+            border-bottom: 1px solid #ffffff;}
+        100% {
+            border-bottom: 1px solid #ddd;
+        }
+    }
+</style>

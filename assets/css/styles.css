@@ -19,7 +19,7 @@ body {
     display: flex;
     flex-direction: row;
     padding: 20px;
-    transition: font-size 2s ease, display 2s ease;
+    transition: font-size 1s ease, display 1s ease;
 }
 
 .sidebar {
@@ -36,7 +36,7 @@ body {
     padding: 20px;
     background-color: #1f1f1f;
     border-radius: 8px;
-    transition: margin 2s ease;
+    transition: margin 1s ease;
 }
 
 .profile-pic {
@@ -255,7 +255,7 @@ section {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 더 부드럽고 깊이감 있는 그림자 */
     /*border: 1px solid #90caf9;  파란색 테두리 추가 */
     transition: background-color 0.3s ease, border-color 0.3s ease; /* 다크모드 전환 애니메이션 */
-    transition: max-width 2s ease;
+    transition: max-width 1s ease;
 }
 section:hover{
     max-width: 100%;

@@ -19,6 +19,7 @@ body {
     display: flex;
     flex-direction: row;
     padding: 20px;
+    transition: font-size 2s ease, display 2s ease;
 }
 
 .sidebar {
@@ -26,6 +27,7 @@ body {
     background-color: #1f1f1f;
     padding: 20px;
     border-radius: 8px;
+    transition: width 2s ease;
 }
 
 .main {
@@ -34,6 +36,7 @@ body {
     padding: 20px;
     background-color: #1f1f1f;
     border-radius: 8px;
+    transition: margin 2s ease;
 }
 
 .profile-pic {
@@ -150,27 +153,14 @@ body {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@media (max-width: 950px) {
+    .sidebar {
+        width: 30%;
+    }
+    .main {
+        padding:0;
+    }
+}
 @media (max-width: 768px) {
     section {
         max-width: 100%;
@@ -179,12 +169,57 @@ body {
         padding-top: 30px; /* 네비게이션 바 높이만큼 여백 */
     }
 }
-@media (max-width: 440px) {
+@media (max-width: 650px) {
+    .container {
+        font-size: 14px;
+    }
+    .sidebar {
+        width: 40%;
+        border-start-end-radius: 0px;
+        border-end-end-radius: 0px;
+    }
+    .main {
+        padding:0;
+        width: auto;
+        margin: 0px;
+        border-start-start-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
+}
+@media (max-width: 500px) {
+    .container {
+        font-size: 12px;
+    }
+    .sidebar {
+        width: 50%;
+    }
+}
+@media (max-width: 455px) {
     section {
+        margin: 0;
+        padding: 0;
         max-width: 100%;
     }
     body {
         padding-top: 45px; /* 네비게이션 바 높이만큼 여백 */
+    }
+    .container {
+        padding: 0;
+        display: grid;
+        flex-direction: row;
+    }
+    .sidebar {
+        padding: 10px;
+        width: auto;
+        border-start-end-radius: 8px;
+        border-end-end-radius: 8px;
+    }
+    .main {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-start-start-radius: 8px;
+        border-bottom-left-radius: 8px;
     }
 }
 
@@ -192,11 +227,12 @@ body {
 section {
     margin: 2rem auto;
     padding: 1.5rem; /* 약간 더 넉넉한 여백 */
-    max-width: 80%;
-    background: #ffffff; /* 깔끔한 흰색 배경 */
+    max-width: 90%;
+    background: #dfdfdf; /* 깔끔한 흰색 배경 */
+    color:#000;
     border-radius: 10px; /* 더 부드러운 모서리 */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 더 부드럽고 깊이감 있는 그림자 */
-    border: 1px solid #90caf9; /* 파란색 테두리 추가 */
+    /*border: 1px solid #90caf9;  파란색 테두리 추가 */
     transition: background-color 0.3s ease, border-color 0.3s ease; /* 다크모드 전환 애니메이션 */
     transition: max-width 2s ease;
 }
@@ -238,10 +274,10 @@ section h2 {
     display: block;
     animation: slideIn 0.8s ease forwards;
 }
-
+/*
 .content.show {
 }
-
+*/
 @keyframes slideIn {
     0% {
         transform: translateY(50px) skew(0deg);
@@ -271,7 +307,6 @@ section h2 {
     opacity: 1;
 }
 
-
 /********************************* 다크 모드 스타일 */
 body.dark-mode {
     background-color: #000000; /* 어두운 배경 */
@@ -280,6 +315,7 @@ body.dark-mode {
 body.dark-mode section {
     background: #212121; /* 다크모드 섹션 배경 */
     border-color: #64b5f6; /* 밝은 파란 테두리 */
+    color: #e0e0e0;
 }
 body.dark-mode section h2 {
     color: #90caf9; /* 다크모드 파란 제목 */
@@ -380,10 +416,10 @@ body.dark-mode #why-join-table td b {
     color: #81d4fa; /* 밝은 파란색 */
 }
 
-
-
-
-
+body.dark-mode #why-join-table td {
+    font-size: 0.95rem;
+    color: #e0e0e0; /* 밝은 회색 */
+}
 
 
 

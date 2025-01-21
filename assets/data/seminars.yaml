@@ -51,6 +51,13 @@ seminars:
     organizer: "KimTeddy"
     period: "2024년 11월"
     image: "assets/images/sections/seminars/2024/register.jpg"
+
+  - title: "[진행] 2024 GitHubProfile_Seminar"
+    description: "신입생 멘토링 프로그램의 멘티를 대상으로 깃허브 프로필 만들기 세미나를 진행했습니다."
+    organizer: "KimTeddy"
+    period: "2024년 11월 11일"
+    image: "assets/images/sections/seminars/2024/register.jpg"
+    link: "https://github.com/KimTeddy/241111_GitHubProfile_Seminar"
   
   - title: "2024 CubeIDE"
     description: "동아리 회장단을 위한 STM32CubeIDE 및 STM32 사용 방법 세미나"
@@ -76,10 +83,17 @@ seminars:
     period: "2023년 8월"
     image: "assets/images/sections/seminars/2023/atmega.jpg"
 
+  - title: "[진행] 2023 아린이 키우기 프로젝트"
+    description: "전자공학과 동기들을 위한 아두이노 세미나. 지능형센서응용 강의에서 배운 ATmega128A와 비교하여 설명"
+    organizer: "KimTeddy"
+    period: "2023년 7월 3, 5, 10, 12, 24, 27, 31일"
+    image: "assets/images/sections/seminars/2023/arin-e.png"
+    link: "https://github.com/KimTeddy/2023_Arduino_Seminar"
+
   - title: "[진행] 2023 동아리 신입생 회로도, 소자, 납땜 세미나"
     description: "4일간 같은 내용을 하루에 40분간 신입생들이 회로도 읽기, 소자 선정, 납땜이 가능하도록 진행한 세미나"
     organizer: "KimTeddy"
-    period: "2023.04.03, 04, 05, 06"
+    period: "2023년 4월 3, 4, 5, 6일"
     image: "assets/images/sections/seminars/2023/soldering.jpg"
 
   - title: "[주최, 도움] 2023 신입생 C언어, Arduino 세미나"

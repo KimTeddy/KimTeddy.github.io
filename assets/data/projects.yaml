@@ -51,43 +51,126 @@
 
 
 projects:
-  - year: "2024년도"
+  - year: "팀_전공"
     projects:
       - title: "2024_A.RM.I"
         description: "ARM과 AI 모델을 활용한 분산형 저전력 객체인식 군용 경계 감시 시스템"
         team: "총 5명"
         role: "팀장"
-        image: "https://eciems.mju.ac.kr/sites/eciems/atchmnfl/bbs/1430/thumbnail/thumb_temp_1732861778109100.jpg"
-        tags: ["2024"]
+        image: "assets/images/sections/projects/2024/armi.jpg"
+        tags: ["2024", "졸업작품"]
         duration: "2024년 3월 ~ 2024년 12월"
         links:
           github: "https://github.com/KimTeddy/2024_A.RM.I_Public"
           youtube: "https://youtu.be/RNpNJ6A_28k?si=IeHd7aC45Z5TKPu1"
 
+      - title: "2023_NOsquito"
+        description: "STM32F767과 FFT를 이용한 모기 감지 및 퇴치 시스템"
+        team: "총 3명"
+        role: "팀장"
+        image: "assets/images/sections/projects/2023/nosquito.png"
+        tags: ["2023", "마이크로프로세서응용"]
+        duration: "2023년 6월 ~ 2023년 12월"
+        links:
+          github: "https://github.com/KimTeddy/2023_NOsquito"
+
 ############################################################################################
-  - year: "2023년도"
+  - year: "팀_동아리"
     projects:
-      - title: "족발2"
+      - title: "JokBal2"
         description: "후지 마비 동물을 위한 웨어러블 로봇"
         team: "총 6명"
         role: "라즈베리파이 쉴드 PCB 설계, 납땜"
         image: "assets/images/sections/projects/2023/jokbal.jpg"
-        tags: ["2023"]
+        tags: ["2023", "동아리"]
         duration: "2023년 7월 ~ 2023년 12월"
         links:
           youtube: "https://youtu.be/tqQg0wU-9ns?si=lssECIQScBdo7ebp"
 
-############################################################################################
-
-      - title: "족발"
+      - title: "JokBal1"
         description: "강아지 의족(ver 1)"
         team: "총 4명"
         role: "Main 기판 회로 설계, 납땜"
         image: "assets/images/sections/projects/2022/jokbal.jpg"
-        tags: ["2022"]
+        tags: ["2022", "동아리"]
         duration: "2022년 3월 ~ 2022년 12월"
         links:
           youtube: "https://www.youtube.com/watch?v=Qg1aSdmr12A"
+
+############################################################################################
+  - year: "OpenGL"
+    projects:
+      - title: "PONG GAME"
+        description: ""
+        team: "KimTeddy"
+        role: "개인 프로젝트"
+        image: "assets/images/sections/projects/2023/pong.gif"
+        tags: ["2023", "OpenGL", "컴퓨터그래픽스"]
+        duration: "2023년 3월 4일"
+        links:
+          github: "https://github.com/KimTeddy/OpenGL/tree/main/230324_PONG_by_KimTeddy"
+
+      - title: "2D CAR Escape Game"
+        description: ""
+        team: "KimTeddy"
+        role: "개인 프로젝트"
+        image: "assets/images/sections/projects/2023/car2d.gif"
+        tags: ["2023", "OpenGL", "컴퓨터그래픽스"]
+        duration: "2023년 5월 3일"
+        links:
+          github: "https://github.com/KimTeddy/OpenGL/tree/main/230503_CARS_puzzle_game_by_KimTeddy"
+
+      - title: "3D CAR Escape Game"
+        description: ""
+        team: "KimTeddy"
+        role: "개인 프로젝트"
+        image: "assets/images/sections/projects/2023/car3d.gif"
+        tags: ["2023", "OpenGL", "컴퓨터그래픽스"]
+        duration: "2023년 6월 7일"
+        links:
+          github: "https://github.com/KimTeddy/OpenGL/tree/main/230607_CARS_puzzle_game-3D_by_KimTeddy"
+
+      - title: "Drivers_license_test_Simulation"
+        description: "삼각함수 사용 자동차 3인칭 시점 변환"
+        team: "KimTeddy"
+        role: "개인 프로젝트"
+        image: "assets/images/sections/projects/2023/driver.gif"
+        tags: ["2023", "OpenGL", "임베디드시스템"]
+        duration: "2023년 6월 7일"
+        links:
+          github: "https://github.com/KimTeddy/OpenGL/tree/main/2309-12_Drivers_license_test_Simulation"
+############################################################################################
+  - year: "OpenCV"
+    projects:
+      - title: "Video_player_with_video_analyzer"
+        description: "동영상 영상처리 프로그램"
+        team: "KimTeddy"
+        role: "개인 프로젝트"
+        image: "assets/images/sections/projects/2023/video.png"
+        tags: ["2023", "OpenCV", "컴퓨터비전시스템"]
+        duration: "2023년 12월 1일"
+        links:
+          github: "https://github.com/KimTeddy/OpenCV/tree/main/231201_Video_player_with_video_analyzer"
+
+      - title: "Image_viewer_with_image_analyzer"
+        description: "이미지 영상처리 프로그램"
+        team: "KimTeddy"
+        role: "개인 프로젝트"
+        image: "assets/images/sections/projects/2023/image.png"
+        tags: ["2023", "OpenCV", "컴퓨터비전시스템"]
+        duration: "2023년 12월 8일"
+        links:
+          github: "https://github.com/KimTeddy/OpenCV/tree/main/231208_Image_viewer_with_image_analyzer"
+
+      - title: "Video_to_bmp"
+        description: "동영상을 10프레임 간격으로 BMP 이미지로 저장하는 프로그램"
+        team: "KimTeddy"
+        role: "개인 프로젝트"
+        image: "assets/images/sections/projects/2023/bmp.png"
+        tags: ["2023", "OpenCV", "임베디드시스템"]
+        duration: "2023년 12월 19일"
+        links:
+          github: "https://github.com/KimTeddy/OpenCV/tree/main/231219_Video_to_bmp"
 
 ############################################################################################
 

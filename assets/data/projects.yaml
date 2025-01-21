@@ -129,6 +129,14 @@ projects:
         links:
           github: "https://github.com/KimTeddy/2019_LineTracer_byTeddyKim"
 
+      - title: "BallancingBot"
+        description: "STM32F103RBT6을 사용한 IAR 프로그래밍, 만능기판 회로 납땜, SOLIDWORKS 차체 설계를 통한 <BallancingBot> 로봇 SW, HW 종합 설계"
+        team: "KimTeddy"
+        role: "개인 프로젝트"
+        image: "assets/images/sections/projects/2019/ballancing.jpg"
+        tags: ["2019", "동아리"]
+        duration: "2019년 12월 ~ 2019년 1월"
+
 ############################################################################################
   - year: "OpenGL"
     projects:
@@ -242,7 +250,7 @@ projects:
         description: ""
         team: "KimTeddy"
         role: "개인 프로젝트"
-        image: "assets/images/sections/projects/2023/.png"
+        image: "assets/images/sections/projects/2023/v1.png"
         tags: ["2023", "Verilog", "디지털시스템"]
         duration: "2023년 10월 9일"
         links:
@@ -253,7 +261,7 @@ projects:
         description: ""
         team: "KimTeddy"
         role: "개인 프로젝트"
-        image: "assets/images/sections/projects/2023/.png"
+        image: "assets/images/sections/projects/2023/v2.jpg"
         tags: ["2023", "Verilog", "디지털시스템"]
         duration: "2023년 11월 6일"
         links:
@@ -263,7 +271,7 @@ projects:
         description: ""
         team: "KimTeddy"
         role: "개인 프로젝트"
-        image: "assets/images/sections/projects/2023/.png"
+        image: "assets/images/sections/projects/2023/v3.jpg"
         tags: ["2023", "Verilog", "디지털시스템"]
         duration: "2023년 11월 20일"
         links:
@@ -276,7 +284,7 @@ projects:
         description: "레이저 하프 + 자동연주 프로그램"
         team: "KimTeddy"
         role: "개인 프로젝트"
-        image: "assets/images/sections/projects/2017/harp.jpg"
+        image: "assets/images/sections/projects/2017/laserharp.jpg"
         tags: ["2017", "Arduino"]
         duration: "2017년 12월 21일"
         links:
@@ -287,7 +295,7 @@ projects:
         description: "날씨, 미세먼지, 버스 데이터를 공공 api를 통해 불러와 OLED에 한국어로 정보를 띄우고 버튼을 누르면 릴레이를 통해 천장등 On/Off 가능한 IoT 스위치"
         team: "KimTeddy"
         role: "개인 프로젝트"
-        image: "assets/images/sections/projects/2021/bus.jpg"
+        image: "assets/images/sections/projects/2021/iotsw.jpg"
         tags: ["2021", "Arduino"]
         duration: "2021년 7월 21 - 8월 18일"
         links:
@@ -306,6 +314,18 @@ projects:
 #  - year: "2021년도"
 
 ##############################################
+  - year: "others"
+    projects:
+      - title: "업사이클 조명"
+        description: "IC 조명 패턴 프로그래밍을 통한 요구르트병 업사이클 조명"
+        team: "KimTeddy"
+        role: "개인 프로젝트"
+        image: "assets/images/sections/projects/2018/upcycle.jpg"
+        tags: ["2018", "IC"]
+        duration: "2018년 12월"
+        links:
+          github: "https://github.com/KimTeddy/Arduino_Public/tree/main/2017/171221_LaserHarp"
+          youtube: "https://youtu.be/TLnS2MKH-9s?si=CVdPe3UMS9ju8KsE"
 #  - year: "2020년도"
 #    projects:
 ############################################################################################

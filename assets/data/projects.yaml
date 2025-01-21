@@ -56,7 +56,7 @@ projects:
       - title: "2024_A.RM.I"
         description: "ARM과 AI 모델을 활용한 분산형 저전력 객체인식 군용 경계 감시 시스템"
         team: "총 5명"
-        role: "팀장"
+        role: "팀장, 팀원 모으기, GitHub 관리, NUCLEO 보드 사용 방법 세미나 진행, PCB Schematic/Artwork/납땜/테스트/디버깅, 전체 코드 통합"
         image: "assets/images/sections/projects/2024/armi.jpg"
         tags: ["2024", "졸업작품"]
         duration: "2024년 3월 ~ 2024년 12월"
@@ -67,15 +67,36 @@ projects:
       - title: "2023_NOsquito"
         description: "STM32F767과 FFT를 이용한 모기 감지 및 퇴치 시스템"
         team: "총 3명"
-        role: "팀장"
+        role: "팀장, 마이크x2 양방향 배치(ADC)+FFT 알고리즘 사용 => 모기 위치+frequency 인식, PWM 핀 개수제한 문제 해결 (DEMUXx2 => 서보모터x4, LED 3파트 제어), 만능기판을 활용한 쉴드 형태 회로 구성 및 납땜, 배선 담당"
         image: "assets/images/sections/projects/2023/nosquito.png"
         tags: ["2023", "마이크로프로세서응용"]
         duration: "2023년 6월 ~ 2023년 12월"
         links:
           github: "https://github.com/KimTeddy/2023_NOsquito"
 
+      - title: "2023_Driver's_License_Test_Simulation"
+        description: "Linux 시스템에서의 <운전면허 장내기능시험 모의시뮬레이터>"
+        team: "총 4명"
+        role: "팀장, 팀원 모으기, GitHub 관리, OpenCV사용(영상을 BMP 이미지 1000프레임으로 저장), 7-segment(6digit, 점수 애니메이션), Buzzer(효과음 7종), BMP이미지(차선이탈, 추돌)"
+        image: "assets/images/sections/projects/2023/driver-license.jpg"
+        tags: ["2023", "임베디드시스템"]
+        duration: "2023년 10월 1일 ~ 12월 21일"
+        links:
+          github: "https://github.com/KimTeddy/2023_Driver-s_License_Test_Simulation"
+
+      - title: "2023_Mini Curling Game"
+        description: "Verilog로 프로그래밍하여 ZedBoard에서 실행하여 키패드를 사용하고 RGB 포트로 화면 출력하는 컬링 게임"
+        team: "총 3명"
+        role: "팀원, GitHub 관리, 컬링 점수 규칙에 따른 점수 계산 알고리즘, 색상 12BIT 확장, 색상 값 parameter화, 기하학을 적용한 원 그리기 모듈, 타겟(과녁) 디자인"
+        image: "assets/images/sections/projects/2023/curling.gif"
+        tags: ["2023", "디지털시스템"]
+        duration: "2023년 11월 23일 ~ 12월 12일"
+        links:
+          github: "https://github.com/kms0511/DS_TeamProject2023"
+          youtube: "https://youtu.be/kMXLUSBVb8M?si=x7CI9Pl3NyCPjwdU"
+
 ############################################################################################
-  - year: "팀_동아리"
+  - year: "대학교 동아리"
     projects:
       - title: "JokBal2"
         description: "후지 마비 동물을 위한 웨어러블 로봇"
@@ -96,12 +117,23 @@ projects:
         duration: "2022년 3월 ~ 2022년 12월"
         links:
           youtube: "https://www.youtube.com/watch?v=Qg1aSdmr12A"
+          github: "https://github.com/KimTeddy/Arduino_Public/tree/main/2022"
+
+      - title: "LineTracer"
+        description: "STM32F103RBT6을 사용한 IAR 프로그래밍, 만능기판 회로 납땜, SOLIDWORKS 차체 설계를 통한 <Line Tracer> 로봇 SW, HW 종합 설계"
+        team: "KimTeddy"
+        role: "개인 프로젝트"
+        image: "assets/images/sections/projects/2019/line.jpg"
+        tags: ["2019", "동아리"]
+        duration: "2019년 3월 ~ 2019년 11월"
+        links:
+          github: "https://github.com/KimTeddy/2019_LineTracer_byTeddyKim"
 
 ############################################################################################
   - year: "OpenGL"
     projects:
       - title: "PONG GAME"
-        description: ""
+        description: "OpenGL을 공부를 위해 개인적으로 코딩해 본 프로젝트"
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2023/pong.gif"
@@ -111,7 +143,7 @@ projects:
           github: "https://github.com/KimTeddy/OpenGL/tree/main/230324_PONG_by_KimTeddy"
 
       - title: "2D CAR Escape Game"
-        description: ""
+        description: "Texture 없이 OpenGL을 활용한 <2D Car Escape Game>"
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2023/car2d.gif"
@@ -121,7 +153,7 @@ projects:
           github: "https://github.com/KimTeddy/OpenGL/tree/main/230503_CARS_puzzle_game_by_KimTeddy"
 
       - title: "3D CAR Escape Game"
-        description: ""
+        description: "OpenGL과 GLUI를 활용한 <3D Car Escape Game>"
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2023/car3d.gif"
@@ -171,8 +203,105 @@ projects:
         duration: "2023년 12월 19일"
         links:
           github: "https://github.com/KimTeddy/OpenCV/tree/main/231219_Video_to_bmp"
-
 ############################################################################################
+  - year: "IoT"
+    projects:
+      - title: "Home IoT 조명 Scene 자동화 시스템"
+        description: "Home Assistant에서 ESP8266, ESPHome, Node-RED를 활용한 시간, 인원에 따른 <Home IoT 조명 Scene 자동화 시스템>"
+        team: "KimTeddy"
+        role: "개인 프로젝트"
+        image: "assets/images/sections/projects/2021/autolighting.jpg"
+        tags: ["2021", "IoT"]
+        duration: "2021년 11월 ~ Present"
+        links:
+          youtube: "https://youtu.be/lMb9GxdRdFw?si=_HGZ0BQtBs_uDtKv"
+
+      - title: "IoT 5 ~ 12V LED 조명 제어 PCB (Ver.1~4)"
+        description: "ESP-01과 NMOS를 활용한 <IoT 5 ~ 12V LED 조명 제어 PCB> 설계 Ver.1~4"
+        team: "KimTeddy"
+        role: "개인 프로젝트"
+        image: "assets/images/sections/projects/2021/pcb.jpg"
+        tags: ["2021", "IoT"]
+        duration: "2021년 11월 ~ Present"
+        links:
+          other: "https://blog.naver.com/teddy_02/223019402838"
+
+      - title: "거실 라이트쇼"
+        description: "ESP8266, WLED, Neopixel, SMPS를 활용한 <거실 라이트쇼>"
+        team: "KimTeddy"
+        role: "개인 프로젝트"
+        image: "assets/images/sections/projects/2023/lightshow.jpg"
+        tags: ["2017", "IoT"]
+        duration: "2023년 6월 29일"
+        links:
+          youtube: "https://youtu.be/LIcAvVO5qTw?si=4vN-aOgldxFROMlG"
+############################################################################################
+  - year: "Verilog"
+    projects:
+      - title: "CLA"
+        description: ""
+        team: "KimTeddy"
+        role: "개인 프로젝트"
+        image: "assets/images/sections/projects/2023/.png"
+        tags: ["2023", "Verilog", "디지털시스템"]
+        duration: "2023년 10월 9일"
+        links:
+          github: "https://github.com/KimTeddy/2023_DigitalSystem/tree/main/Homework1-CLA/Homework1-CLA.srcs/sources_1/new"
+          other: "https://blog.naver.com/teddy_02/223353123937"
+
+      - title: "UART"
+        description: ""
+        team: "KimTeddy"
+        role: "개인 프로젝트"
+        image: "assets/images/sections/projects/2023/.png"
+        tags: ["2023", "Verilog", "디지털시스템"]
+        duration: "2023년 11월 6일"
+        links:
+          github: "https://github.com/KimTeddy/2023_DigitalSystem/tree/main/Homework2-UART/Homework2-UART.srcs/sources_1/new"
+
+      - title: "Digital Watch"
+        description: ""
+        team: "KimTeddy"
+        role: "개인 프로젝트"
+        image: "assets/images/sections/projects/2023/.png"
+        tags: ["2023", "Verilog", "디지털시스템"]
+        duration: "2023년 11월 20일"
+        links:
+          github: "https://github.com/KimTeddy/2023_DigitalSystem/tree/main/Homework3-DigitalClock/Homework3-DigitalClock.srcs/sources_1/new"
+          youtube: "https://youtu.be/ZQL5lWWz970?si=2tCBubj78n6IMoDf"
+############################################################################################
+  - year: "아두이노"
+    projects:
+      - title: "Laser Harp + Auto"
+        description: "레이저 하프 + 자동연주 프로그램"
+        team: "KimTeddy"
+        role: "개인 프로젝트"
+        image: "assets/images/sections/projects/2017/harp.jpg"
+        tags: ["2017", "Arduino"]
+        duration: "2017년 12월 21일"
+        links:
+          github: "https://github.com/KimTeddy/Arduino_Public/tree/main/2017/171221_LaserHarp"
+          youtube: "https://youtu.be/TLnS2MKH-9s?si=CVdPe3UMS9ju8KsE"
+
+      - title: "실시간 정보 출력 OLED IoT 전등 스위치"
+        description: "날씨, 미세먼지, 버스 데이터를 공공 api를 통해 불러와 OLED에 한국어로 정보를 띄우고 버튼을 누르면 릴레이를 통해 천장등 On/Off 가능한 IoT 스위치"
+        team: "KimTeddy"
+        role: "개인 프로젝트"
+        image: "assets/images/sections/projects/2021/bus.jpg"
+        tags: ["2021", "Arduino"]
+        duration: "2021년 7월 21 - 8월 18일"
+        links:
+          github: "https://github.com/KimTeddy/Arduino_Public/tree/main/2021/210721-0818_IoT%20OLED"
+
+      - title: "버스 도착 알림 디바이스"
+        description: "버스 정류장 데이터를 api를 통해 불러와 OLED에 한국어로 정보를 띄우고 버스 도착 전 진동을 울려주는 기기"
+        team: "KimTeddy"
+        role: "개인 프로젝트"
+        image: "assets/images/sections/projects/2021/bus.jpg"
+        tags: ["2021", "Arduino"]
+        duration: "2021년 8월 24-26일"
+        links:
+          github: "https://github.com/KimTeddy/Arduino_Public/tree/main/2021/210824-26_miniOLED%20Bus"
 
 #  - year: "2021년도"
 

@@ -246,6 +246,16 @@ projects:
 ############################################################################################
   - year: "Verilog"
     projects:
+      - title: "PL<=>PS AXI 사용 - UART, 7-Segment, Keypad"
+        description: "【SoC/FPGA/Zybo Z7-20】PL UART RX➡️PS&PL UART TX, 7-Segment || Keypad➡️PS&PL UART TX, 7-Segment"
+        team: "KimTeddy"
+        role: "개인 프로젝트"
+        image: "assets/images/sections/projects/2024/axi.png"
+        tags: ["2024", "Verilog", "SoC설계"]
+        duration: "2024년 5월 6일"
+        links:
+          youtube: "https://youtu.be/plbejbXohNs?si=Y85k8XODlzlq9zKo"
+
       - title: "CLA"
         description: ""
         team: "KimTeddy"

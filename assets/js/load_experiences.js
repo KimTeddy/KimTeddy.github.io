@@ -34,7 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     "포스터상": "📜",
                     "참가": "📜",
                     "전시": "🔮",
-                    "시연": "📱"
+                    "시연": "📱",
+                    "기록": "⭐",
+                    "시작": "🚗"
                 };
 
                 if (experiencesData.experiences) {

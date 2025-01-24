@@ -45,85 +45,87 @@
 # ==============================================================================
 
 experiences:
+  - year: "2025년도"
+    competitions:
+      - name: "네이버블로그 최고 투데이 방문자수(25.01.24: 1,453명)"
+        awards:
+          - type: "기록"
+      - name: "네이버블로그 최고 투데이 조회수(25.01.24: 1,639회)"
+        awards:
+          - type: "기록"
+
   - year: "2024년도"
     competitions:
       - name: "2024 한이음 ICT멘토링 공모전"
         awards:
           - type: "입선"
-            count: 1
       - name: "제22회 임베디드 SW 경진대회"
         awards:
           - type: "입선"
-            count: 1
           - type: "시연"
-            count: 1
       - name: "2024 명지대학교 전자공학과 캡스톤디자인 작품발표회"
         awards:
           - type: "은상"
-            count: 1
           - type: "전시"
-            count: 1
       - name: "2024 SEP 융합 Festival"
         awards:
           - type: "전시"
-            count: 1
           - type: "참가"
-            count: 1
       - name: "2024 교내 캡스톤디자인 경진대회"
         awards:
           - type: "전시"
-            count: 1
           - type: "참가"
-            count: 1
+      - name: "네이버블로그 10만 방문자수 달성(24.08.04)"
+        awards:
+          - type: "기록"
+      - name: "네이버블로그 하루 방문자수 첫 1천명 달성(24.01.19: 1,093명)"
+        awards:
+          - type: "기록"
       
-
   - year: "2023년도"
     competitions:
       - name: "2023 한이음 ICT멘토링 공모전"
         awards:
           - type: "참가"
-            count: 1
       - name: "2023 한이음 ICT멘토링 학술대회(ACK 2023)"
         awards:
           - type: "최우수상"
-            count: 1
       - name: "2023 2,3학년을 위한 교내 캡스톤디자인 경진대회"
         awards:
           - type: "은상"
-            count: 1
           - type: "전시"
-            count: 1
       - name: "CDE DX Awards 2023 대학/연구소 부문"
         awards:
           - type: "장려상"
-            count: 1
       - name: "제21회 임베디드 SW 경진대회"
         awards:
           - type: "참가"
-            count: 1
       - name: "2023 공학페스티벌(E^2 Festa 2023)"
         awards:
           - type: "전시"
-            count: 1
           - type: "참가"
-            count: 1
 
   - year: "2022년도"
     competitions:
       - name: "2022 2,3학년을 위한 교내 캡스톤디자인 경진대회"
         awards:
           - type: "대상"
-            count: 1
           - type: "전시"
-            count: 1
       - name: "2022년 도시형소공인 집적지구 캡스톤 및 제품 전시회(용인시산업진흥원)"
         awards:
           - type: "전시"
-            count: 1
+
+  - year: "2021년도"
+    competitions:
+      - name: "Home Assistant 구성 시작"
+        awards:
+          - type: "시작"
+      - name: "네이버블로그 제대로 시작"
+        awards:
+          - type: "시작"
 
   - year: "2019년도"
     competitions:
       - name: "교내 로봇 중앙동아리 신입생 라인트레이서 대회"
         awards:
           - type: "1등"
-            count: 1

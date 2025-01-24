@@ -13,7 +13,7 @@
 # ------------------------------------------------------------------------------
 # 예시:
 # ------------------------------------------------------------------------------
-# awards:
+# experiences:
 #   - year: "2024년도"
 #     competitions:
 #       - name: "2024 한이음 ICT멘토링 공모전"
@@ -31,7 +31,7 @@
 # ------------------------------------------------------------------------------
 # 필수 항목만 포함된 최소 예시:
 # ------------------------------------------------------------------------------
-# awards:
+# experiences:
 #   - year: "연도"
 #     competitions:
 #       - name: "대회명"
@@ -44,29 +44,46 @@
 # 3. 선택 항목 (`count`)은 생략할 수 있으며, 기본적으로 1로 간주됩니다.
 # ==============================================================================
 
-awards:
+experiences:
   - year: "2024년도"
     competitions:
-      - name: "2024 명지대학교 전자공학과 캡스톤디자인 작품발표회"
+      - name: "2024 한이음 ICT멘토링 공모전"
         awards:
-          - type: "은상"
+          - type: "입선"
             count: 1
       - name: "제22회 임베디드 SW 경진대회"
         awards:
           - type: "입선"
             count: 1
-      - name: "2024 한이음 ICT멘토링 공모전"
-        awards:
-          - type: "입선"
+          - type: "시연"
             count: 1
-      - name: "역사 UCC 제작 프로젝트 공모전(교내)"
+      - name: "2024 명지대학교 전자공학과 캡스톤디자인 작품발표회"
         awards:
-          - type: "동상"
+          - type: "은상"
+            count: 1
+          - type: "전시"
+            count: 1
+      - name: "2024 SEP 융합 Festival"
+        awards:
+          - type: "전시"
+            count: 1
+          - type: "참가"
+            count: 1
+      - name: "2024 교내 캡스톤디자인 경진대회"
+        awards:
+          - type: "전시"
+            count: 1
+          - type: "참가"
             count: 1
       
+
   - year: "2023년도"
     competitions:
-      - name: "ICT멘토링 학술대회(ACK 2023)"
+      - name: "2023 한이음 ICT멘토링 공모전"
+        awards:
+          - type: "참가"
+            count: 1
+      - name: "2023 한이음 ICT멘토링 학술대회(ACK 2023)"
         awards:
           - type: "최우수상"
             count: 1
@@ -74,9 +91,21 @@ awards:
         awards:
           - type: "은상"
             count: 1
+          - type: "전시"
+            count: 1
       - name: "CDE DX Awards 2023 대학/연구소 부문"
         awards:
           - type: "장려상"
+            count: 1
+      - name: "제21회 임베디드 SW 경진대회"
+        awards:
+          - type: "참가"
+            count: 1
+      - name: "2023 공학페스티벌(E^2 Festa 2023)"
+        awards:
+          - type: "전시"
+            count: 1
+          - type: "참가"
             count: 1
 
   - year: "2022년도"
@@ -84,6 +113,12 @@ awards:
       - name: "2022 2,3학년을 위한 교내 캡스톤디자인 경진대회"
         awards:
           - type: "대상"
+            count: 1
+          - type: "전시"
+            count: 1
+      - name: "2022년 도시형소공인 집적지구 캡스톤 및 제품 전시회(용인시산업진흥원)"
+        awards:
+          - type: "전시"
             count: 1
 
   - year: "2019년도"

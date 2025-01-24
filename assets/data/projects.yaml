@@ -295,7 +295,7 @@ projects:
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2017/laserharp.jpg"
-        tags: ["2017", "Arduino"]
+        tags: ["2017", "Arduino Uno"]
         duration: "2017년 12월 21일"
         links:
           github: "https://github.com/KimTeddy/Arduino_Public/tree/main/2017/171221_LaserHarp"
@@ -306,7 +306,7 @@ projects:
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2021/iotsw.jpg"
-        tags: ["2021", "Arduino"]
+        tags: ["2021", "Arduino", "ESP8266"]
         duration: "2021년 7월 21 - 8월 18일"
         links:
           github: "https://github.com/KimTeddy/Arduino_Public/tree/main/2021/210721-0818_IoT%20OLED"
@@ -316,7 +316,7 @@ projects:
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2021/bus.jpg"
-        tags: ["2021", "Arduino"]
+        tags: ["2021", "Arduino", "ESP-01"]
         duration: "2021년 8월 24-26일"
         links:
           github: "https://github.com/KimTeddy/Arduino_Public/tree/main/2021/210824-26_miniOLED%20Bus"

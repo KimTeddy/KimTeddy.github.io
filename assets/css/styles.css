@@ -393,13 +393,13 @@ body.dark-mode #about {
     margin-bottom: 0px;
 }
 
-body.dark-mode #about-rats h3 {
+body.dark-mode #about-teddy h3 {
     font-size: 1.8rem;
     color: #81d4fa; /* 밝은 파란색 */
     margin-bottom: 5px;
 }
 
-body.dark-mode #about-rats p {
+body.dark-mode #about-teddy p {
     font-size: 1.2rem;
     color: #e0e0e0; /* 밝은 회색 */
     margin-bottom: 20px;
@@ -442,6 +442,9 @@ body.dark-mode #why-join-table td {
     color: #e0e0e0; /* 밝은 회색 */
 }
 
+body.dark-mode .project-image {
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.2) 100%);
+}
 
 
 /*************************************************** Buttons */

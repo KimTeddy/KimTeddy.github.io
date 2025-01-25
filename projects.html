@@ -13,11 +13,14 @@
         /* display: flex;*/
         gap: 20px;
         /* padding: 10px;*/
+        justify-content: center;
     }
     .project-container {
         flex-direction: column;
         /* 연도별로 세로 배치 */
-        overflow-x: auto !important
+        overflow-x: auto !important;
+        perspective: 10000px;
+        
     }
 
     .project-group {
@@ -79,11 +82,14 @@
         /* 최소 높이 */
         transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
+        transform-style: preserve-3d;
+        transform-origin: top;
         /*animation: scroll-loop 20s linear infinite;*/
     }
 
     .project-card:hover {
-        transform: translateY(-10px) scale(1.05);
+        transform: scale(1.05) translateY(-10px) translateZ(10px) rotateX(15deg);
+        /*transform: translateY(-10px) scale(1.05);*/
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         
         animation-play-state: paused;
@@ -110,14 +116,19 @@
         /* 이미지와 텍스트 간 간격 */
 
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.2) 100%);
 
         object-fit: cover; /* 이미지가 영역에 맞게 늘어남 */
-        transition: transform 0.3s ease-out;
+        transition: transform 0.3s ease-out, position 0.3s ease-out, mask-image 0.3s ease-out, max-width 0.3s ease-out, max-height 0.3s ease-out;
+        transform-origin: top; /* Set the rotation axis to the top edge */
+        backface-visibility: hidden; /* Prevent the back face from showing */
     }
     .project-image:hover{
         position: sticky;
-        transform: scale(1.5);
+        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 99%, rgba(0, 0, 0, 0) 100%);
+        max-width: 100%;
+        max-height: 100%;
+        transform: scale(1.5) translateZ(1px);
     }
     
     @keyframes image-scale {

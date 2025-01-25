@@ -3,17 +3,22 @@
     <p>대표 기술들을 확인하세요.</p>
     <div class="skills-container">
         <div class="skills-card cards">
-            <img src="assets/images/sections/skills/c++.png" alt="프로그래밍 아이콘">
-            <h3>프로그래밍</h3>
+            <div class="skills-title">
+                <img src="assets/images/sections/skills/c++.png" alt="프로그래밍 아이콘">
+                <h3>프로그래밍</h3>
+            </div>
             <ul>
-                <li>C/C++</li>
+                <li>C</li>
+                <li>C++</li>
                 <li>Linux</li>
                 <li>Web Programming</li>
             </ul>
         </div>
         <div class="skills-card cards">
-            <img src="assets/images/sections/skills/cad.png" alt="CAD/기구 설계 아이콘">
-            <h3>CAD/기구 설계</h3>
+            <div class="skills-title">
+                <img src="assets/images/sections/skills/cad.png" alt="CAD/기구 설계 아이콘">
+                <h3>CAD/기구 설계</h3>
+            </div>
             <ul>
                 <li>3D CAD-Solidworks</li>
                 <li>3D Printing</li>
@@ -21,9 +26,12 @@
             </ul>
         </div>
         <div class="skills-card cards">
-            <img src="assets/images/sections/skills/pcb.png" alt="전자 회로/소자 아이콘">
-            <h3>전자 회로/소자</h3>
+            <div class="skills-title">
+                <img src="assets/images/sections/skills/pcb.png" alt="전자 회로/소자 아이콘">
+                <h3>전자 회로/소자</h3>
+            </div>
             <ul>
+                <li>Soldering</li>
                 <li>KiCad</li>
                 <li>Schematic 설계, 작성</li>
                 <li>PCB Artwork</li>
@@ -38,29 +46,44 @@
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
         gap: 20px;
+        perspective: 1000px;
     }
 
     .skills-card {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         /* 세로 정렬 */
         align-items: center;
+        justify-content: center;
         padding: 10px;
+
+        transform-style: preserve-3d;
+        transform-origin: top;
         transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     }
 
+    @media (max-width: 1050px) {
+        .skills-card {
+            flex-direction: column;
+        }
+    }
+
     .skills-card:hover {
-        transform: translateY(-10px);
+        transform: translateZ(10px) rotateX(15deg);
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
 
     .skills-card img {
-        width: auto;
+        justify-content: center;
+        max-width: 50px;
         height: 50px;
-        margin-bottom: 10px;
     }
-
+    .skills-title{
+        text-align: center;
+    }
     .skills-card h3 {
+        align-items: center;
+        text-align: center;
         font-size: 1.2rem;
         margin-bottom: 10px;
     }
@@ -70,5 +93,9 @@
         margin-top: 10px;
         margin-bottom: 1px;
         color: #555;
+    }
+
+    .skills-card ul {
+        align-items: left;
     }
 </style>

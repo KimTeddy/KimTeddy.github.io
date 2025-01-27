@@ -43,61 +43,71 @@ seminars:
   - title: "[진행] 2025 동아리 겨울 세미나"
     description: "KiCad를 활용한 PCB 설계 기초 세미나"
     organizer: "KimTeddy"
+    headcount: 5
     period: "2025년 1월 13일"
     image: "assets/images/sections/seminars/2025/pcb.png"
 
   - title: "[주최, 진행] 2024 ATmega128A Register"
     description: "신입생, 재학생을 대상으로 진행한 ATmega128A 레지스터(지능형센서응용 대비) 세미나"
     organizer: "KimTeddy"
+    headcount: 8
     period: "2024년 11월 7일"
     image: "assets/images/sections/seminars/2024/register.jpg"
 
   - title: "[주최, 진행] 2024 GitHubProfile_Seminar"
     description: "신입생 멘토링 프로그램의 멘티를 대상으로 진행한 깃허브 프로필 만들기 세미나"
     organizer: "KimTeddy"
+    headcount: 5
     period: "2024년 11월 11일"
     image: "assets/images/sections/seminars/2024/profile.png"
     link: "https://github.com/KimTeddy/241111_GitHubProfile_Seminar"
   
-  - title: "2024 CubeIDE"
-    description: "동아리 회장단을 위한 STM32CubeIDE 및 STM32 사용 방법 세미나"
+  - title: "2024 IAR, CubeIDE"
+    description: "동아리 회장단을 위한 IAR, STM32CubeIDE 및 STM32 사용 방법 세미나"
     organizer: "KimTeddy"
-    period: "2024년 1월"
+    headcount: 3
+    period: "2024년 1월 3일"
     #image: "assets/images/sections/seminars/2024/stm32.jpg"
 
   - title: "[주최, 진행] 2024 동아리 겨울 세미나"
-    description: "동아리 부원 및 학과 동기들을 위한 리눅스 기초(명령어, Makefile, 컴파일, 디버깅 등) 세미나"
+    description: "동아리 부원 및 전자공학과 동기들을 위한 리눅스 기초(명령어, Makefile, 컴파일, 디버깅 등) 실습 세미나"
     organizer: "KimTeddy"
-    period: "2023년 12월"
+    headcount: 11
+    period: "2023년 12월 22, 23일"
     image: "assets/images/sections/seminars/2023/linux.jpg"
 
   - title: "[주최, 진행] 2023 동아리 신입생 라인트레이서 알고리즘 세미나"
     description: "라인트레이서 알고리즘 프로그래밍 방향 가이드 세미나"
     organizer: "KimTeddy"
-    period: "2023년 9월"
+    headcount: 15
+    period: "2023년 9월 4, 6일"
     image: "assets/images/sections/seminars/2023/algorithm.png"
 
   - title: "[주최, 진행, 확인] 2023 동아리 신입생 MCU 세미나"
     description: "[KimTeddy] MCU 개요 파트 담당 / <13일>Atmega328P, GPIO(+레지스터), UART, ADC / <19일>Interrupt, Timer/Counter, PWM, P제어"
     organizer: "KimTeddy 외 강의자 7명"
+    headcount: 22
     period: "2023년 9월 13일, 19일"
     image: "assets/images/sections/seminars/2023/mcu.jpg"
 
   - title: "[주최, 진행] 2023 동아리 신입생 SW, HW, 회로이론 문제 리뷰"
     description: "여름방학에 십입생들이 출제한 문제 리뷰 세미나"
     organizer: "KimTeddy"
+    headcount: ""
     period: "2023년 9월 4, 6일"
     image: "assets/images/sections/seminars/2023/circuit.jpg"
 
   - title: "[주최, 진행] 2023 동아리 여름 세미나"
     description: "ATmega128A - 지능형 센서 응용"
     organizer: "KimTeddy"
-    period: "2023년 8월"
+    headcount: 7
+    period: "2023년 8월 20일"
     image: "assets/images/sections/seminars/2023/atmega.jpg"
 
   - title: "[주최, 진행] 2023 아린이 키우기 프로젝트"
     description: "전자공학과 동기들을 위한 아두이노 세미나. 지능형센서응용 강의에서 배운 ATmega128A와 비교하여 설명"
     organizer: "KimTeddy"
+    headcount: 6
     period: "2023년 7월 3, 5, 10, 12, 24, 27, 31일"
     image: "assets/images/sections/seminars/2023/arin-e.png"
     link: "https://github.com/KimTeddy/2023_Arduino_Seminar"
@@ -105,31 +115,49 @@ seminars:
   - title: "[주최, 진행] 2023 동아리 신입생 회로도, 소자, 납땜 세미나"
     description: "4일간 같은 내용을 하루에 40분간(열외 인원 최소화 목적) 신입생들이 회로도 읽기, 소자 선정, 납땜이 가능하도록 진행한 세미나"
     organizer: "KimTeddy"
+    headcount: 55
     period: "2023년 4월 3, 4, 5, 6일"
     image: "assets/images/sections/seminars/2023/schematic.jpg"
 
-  - title: "[주최, 도움] 2023 신입생 C언어, Arduino 세미나"
+  - title: "[주최, 도움] 2023 신입생 Arduino 세미나"
+    description: "커리큘럼 계획 및 주최, 강의 진행 확인 및 실습 도움"
+    organizer: "강의자 1명"
+    headcount: 33
+    period: "2023년 5월 22, 23일"
+    image: "assets/images/sections/seminars/2023/c.jpg"
+
+  - title: "[주최, 도움] 2023 신입생 C언어 세미나"
     description: "커리큘럼 계획 및 주최, 강의 진행 확인 및 실습 도움"
     organizer: "강의자 7명"
-    period: "2023년 3, 4월"
+    headcount: [56, 42, 35]
+    period: "2023년 3/27,29일|5/9,10일|15,17일"
     image: "assets/images/sections/seminars/2023/c.jpg"
 
   - title: "[주최, 진행] 2023 동아리 신입생 OT - 교육부장"
     description: "[KimTeddy] 신입생 교육과정 및 최종 심사에 대해 소개"
     organizer: "KimTeddy(2023 동아리 교육부장)"
+    headcount: 59
     period: "2023년 3월 21일"
     image: "assets/images/sections/seminars/2023/ot.jpg"
 
   - title: "[주최, 도움] 2023 SOLIDWORKS 세미나"
     description: "SOLIDWORKS 3D CAD 세미나 주최 및 실습 도움"
     organizer: "강의자 1명"
-    period: "2023.03.28 ~ 2023.03.29"
+    headcount: 18
+    period: "2023년 3월 28, 29일"
     image: "assets/images/sections/seminars/2023/solidworks.jpg"
 
   - title: "[주최, 수강] 2023 동아리 겨울 세미나"
     description: "고급C언어, C++, 회로이론, PCB 설계(KiCAD) 세미나 주최 및 수강"
     organizer: "강의자 3명"
-    period: "2023년 2월"
+    headcount: "6, 6, 9, 7"
+    period: "2023년 1월 31일, 2월 6일, 25일, 5일"
+
+  - title: "[주최, 진행] 2022 C언어 강의"
+    description: "코딩이 처음인 물리학과 친구를 위한 1:1 C언어 기초 강의 이틀 진행, 이후는 독학 중 질문 답변"
+    organizer: "KimTeddy"
+    headcount: 1
+    period: "2022년 6월 22, 25일, ~ 8월 30일"
 
 #  - title: "[수강] 2022 MCU 세미나"
 #    description: "ATmega328를 이용한 MCU 레지스터 제어 세미나를 수강했습니다."

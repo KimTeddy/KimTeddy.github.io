@@ -100,13 +100,13 @@ experiences:
       - name: "제21회 임베디드 SW 경진대회"
         awards:
           - type: "참가"
-      - name: "2023 공학페스티벌(E^2 Festa 2023)"
-        awards:
-          - type: "전시"
-          - type: "참가"
 
   - year: "2022년도"
     competitions:
+      - name: "2022 공학페스티벌(E^2 Festa 2022)"
+        awards:
+          - type: "전시"
+          - type: "참가"
       - name: "2022 2,3학년을 위한 교내 캡스톤디자인 경진대회"
         awards:
           - type: "대상"

@@ -68,7 +68,7 @@ projects:
         description: "STM32F767과 FFT를 이용한 모기 감지 및 퇴치 시스템"
         team: "총 3명"
         role: "팀장, 마이크x2 양방향 배치(ADC)+FFT 알고리즘 사용 => 모기 위치+frequency 인식, PWM 핀 개수제한 문제 해결 (DEMUXx2 => 서보모터x4, LED 3파트 제어), 만능기판을 활용한 쉴드 형태 회로 구성 및 납땜, 배선 담당"
-        image: "assets/images/sections/projects/2023/nosquito.png"
+        image: "assets/images/sections/projects/2023/nosquito.gif"
         tags: ["2023", "C", "STM32", "마이크로프로세서응용"]
         duration: "2023년 6월 ~ 2023년 12월"
         links:

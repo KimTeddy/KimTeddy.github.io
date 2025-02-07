@@ -91,7 +91,7 @@ seminars:
     image: "assets/images/sections/seminars/2023/mcu.jpg"
 
   - title: "[주최, 진행] 2023 동아리 신입생 SW, HW, 회로이론 문제 리뷰"
-    description: "여름방학에 십입생들이 출제한 문제 리뷰 세미나"
+    description: "여름방학에 세미나 강의자들과 함께 출제한 테스트를 십입생들이 응시한 결과를 리뷰한 세미나"
     organizer: "KimTeddy"
     headcount: ""
     period: "2023년 9월 4, 6일"

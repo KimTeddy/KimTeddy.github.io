@@ -58,7 +58,7 @@ projects:
         team: "총 5명"
         role: "팀장, 팀원 모으기, GitHub 관리, NUCLEO 보드 사용 방법 세미나 진행, PCB Schematic/Artwork/납땜/테스트/디버깅, 전체 코드 통합"
         image: "assets/images/sections/projects/2024/armi.jpg"
-        tags: ["2024", "졸업작품"]
+        tags: ["2024", "C", "Cpp", "STM32", "졸업작품"]
         duration: "2024년 3월 ~ 2024년 12월"
         links:
           github: "https://github.com/KimTeddy/2024_A.RM.I_Public"
@@ -69,7 +69,7 @@ projects:
         team: "총 3명"
         role: "팀장, 마이크x2 양방향 배치(ADC)+FFT 알고리즘 사용 => 모기 위치+frequency 인식, PWM 핀 개수제한 문제 해결 (DEMUXx2 => 서보모터x4, LED 3파트 제어), 만능기판을 활용한 쉴드 형태 회로 구성 및 납땜, 배선 담당"
         image: "assets/images/sections/projects/2023/nosquito.png"
-        tags: ["2023", "마이크로프로세서응용"]
+        tags: ["2023", "C", "STM32", "마이크로프로세서응용"]
         duration: "2023년 6월 ~ 2023년 12월"
         links:
           github: "https://github.com/KimTeddy/2023_NOsquito"
@@ -79,7 +79,7 @@ projects:
         team: "총 4명"
         role: "팀장, 팀원 모으기, GitHub 관리, OpenCV사용(영상을 BMP 이미지 1000프레임으로 저장), 7-segment(6digit, 점수 애니메이션), Buzzer(효과음 7종), BMP이미지(차선이탈, 추돌)"
         image: "assets/images/sections/projects/2023/driver-license.jpg"
-        tags: ["2023", "임베디드시스템"]
+        tags: ["2023", "C", "임베디드시스템"]
         duration: "2023년 10월 1일 ~ 12월 21일"
         links:
           github: "https://github.com/KimTeddy/2023_Driver-s_License_Test_Simulation"
@@ -89,7 +89,7 @@ projects:
         team: "총 3명"
         role: "팀원, GitHub 관리, 컬링 점수 규칙에 따른 점수 계산 알고리즘, 색상 12BIT 확장, 색상 값 parameter화, 기하학을 적용한 원 그리기 모듈, 타겟(과녁) 디자인"
         image: "assets/images/sections/projects/2023/curling.gif"
-        tags: ["2023", "디지털시스템"]
+        tags: ["2023", "Verilog", "디지털시스템"]
         duration: "2023년 11월 23일 ~ 12월 12일"
         links:
           github: "https://github.com/kms0511/DS_TeamProject2023"
@@ -103,7 +103,7 @@ projects:
         team: "총 6명"
         role: "라즈베리파이 쉴드 PCB 설계, 납땜"
         image: "assets/images/sections/projects/2023/jokbal.jpg"
-        tags: ["2023", "동아리"]
+        tags: ["2023", "PCB", "동아리"]
         duration: "2023년 7월 ~ 2023년 12월"
         links:
           youtube: "https://youtu.be/tqQg0wU-9ns?si=lssECIQScBdo7ebp"
@@ -113,7 +113,7 @@ projects:
         team: "총 4명"
         role: "Main 기판 회로 설계, 납땜"
         image: "assets/images/sections/projects/2022/jokbal.jpg"
-        tags: ["2022", "동아리"]
+        tags: ["2022", "PCB", "동아리"]
         duration: "2022년 3월 ~ 2022년 12월"
         links:
           youtube: "https://www.youtube.com/watch?v=Qg1aSdmr12A"
@@ -124,7 +124,7 @@ projects:
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2019/line.jpg"
-        tags: ["2019", "동아리"]
+        tags: ["2019", "C", "STM32", "PCB", "동아리"]
         duration: "2019년 3월 ~ 2019년 11월"
         links:
           github: "https://github.com/KimTeddy/2019_LineTracer_byTeddyKim"
@@ -134,7 +134,7 @@ projects:
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2019/ballancing.jpg"
-        tags: ["2019", "동아리"]
+        tags: ["2019", "C", "STM32", "동아리"]
         duration: "2019년 12월 ~ 2019년 1월"
 
 ############################################################################################
@@ -145,7 +145,7 @@ projects:
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2023/pong.gif"
-        tags: ["2023", "OpenGL", "컴퓨터그래픽스"]
+        tags: ["2023", "OpenGL", "Cpp", "컴퓨터그래픽스"]
         duration: "2023년 3월 4일"
         links:
           github: "https://github.com/KimTeddy/OpenGL/tree/main/230324_PONG_by_KimTeddy"
@@ -155,7 +155,7 @@ projects:
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2023/car2d.gif"
-        tags: ["2023", "OpenGL", "컴퓨터그래픽스"]
+        tags: ["2023", "OpenGL", "Cpp", "컴퓨터그래픽스"]
         duration: "2023년 5월 3일"
         links:
           github: "https://github.com/KimTeddy/OpenGL/tree/main/230503_CARS_puzzle_game_by_KimTeddy"
@@ -165,7 +165,7 @@ projects:
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2023/car3d.gif"
-        tags: ["2023", "OpenGL", "컴퓨터그래픽스"]
+        tags: ["2023", "OpenGL", "Cpp", "컴퓨터그래픽스"]
         duration: "2023년 6월 7일"
         links:
           github: "https://github.com/KimTeddy/OpenGL/tree/main/230607_CARS_puzzle_game-3D_by_KimTeddy"
@@ -175,7 +175,7 @@ projects:
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2023/driver.gif"
-        tags: ["2023", "OpenGL", "임베디드시스템"]
+        tags: ["2023", "OpenGL", "Cpp", "임베디드시스템"]
         duration: "2023년 6월 7일"
         links:
           github: "https://github.com/KimTeddy/OpenGL/tree/main/2309-12_Drivers_license_test_Simulation"
@@ -187,7 +187,7 @@ projects:
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2023/video.png"
-        tags: ["2023", "OpenCV", "컴퓨터비전시스템"]
+        tags: ["2023", "OpenCV", "Cpp", "컴퓨터비전시스템"]
         duration: "2023년 12월 1일"
         links:
           github: "https://github.com/KimTeddy/OpenCV/tree/main/231201_Video_player_with_video_analyzer"
@@ -197,7 +197,7 @@ projects:
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2023/image.png"
-        tags: ["2023", "OpenCV", "컴퓨터비전시스템"]
+        tags: ["2023", "OpenCV", "Cpp", "컴퓨터비전시스템"]
         duration: "2023년 12월 8일"
         links:
           github: "https://github.com/KimTeddy/OpenCV/tree/main/231208_Image_viewer_with_image_analyzer"
@@ -207,7 +207,7 @@ projects:
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2023/bmp.png"
-        tags: ["2023", "OpenCV", "임베디드시스템"]
+        tags: ["2023", "OpenCV", "Cpp", "임베디드시스템"]
         duration: "2023년 12월 19일"
         links:
           github: "https://github.com/KimTeddy/OpenCV/tree/main/231219_Video_to_bmp"
@@ -219,7 +219,7 @@ projects:
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2021/autolighting.jpg"
-        tags: ["2021", "IoT"]
+        tags: ["2021", "ESP", "IoT", "HASS"]
         duration: "2021년 11월 ~ Present"
         links:
           youtube: "https://youtu.be/lMb9GxdRdFw?si=_HGZ0BQtBs_uDtKv"
@@ -229,7 +229,7 @@ projects:
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2021/pcb.jpg"
-        tags: ["2021", "IoT"]
+        tags: ["2021", "ESP", "IoT", "PCB"]
         duration: "2021년 11월 ~ Present"
         links:
           other: "https://blog.naver.com/teddy_02/223019402838"
@@ -239,7 +239,7 @@ projects:
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2023/lightshow.jpg"
-        tags: ["2017", "IoT"]
+        tags: ["2017", "ESP", "IoT"]
         duration: "2023년 6월 29일"
         links:
           youtube: "https://youtu.be/LIcAvVO5qTw?si=4vN-aOgldxFROMlG"
@@ -251,7 +251,7 @@ projects:
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2024/axi.png"
-        tags: ["2024", "Verilog", "SoC설계"]
+        tags: ["2024", "Verilog", "ZedBoard", "SoC설계"]
         duration: "2024년 5월 6일"
         links:
           youtube: "https://youtu.be/plbejbXohNs?si=Y85k8XODlzlq9zKo"
@@ -261,7 +261,7 @@ projects:
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2023/v1.png"
-        tags: ["2023", "Verilog", "디지털시스템"]
+        tags: ["2023", "Verilog", "ZedBoard", "디지털시스템"]
         duration: "2023년 10월 9일"
         links:
           github: "https://github.com/KimTeddy/2023_DigitalSystem/tree/main/Homework1-CLA/Homework1-CLA.srcs/sources_1/new"
@@ -272,7 +272,7 @@ projects:
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2023/v2.jpg"
-        tags: ["2023", "Verilog", "디지털시스템"]
+        tags: ["2023", "Verilog", "ZedBoard", "디지털시스템"]
         duration: "2023년 11월 6일"
         links:
           github: "https://github.com/KimTeddy/2023_DigitalSystem/tree/main/Homework2-UART/Homework2-UART.srcs/sources_1/new"
@@ -282,7 +282,7 @@ projects:
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2023/v3.jpg"
-        tags: ["2023", "Verilog", "디지털시스템"]
+        tags: ["2023", "Verilog", "ZedBoard", "디지털시스템"]
         duration: "2023년 11월 20일"
         links:
           github: "https://github.com/KimTeddy/2023_DigitalSystem/tree/main/Homework3-DigitalClock/Homework3-DigitalClock.srcs/sources_1/new"
@@ -327,11 +327,11 @@ projects:
   - year: "others"
     projects:
       - title: "업사이클 조명"
-        description: "IC 조명 패턴 프로그래밍을 통한 요구르트병 업사이클 조명"
+        description: "AVR 4채널 PWM 레지스터 프로그래밍을 통한 요구르트병 업사이클 조명"
         team: "KimTeddy"
         role: "개인 프로젝트"
         image: "assets/images/sections/projects/2018/upcycle.jpg"
-        tags: ["2018", "IC"]
+        tags: ["2018", "AVR"]
         duration: "2018년 12월"
         links:
           github: "https://github.com/KimTeddy/Arduino_Public/tree/main/2017/171221_LaserHarp"

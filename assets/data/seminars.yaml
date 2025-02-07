@@ -124,7 +124,7 @@ seminars:
     organizer: "강의자 1명"
     headcount: 33
     period: "2023년 5월 22, 23일"
-    image: "assets/images/sections/seminars/2023/c.jpg"
+    image: "assets/images/sections/seminars/2023/arduino.jpg"
 
   - title: "[주최, 도움] 2023 신입생 C언어 세미나"
     description: "커리큘럼 계획 및 주최, 강의 진행 확인 및 실습 도움"

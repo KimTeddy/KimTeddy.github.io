@@ -1,0 +1,57 @@
+/* projects.css — Projects gallery page */
+.projects-header { padding: var(--space-16) 0 var(--space-8); }
+
+.filter-bar {
+  display: flex; flex-wrap: wrap; gap: var(--space-2);
+  margin-bottom: var(--space-8); justify-content: center;
+}
+.filter-btn {
+  padding: var(--space-2) var(--space-4); border-radius: var(--radius-full);
+  font-size: var(--text-sm); font-weight: var(--weight-medium);
+  background: var(--bg-glass); border: 1px solid var(--border-subtle);
+  color: var(--text-secondary); cursor: pointer; transition: all var(--transition-fast);
+}
+.filter-btn:hover { border-color: var(--border-accent); color: var(--accent-primary); }
+.filter-btn.active {
+  background: var(--accent-primary); color: var(--bg-primary);
+  border-color: var(--accent-primary);
+}
+
+.projects-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: var(--space-6);
+}
+.project-card { display: flex; flex-direction: column; }
+.project-card .card__image {
+  aspect-ratio: 16/10; object-fit: cover; border: 1px solid var(--border-subtle);
+}
+.project-card .card__title { font-size: var(--text-lg); }
+.project-card__role {
+  font-size: var(--text-xs); color: var(--text-tertiary);
+  font-family: var(--font-mono); margin-bottom: var(--space-2);
+}
+.project-card__tags {
+  display: flex; flex-wrap: wrap; gap: var(--space-1);
+  margin-bottom: var(--space-3);
+}
+.project-card__footer {
+  margin-top: auto; display: flex; justify-content: space-between;
+  align-items: center; padding-top: var(--space-3);
+  border-top: 1px solid var(--border-subtle);
+}
+.project-card__duration {
+  font-size: var(--text-xs); color: var(--text-tertiary);
+  font-family: var(--font-mono);
+}
+
+/* Year group header */
+.year-group-title {
+  font-size: var(--text-2xl); font-weight: var(--weight-bold);
+  color: var(--accent-primary); margin: var(--space-12) 0 var(--space-6);
+  padding-bottom: var(--space-3); border-bottom: 2px solid var(--border-accent);
+  font-family: var(--font-sans);
+}
+.year-group-title:first-of-type { margin-top: 0; }
+
+@media(max-width:1024px){ .projects-grid { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:600px){ .projects-grid { grid-template-columns: 1fr; } }

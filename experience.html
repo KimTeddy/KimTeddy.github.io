@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Teddy Kim의 수상 내역 및 경험 타임라인.">
+  <title>Experience — TeddyElectronics</title>
+  <link rel="icon" type="image/x-icon" href="assets/images/site/TeddyElectronics.ico">
+  <link rel="stylesheet" href="assets/css/globals.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/experience.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner">
+  <a href="./" class="nav__logo">&lt;T/&gt; <span>TeddyElectronics</span></a>
+  <div class="nav__links">
+    <a href="./" class="nav__link">Home</a><a href="about.html" class="nav__link">About</a>
+    <a href="projects.html" class="nav__link">Projects</a><a href="experience.html" class="nav__link">Experience</a>
+    <a href="skills.html" class="nav__link">Skills</a><a href="seminars.html" class="nav__link">Seminars</a>
+    <a href="contact.html" class="nav__link">Contact</a>
+  </div>
+  <div class="nav__actions">
+    <button class="theme-toggle" aria-label="Toggle theme">☀️</button>
+    <div class="nav__burger"><span></span><span></span><span></span></div>
+  </div>
+</div><div class="nav__progress"></div>
+<div class="nav__mobile-menu">
+  <a href="./" class="nav__link">Home</a><a href="about.html" class="nav__link">About</a>
+  <a href="projects.html" class="nav__link">Projects</a><a href="experience.html" class="nav__link">Experience</a>
+  <a href="skills.html" class="nav__link">Skills</a><a href="seminars.html" class="nav__link">Seminars</a>
+  <a href="contact.html" class="nav__link">Contact</a>
+</div></nav>
+
+<div class="page-wrapper">
+  <section class="experience-header">
+    <div class="container">
+      <p class="section-label" data-animate="fade-up">Experience & Awards</p>
+      <h1 class="section-title" data-animate="fade-up">경험 & 수상</h1>
+      <p class="section-desc" data-animate="fade-up">대회 참가, 수상 내역, 그리고 주요 경험들의 타임라인입니다.</p>
+    </div>
+  </section>
+  <section class="section--compact">
+    <div class="container container--narrow">
+      <div class="timeline" id="timeline-container">
+        <p class="loading-text">데이터를 불러오는 중...</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div id="footer-placeholder"></div>
+<button class="back-to-top" aria-label="Back to top">↑</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+<script src="assets/js/theme.js"></script>
+<script src="assets/js/navigation.js"></script>
+<script src="assets/js/animations.js"></script>
+<script>
+(function(){
+  var icons={"대상":"🏆","최우수상":"🏆","우수상":"🏅","금상":"🥇","은상":"🥈","동상":"🥉","입선":"✨","장려상":"✨","1등":"🥇"};
+
+  function load(){
+    Promise.all([
+      fetch('assets/data/awards.yaml').then(function(r){return r.text()}),
+      fetch('assets/data/experiences.yaml').then(function(r){return r.text()})
+    ]).then(function(results){
+      var awardsData=jsyaml.load(results[0]);
+      var expData=jsyaml.load(results[1]);
+      var container=document.getElementById('timeline-container');
+      container.innerHTML='';
+
+      // Merge by year
+      var years=new Set();
+      if(awardsData.awards) awardsData.awards.forEach(function(a){years.add(a.year);});
+      if(expData.experiences) expData.experiences.forEach(function(e){years.add(e.year);});
+      var sortedYears=Array.from(years).sort(function(a,b){
+        var na=parseInt(a), nb=parseInt(b);
+        return (isNaN(nb)?0:nb)-(isNaN(na)?0:na);
+      });
+
+      sortedYears.forEach(function(year){
+        var h=document.createElement('h3');
+        h.className='timeline-year'; h.textContent=year;
+        h.setAttribute('data-animate','fade-up');
+        container.appendChild(h);
+
+        // Awards for this year
+        var awardYear=awardsData.awards?awardsData.awards.find(function(a){return a.year===year;}):null;
+        if(awardYear && awardYear.competitions && awardYear.competitions.length){
+          var label=document.createElement('p');
+          label.className='timeline-section-label'; label.textContent='🏆 Awards';
+          container.appendChild(label);
+          awardYear.competitions.forEach(function(comp){
+            var item=document.createElement('div');
+            item.className='timeline-item'; item.setAttribute('data-animate','fade-up');
+            var badgesHtml='';
+            comp.awards.forEach(function(a){
+              var icon=icons[a.type]||'✨';
+              var cls=(['대상','최우수상','금상','은상','동상'].indexOf(a.type)>=0)?'badge--award':'badge--accent';
+              badgesHtml+='<span class="badge '+cls+'">'+icon+' '+a.type+(a.count&&a.count>1?' ('+a.count+')':'')+'</span>';
+            });
+            item.innerHTML='<div class="card"><p class="timeline-item__name">'+comp.name+'</p><div class="timeline-item__badges">'+badgesHtml+'</div></div>';
+            container.appendChild(item);
+          });
+        }
+
+        // Experiences for this year
+        var expYear=expData.experiences?expData.experiences.find(function(e){return e.year===year;}):null;
+        if(expYear && expYear.competitions && expYear.competitions.length){
+          var label2=document.createElement('p');
+          label2.className='timeline-section-label'; label2.textContent='📋 Experiences';
+          container.appendChild(label2);
+          expYear.competitions.forEach(function(comp){
+            var item=document.createElement('div');
+            item.className='timeline-item'; item.setAttribute('data-animate','fade-up');
+            var badgesHtml='';
+            comp.awards.forEach(function(a){
+              var icon=icons[a.type]||'📌';
+              badgesHtml+='<span class="badge">'+icon+' '+a.type+'</span>';
+            });
+            item.innerHTML='<div class="card"><p class="timeline-item__name">'+comp.name+'</p><div class="timeline-item__badges">'+badgesHtml+'</div></div>';
+            container.appendChild(item);
+          });
+        }
+      });
+    }).catch(function(err){
+      document.getElementById('timeline-container').innerHTML='<p class="loading-text">데이터를 불러오지 못했습니다.</p>';
+    });
+  }
+  document.readyState==='loading'?document.addEventListener('DOMContentLoaded',load):load();
+})();
+</script>
+</body></html>

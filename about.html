@@ -1,197 +1,147 @@
-<!-- 코딩 애니메이션 화면 -->
-<section id="about" class="content">
-    <div id="about-teddy" align="center">
-        <h3>TeddyElectronics</h3>
-        <p><i>Kim Teddy</i></p>
-        <table id="why-join-table">
-            <tbody>
-                <tr>
-                    <td style="text-align: center;">🤖</td>
-                    <td><b>개발의 즐거움</b></td>
-                    <td style="width: 1px; ">:</td>
-                    <td>하드웨어와 소프트웨어를 직접 설계하고 제작합니다.</td>
-                </tr>
-                <tr>
-                    <td style="text-align: center;">🛠️</td>
-                    <td><b>실질적인 융합 설계 경험</b></td>
-                    <td style="width: 1px;">:</td>
-                    <td>SW 프로그래밍뿐만 아니라 HW 설계에 해당하는 3D / PCB 설계, 납땜 등도 같이 진행하며 종합적인 임베디드 시스템 설계 능력을 키웠습니다.</td>
-                </tr>
-                <tr>
-                    <td style=" text-align: center;">🌟</td>
-                    <td><b>다양한 수상 경력</b></td>
-                    <td style="width: 1px;">:</td>
-                    <td>교내외 로봇/임베디드 대회에서 다수의 상을 수상했습니다.
-                    </td>
-                </tr>
-                <tr>
-                    <td style=" text-align: center;">🎯</td>
-                    <td><b>미래를 위한 준비</b></td>
-                    <td style="width: 1px;">:</td>
-                    <td>프로젝트/대회 경험을 쌓았습니다.</td>
-                </tr>
-                <tr>
-                    <td style=" text-align: center;">🌐</td>
-                    <td><b>협업과 네트워킹</b></td>
-                    <td style="width: 1px;">:</td>
-                    <td>다양한 전공과 학년이 함께 프로젝트를 진행해보며, 졸업생을 포함하여 탄탄한 네트워크를
-                        형성하고 있습니다.</td>
-            </tbody>
-        </table>
-    </div>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Teddy Kim — 임베디드 시스템 엔지니어. 자기소개 및 학력, 강점 소개.">
+  <title>About — TeddyElectronics</title>
+  <link rel="icon" type="image/x-icon" href="assets/images/site/TeddyElectronics.ico">
+  <link rel="stylesheet" href="assets/css/globals.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/about.css">
+</head>
+<body>
+<!-- Navigation -->
+<nav class="nav"><div class="nav__inner">
+  <a href="./" class="nav__logo">&lt;T/&gt; <span>TeddyElectronics</span></a>
+  <div class="nav__links">
+    <a href="./" class="nav__link">Home</a><a href="about.html" class="nav__link">About</a>
+    <a href="projects.html" class="nav__link">Projects</a><a href="experience.html" class="nav__link">Experience</a>
+    <a href="skills.html" class="nav__link">Skills</a><a href="seminars.html" class="nav__link">Seminars</a>
+    <a href="contact.html" class="nav__link">Contact</a>
+  </div>
+  <div class="nav__actions">
+    <button class="theme-toggle" aria-label="Toggle theme">☀️</button>
+    <div class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></div>
+  </div>
+</div><div class="nav__progress"></div>
+<div class="nav__mobile-menu">
+  <a href="./" class="nav__link">Home</a><a href="about.html" class="nav__link">About</a>
+  <a href="projects.html" class="nav__link">Projects</a><a href="experience.html" class="nav__link">Experience</a>
+  <a href="skills.html" class="nav__link">Skills</a><a href="seminars.html" class="nav__link">Seminars</a>
+  <a href="contact.html" class="nav__link">Contact</a>
+</div></nav>
 
-    <div id="coding-animation">
-        <div class="code-container">
-            <pre id="code-display"><span class="cursor"></span></pre>
+<div class="page-wrapper">
+
+  <!-- Hero -->
+  <section class="about-hero">
+    <div class="container" data-animate="fade-up">
+      <img src="https://avatars.githubusercontent.com/u/68770209?v=4" alt="Teddy Kim" class="about-hero__avatar">
+      <h1 class="about-hero__name">Teddy Kim</h1>
+      <p class="about-hero__role">Embedded System Engineer</p>
+      <p class="about-hero__bio">전자공학과에서 임베디드 트랙을 선택하여 하드웨어와 소프트웨어를 모두 설계하고 제작하는 임베디드 시스템 엔지니어입니다. 다양한 프로젝트와 대회 경험을 통해 실질적인 융합 설계 능력을 키워왔습니다.</p>
+    </div>
+  </section>
+
+  <!-- Strengths -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label" data-animate="fade-up">Strengths</p>
+      <h2 class="section-title" data-animate="fade-up">강점</h2>
+      <div class="strengths">
+        <div class="card strength-item" data-animate="fade-up" data-delay="1">
+          <div class="strength-item__icon">🤖</div>
+          <div><p class="strength-item__title">개발의 즐거움</p><p class="strength-item__desc">하드웨어와 소프트웨어를 직접 설계하고 제작합니다.</p></div>
         </div>
+        <div class="card strength-item" data-animate="fade-up" data-delay="2">
+          <div class="strength-item__icon">🛠️</div>
+          <div><p class="strength-item__title">실질적인 융합 설계 경험</p><p class="strength-item__desc">SW 프로그래밍뿐만 아니라 3D/PCB 설계, 납땜 등 종합적인 임베디드 시스템 설계 능력을 키웠습니다.</p></div>
+        </div>
+        <div class="card strength-item" data-animate="fade-up" data-delay="3">
+          <div class="strength-item__icon">🌟</div>
+          <div><p class="strength-item__title">다양한 수상 경력</p><p class="strength-item__desc">교내외 로봇/임베디드 대회에서 다수의 상을 수상했습니다.</p></div>
+        </div>
+        <div class="card strength-item" data-animate="fade-up" data-delay="4">
+          <div class="strength-item__icon">🎯</div>
+          <div><p class="strength-item__title">미래를 위한 준비</p><p class="strength-item__desc">프로젝트/대회 경험을 꾸준히 쌓아왔습니다.</p></div>
+        </div>
+        <div class="card strength-item" data-animate="fade-up" data-delay="5">
+          <div class="strength-item__icon">🌐</div>
+          <div><p class="strength-item__title">협업과 네트워킹</p><p class="strength-item__desc">다양한 전공과 학년이 함께 프로젝트를 진행하며 탄탄한 네트워크를 형성하고 있습니다.</p></div>
+        </div>
+      </div>
     </div>
-</section>
-<!--<script src="assets/js/about-animation.js"></script> -->
+  </section>
 
-<!-- CSS -->
-<style>
-    #about {
-        animation: slideIn 0.8s ease forwards;
-        margin-top: 0px;
-        margin-bottom: 0px;
-    }
+  <!-- Code Animation -->
+  <section class="section--compact">
+    <div class="container" data-animate="fade-up">
+      <div class="about-code">
+        <div class="about-code__header">
+          <span class="about-code__dot"></span><span class="about-code__dot"></span><span class="about-code__dot"></span>
+        </div>
+        <pre class="about-code__display" id="code-display"><span class="cursor"></span></pre>
+      </div>
+    </div>
+  </section>
 
-    @keyframes slideIn {
-        0% {
-            transform: translateY(50px);
-            opacity: 0;
-        }
+  <!-- Lectures -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label" data-animate="fade-up">Education</p>
+      <h2 class="section-title" data-animate="fade-up">전공 강의 수강 이력</h2>
+      <p class="section-desc" data-animate="fade-up" style="margin-bottom:var(--space-8)">전자공학과 임베디드 트랙 주요 수강 과목입니다.</p>
+      <div class="card" data-animate="fade-up" style="overflow-x:auto; padding:var(--space-4)">
+        <table class="lectures-table">
+          <thead><tr><th>연도</th><th>성적</th><th>과목명</th><th>주요 내용</th></tr></thead>
+          <tbody>
+            <tr><td>2019</td><td class="grade">A+</td><td>디지털논리회로</td><td>Digital Logic Circuits</td></tr>
+            <tr><td rowspan="4">2022</td><td class="grade">A+</td><td>고급C언어</td><td>Pointer, Linked List, File I/O</td></tr>
+            <tr><td class="grade">A+</td><td>컴퓨터구조</td><td>OS, Cache, IO, Pipeline, CU</td></tr>
+            <tr><td class="grade">A+</td><td>자료구조</td><td>List, Stack, Queue, Tree, Graph, Sort</td></tr>
+            <tr><td class="grade">A+</td><td>지능형센서응용</td><td>ATmega128A Registers, Microchip Studio</td></tr>
+            <tr><td rowspan="5">2023</td><td class="grade">A+</td><td>마이크로프로세서응용</td><td>STM32F767 (ARM), IAR Embedded Workbench</td></tr>
+            <tr><td class="grade">A+</td><td>임베디드시스템</td><td>Linux, UDOO Board, Cross Compile, Fork, Thread</td></tr>
+            <tr><td class="grade">A+</td><td>컴퓨터그래픽스</td><td>OpenGL, GLUI, C++</td></tr>
+            <tr><td class="grade">A+</td><td>컴퓨터비전시스템</td><td>OpenCV, GLUI, C++</td></tr>
+            <tr><td class="grade">A+</td><td>디지털시스템</td><td>Verilog, Vivado, FPGA (ZedBoard)</td></tr>
+            <tr><td rowspan="3">2024</td><td class="grade">A0</td><td>SoC설계</td><td>Vitis, Vivado, FPGA (Zybo Z7-20)</td></tr>
+            <tr><td class="grade">A+</td><td>의용전자공학</td><td>Medical Instrumentation, Signal Processing</td></tr>
+            <tr><td class="grade">A+</td><td>캡스톤디자인1&2</td><td>Team Project (Leader), A.RM.I</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 
-        100% {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    }
+</div>
 
-    #about-teddy h3 {
-        font-size: 1.8rem;
-        color: #1e88e5;
-        margin-bottom: 5px;
-    }
+<div id="footer-placeholder"></div>
+<button class="back-to-top" aria-label="Back to top">↑</button>
 
-    #about-teddy p {
-        font-size: 1.2rem;
-        margin-bottom: 20px;
-        color: #000;
-    }
-
-    #why-join-table {
-        text-align: left;
-        overflow: hidden;
-        border-collapse: collapse;
-        margin: auto;
-        border: none; /* 테이블 외곽선을 제거 */
-        padding: 1px;
-    }
-
-    #why-join-table th,
-    #why-join-table td {
-        padding: 5px;
-        border: none;
-        text-align: left;
-    }
-
-    #why-join-table th {
-        background-color: #90caf9;
-        font-size: 1rem;
-    }
-
-    #why-join-table td {
-        font-size: 0.95rem;
-    }
-
-    #why-join-table td b {
-        color: #1e88e5;
-    }
-
-    #coding-animation {
-        background-color: #1e1e1e;
-        /* 검정 배경 */
-        color: #dcdcdc;
-        /* 기본 텍스트 색상 */
-        font-family: 'Courier New', Courier, monospace;
-        /* 코딩 폰트 */
-        padding: 20px;
-        border-radius: 10px;
-        max-width: 800px;
-        margin: 50px auto;
-        /* 가운데 정렬 */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    .code-container {
-        height: 50px;
-        /* 고정 높이 설정 */
-        padding: 20px;
-        background-color: #252526;
-        /* 다크 그레이 배경 */
-        border-radius: 8px;
-        overflow: hidden;
-        /* 넘치는 텍스트 숨기기 */
-    }
-
-    pre {
-        margin: 0;
-        font-size: 1rem;
-        line-height: 1.5;
-        white-space: pre-wrap;
-    }
-
-    .cursor {
-        display: inline-block;
-        width: 10px;
-        height: 18px;
-        background-color: #dcdcdc;
-        /* 커서 색상 */
-        animation: blink 0.5s step-end infinite;
-        /* 커서 깜박임 */
-    }
-
-    @media (max-width: 500px) {
-        .content {
-            max-width: 100%;
-        }
-    }
-
-    @keyframes blink {
-        50% {
-            opacity: 0;
-        }
-    }
-
-    /* 코드 색상 스타일 */
-    .keyword {
-        color: #569cd6;
-    }
-
-    .string {
-        color: #ce9178;
-    }
-
-    .function {
-        color: #dcdcaa;
-    }
-
-    .tag {
-        color: #569cd6;
-    }
-
-    .attribute {
-        color: #9cdcfe;
-    }
-
-    .value {
-        color: #ce9178;
-    }
-
-    /* 언어 주석 스타일 */
-    .language-comment {
-        color: #6a9955;
-        font-style: italic;
-    }
-</style>
+<script src="assets/js/theme.js"></script>
+<script src="assets/js/navigation.js"></script>
+<script src="assets/js/animations.js"></script>
+<script>
+(function(){
+  function initTyping(){
+    var el=document.getElementById('code-display');if(!el)return;
+    var sentences=["My major is electronic engineering.","I am an embedded developer.","Home IoT is my hobby.","I want to be an embedded engineer."];
+    var langs=[
+      {tpl:'<span class="cm">// C</span>\n<span class="fn">printf</span>(<span class="str">"{s}\\n"</span>);'},
+      {tpl:'<span class="cm"># Python</span>\n<span class="fn">print</span>(<span class="str">"{s}"</span>)'},
+      {tpl:'<span class="cm">// Java</span>\n<span class="kw">System</span>.<span class="fn">out.println</span>(<span class="str">"{s}"</span>);'}
+    ];
+    var si=0,ci=0,del=false,out='',lang=langs[0],cur='<span class="cursor"></span>';
+    function tick(){
+      out=lang.tpl.replace('{s}',sentences[si]);
+      if(!del&&ci<=out.length){el.innerHTML=out.slice(0,ci)+cur;ci++;setTimeout(tick,22);}
+      else if(del&&ci>=0){el.innerHTML=out.slice(0,ci)+cur;ci--;setTimeout(tick,8);}
+      else{del=!del;if(!del){si=(si+1)%sentences.length;lang=langs[Math.floor(Math.random()*langs.length)];ci=0;setTimeout(tick,300);}else{setTimeout(tick,1200);}}
+    }tick();
+  }
+  document.readyState==='loading'?document.addEventListener('DOMContentLoaded',initTyping):initTyping();
+})();
+</script>
+</body></html>

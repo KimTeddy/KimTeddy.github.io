@@ -1,789 +1,287 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="TeddyElectronics - 테디의 전자공학 포트폴리오">
-    <meta property="og:title" content="TeddyElectronics">
-    <meta property="og:type" content="website">
-    <meta property="og:description" content="TeddyElectronics - 테디의 전자공학 포트폴리오">
-    <meta property="og:image" content="https://avatars.githubusercontent.com/u/68770209?v=4">
-    <meta property="og:url" content="https://kimteddy.github.io/">
-    <title>TeddyElectronics - 테디의 전자공학</title>
-    <link rel="TeddyElectronics icon" type="image/x-icon" href="/assets/images/site/TeddyElectronics.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/styles.css">
-
-    <script>
-        function toggleService(event) {
-            const service = event.currentTarget.parentElement;
-            const isExpanded = service.classList.contains('expanded');
-            document.querySelectorAll('.service').forEach(s => s.classList.remove('expanded'));
-            if (!isExpanded) {
-                service.classList.add('expanded');
-            }
-        }
-
-        window.addEventListener('scroll', () => {
-            const scrollProgressBars = document.querySelectorAll('.scroll-progress-bar');
-            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollPosition = window.scrollY;
-            const scrollPercentage = (scrollPosition / scrollHeight) * 100;
-
-            // 모든 선택된 요소에 대해 width를 업데이트
-            scrollProgressBars.forEach((bar) => {
-                bar.style.width = `${scrollPercentage}%`;
-            });
-        });
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Teddy Kim — 임베디드 시스템 엔지니어 포트폴리오. STM32, FPGA, IoT, PCB 설계 전문.">
+  <meta property="og:title" content="TeddyElectronics — Embedded System Engineer">
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="Teddy Kim의 임베디드 시스템 엔지니어 포트폴리오">
+  <meta property="og:image" content="https://avatars.githubusercontent.com/u/68770209?v=4">
+  <meta property="og:url" content="https://kimteddy.github.io/">
+  <title>TeddyElectronics — Embedded System Engineer</title>
+  <link rel="icon" type="image/x-icon" href="assets/images/site/TeddyElectronics.ico">
+  <link rel="stylesheet" href="assets/css/globals.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/home.css">
 </head>
-
 <body>
-    <!-- Include navigation -->
-    <div id="navigation">
-        <!-- Navigation content will be dynamically included -->
-        <script>
-            fetch('nav.html').then(res => res.text()).then(data => document.getElementById('navigation').innerHTML = data);
-        </script>
+
+<!-- Navigation -->
+<nav class="nav" id="main-nav">
+  <div class="nav__inner">
+    <a href="./" class="nav__logo">&lt;T/&gt; <span>TeddyElectronics</span></a>
+    <div class="nav__links">
+      <a href="./" class="nav__link">Home</a>
+      <a href="about.html" class="nav__link">About</a>
+      <a href="projects.html" class="nav__link">Projects</a>
+      <a href="experience.html" class="nav__link">Experience</a>
+      <a href="skills.html" class="nav__link">Skills</a>
+      <a href="seminars.html" class="nav__link">Seminars</a>
+      <a href="contact.html" class="nav__link">Contact</a>
     </div>
+    <div class="nav__actions">
+      <button class="theme-toggle" aria-label="Toggle theme">☀️</button>
+      <div class="nav__burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+  <div class="nav__progress"></div>
+  <!-- Mobile Menu -->
+  <div class="nav__mobile-menu">
+    <a href="./" class="nav__link">Home</a>
+    <a href="about.html" class="nav__link">About</a>
+    <a href="projects.html" class="nav__link">Projects</a>
+    <a href="experience.html" class="nav__link">Experience</a>
+    <a href="skills.html" class="nav__link">Skills</a>
+    <a href="seminars.html" class="nav__link">Seminars</a>
+    <a href="contact.html" class="nav__link">Contact</a>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+
+  <!-- Hero Section -->
+  <section class="hero">
     <div class="container">
-        <div class="sidebar">
-            <div class="profile">
-                <img src="https://avatars.githubusercontent.com/u/68770209?v=4" alt="Profile Picture"
-                    class="profile-pic">
-                <div class="footer-social">
-                    <div class="social-icons">
-                        <a href="https://github.com/KimTeddy" target="_blank">
-                            <img src="assets/images/logos/github-mark-white.svg" alt="GitHub" />
-                        </a>
-                        <a href="https://blog.naver.com/teddy_02" target="_blank">
-                            <img src="assets/images/logos/naverblog.svg" alt="blog" />
-                        </a>
-                        <a href="https://www.youtube.com/@TeddyElectronics" target="_blank">
-                            <img src="assets/images/logos/youtubeicon.png" alt="youtube" />
-                        </a>
-                        <a href="https://www.instagram.com/Teddy_Electronics" target="_blank">
-                            <img src="assets/images/logos/instagram.svg" alt="Instagram" />
-                        </a>
-                        <a href="mailto:teddy_02@naver.com">
-                            <img src="assets/images/logos/gmail.svg" alt="Mail" />
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <h2>Teddy Kim</h2>
-            <p>Embedded System Developer</p>
-            <div class="skills">
-                <h3>📚Tech Stack📚</h3>
-                <div class="skill">
-                    <h3>Languages</h3>
-                    <h5>Basic<br>
-                        <img src="https://img.shields.io/badge/C-A8B9CC?style=flat&logo=c&logoColor=white">
-                        <img src="https://img.shields.io/badge/C++-00599C?style=flat&logo=cplusplus&logoColor=white">
-                    </h5>
-                    <h5>Web<br>
-                        <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white">
-                        <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white">
-                        <img
-                            src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=white">
-                    </h5>
-                    <h5>Windows<br>
-                        <a href="https://github.com/KimTeddy/Batchfile">
-                            <img
-                                src="https://img.shields.io/badge/Repository-Windows batch-4D4D4D?style=flat&logo=windowsterminal&logoColor=white">
-                        </a>
-                        <a href="https://github.com/KimTeddy/VBScript/tree/main">
-                            <img
-                                src="https://img.shields.io/badge/Repository-Windows VBScript-0078D6?style=flat&logo=windows10&logoColor=white">
-                        </a>
-                    </h5>
-                    <h5>Digital Logic Circuit<br>
-                        <a href="https://github.com/KimTeddy/DigitalSystem" target="_blank">
-                            <img
-                                src="https://img.shields.io/badge/Repository-Verilog-E01F27?style=flat&logo=v&logoColor=white">
-                        </a>
-                    </h5>
-                    <h5>Others<br>
-                        <img
-                            src="https://img.shields.io/badge/Markdown-101010?style=flat&logo=markdown&logoColor=white">
-                    </h5>
-                    <h3>Library<br>
-                        <a href="https://github.com/KimTeddy/OpenGL" target="_blank">
-                            <img
-                                src="https://img.shields.io/badge/Repository-OpenGL-5586A4?style=flat&logo=opengl&logoColor=white">
-                        </a>
-                        <a href="https://github.com/KimTeddy/OpenCV" target="_blank">
-                            <img
-                                src="https://img.shields.io/badge/Repository-OpenCV-5C3EE8?style=flat&logo=opencv&logoColor=white">
-                        </a>
-                    </h3>
-
-                    <h3>Terminal & OS<br>
-                        <img
-                            src="https://img.shields.io/badge/PowerShell-5391FE?style=flat&logo=powershell&logoColor=white">
-                        /
-                        <a href="" target="_blank">
-                            <img src="https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=white">
-                        </a>
-                        (<img src="https://img.shields.io/badge/Zsh-F15A24?style=flat&logo=zsh&logoColor=white">
-                        <img src="https://img.shields.io/badge/Jupyter-F37626?style=flat&logo=jupyter&logoColor=white">)
-                    </h3>
-                    <h3>Home IoT<br>
-                        <a href="https://www.home-assistant.io/" target="_blank">
-                            <img
-                                src="https://img.shields.io/badge/Home Assistant-41BDF5?style=flat&logo=homeassistant&logoColor=white">
-                        </a>
-                        <a href="https://www.esphome.io/" target="_blank">
-                            <img
-                                src="https://img.shields.io/badge/ESPHome-000000?style=flat&logo=esphome&logoColor=white">
-                        </a>
-                        <a href="https://nodered.org/" target="_blank">
-                            <img
-                                src="https://img.shields.io/badge/Node--RED-8F0000?style=flat&logo=nodered&logoColor=white">
-                        </a>
-                        <a href="https://yaml.org/" target="_blank">
-                            <img src="https://img.shields.io/badge/YAML-CB171E?style=flat&logo=yaml&logoColor=white">
-                        </a>
-                        <br>
-                        <img
-                            src="https://img.shields.io/badge/Google Assistant SDK-4285F4?style=flat&logo=googleassistant&logoColor=white">
-                        <img
-                            src="https://img.shields.io/badge/Google Home-4285F4?style=flat&logo=googlehome&logoColor=white">
-                        <img
-                            src="https://img.shields.io/badge/Google Assistant-4285F4?style=flat&logo=googleassistant&logoColor=white">
-                    </h3>
-                    <h6>Not Using Now
-                        <a href="https://ifttt.com/explore" target="_blank">
-                            <img src="https://img.shields.io/badge/IFTTT-000000?style=flat&logo=ifttt&logoColor=white">
-                        </a>
-                        <a href="https://io.adafruit.com/" target="_blank">
-                            <img
-                                src="https://img.shields.io/badge/Adafruit IO-000000?style=flat&logo=adafruit&logoColor=white">
-                        </a>
-                        <a href="https://cloud.arduino.cc/" target="_blank">
-                            <img
-                                src="https://img.shields.io/badge/Arduino Cloud-00878F?style=flat&logo=arduino&logoColor=white">
-                        </a>
-                    </h6>
-                    <h3>📱 Hardwares 📱</h3>
-                    <a href="https://www.st.com/en/microcontrollers-microprocessors/stm32-32-bit-arm-cortex-mcus.html"
-                        target="_blank">
-                        <img src="https://img.shields.io/badge/Arm(STM32)-0091BD?style=flat&logo=arm&logoColor=white">
-                    </a>
-                    <a href="" target="_blank">
-                        <img src="https://img.shields.io/badge/ATmega-EC1C24?style=flat&logo=atmega&logoColor=white">
-                    </a>
-                    <a href="https://digilent.com/reference/programmable-logic/zybo-z7/start" target="_blank">
-                        <img src="https://img.shields.io/badge/FPGA-588A49?style=flat&logo=&logoColor=white">
-                    </a>
-                    <a href="https://www.arduino.cc/" target="_blank">
-                        <img src="https://img.shields.io/badge/Arduino-00878F?style=flat&logo=arduino&logoColor=white">
-                    </a>
-                    <a href="https://www.raspberrypi.com/" target="_blank">
-                        <img
-                            src="https://img.shields.io/badge/Raspberry Pi-A22846?style=flat&logo=raspberrypi&logoColor=white">
-                    </a>
-
-                    <h3>🛠 Tools 🛠</h3>
-                    <h3>IDEs
-                        <br>
-                        <a href="https://visualstudio.microsoft.com/ko/#vs-section">
-                            <img
-                                src="https://img.shields.io/badge/Visual Studio-5C2D91?style=flat&logo=visualstudio&logoColor=white">
-                        </a>
-                        <a href="[https://visualstudio.microsoft.com/ko/#vs-section](https://code.visualstudio.com/)">
-                            <img
-                                src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=flat&logo=visualstudiocode&logoColor=white">
-                        </a>
-                        <a href="https://www.arduino.cc/en/software">
-                            <img
-                                src="https://img.shields.io/badge/Arduino-00979D?style=flat&logo=arduino&logoColor=white">
-                        </a>
-                        <br>
-                        <a href="https://www.iar.com/products/architectures/arm/iar-embedded-workbench-for-arm/">
-                            <img src="https://img.shields.io/badge/IAR-000000?style=flat&logo=arm&logoColor=white">
-                        </a>
-                        <a href="https://www.st.com/en/development-tools/stm32cubeide.html">
-                            <img
-                                src="https://img.shields.io/badge/Cube IDE-3BB5E5?style=flat&logo=stmicroelectronics&logoColor=white">
-                        </a>
-                        <a href="https://www.st.com/en/development-tools/stm32cubemx.html">
-                            <img
-                                src="https://img.shields.io/badge/Cube MX-3BB5E5?style=flat&logo=stmicroelectronics&logoColor=white">
-                        </a>
-                        <br>
-                        <a href="https://www.xilinx.com/products/design-tools/vivado.html" target="_blank">
-                            <img src="https://img.shields.io/badge/Vivado-D5D66A?style=flat&logo=amd&logoColor=white">
-                        </a>
-                        <a href="https://www.xilinx.com/products/design-tools/vitis.html" target="_blank">
-                            <img src="https://img.shields.io/badge/Vitis-D22D1D?style=flat&logo=amd&logoColor=white">
-                        </a>
-                    </h3>
-                    <h3>CAD(PCB, 3D)
-                        <br>
-                        <a href="https://www.kicad.org/">
-                            <img src="https://img.shields.io/badge/KiCad-314CB0?style=flat&logo=kicad&logoColor=white">
-                        </a>
-                        <a href="https://www.solidworks.com/ko">
-                            <img
-                                src="https://img.shields.io/badge/SOLIDWORKS-FF0000?style=flat&logo=dassaultsystemes&logoColor=white">
-                        </a>
-                    </h3>
-                    <h3>VirtualMachine
-                        <br>
-                        <a href="https://www.virtualbox.org/">
-                            <img
-                                src="https://img.shields.io/badge/VirtualBox-183A61?style=flat&logo=virtualbox&logoColor=white">
-                        </a>
-                    </h3>
-                    <h3>3D</h3>
-                    <h5>Modeling/Animation/Rendering<br>
-                        <a href="https://www.blender.org/">
-                            <img
-                                src="https://img.shields.io/badge/Blender-F5792A?style=flat&logo=blender&logoColor=white">
-                        </a>
-                    </h5>
-                    <h5>Slicer<br>
-                        <a href="https://ultimaker.com/software/ultimaker-cura/">
-                            <img src="https://img.shields.io/badge/Cura-196EF0?style=flat&logo=c&logoColor=white">
-                        </a>
-                        <a
-                            href="https://www.creality.com/pages/download-ender-5-plus?spm=..page_1934481.products_display_1.1">
-                            <img
-                                src="https://img.shields.io/badge/Creality Slicer-00A3C6?style=flat&logo=creality&logoColor=white">
-                        </a>
-                        <a href="https://bambulab.com/en/download/studio">
-                            <img
-                                src="https://img.shields.io/badge/Bambu Studio-00AE42?style=flat&logo=&logoColor=white">
-                        </a>
-                    </h5>
-                    <h3>Others</h3>
-                    <h5>3D Modeling, Digital Logic Circuit<br>
-                        <a href="https://www.minecraft.net/ko-kr">
-                            <img
-                                src="https://img.shields.io/badge/Minecraft-62B47A?style=flat&logo=minecraft&logoColor=white">
-                        </a>
-                    </h5>
-                    <h5>Music<br>
-                        <a href="https://musescore.org/ko">
-                            <img
-                                src="https://img.shields.io/badge/MuseScore-1A70B8?style=flat&logo=musescore&logoColor=white">
-                        </a>
-                        <a href="https://www.presonus.com/en/start">
-                            <img
-                                src="https://img.shields.io/badge/Studio One 5-0083FF?style=flat&logo=&logoColor=white">
-                        </a>
-                        <a href="https://apps.apple.com/kr/app/garageband/id408709785">
-                            <img
-                                src="https://img.shields.io/badge/GarageBand-F2653A?style=flat&logo=itunes&logoColor=white">
-                        </a>
-                        <a href="">
-                            <img
-                                src="https://img.shields.io/badge/GoldWave-F2653A?style=flat&logo=goldwave&logoColor=white">
-                        </a>
-                    </h5>
-                    <h5>Video Edit<br>
-                        <a href="https://www.minecraft.net/ko-kr">
-                            <img
-                                src="https://img.shields.io/badge/DavinciResolve-233A51?style=flat&logo=davinciresolve&logoColor=white">
-                        </a>
-                    </h5>
-                </div>
-            </div>
+      <div class="hero__grid">
+        <div class="hero__text" data-animate="fade-up">
+          <p class="hero__greeting">EMBEDDED SYSTEM ENGINEER</p>
+          <h1 class="hero__name">안녕하세요,<br><span class="text-gradient">Teddy Kim</span><br>입니다.</h1>
+          <p class="hero__role">하드웨어와 소프트웨어를 직접 설계하고 제작합니다.</p>
+          <div class="hero__cta">
+            <a href="projects.html" class="btn btn--primary">프로젝트 보기 →</a>
+            <a href="contact.html" class="btn btn--ghost">연락하기</a>
+          </div>
         </div>
-
-        <div class="main">
-            <h1>Discover My Amazing Embedded System Space!</h1>
-
-            <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&duration=2000&pause=500&random=true&width=435&lines=My+major+is+electronic+engineering.;I+am+an+embedded+developer.;Home+IoT+is+my+hobby.;I+want+to+be+an+embedded+engineer."
-                alt="Typing SVG" class="anim-text">
-            <br>
-            <img src="assets/images/site/profile-custom-rainbow.svg" alt="svg" width="50%"
-                class="profile-custom-rainbow">
-            <div class="stats">
-                <h3>Stats</h3>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td><b>10+</b><br>Years Experience</td>
-                            <td><b>20+</b><br>Completed Projects</td>
-                            <td><b>7+</b><br>Honors and Awards</td>
-                            <td><b>10+</b><br>Presented Seminars</td>
-                        </tr>
-                    </tbody>
-                </table>
-                </ul>
-            </div>
-            <div class="services">
-                <div class="service">
-                    <h3>Embedded Systems</h3>
-                    <p>임베디드 시스템 설계가 전공이며, 이를 취미로 합니다.</p>
-                    <a href="#" class="button" onclick="toggleService(event)">See More</a>
-                    <div class="service-content">
-                        <p>전자공학과에서 임베디드 트랙을 선택하여 임베디드, RTL 회로 설계 강의를 수강했습니다.</p>
-                    </div>
-                </div>
-                <div class="service">
-                    <h3>Home IoT</h3>
-                    <p>Home IoT HW, SW 설계가 main 취미입니다.</p>
-                    <a href="#" class="button" onclick="toggleService(event)">See More</a>
-                    <div class="service-content">
-                        <p>2021년 11월부터 현재까지 점점 발전시켜가며 진행하고 있습니다.</p>
-                        <p>집에서 Home Assistant 기반의 프로젝트를 진행하고 있습니다.</p>
-                    </div>
-                </div>
-                <div class="service">
-                    <h3>OpenGL</h3>
-                    <p>컴퓨터그래픽스 대학 전공 강의를 수강하였으며, LLM 서비스가 없던 시기에 프로젝트를 진행했습니다.</p>
-                    <a href="#" class="button" onclick="toggleService(event)">See More</a>
-                    <div class="service-content">
-                        <p>OpenGL 대학 전공 강의를 수강했습니다.</p>
-                        <p>LLM 서비스가 없던 시기에 프로젝트를 진행했습니다.</p>
-                        <p>다음 프로젝트를 진행했습니다.</p>
-                        <h1>OpenGL</h1>
-                        <h2>📖Studied - 2023.03~06</h2>
-                        <h2>💻Projects</h2>
-                        <table>
-                            <tbody>
-                                <tr align="center">
-                                    <th>Phase</th>
-                                    <th>Date</th>
-                                    <th>Lines of Code</th>
-                                    <th>Go to Description</th>
-                                </tr>
-                                <tr align="center">
-                                    <td rowspan="3">While Studying📖</td>
-                                    <td>2023.03.04</td>
-                                    <td>302</td>
-                                    <td align="left"><a
-                                            href="https://github.com/KimTeddy/OpenGL/tree/main/230324_PONG_by_KimTeddy">PONG
-                                            GAME</a>
-                                    </td>
-                                </tr>
-                                <tr align="center">
-                                    <td>2023.05.03</td>
-                                    <td>379</td>
-                                    <td align="left"><a
-                                            href="https://github.com/KimTeddy/OpenGL/tree/main/230503_CARS_puzzle_game_by_KimTeddy">2D
-                                            CAR Escape Game</a></td>
-                                </tr>
-                                <tr align="center">
-                                    <td>2023.06.07</td>
-                                    <td>915</td>
-                                    <td align="left"><a
-                                            href="https://github.com/KimTeddy/OpenGL/tree/main/230607_CARS_puzzle_game-3D_by_KimTeddy">3D
-                                            CAR(?) Escape Game</a></td>
-                                </tr>
-                                <tr align="center">
-                                    <td>After⌨️</td>
-                                    <td>2023.09~12</td>
-                                    <td>954</td>
-                                    <td align="left"><a
-                                            href="https://github.com/KimTeddy/OpenGL/tree/main/2309-12_Drivers_license_test_Simulation">Drivers
-                                            license test Simulation</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="service">
-                    <h3>OpenCV</h3>
-                    <p>컴퓨터비전시스템 대학 전공 강의를 수강하였으며, LLM 서비스가 없던 시기에 프로젝트를 진행했습니다.</p>
-                    <a href="#" class="button" onclick="toggleService(event)">See More</a>
-                    <div class="service-content">
-                        <p>OpenCV 대학 전공 강의를 수강했습니다.</p>
-                        <p>LLM 서비스가 없던 시기에 프로젝트를 진행했습니다.</p>
-                        <p>다음 프로젝트를 진행했습니다.</p>
-                        <h1>OpenCV</h1>
-                        <h2>📖Studied - 2023.09~12</h2>
-                        <h2>💻Projects</h2>
-                        <table>
-                            <tbody>
-                                <tr align="center">
-                                    <th>Phase</th>
-                                    <th>Date</th>
-                                    <th>Lines of Code</th>
-                                    <th>Go to Description</th>
-                                </tr>
-                                <tr align="center">
-                                    <td rowspan="2">While Studying📖</td>
-                                    <td>2023.12.01</td>
-                                    <td>867</td>
-                                    <td align="left"><a
-                                            href="https://github.com/KimTeddy/OpenCV/tree/main/231201_Video_player_with_video_analyzer">동영상
-                                            영상처리 프로그램</a>
-                                    </td>
-                                </tr>
-                                <tr align="center">
-                                    <td>2023.05.03</td>
-                                    <td>808</td>
-                                    <td align="left"><a
-                                            href="https://github.com/KimTeddy/OpenCV/tree/main/231208_Image_viewer_with_image_analyzer">이미지
-                                            영상처리 프로그램</a></td>
-                                </tr>
-                                <tr align="center">
-                                    <td>After⌨️</td>
-                                    <td>2023.12.19</td>
-                                    <td>867</td>
-                                    <td align="left"><a
-                                            href="https://github.com/KimTeddy/OpenCV/tree/main/231219_Video_to_bmp">동영상을
-                                            10프레임 간격으로 BMP 이미지로 저장하는 프로그램</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="service">
-                    <h3>Web Development</h3>
-                    <p>웹프로그래밍은 비전문적으로 필요에 따라 합니다.</p>
-                    <a href="#" class="button" onclick="toggleService(event)">See More</a>
-                    <div class="service-content">
-                        <p>웹프로그래밍 기초 대학 교양 강의를 수강했습니다.</p>
-                        <p>이 페이지를 직접 디자인하고 만들었습니다.</p>
-                    </div>
-                </div>
-                <div class="service">
-                    <h3>Lectures / Seminars</h3>
-                    <p>대학교 전공 강의 중 임베디드 관련 수강 내용입니다.</p>
-                    <p>세미나 진행, 주최, 수강한 내용입니다.</p>
-                    <a href="#" class="button" onclick="toggleService(event)">See More</a>
-                    <div class="service-content">
-                        <h2>Seminars</h2>
-                        <p>세미나 관련 내용은 아래 링크를 클릭하세요.</p>
-                        <p>Go to > <a href="#seminars">Seminars</a></p>
-                        <h2>Lectures</h2>
-                        <p>대학교 전공 강의 중 임베디드 관련 수강 내용입니다.</p>
-                        <table border="1" style="border-collapse: collapse; text-align: left;">
-                            <thead>
-                                <tr>
-                                    <th>Year</th>
-                                    <th>Grade</th>
-                                    <th width="20%">Course Name (Professor)</th>
-                                    <th>Details</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td rowspan="1">2019</td>
-                                    <td>A+</td>
-                                    <td>디지털논리회로 (오영철)</td>
-                                    <td>Digital Logic Circuits</td>
-                                </tr>
-                                <tr>
-                                    <td rowspan="4">2022</td>
-                                    <td>A+</td>
-                                    <td>고급C언어 (최우영)</td>
-                                    <td>Advanced C Language (Pointer, Linked List, File I/O)</td>
-                                </tr>
-                                <tr>
-                                    <td>A+</td>
-                                    <td>컴퓨터구조 (김재민)</td>
-                                    <td>OS, Cache, IO, BinaryArithmetic, Instructions, Pipeline, CU</td>
-                                </tr>
-                                <tr>
-                                    <td>A+</td>
-                                    <td>자료구조 (변하영)</td>
-                                    <td>List, Stack, Queue, Tree, Graph, Sort, Searching, Hashing</td>
-                                </tr>
-                                <tr>
-                                    <td>A+</td>
-                                    <td>지능형센서응용 (김정국)</td>
-                                    <td>해당 강의 전 평가항목 만점, ATmega128A Registers, Microchip (Atmel) Studio</td>
-                                </tr>
-                                <tr>
-                                    <td rowspan="5">2023</td>
-                                    <td>A+</td>
-                                    <td>마이크로프로세서응용 (김정국)</td>
-                                    <td>Team Project (Leader), STM32F767 (ARM) Registers, IAR Embedded Workbench</td>
-                                </tr>
-                                <tr>
-                                    <td>A+</td>
-                                    <td>임베디드시스템 (김재민)</td>
-                                    <td>Team Project (Leader), Linux, UDOO Board, Cross Compile, Makefile, Fork, Thread
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>A+</td>
-                                    <td>컴퓨터그래픽스 (최우영)</td>
-                                    <td>OpenGL, GLUI, C++, Visual Studio 2022</td>
-                                </tr>
-                                <tr>
-                                    <td>A+</td>
-                                    <td>컴퓨터비전시스템 (최우영)</td>
-                                    <td>OpenCV, GLUI, C++, Visual Studio 2022</td>
-                                </tr>
-                                <tr>
-                                    <td>A+</td>
-                                    <td>디지털시스템 (박상윤)</td>
-                                    <td>Team Project, Verilog, Vivado, FPGA (ZedBoard)</td>
-                                </tr>
-                                <tr>
-                                    <td rowspan="3">2024</td>
-                                    <td>A0</td>
-                                    <td>SoC설계 (박상윤)</td>
-                                    <td>Vitis, Vivado, Verilog, FPGA (Zybo Z7-20)</td>
-                                </tr>
-                                <tr>
-                                    <td>A+</td>
-                                    <td>의용전자공학 (김정국)</td>
-                                    <td>AED, Basic Concepts of Medical Instrumentation, Basic Sensors, Signal
-                                        Processing, Biopotentials, Electrodes, Electrical Safety, Medical Imaging,
-                                        Therapeutic Devices</td>
-                                </tr>
-                                <tr>
-                                    <td>A+</td>
-                                    <td>캡스톤디자인1&2 (김재민)</td>
-                                    <td>Team Project (Leader), Graduation Project, A.RM.I</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="service">
-                    <h3>Photography</h3>
-                    <p>전자 제품, 작품 사진 등을 촬영합니다.</p>
-                    <a href="#" class="button" onclick="toggleService(event)">See More</a>
-                    <div class="service-content">
-                        <a href="https://www.instagram.com/teddy_electronics/">
-                            <img
-                                src="https://img.shields.io/badge/Instagram-E4405F?style=flat&logo=instagram&logoColor=white" />
-                        </a>
-                    </div>
-                </div>
-                <div class="service">
-                    <h3>Compose Music</h3>
-                    <p>가끔 작곡을 합니다.</p>
-                    <a href="#" class="button" onclick="toggleService(event)">See More</a>
-                    <div class="service-content">
-                        <a href="https://www.youtube.com/@composingteddy">
-                            <img
-                                src="https://img.shields.io/badge/YouTube-ff0000?style=flat&logo=youtube&logoColor=white">
-                        </a>
-                        <a href="https://soundcloud.com/teddy-kim-818221387">
-                            <img
-                                src="https://img.shields.io/badge/SOUNDCLOUD-FF3300?style=flat&logo=soundcloud&logoColor=white">
-                        </a>
-                    </div>
-                </div>
-            </div>
+        <div class="hero__code" data-animate="fade-up" data-delay="2">
+          <div class="hero__code-header">
+            <span class="hero__code-dot"></span>
+            <span class="hero__code-dot"></span>
+            <span class="hero__code-dot"></span>
+          </div>
+          <pre class="hero__code-display" id="code-display"><span class="cursor"></span></pre>
         </div>
+      </div>
     </div>
-    <main>
-        <!-- Include about -->
-        <div id="about">
-            <!-- About content will be dynamically included -->
-            <script>
-                fetch('about.html')
-                    .then(res => res.text())
-                    .then(data => {
-                        // 'about'에 로드된 내용을 삽입
-                        document.getElementById('about').innerHTML = data;
+  </section>
 
-                        // 로드된 후 'code-display' 요소를 가져와 애니메이션 초기화
-                        const typingElement = document.getElementById("code-display");
-                        if (!typingElement) {
-                            console.error("Element with ID 'code-display' not found.");
-                            return;
-                        }
+  <!-- Dashboard Bento Grid -->
+  <section class="dashboard">
+    <div class="container">
+      <div class="dashboard__header" data-animate="fade-up">
+        <div>
+          <p class="section-label">Overview</p>
+          <h2 class="section-title">한눈에 보기</h2>
+        </div>
+      </div>
 
-                        // Initialize typing animation
-                        initializeTypingAnimation(typingElement);
-                    })
-                    .catch(error => console.error('Error loading about.html:', error));
-
-                // 시스템 설정에 따라 다크모드 설정
-                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    document.body.classList.add('dark-mode');
-                }
-
-                function initializeTypingAnimation(typingElement) {
-                    const sentences = [
-                        "My major is electronic engineering.",
-                        "I am an embedded developer.",
-                        "Home IoT is my hobby.",
-                        "I want to be an embedded engineer."
-                    ];
-
-                    const languages = [
-                        { language: "C", comment: "//", output: `<span class='keyword'>printf</span>(<span class='string'>\"{sentence}\\n\"</span>);` },
-                        { language: "Python", comment: "#", output: `<span class='keyword'>print</span>(<span class='string'>\"{sentence}\"</span>)` },
-                        { language: "Java", comment: "//", output: `<span class='keyword'>System.out.println</span>(<span class='string'>\"{sentence}\"</span>);` },
-                        {
-                            language: "HTML<span class='language-comment'>--&gt;</span>", comment: "&lt;!--", outputs: [
-                                "<span class='tag'>&lt;h1&gt;</span>{sentence}<span class='tag'>&lt;/h1&gt;</span>",
-                                "<span class='tag'>&lt;h2&gt;</span>{sentence}<span class='tag'>&lt;/h2&gt;</span> <span class='language-comment'>--&gt;</span>",
-                                "<span class='tag'>&lt;h3&gt;</span>{sentence}<span class='tag'>&lt;/h3&gt;</span> <span class='language-comment'>--&gt;</span>",
-                                "<span class='tag'>&lt;h4&gt;</span>{sentence}<span class='tag'>&lt;/h4&gt;</span> <span class='language-comment'>--&gt;</span>",
-                                "<span class='tag'>&lt;h5&gt;</span>{sentence}<span class='tag'>&lt;/h5&gt;</span> <span class='language-comment'>--&gt;</span>",
-                                "<span class='tag'>&lt;h6&gt;</span>{sentence}<span class='tag'>&lt;/h6&gt;</span> <span class='language-comment'>--&gt;</span>"
-                            ]
-                        }
-                    ];
-
-                    let currentSentenceIndex = 0;
-                    let currentLanguage = languages[Math.floor(Math.random() * languages.length)];
-                    let charIndex = 0;
-                    let isDeleting = false;
-                    let currentOutput = "";
-
-                    const cursor = `<span class="cursor"></span>`;
-
-                    function typeEffect() {
-                        typingElement.innerHTML = typingElement.innerHTML.replace(cursor, "");
-
-                        const currentSentence = sentences[currentSentenceIndex];
-                        if (currentLanguage.language === "HTML<span class='language-comment'>--&gt;</span>") {
-                            const randomOutput = currentLanguage.outputs[Math.floor(Math.random() * currentLanguage.outputs.length)];
-                            currentOutput = randomOutput.replace("{sentence}", currentSentence);
-                        } else {
-                            currentOutput = currentLanguage.output.replace("{sentence}", currentSentence);
-                        }
-
-                        if (!isDeleting && charIndex <= currentOutput.length) {
-                            typingElement.innerHTML = `<span class="language-comment">${currentLanguage.comment}</span> <span class="language-comment">${currentLanguage.language}</span>\n` +
-                                currentOutput.slice(0, charIndex) + cursor;
-                            charIndex++;
-                            setTimeout(typeEffect, 25);
-                        } else if (isDeleting && charIndex >= 0) {
-                            typingElement.innerHTML = `<span class="language-comment">${currentLanguage.comment}</span> <span class="language-comment">${currentLanguage.language}</span>\n` +
-                                currentOutput.slice(0, charIndex) + cursor;
-                            charIndex--;
-                            setTimeout(typeEffect, 10);
-                        } else {
-                            isDeleting = !isDeleting;
-
-                            if (!isDeleting) {
-                                currentSentenceIndex = (currentSentenceIndex + 1) % sentences.length;
-                                currentLanguage = languages[Math.floor(Math.random() * languages.length)];
-                                charIndex = 0;
-                                setTimeout(typeEffect, 250);
-                            } else {
-                                setTimeout(typeEffect, 1000);
-                            }
-                        }
-                    }
-                    typeEffect();
-                }
-            </script>
+      <div class="bento-grid">
+        <!-- Stats 2x2 block -->
+        <div class="stats-grid" data-animate="fade-up" data-delay="1">
+          <div class="card stat">
+            <span class="stat__number" data-count="10" data-suffix="+">0</span>
+            <span class="stat__label">Years Experience</span>
+          </div>
+          <div class="card stat">
+            <span class="stat__number" data-count="20" data-suffix="+">0</span>
+            <span class="stat__label">Projects</span>
+          </div>
+          <div class="card stat">
+            <span class="stat__number" data-count="7" data-suffix="+">0</span>
+            <span class="stat__label">Awards</span>
+          </div>
+          <div class="card stat">
+            <span class="stat__number" data-count="15" data-suffix="+">0</span>
+            <span class="stat__label">Seminars</span>
+          </div>
         </div>
 
-        <!-- Include skills -->
-        <div id="skills">
-            <!-- Skills content will be dynamically included -->
-            <script>
-                fetch('skills.html').then(res => res.text()).then(data => document.getElementById('skills').innerHTML = data);
-            </script>
+        <!-- Featured Project -->
+        <div class="card span-2 row-2 featured-project" data-animate="fade-up" data-delay="2">
+          <div>
+            <p class="section-label">Featured Project</p>
+            <img src="assets/images/sections/projects/2024/armi.jpg" alt="A.RM.I 프로젝트" class="featured-project__img">
+            <h3 class="card__title">A.RM.I — 졸업작품</h3>
+            <p class="card__desc">ARM과 AI 모델을 활용한 분산형 저전력 객체인식 군용 경계 감시 시스템</p>
+            <div class="featured-project__tags">
+              <span class="badge badge--accent">C/C++</span>
+              <span class="badge badge--accent">STM32</span>
+              <span class="badge badge--accent">PCB</span>
+              <span class="badge badge--accent">팀장</span>
+            </div>
+          </div>
+          <a href="projects.html" class="dashboard__view-all" style="margin-top:var(--space-4)">모든 프로젝트 보기 →</a>
         </div>
 
-        <!-- Include awards -->
-        <div id="awards">
-            <!--awards content will be dynamically included-->
-            <script>
-                fetch('awards.html').then(res => res.text()).then(data => document.getElementById('awards').innerHTML = data);
-            </script>
+        <!-- Tech Stack Preview -->
+        <div class="card span-2" data-animate="fade-up" data-delay="5">
+          <p class="section-label">Tech Stack</p>
+          <h3 class="card__title" style="margin-bottom:var(--space-4)">기술 스택</h3>
+          <div class="tech-preview">
+            <span class="tech-chip">C</span>
+            <span class="tech-chip">C++</span>
+            <span class="tech-chip">STM32</span>
+            <span class="tech-chip">FPGA</span>
+            <span class="tech-chip">Verilog</span>
+            <span class="tech-chip">KiCad</span>
+            <span class="tech-chip">PCB Design</span>
+            <span class="tech-chip">Linux</span>
+            <span class="tech-chip">Arduino</span>
+            <span class="tech-chip">Raspberry Pi</span>
+            <span class="tech-chip">Home Assistant</span>
+            <span class="tech-chip">ESPHome</span>
+            <span class="tech-chip">SOLIDWORKS</span>
+          </div>
+          <a href="skills.html" class="dashboard__view-all" style="margin-top:var(--space-4)">자세히 보기 →</a>
         </div>
 
-        <!-- Include experiences -->
-        <div id="experiences">
-            <!--experiences content will be dynamically included-->
-            <script>
-                fetch('experiences.html').then(res => res.text()).then(data => document.getElementById('experiences').innerHTML = data);
-            </script>
+        <!-- Recent Awards -->
+        <div class="card span-2" data-animate="fade-up" data-delay="6">
+          <p class="section-label">Awards</p>
+          <h3 class="card__title" style="margin-bottom:var(--space-4)">최근 수상</h3>
+          <div class="award-mini">
+            <div class="award-mini__item">
+              <span class="award-mini__name">제22회 임베디드 SW 경진대회</span>
+              <span class="award-mini__type">✨ 입선</span>
+            </div>
+            <div class="award-mini__item">
+              <span class="award-mini__name">캡스톤디자인 작품발표회</span>
+              <span class="award-mini__type">🥈 은상</span>
+            </div>
+            <div class="award-mini__item">
+              <span class="award-mini__name">ICT멘토링 학술대회 (ACK 2023)</span>
+              <span class="award-mini__type">🏆 최우수상</span>
+            </div>
+            <div class="award-mini__item">
+              <span class="award-mini__name">교내 캡스톤디자인 경진대회 (2022)</span>
+              <span class="award-mini__type">🏆 대상</span>
+            </div>
+          </div>
+          <a href="experience.html" class="dashboard__view-all" style="margin-top:var(--space-4)">전체 이력 보기 →</a>
         </div>
-
-        <!-- Include projects -->
-        <div id="projects">
-            <!-- Projects content will be dynamically included -->
-            <script>
-                fetch('projects.html').then(res => res.text()).then(data => document.getElementById('projects').innerHTML = data);
-            </script>
-        </div>
-
-
-        <!-- Include seminars -->
-        <div id="seminars">
-            <!-- Seminars content will be dynamically included -->
-            <script>
-                fetch('seminars.html').then(res => res.text()).then(data => document.getElementById('seminars').innerHTML = data);
-            </script>
-        </div>
-
-        <!-- Include contact -->
-        <div id="contact">
-            <!-- Contact content will be dynamically included -->
-            <script>
-                fetch('contact.html').then(res => res.text()).then(data => document.getElementById('contact').innerHTML = data);
-            </script>
-        </div>
-
-        <button id="back-to-top" title="Go to top">⇪</button>
-        <button id="dark-mode-toggle">🌙</button>
-    </main>
-    <!-- Include footer -->
-    <div id="footer">
-        <!-- Footer content will be dynamically included -->
-        <script>
-            fetch('footer.html').then(res => res.text()).then(data => document.getElementById('footer').innerHTML = data);
-        </script>
+      </div>
     </div>
+  </section>
 
+</div>
 
-    </div>
-    <!--<script src="assets/js/about-animation.js"></script> -->
-    <!-- Include the script -->
-    <!-- Include the JS-YAML library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
-    <!-- Include loading script -->
-    <script src="assets/js/load_awards.js"></script>
-    <script src="assets/js/load_experiences.js"></script>
-    <script src="assets/js/load_projects.js"></script>
-    <script src="assets/js/load_seminars.js"></script>
-    <script>
-        // Wait for the animation to finish, then show the content
-        /*
-        setTimeout(() => {
-            document.querySelector('.content').classList.add('show');
-        }, 10); // 3s fadeOut starts after 1.5s slideIn
-*/
+<!-- Footer -->
+<div id="footer-placeholder"></div>
 
-        document.addEventListener("DOMContentLoaded", function () {
-            // class로 선택된 모든 요소를 가져옴
-        });
+<button class="back-to-top" aria-label="Back to top">↑</button>
 
-        // Back-to-top button functionality
-        document.addEventListener("DOMContentLoaded", function () {
-            const backToTopButton = document.getElementById("back-to-top");
+<!-- Scripts -->
+<script src="assets/js/theme.js"></script>
+<script src="assets/js/navigation.js"></script>
+<script src="assets/js/animations.js"></script>
+<script>
+// Typing animation
+(function() {
+  function initTyping() {
+    const el = document.getElementById('code-display');
+    if (!el) return;
+    const sentences = [
+      "My major is electronic engineering.",
+      "I am an embedded developer.",
+      "Home IoT is my hobby.",
+      "I want to be an embedded engineer."
+    ];
+    const languages = [
+      { lang:"C", cm:"//", tpl: '<span class="cm">// C</span>\n<span class="fn">printf</span>(<span class="str">"{s}\\n"</span>);' },
+      { lang:"C++", cm:"//", tpl: '<span class="cm">// C++</span>\n<span class="kw">std</span>::<span class="fn">cout</span> << <span class="str">"{s}"</span> << <span class="kw">std</span>::<span class="fn">endl</span>;' },
+      { lang:"C#", cm:"//", tpl: '<span class="cm">// C#</span>\n<span class="kw">Console</span>.<span class="fn">WriteLine</span>(<span class="str">"{s}"</span>);' },
+      { lang:"Python", cm:"#", tpl: '<span class="cm"># Python</span>\n<span class="fn">print</span>(<span class="str">"{s}"</span>)' },
+      { lang:"Java", cm:"//", tpl: '<span class="cm">// Java</span>\n<span class="kw">System</span>.<span class="fn">out.println</span>(<span class="str">"{s}"</span>);' }
+    ];
+    let si=0, ci=0, deleting=false, output='';
+    let lang = languages[Math.floor(Math.random()*languages.length)];
+    const cursor = '<span class="cursor"></span>';
 
-            // Show/hide button on scroll
-            window.addEventListener("scroll", function () {
-                if (window.scrollY > 300) {
-                    backToTopButton.classList.add("visible");
-                } else {
-                    backToTopButton.classList.remove("visible");
-                }
-            });
+    function tick() {
+      const sentence = sentences[si];
+      output = lang.tpl.replace('{s}', sentence);
+      if (!deleting && ci <= output.length) {
+        el.innerHTML = output.slice(0,ci) + cursor;
+        ci++;
+        setTimeout(tick, 22);
+      } else if (deleting && ci >= 0) {
+        el.innerHTML = output.slice(0,ci) + cursor;
+        ci--;
+        setTimeout(tick, 8);
+      } else {
+        deleting = !deleting;
+        if (!deleting) {
+          si = (si+1)%sentences.length;
+          lang = languages[Math.floor(Math.random()*languages.length)];
+          ci = 0;
+          setTimeout(tick, 300);
+        } else {
+          setTimeout(tick, 1200);
+        }
+      }
+    }
+    tick();
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTyping);
+  } else {
+    initTyping();
+  }
+})();
 
-            // Scroll to top on click
-            backToTopButton.addEventListener("click", function () {
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-            });
-            /*
-                        // 시스템 설정에 따라 다크모드 설정
-                        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                            document.body.classList.add('dark-mode');
-                        }
-            */
-            // 다크모드 토글 버튼 기능 추가
-            document.getElementById('dark-mode-toggle').addEventListener('click', () => {
-                document.body.classList.toggle('dark-mode');
-            });
+// Count-up animation for stat numbers
+(function() {
+  function animateCountUp(el) {
+    const target = parseInt(el.getAttribute('data-count'), 10);
+    const suffix = el.getAttribute('data-suffix') || '';
+    const duration = 1500;
+    const startTime = performance.now();
 
-        });
-    </script>
+    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+    function update(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const current = Math.round(easeOutCubic(progress) * target);
+      el.textContent = current + suffix;
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        animateCountUp(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  function initCountUp() {
+    document.querySelectorAll('[data-count]').forEach(function(el) {
+      observer.observe(el);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCountUp);
+  } else {
+    initCountUp();
+  }
+})();
+</script>
 </body>
-
 </html>

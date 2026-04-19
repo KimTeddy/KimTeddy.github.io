@@ -1,0 +1,130 @@
+/* globals.css — Design Tokens, Reset, Typography */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #12121a;
+  --bg-surface: #16162266;
+  --bg-surface-solid: #161622;
+  --bg-surface-hover: #1a1a2e;
+  --bg-glass: rgba(255,255,255,0.03);
+  --bg-glass-hover: rgba(255,255,255,0.06);
+  --border-subtle: rgba(255,255,255,0.07);
+  --border-medium: rgba(255,255,255,0.12);
+  --border-accent: rgba(0,229,160,0.3);
+  --accent-primary: #00e5a0;
+  --accent-secondary: #3b82f6;
+  --accent-glow: rgba(0,229,160,0.15);
+  --accent-glow-strong: rgba(0,229,160,0.3);
+  --text-primary: #f0f0f5;
+  --text-secondary: #8888a0;
+  --text-tertiary: #55556a;
+  --text-accent: #00e5a0;
+  --text-link: #3b82f6;
+  --font-sans: 'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-mono: 'JetBrains Mono','Fira Code','Courier New',monospace;
+  --text-xs: 0.75rem; --text-sm: 0.875rem; --text-base: 1rem;
+  --text-lg: 1.125rem; --text-xl: 1.25rem; --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem; --text-4xl: 2.25rem; --text-5xl: 3rem;
+  --text-6xl: 3.75rem; --text-7xl: 4.5rem;
+  --leading-tight: 1.15; --leading-normal: 1.5; --leading-relaxed: 1.7;
+  --weight-light: 300; --weight-regular: 400; --weight-medium: 500;
+  --weight-semibold: 600; --weight-bold: 700; --weight-extrabold: 800;
+  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem;
+  --space-4: 1rem; --space-5: 1.25rem; --space-6: 1.5rem;
+  --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem;
+  --space-16: 4rem; --space-20: 5rem; --space-24: 6rem;
+  --radius-sm: 6px; --radius-md: 10px; --radius-lg: 16px;
+  --radius-xl: 24px; --radius-full: 9999px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 20px var(--accent-glow);
+  --transition-fast: 150ms ease; --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+  --nav-height: 64px; --container-max: 1200px; --container-narrow: 900px;
+  --z-nav: 1000; --z-modal: 2000;
+}
+
+body.light-mode {
+  --bg-primary: #f5f5fa; --bg-secondary: #ffffff;
+  --bg-surface: rgba(0,0,0,0.03); --bg-surface-solid: #f0f0f5;
+  --bg-surface-hover: rgba(0,0,0,0.06);
+  --bg-glass: rgba(255,255,255,0.7); --bg-glass-hover: rgba(255,255,255,0.85);
+  --border-subtle: rgba(0,0,0,0.08); --border-medium: rgba(0,0,0,0.12);
+  --accent-primary: #00b87a; --accent-glow: rgba(0,184,122,0.1);
+  --text-primary: #111118; --text-secondary: #555568;
+  --text-tertiary: #9999aa; --text-accent: #00875a;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: var(--nav-height); }
+body {
+  font-family: var(--font-sans); font-size: var(--text-base);
+  line-height: var(--leading-normal); color: var(--text-primary);
+  background-color: var(--bg-primary); -webkit-font-smoothing: antialiased;
+  overflow-x: hidden; word-break: keep-all; overflow-wrap: break-word;
+  transition: background-color var(--transition-slow), color var(--transition-slow);
+}
+img,video,svg { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+ul,ol { list-style: none; }
+h1,h2,h3,h4,h5,h6 { line-height: var(--leading-tight); font-weight: var(--weight-bold); }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--text-tertiary); border-radius: var(--radius-full); }
+::selection { background: var(--accent-primary); color: var(--bg-primary); }
+
+.container { width: 100%; max-width: var(--container-max); margin: 0 auto; padding: 0 var(--space-6); }
+.container--narrow { max-width: var(--container-narrow); }
+.page-wrapper { min-height: 100vh; padding-top: var(--nav-height); padding-bottom: var(--space-16); }
+.section { padding: var(--space-20) 0; }
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.text-accent { color: var(--text-accent); }
+.text-secondary { color: var(--text-secondary); }
+.text-mono { font-family: var(--font-mono); }
+
+.section-label {
+  font-family: var(--font-mono); font-size: var(--text-sm);
+  font-weight: var(--weight-medium); color: var(--accent-primary);
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--space-3);
+}
+.section-title {
+  font-size: var(--text-4xl); font-weight: var(--weight-extrabold);
+  margin-bottom: var(--space-4); letter-spacing: -0.02em;
+}
+.section-desc {
+  font-size: var(--text-lg); color: var(--text-secondary);
+  max-width: 600px; line-height: var(--leading-relaxed);
+}
+
+[data-animate] { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+[data-animate].is-visible { opacity: 1; transform: translateY(0); }
+[data-animate="fade-left"] { transform: translateX(-30px); }
+[data-animate="fade-right"] { transform: translateX(30px); }
+[data-animate="scale-in"] { transform: scale(0.95); }
+[data-animate].is-visible[data-animate="fade-left"],
+[data-animate].is-visible[data-animate="fade-right"] { transform: translateX(0); }
+[data-animate].is-visible[data-animate="scale-in"] { transform: scale(1); }
+[data-delay="1"]{transition-delay:.1s}[data-delay="2"]{transition-delay:.2s}
+[data-delay="3"]{transition-delay:.3s}[data-delay="4"]{transition-delay:.4s}
+[data-delay="5"]{transition-delay:.5s}[data-delay="6"]{transition-delay:.6s}
+
+@media(max-width:768px){
+  :root{--text-5xl:2.25rem;--text-6xl:2.75rem;--text-7xl:3.25rem;--nav-height:56px;}
+  .section{padding:var(--space-12) 0;} .section-title{font-size:var(--text-3xl);}
+  .container{padding:0 var(--space-4);}
+}
+@media(max-width:480px){
+  :root{--text-5xl:2rem;--text-6xl:2.25rem;--text-7xl:2.75rem;}
+  .section-title{font-size:var(--text-2xl);}
+}

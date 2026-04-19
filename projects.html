@@ -1,230 +1,144 @@
-<!-- projects.html -->
-<section id="projects">
-    <h2>Projects</h2>
-    <p>좌우로 스크롤 가능합니다! (PC: Shift키 누른 상태로 마우스 휠)</p>
-    <div class="project-scroll-container">
-        <!-- Projects will be dynamically added here -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Teddy Kim의 프로젝트 갤러리 — 임베디드, IoT, FPGA, OpenGL, OpenCV 프로젝트.">
+  <title>Projects — TeddyElectronics</title>
+  <link rel="icon" type="image/x-icon" href="assets/images/site/TeddyElectronics.ico">
+  <link rel="stylesheet" href="assets/css/globals.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/projects.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner">
+  <a href="./" class="nav__logo">&lt;T/&gt; <span>TeddyElectronics</span></a>
+  <div class="nav__links">
+    <a href="./" class="nav__link">Home</a><a href="about.html" class="nav__link">About</a>
+    <a href="projects.html" class="nav__link">Projects</a><a href="experience.html" class="nav__link">Experience</a>
+    <a href="skills.html" class="nav__link">Skills</a><a href="seminars.html" class="nav__link">Seminars</a>
+    <a href="contact.html" class="nav__link">Contact</a>
+  </div>
+  <div class="nav__actions">
+    <button class="theme-toggle" aria-label="Toggle theme">☀️</button>
+    <div class="nav__burger"><span></span><span></span><span></span></div>
+  </div>
+</div><div class="nav__progress"></div>
+<div class="nav__mobile-menu">
+  <a href="./" class="nav__link">Home</a><a href="about.html" class="nav__link">About</a>
+  <a href="projects.html" class="nav__link">Projects</a><a href="experience.html" class="nav__link">Experience</a>
+  <a href="skills.html" class="nav__link">Skills</a><a href="seminars.html" class="nav__link">Seminars</a>
+  <a href="contact.html" class="nav__link">Contact</a>
+</div></nav>
+
+<div class="page-wrapper">
+  <section class="projects-header">
+    <div class="container">
+      <p class="section-label" data-animate="fade-up">Projects</p>
+      <h1 class="section-title" data-animate="fade-up">프로젝트</h1>
+      <p class="section-desc" data-animate="fade-up">임베디드 시스템, IoT, FPGA, 컴퓨터 그래픽스 등 다양한 분야의 프로젝트입니다.</p>
     </div>
-</section>
+  </section>
+  <section class="section--compact">
+    <div class="container">
+      <div class="filter-bar" id="filter-bar">
+        <button class="filter-btn active" data-filter="all">전체</button>
+      </div>
+      <div id="projects-container"></div>
+    </div>
+  </section>
+</div>
 
-<!-- CSS -->
-<style>
-    .project-scroll-container {
-        /* display: flex;*/
-        gap: 20px;
-        /* padding: 10px;*/
-        justify-content: center;
-    }
-    .project-container {
-        flex-direction: column;
-        /* 연도별로 세로 배치 */
-        overflow-x: auto !important;
-        perspective: 10000px;
-        
-    }
+<div id="footer-placeholder"></div>
+<button class="back-to-top" aria-label="Back to top">↑</button>
 
-    .project-group {
-        display: flex; 
-        flex-wrap: nowrap;
-        /* 한 줄에 모든 카드 배치 */
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+<script src="assets/js/theme.js"></script>
+<script src="assets/js/navigation.js"></script>
+<script src="assets/js/animations.js"></script>
+<script>
+(function(){
+  var attempt=0;
+  function load(){
+    fetch('assets/data/projects.yaml').then(function(r){return r.text()}).then(function(t){
+      var data=jsyaml.load(t);
+      var container=document.getElementById('projects-container');
+      var filterBar=document.getElementById('filter-bar');
+      var categories=new Set();
+      if(!data.projects) return;
 
-        gap: 20px;
-        padding: 10px;
+      data.projects.forEach(function(group){
+        categories.add(group.year);
+        var title=document.createElement('h3');
+        title.className='year-group-title';
+        title.textContent=group.year;
+        title.setAttribute('data-category',group.year);
+        title.setAttribute('data-animate','fade-up');
+        container.appendChild(title);
 
-        overflow-y: hidden;
-        /* 세로 스크롤 비활성화 */
-        overflow-x: auto;
-        /* 가로 스크롤 활성화 */
-        scrollbar-width: thin;
-        /* 간소화된 스크롤바 */
-        -ms-overflow-style: none;
-        /* IE에서 스크롤 숨김 */
-        /*animation: scroll-loop 20s linear infinite;*/
+        var grid=document.createElement('div');
+        grid.className='projects-grid';
+        grid.setAttribute('data-category',group.year);
 
-        /*width: max-content;*/
-        width: auto !important;
-    }
+        group.projects.forEach(function(p){
+          var card=document.createElement('div');
+          card.className='card project-card';
+          card.setAttribute('data-animate','fade-up');
+          var html='';
+          if(p.image) html+='<img src="'+p.image+'" alt="'+p.title+'" class="card__image">';
+          html+='<h3 class="card__title">'+p.title+'</h3>';
+          html+='<p class="card__desc">'+p.description+'</p>';
+          html+='<p class="project-card__role"><strong>['+p.team+']</strong> '+p.role+'</p>';
+          if(p.tags){
+            html+='<div class="project-card__tags">';
+            p.tags.forEach(function(tag){html+='<span class="badge">'+tag+'</span>';});
+            html+='</div>';
+          }
+          html+='<div class="project-card__footer">';
+          html+='<span class="project-card__duration">'+p.duration+'</span>';
+          html+='<div class="link-icons">';
+          if(p.links){
+            if(p.links.github) html+='<a href="'+p.links.github+'" target="_blank"><img src="assets/images/logos/github-mark-white.svg" alt="GitHub" class="invert-light"></a>';
+            if(p.links.youtube) html+='<a href="'+p.links.youtube+'" target="_blank"><img src="assets/images/logos/youtubeicon.png" alt="YouTube"></a>';
+            if(p.links.other) html+='<a href="'+p.links.other+'" target="_blank" class="btn--icon" style="font-size:var(--text-xs);width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:var(--bg-glass);border:1px solid var(--border-subtle);border-radius:var(--radius-sm)">🔗</a>';
+          }
+          html+='</div></div>';
+          card.innerHTML=html;
+          grid.appendChild(card);
+        });
+        container.appendChild(grid);
+      });
 
-    .project-group:hover {
-        animation-play-state: paused;
-        /* hover 시 애니메이션 일시 중지 */
-    }
+      // Build filter buttons
+      categories.forEach(function(cat){
+        var btn=document.createElement('button');
+        btn.className='filter-btn';
+        btn.setAttribute('data-filter',cat);
+        btn.textContent=cat;
+        filterBar.appendChild(btn);
+      });
 
+      // Filter logic
+      filterBar.addEventListener('click',function(e){
+        var btn=e.target.closest('.filter-btn');
+        if(!btn) return;
+        filterBar.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
+        btn.classList.add('active');
+        var f=btn.getAttribute('data-filter');
+        container.querySelectorAll('[data-category]').forEach(function(el){
+          el.style.display=(f==='all'||el.getAttribute('data-category')===f)?'':'none';
+        });
+      });
 
-    .project-group::-webkit-scrollbar {
-        height: 6px;
-        /* 스크롤바 높이 */
-        background: #f1f1f1;
-        /* 스크롤바 배경색 */
-        /*display: none;  크롬, 사파리 스크롤 숨김 */
-    }
+      // Re-init animations for dynamically added elements
+      if(typeof window.reinitAnimations==='function') window.reinitAnimations();
 
-    .project-group::-webkit-scrollbar-thumb {
-        background: #888;
-        /* 스크롤바 색상 */
-        border-radius: 4px;
-        /* 둥근 모서리 */
-    }
-
-    .project-group::-webkit-scrollbar-thumb:hover {
-        background: #555;
-        /* 스크롤바 호버 색상 */
-    }
-
-
-    .project-card {
-       /* padding: 10px;*/
-        flex: 0 0 auto;
-        /* 카드 크기 고정 */
-        max-width: 300px;
-        width: 40%;
-        min-height: 250px;
-        /* 최소 높이 */
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-
-        transform-style: preserve-3d;
-        transform-origin: top;
-        /*animation: scroll-loop 20s linear infinite;*/
-    }
-
-    .project-card:hover {
-        transform: scale(1.05) translateY(-10px) translateZ(10px) rotateX(15deg);
-        /*transform: translateY(-10px) scale(1.05);*/
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        
-        animation-play-state: paused;
-    }
-
-    .project-card h3 {
-        text-align: center;
-        font-size: 1.4rem;
-        margin-bottom: 10px;
-    }
-
-    .project-image {
-        display: block;
-        /* 이미지를 블록 요소로 설정 */
-        margin: 0 auto;
-        /* 좌우 여백을 자동으로 설정해 가운데 정렬 */
-        width: auto;
-        max-height: 10rem;
-        /*max-width: 300px;*/
-        max-width: 90%;
-        /*height: 10em;*/
-        border-radius: 5px;
-        margin-bottom: 15px;
-        /* 이미지와 텍스트 간 간격 */
-
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 10%, rgba(0, 0, 0, 1) 100%);
-
-        object-fit: cover; /* 이미지가 영역에 맞게 늘어남 */
-        transition: transform 0.3s ease-out, position 0.3s ease-out, mask-image 0.3s ease-out, max-width 0.3s ease-out, max-height 0.3s ease-out;
-        transform-origin: top; /* Set the rotation axis to the top edge */
-        backface-visibility: hidden; /* Prevent the back face from showing */
-    }
-    .project-image:hover{
-        position: sticky;
-        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 1) 1%);
-        max-width: 100%;
-        max-height: 100%;
-        transform: scale(1.5) translateZ(1px);
-    }
-    
-    @keyframes image-scale {
-        0% {}
-
-        100% {
-        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 100%, rgba(0, 0, 0, 1) 100%);
-        }
-    }
-    .project-card p {
-        text-align: center;
-        font-size: 1rem;
-        color: #555;
-        margin-bottom: 10px;
-        margin: 5px 0;
-        /* 텍스트 간의 상하 간격 설정 */
-        line-height: 1.2;
-        /* 줄 높이 설정 */
-    }
-
-    .links-container {
-        display: flex;
-        justify-content: center;
-        gap: 30px;
-        /* 링크 간 간격 */
-        margin-top: 15px;
-    }
-
-    .project-btn {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        margin: 5px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-    @keyframes scroll-left {
-        0% {
-            transform: translateX(0);
-        }
-
-        100% {
-            transform: translateX(-100%);
-        }
-    }
-
-    @keyframes scroll-loop {
-        0% {
-            transform: translateX(0);
-        }
-
-        50% {
-            transform: translateX(-50%);
-        }
-
-        100% {
-            transform: translateX(0);
-        }
-    }
-    .filter-buttons {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .filter-btn {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        margin: 5px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    .filter-btn.active {
-        background-color: #0056b3;
-    }
-
-    .filter-btn:hover {
-        background-color: #0056b3;
-    }
-</style>
-
-<!--
-.project-group::-webkit-scrollbar {
-    height: 6px; /* 스크롤바 높이 */
-    background: #f1f1f1; /* 스크롤바 배경색 */
-    /*display: none;  크롬, 사파리 스크롤 숨김 */
-}
-.project-group::-webkit-scrollbar-thumb {
-    background: #888; /* 스크롤바 색상 */
-    border-radius: 4px; /* 둥근 모서리 */
-}
-.project-group::-webkit-scrollbar-thumb:hover {
-    background: #555; /* 스크롤바 호버 색상 */
-}-->
+    }).catch(function(err){
+      if(++attempt<3) setTimeout(load,2000);
+      else document.getElementById('projects-container').innerHTML='<p class="loading-text">프로젝트 데이터를 불러오지 못했습니다.</p>';
+    });
+  }
+  document.readyState==='loading'?document.addEventListener('DOMContentLoaded',load):load();
+})();
+</script>
+</body></html>

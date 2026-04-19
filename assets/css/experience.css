@@ -1,0 +1,52 @@
+/* experience.css — Timeline page */
+.experience-header { padding: var(--space-16) 0 var(--space-8); }
+
+.timeline { position: relative; padding-left: var(--space-8); }
+.timeline::before {
+  content:''; position: absolute; left: 14px; top: 0; bottom: 0;
+  width: 2px; background: var(--border-medium);
+}
+.timeline-year {
+  position: relative; font-size: var(--text-2xl); font-weight: var(--weight-extrabold);
+  color: var(--accent-primary); font-family: var(--font-mono);
+  margin: var(--space-12) 0 var(--space-6); padding-left: var(--space-4);
+}
+.timeline-year:first-child { margin-top: 0; }
+.timeline-year::before {
+  content:''; position: absolute; left: -26px; top: 50%; transform: translateY(-50%);
+  width: 14px; height: 14px; border-radius: var(--radius-full);
+  background: var(--accent-primary); border: 3px solid var(--bg-primary);
+  box-shadow: var(--shadow-glow);
+}
+body.light-mode .timeline-year::before { border-color: var(--bg-primary); }
+
+.timeline-section-label {
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--accent-secondary); text-transform: uppercase;
+  letter-spacing: 0.1em; margin: var(--space-6) 0 var(--space-3);
+  padding-left: var(--space-4);
+}
+
+.timeline-item {
+  position: relative; margin-bottom: var(--space-4);
+}
+.timeline-item::before {
+  content:''; position: absolute; left: -22px; top: 20px;
+  width: 6px; height: 6px; border-radius: var(--radius-full);
+  background: var(--text-tertiary); border: 2px solid var(--bg-primary);
+}
+body.light-mode .timeline-item::before { border-color: var(--bg-primary); }
+
+.timeline-item .card { padding: var(--space-4) var(--space-5); }
+.timeline-item__name {
+  font-size: var(--text-base); font-weight: var(--weight-semibold);
+  margin-bottom: var(--space-2);
+}
+.timeline-item__badges { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+
+@media(max-width:480px){
+  .timeline { padding-left: var(--space-6); }
+  .timeline::before { left: 10px; }
+  .timeline-year::before { left: -22px; width: 12px; height: 12px; }
+  .timeline-item::before { left: -18px; }
+}

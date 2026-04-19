@@ -1,101 +1,195 @@
-<section id="skills">
-    <h2>Skills</h2>
-    <p>대표 기술들을 확인하세요.</p>
-    <div class="skills-container">
-        <div class="skills-card cards">
-            <div class="skills-title">
-                <img src="assets/images/sections/skills/c++.png" alt="프로그래밍 아이콘">
-                <h3>프로그래밍</h3>
-            </div>
-            <ul>
-                <li>C</li>
-                <li>C++</li>
-                <li>Linux</li>
-                <li>Web Programming</li>
-            </ul>
-        </div>
-        <div class="skills-card cards">
-            <div class="skills-title">
-                <img src="assets/images/sections/skills/cad.png" alt="CAD/기구 설계 아이콘">
-                <h3>CAD/기구 설계</h3>
-            </div>
-            <ul>
-                <li>3D CAD-Solidworks</li>
-                <li>3D Printing</li>
-                <li>3D Slicer</li>
-            </ul>
-        </div>
-        <div class="skills-card cards">
-            <div class="skills-title">
-                <img src="assets/images/sections/skills/pcb.png" alt="전자 회로/소자 아이콘">
-                <h3>전자 회로/소자</h3>
-            </div>
-            <ul>
-                <li>Soldering</li>
-                <li>KiCad</li>
-                <li>Schematic 설계, 작성</li>
-                <li>PCB Artwork</li>
-            </ul>
-        </div>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Teddy Kim의 기술 스택 — C, C++, STM32, FPGA, KiCad, SOLIDWORKS 등.">
+  <title>Skills — TeddyElectronics</title>
+  <link rel="icon" type="image/x-icon" href="assets/images/site/TeddyElectronics.ico">
+  <link rel="stylesheet" href="assets/css/globals.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/skills.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner">
+  <a href="./" class="nav__logo">&lt;T/&gt; <span>TeddyElectronics</span></a>
+  <div class="nav__links">
+    <a href="./" class="nav__link">Home</a><a href="about.html" class="nav__link">About</a>
+    <a href="projects.html" class="nav__link">Projects</a><a href="experience.html" class="nav__link">Experience</a>
+    <a href="skills.html" class="nav__link">Skills</a><a href="seminars.html" class="nav__link">Seminars</a>
+    <a href="contact.html" class="nav__link">Contact</a>
+  </div>
+  <div class="nav__actions">
+    <button class="theme-toggle" aria-label="Toggle theme">☀️</button>
+    <div class="nav__burger"><span></span><span></span><span></span></div>
+  </div>
+</div><div class="nav__progress"></div>
+<div class="nav__mobile-menu">
+  <a href="./" class="nav__link">Home</a><a href="about.html" class="nav__link">About</a>
+  <a href="projects.html" class="nav__link">Projects</a><a href="experience.html" class="nav__link">Experience</a>
+  <a href="skills.html" class="nav__link">Skills</a><a href="seminars.html" class="nav__link">Seminars</a>
+  <a href="contact.html" class="nav__link">Contact</a>
+</div></nav>
+
+<div class="page-wrapper">
+  <section class="skills-header">
+    <div class="container">
+      <p class="section-label" data-animate="fade-up">Tech Stack</p>
+      <h1 class="section-title" data-animate="fade-up">기술 스택</h1>
+      <p class="section-desc" data-animate="fade-up">임베디드 시스템 개발에 필요한 다양한 기술을 보유하고 있습니다.</p>
     </div>
-</section>
+  </section>
+  <section class="section--compact">
+    <div class="container">
+      <div class="skills-bento">
+        <!-- Languages -->
+        <div class="card skill-category" data-animate="fade-up" data-delay="1">
+          <div class="skill-category__icon">💻</div>
+          <h3 class="skill-category__title">Languages</h3>
+          <h4 class="skill-sub">Basic</h4>
+          <div class="skill-category__items">
+            <span class="skill-chip" style="--c:#A8B9CC"><img src="https://cdn.simpleicons.org/c/A8B9CC" alt="">C</span>
+            <span class="skill-chip" style="--c:#00599C"><img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="">C++</span>
+            <span class="skill-chip" style="--c:#512BD4"><img src="https://cdn.simpleicons.org/csharp/512BD4" alt="">C#</span>
+            <span class="skill-chip" style="--c:#3776AB"><img src="https://cdn.simpleicons.org/python/3776AB" alt="">Python</span>
+          </div>
+          <h4 class="skill-sub">Web</h4>
+          <div class="skill-category__items">
+            <span class="skill-chip" style="--c:#E34F26"><img src="https://cdn.simpleicons.org/html5/E34F26" alt="">HTML5</span>
+            <span class="skill-chip" style="--c:#1572B6"><img src="https://cdn.simpleicons.org/css3/1572B6" alt="">CSS3</span>
+            <span class="skill-chip" style="--c:#F7DF1E"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="">JavaScript</span>
+          </div>
+          <h4 class="skill-sub">Windows</h4>
+          <div class="skill-category__items">
+            <a class="skill-chip skill-chip--repo" href="https://github.com/KimTeddy/Batchfile" target="_blank" style="--c:#4D4D4D"><img src="https://cdn.simpleicons.org/windowsterminal/4D4D4D" alt="">Windows Batch</a>
+            <a class="skill-chip skill-chip--repo" href="https://github.com/KimTeddy/VBScript" target="_blank" style="--c:#0078D6"><img src="https://cdn.simpleicons.org/windows/0078D6" alt="">VBScript</a>
+          </div>
+          <h4 class="skill-sub">Digital Logic Circuit</h4>
+          <div class="skill-category__items">
+            <a class="skill-chip skill-chip--repo" href="https://github.com/KimTeddy/DigitalSystem" target="_blank" style="--c:#E01F27"><img src="https://cdn.simpleicons.org/v/E01F27" alt="">Verilog</a>
+          </div>
+          <h4 class="skill-sub">Others</h4>
+          <div class="skill-category__items">
+            <span class="skill-chip" style="--c:#ffffff"><img src="https://cdn.simpleicons.org/markdown/ffffff" alt="">Markdown</span>
+            <span class="skill-chip" style="--c:#CB171E"><img src="https://cdn.simpleicons.org/yaml/CB171E" alt="">YAML</span>
+          </div>
+        </div>
 
-<!-- CSS -->
-<style>
-    .skills-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
-        gap: 20px;
-        perspective: 1000px;
-    }
+        <!-- Hardware -->
+        <div class="card skill-category" data-animate="fade-up" data-delay="2">
+          <div class="skill-category__icon">🔌</div>
+          <h3 class="skill-category__title">Hardware</h3>
+          <h4 class="skill-sub">MCU</h4>
+          <div class="skill-category__items">
+            <a class="skill-chip" href="https://www.st.com/en/microcontrollers-microprocessors/stm32-32-bit-arm-cortex-mcus.html" target="_blank" style="--c:#0091BD"><img src="https://cdn.simpleicons.org/arm/0091BD" alt="">STM32 (ARM)</a>
+            <span class="skill-chip" style="--c:#EC1C24"><img src="https://cdn.simpleicons.org/microchip/EC1C24" alt="">ATmega</span>
+            <span class="skill-chip" style="--c:#E7352C"><img src="https://cdn.simpleicons.org/espressif/E7352C" alt="">ESP8266/ESP32</span>
+            <span class="skill-chip" style="--c:#EC1C24"><img src="https://cdn.simpleicons.org/texasinstruments/EC1C24" alt="">TMS320F28388D</span>
+          </div>
+          <h4 class="skill-sub">FPGA</h4>
+          <div class="skill-category__items">
+            <a class="skill-chip" href="https://digilent.com/reference/programmable-logic/zybo-z7/start" target="_blank" style="--c:#588A49"><img src="https://cdn.simpleicons.org/xilinx/588A49" alt="">FPGA (Zybo Z7)</a>
+          </div>
+          <h4 class="skill-sub">Dev Board</h4>
+          <div class="skill-category__items">
+            <a class="skill-chip" href="https://www.arduino.cc/" target="_blank" style="--c:#00878F"><img src="https://cdn.simpleicons.org/arduino/00878F" alt="">Arduino</a>
+            <a class="skill-chip" href="https://www.raspberrypi.com/" target="_blank" style="--c:#A22846"><img src="https://cdn.simpleicons.org/raspberrypi/A22846" alt="">Raspberry Pi</a>
+          </div>
+        </div>
 
-    .skills-card {
-        display: flex;
-        flex-direction: row;
-        /* 세로 정렬 */
-        align-items: center;
-        justify-content: center;
-        padding: 10px;
+        <!-- IDEs & Tools -->
+        <div class="card skill-category" data-animate="fade-up" data-delay="3">
+          <div class="skill-category__icon">🛠️</div>
+          <h3 class="skill-category__title">IDEs & Tools</h3>
+          <h4 class="skill-sub">General</h4>
+          <div class="skill-category__items">
+            <a class="skill-chip" href="https://visualstudio.microsoft.com/ko/#vs-section" target="_blank" style="--c:#5C2D91"><img src="https://cdn.simpleicons.org/visualstudio/5C2D91" alt="">Visual Studio</a>
+            <a class="skill-chip" href="https://code.visualstudio.com/" target="_blank" style="--c:#007ACC"><img src="https://cdn.simpleicons.org/visualstudiocode/007ACC" alt="">VS Code</a>
+          </div>
+          <h4 class="skill-sub">Embedded</h4>
+          <div class="skill-category__items">
+            <a class="skill-chip" href="https://www.arduino.cc/en/software" target="_blank" style="--c:#00979D"><img src="https://cdn.simpleicons.org/arduino/00979D" alt="">Arduino IDE</a>
+            <a class="skill-chip" href="https://www.iar.com/products/architectures/arm/iar-embedded-workbench-for-arm/" target="_blank" style="--c:#56A14B"><img src="https://cdn.simpleicons.org/arm/56A14B" alt="">IAR</a>
+            <a class="skill-chip" href="https://www.st.com/en/development-tools/stm32cubeide.html" target="_blank" style="--c:#3BB5E5"><img src="https://cdn.simpleicons.org/stmicroelectronics/3BB5E5" alt="">STM32CubeIDE</a>
+            <a class="skill-chip" href="https://www.st.com/en/development-tools/stm32cubemx.html" target="_blank" style="--c:#3BB5E5"><img src="https://cdn.simpleicons.org/stmicroelectronics/3BB5E5" alt="">STM32CubeMX</a>
+          </div>
+          <h4 class="skill-sub">FPGA</h4>
+          <div class="skill-category__items">
+            <a class="skill-chip" href="https://www.xilinx.com/products/design-tools/vivado.html" target="_blank" style="--c:#D5D66A"><img src="https://cdn.simpleicons.org/amd/D5D66A" alt="">Vivado</a>
+            <a class="skill-chip" href="https://www.xilinx.com/products/design-tools/vitis.html" target="_blank" style="--c:#D22D1D"><img src="https://cdn.simpleicons.org/amd/D22D1D" alt="">Vitis</a>
+          </div>
+        </div>
 
-        transform-style: preserve-3d;
-        transform-origin: top;
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    }
+        <!-- CAD & Design -->
+        <div class="card skill-category" data-animate="fade-up" data-delay="4">
+          <div class="skill-category__icon">📐</div>
+          <h3 class="skill-category__title">CAD & Design</h3>
+          <h4 class="skill-sub">PCB</h4>
+          <div class="skill-category__items">
+            <a class="skill-chip" href="https://www.kicad.org/" target="_blank" style="--c:#314CB0"><img src="https://cdn.simpleicons.org/kicad/314CB0" alt="">KiCad</a>
+          </div>
+          <h4 class="skill-sub">3D Modeling</h4>
+          <div class="skill-category__items">
+            <a class="skill-chip" href="https://www.solidworks.com/ko" target="_blank" style="--c:#FF0000"><img src="https://cdn.simpleicons.org/dassaultsystemes/FF0000" alt="">SOLIDWORKS</a>
+            <a class="skill-chip" href="https://www.blender.org/" target="_blank" style="--c:#F5792A"><img src="https://cdn.simpleicons.org/blender/F5792A" alt="">Blender</a>
+          </div>
+        </div>
 
-    @media (max-width: 1050px) {
-        .skills-card {
-            flex-direction: column;
-        }
-    }
+        <!-- IoT Ecosystem -->
+        <div class="card skill-category" data-animate="fade-up" data-delay="5">
+          <div class="skill-category__icon">🏠</div>
+          <h3 class="skill-category__title">IoT Ecosystem</h3>
+          <h4 class="skill-sub">Platform</h4>
+          <div class="skill-category__items">
+            <a class="skill-chip" href="https://www.home-assistant.io/" target="_blank" style="--c:#41BDF5"><img src="https://cdn.simpleicons.org/homeassistant/41BDF5" alt="">Home Assistant</a>
+            <a class="skill-chip" href="https://www.esphome.io/" target="_blank" style="--c:#489FB5"><img src="https://cdn.simpleicons.org/esphome/489FB5" alt="">ESPHome</a>
+            <a class="skill-chip" href="https://nodered.org/" target="_blank" style="--c:#8F0000"><img src="https://cdn.simpleicons.org/nodered/8F0000" alt="">Node-RED</a>
+          </div>
+          <h4 class="skill-sub">Assistant</h4>
+          <div class="skill-category__items">
+            <a class="skill-chip" href="https://developers.google.com/assistant/sdk" target="_blank" style="--c:#4285F4"><img src="https://cdn.simpleicons.org/googleassistant/4285F4" alt="">Google Assistant SDK</a>
+          </div>
+          <h4 class="skill-sub">Smart Home Device</h4>
+          <div class="skill-category__items">
+            <a class="skill-chip" href="https://home.google.com/" target="_blank" style="--c:#4285F4"><img src="https://cdn.simpleicons.org/googlehome/4285F4" alt="">Google Home</a>
+            <a class="skill-chip" href="https://www.smartthings.com/" target="_blank" style="--c:#15BFFF"><img src="https://cdn.simpleicons.org/smartthings/15BFFF" alt="">SmartThings</a>
+            <a class="skill-chip" href="https://www.switch-bot.com/" target="_blank" style="--c:#FF0000"><img src="https://cdn.simpleicons.org/switchbot/FF0000" alt="">SwitchBot</a>
+            <a class="skill-chip" href="https://www.tapo.com/" target="_blank" style="--c:#4ACB29"><img src="https://cdn.simpleicons.org/tplink/4ACB29" alt="">Tapo</a>
+          </div>
+          <h4 class="skill-sub">Cloud</h4>
+          <div class="skill-category__items">
+            <a class="skill-chip" href="https://cloud.arduino.cc/" target="_blank" style="--c:#00878F"><img src="https://cdn.simpleicons.org/arduino/00878F" alt="">Arduino Cloud</a>
+          </div>
+        </div>
 
-    .skills-card:hover {
-        transform: translateZ(10px) rotateX(15deg);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    }
+        <!-- Libraries & OS -->
+        <div class="card skill-category" data-animate="fade-up" data-delay="6">
+          <div class="skill-category__icon">📚</div>
+          <h3 class="skill-category__title">Libraries & OS</h3>
+          <h4 class="skill-sub">Graphics & Vision</h4>
+          <div class="skill-category__items">
+            <a class="skill-chip skill-chip--repo" href="https://github.com/KimTeddy/OpenGL" target="_blank" style="--c:#5586A4"><img src="https://cdn.simpleicons.org/opengl/5586A4" alt="">OpenGL</a>
+            <a class="skill-chip skill-chip--repo" href="https://github.com/KimTeddy/OpenCV" target="_blank" style="--c:#5C3EE8"><img src="https://cdn.simpleicons.org/opencv/5C3EE8" alt="">OpenCV</a>
+          </div>
+          <h4 class="skill-sub">Terminal & OS</h4>
+          <div class="skill-category__items">
+            <span class="skill-chip" style="--c:#FCC624"><img src="https://cdn.simpleicons.org/linux/FCC624" alt="">Linux</span>
+            <span class="skill-chip" style="--c:#5391FE"><img src="https://cdn.simpleicons.org/powershell/5391FE" alt="">PowerShell</span>
+            <span class="skill-chip" style="--c:#F15A24"><img src="https://cdn.simpleicons.org/zsh/F15A24" alt="">Zsh</span>
+          </div>
+          <h4 class="skill-sub">Virtual Machine</h4>
+          <div class="skill-category__items">
+            <a class="skill-chip" href="https://www.virtualbox.org/" target="_blank" style="--c:#183A61"><img src="https://cdn.simpleicons.org/virtualbox/183A61" alt="">VirtualBox</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
 
-    .skills-card img {
-        justify-content: center;
-        max-width: 50px;
-        height: 50px;
-    }
-    .skills-title{
-        text-align: center;
-    }
-    .skills-card h3 {
-        align-items: center;
-        text-align: center;
-        font-size: 1.2rem;
-        margin-bottom: 10px;
-    }
-
-    .skills-card p {
-        font-size: 0.9rem;
-        margin-top: 10px;
-        margin-bottom: 1px;
-        color: #555;
-    }
-
-    .skills-card ul {
-        align-items: left;
-    }
-</style>
+<div id="footer-placeholder"></div>
+<button class="back-to-top" aria-label="Back to top">↑</button>
+<script src="assets/js/theme.js"></script>
+<script src="assets/js/navigation.js"></script>
+<script src="assets/js/animations.js"></script>
+</body></html>

@@ -1,85 +1,115 @@
-<section id="contact">
-    <h2>Contact Me</h2>
-    <p>문의사항이 있으시면 연락 주세요!</p>
-    <ul class="contact-list">
-        <li>
-            <a href="https://github.com/KimTeddy" target="_blank">
-                <img class="link-icon-contact link-icon-contact-github" src="assets/images/logos/github-mark.svg" alt="GitHub" />
-                <span class="link-text">KimTeddy</span>
-            </a>
-        </li>
-        <li>
-            <a href="https://www.instagram.com/Teddy_Electronics" target="_blank">
-                <img class="link-icon-contact" src="assets/images/logos/instagram.svg" alt="Instagram" />
-                <span class="link-text">@teddy_electronics</span>
-            </a>
-        </li>
-        <li>
-            <a href="mailto:teddy_02@naver.com">
-                <img class="link-icon-contact" src="assets/images/logos/gmail.svg" alt="Mail" />
-                <span class="link-text">teddy_02@naver.com</span>
-            </a>
-        </li>
-    </ul>
-</section>
+<!DOCTYPE html>
+<html lang="ko">
 
-<style>
-#contact {
-    text-align: center;
-    font-family: Arial, sans-serif;
-}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Teddy Kim에게 연락하기 — GitHub, Instagram, Email.">
+  <title>Contact — TeddyElectronics</title>
+  <link rel="icon" type="image/x-icon" href="assets/images/site/TeddyElectronics.ico">
+  <link rel="stylesheet" href="assets/css/globals.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/contact.css">
+</head>
 
-#contact h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
+<body>
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="./" class="nav__logo">&lt;T/&gt; <span>TeddyElectronics</span></a>
+      <div class="nav__links">
+        <a href="./" class="nav__link">Home</a><a href="about.html" class="nav__link">About</a>
+        <a href="projects.html" class="nav__link">Projects</a><a href="experience.html" class="nav__link">Experience</a>
+        <a href="skills.html" class="nav__link">Skills</a><a href="seminars.html" class="nav__link">Seminars</a>
+        <a href="contact.html" class="nav__link">Contact</a>
+      </div>
+      <div class="nav__actions">
+        <button class="theme-toggle" aria-label="Toggle theme">☀️</button>
+        <div class="nav__burger"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+    <div class="nav__progress"></div>
+    <div class="nav__mobile-menu">
+      <a href="./" class="nav__link">Home</a><a href="about.html" class="nav__link">About</a>
+      <a href="projects.html" class="nav__link">Projects</a><a href="experience.html" class="nav__link">Experience</a>
+      <a href="skills.html" class="nav__link">Skills</a><a href="seminars.html" class="nav__link">Seminars</a>
+      <a href="contact.html" class="nav__link">Contact</a>
+    </div>
+  </nav>
 
-#contact p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-}
+  <div class="page-wrapper" style="padding: 0; min-height: 100vh; overflow: hidden;">
+    <div id="contact-3d-container">
+      <div id="contact-loading">
+        <div class="spinner"></div>
+        <p>Initializing Majestic Scene...</p>
+      </div>
+      
+      <!-- Title Overlay -->
+      <div class="contact-hud-title">
+        <p class="section-label" data-animate="fade-up">Contact</p>
+        <h1 class="contact-hero__title" data-animate="fade-up">Let's <span class="text-gradient">Connect</span></h1>
+        <p class="contact-hero__desc" data-animate="fade-up">우주에 떠 있는 노드를 클릭해보세요.</p>
+      </div>
 
-.contact-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
+      <!-- WebGL Canvas will be injected here by Three.js -->
+      
+      <!-- The HTML HUD Cards (CSS2DObjects will attach these to 3D coords) -->
+      <div id="hud-elements" style="display: none;">
+        <a href="https://github.com/KimTeddy" target="_blank" class="contact-card" id="card-github">
+          <img src="assets/images/logos/github-mark-white.svg" alt="GitHub" class="contact-card__icon invert-light">
+          <div>
+            <p class="contact-card__text">GitHub</p>
+            <p class="contact-card__sub">@KimTeddy</p>
+          </div>
+        </a>
 
-.contact-list li {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem;
-}
+        <a href="https://blog.naver.com/teddy_02" target="_blank" class="contact-card" id="card-blog">
+          <img src="assets/images/logos/naverblog.svg" alt="Blog" class="contact-card__icon">
+          <div>
+            <p class="contact-card__text">Naver Blog</p>
+            <p class="contact-card__sub">teddy_02</p>
+          </div>
+        </a>
 
-.contact-list a {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: #2C4399;
-    transition: color 0.3s ease;
-    transition: transform 0.3s ease;
-}
+        <a href="https://www.youtube.com/@TeddyElectronics" target="_blank" class="contact-card" id="card-youtube">
+          <img src="assets/images/logos/youtubeicon.png" alt="YouTube" class="contact-card__icon">
+          <div>
+            <p class="contact-card__text">YouTube</p>
+            <p class="contact-card__sub">@TeddyElectronics</p>
+          </div>
+        </a>
 
-.contact-list a:hover {
-    color: #0078d7;
-    transform: scale(1.05);
-}
+        <a href="https://www.instagram.com/Teddy_Electronics" target="_blank" class="contact-card" id="card-instagram">
+          <img src="assets/images/logos/instagram.svg" alt="Instagram" class="contact-card__icon">
+          <div>
+            <p class="contact-card__text">Instagram</p>
+            <p class="contact-card__sub">@teddy_electronics</p>
+          </div>
+        </a>
 
-.contact-list img.link-icon-contact {
-    width: 30px;
-    height: auto;
-    margin-right: 10px;
-    transition: transform 0.3s ease;
-}
+        <a href="mailto:teddy_02@naver.com" class="contact-card" id="card-email">
+          <img src="assets/images/logos/email.svg" alt="Email" class="contact-card__icon">
+          <div>
+            <p class="contact-card__text">Email</p>
+            <p class="contact-card__sub">teddy_02@naver.com</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
 
-.contact-list img.link-icon-contact:hover {
-    transform: scale(1.1);
-}
+  <div id="footer-placeholder"></div>
+  <button class="back-to-top" aria-label="Back to top">↑</button>
 
-.contact-list .link-text {
-    font-size: 1.1rem;
-    font-weight: 600;
-}
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/navigation.js"></script>
+  <script src="assets/js/animations.js"></script>
 
-</style>
+  <!-- Three.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- CSS3DRenderer -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS3DRenderer.js"></script>
+
+  <!-- Custom 3D Logic -->
+  <script src="assets/js/contact3d.js"></script>
+</body>
+</html>

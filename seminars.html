@@ -1,74 +1,90 @@
-<!-- seminar.html -->
-<section id="seminars">
-    <h2>Seminars</h2>
-    <p>주최/진행한 세미나를 확인하세요.</p>
-    <div class="seminar-container">
-        <!-- Seminars will be dynamically added here -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Teddy Kim이 주최하고 진행한 세미나 목록.">
+  <title>Seminars — TeddyElectronics</title>
+  <link rel="icon" type="image/x-icon" href="assets/images/site/TeddyElectronics.ico">
+  <link rel="stylesheet" href="assets/css/globals.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/seminars.css">
+</head>
+<body>
+<nav class="nav"><div class="nav__inner">
+  <a href="./" class="nav__logo">&lt;T/&gt; <span>TeddyElectronics</span></a>
+  <div class="nav__links">
+    <a href="./" class="nav__link">Home</a><a href="about.html" class="nav__link">About</a>
+    <a href="projects.html" class="nav__link">Projects</a><a href="experience.html" class="nav__link">Experience</a>
+    <a href="skills.html" class="nav__link">Skills</a><a href="seminars.html" class="nav__link">Seminars</a>
+    <a href="contact.html" class="nav__link">Contact</a>
+  </div>
+  <div class="nav__actions">
+    <button class="theme-toggle" aria-label="Toggle theme">☀️</button>
+    <div class="nav__burger"><span></span><span></span><span></span></div>
+  </div>
+</div><div class="nav__progress"></div>
+<div class="nav__mobile-menu">
+  <a href="./" class="nav__link">Home</a><a href="about.html" class="nav__link">About</a>
+  <a href="projects.html" class="nav__link">Projects</a><a href="experience.html" class="nav__link">Experience</a>
+  <a href="skills.html" class="nav__link">Skills</a><a href="seminars.html" class="nav__link">Seminars</a>
+  <a href="contact.html" class="nav__link">Contact</a>
+</div></nav>
+
+<div class="page-wrapper">
+  <section class="seminars-header">
+    <div class="container">
+      <p class="section-label" data-animate="fade-up">Seminars</p>
+      <h1 class="section-title" data-animate="fade-up">세미나</h1>
+      <p class="section-desc" data-animate="fade-up">주최하고 진행한 세미나 목록입니다.</p>
     </div>
-</section>
+  </section>
+  <section class="section--compact">
+    <div class="container">
+      <div class="seminars-grid" id="seminars-container">
+        <p class="loading-text">데이터를 불러오는 중...</p>
+      </div>
+    </div>
+  </section>
+</div>
 
-<!-- CSS -->
-<style>
-    .seminar-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 20px;
-        /*transition: grid-template-columns 0.3s ease, display 0.3s ease;*/
-    }
+<div id="footer-placeholder"></div>
+<button class="back-to-top" aria-label="Back to top">↑</button>
 
-    .seminar-card {
-        padding: 0px 10px;
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    }
-
-    .seminar-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    }
-
-    .seminar-card h3 {
-        font-size: 1.2rem;
-        margin-bottom: 10px;
-    }
-
-    .seminar-card p {
-        font-size: 0.9rem;
-        color: #555;
-        margin: 5px 0;
-    }
-
-    .seminar-card a {
-        display: inline-block;
-        margin-top: 5px;
-        text-decoration: none;
-        color: #007bff;
-        font-weight: bold;
-    }
-    
-    .seminar-card a img {
-        width: 50px;
-        height: auto;
-    }
-    .seminar-card a:hover {
-        text-decoration: underline;
-    }
-
-    .seminar-card-image {
-        width: auto;
-        max-width: 300px;
-        height: 10em;
-        border-radius: 14px;
-        margin-bottom: 15px; /* 이미지와 텍스트 간 간격 */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        display: block; /* 이미지가 없는 경우 숨김 처리 */
-    }
-
-    .seminar-card img[src="undefined"], /* src 속성이 빈 문자열일 경우 */
-    .seminar-card img:not([src]) /* src 속성이 아예 없을 경우 */ {
-        display: none;
-    }
-    /* 부모 요소도 숨기고 싶을 경우 */
-    .experience-card:not(:has(img[src])) {
-        display: none;
-    }
-</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+<script src="assets/js/theme.js"></script>
+<script src="assets/js/navigation.js"></script>
+<script src="assets/js/animations.js"></script>
+<script>
+(function(){
+  function load(){
+    fetch('assets/data/seminars.yaml').then(function(r){return r.text()}).then(function(t){
+      var data=jsyaml.load(t);
+      var container=document.getElementById('seminars-container');
+      container.innerHTML='';
+      if(!data.seminars) return;
+      data.seminars.forEach(function(s){
+        var card=document.createElement('div');
+        card.className='card seminar-card';
+        card.setAttribute('data-animate','fade-up');
+        var html='';
+        if(s.image) html+='<img src="'+s.image+'" alt="'+s.title+'" class="seminar-card__image">';
+        html+='<h3 class="seminar-card__title">'+s.title+'</h3>';
+        html+='<p class="seminar-card__desc">'+s.description+'</p>';
+        html+='<div class="seminar-card__meta">';
+        html+='<span>👤 '+s.organizer+'</span>';
+        if(s.headcount) html+='<span>🎓 '+s.headcount+'명</span>';
+        html+='<span>📅 '+s.period+'</span>';
+        html+='</div>';
+        if(s.link) html+='<a href="'+s.link+'" target="_blank" class="btn btn--ghost" style="margin-top:var(--space-3);font-size:var(--text-xs);padding:var(--space-2) var(--space-4)">GitHub →</a>';
+        card.innerHTML=html;
+        container.appendChild(card);
+      });
+    }).catch(function(){
+      document.getElementById('seminars-container').innerHTML='<p class="loading-text">세미나 데이터를 불러오지 못했습니다.</p>';
+    });
+  }
+  document.readyState==='loading'?document.addEventListener('DOMContentLoaded',load):load();
+})();
+</script>
+</body></html>

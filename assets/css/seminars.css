@@ -1,0 +1,31 @@
+/* seminars.css — Seminars page */
+.seminars-header { padding: var(--space-16) 0 var(--space-8); }
+
+.seminars-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-6);
+}
+.seminar-card { display: flex; flex-direction: column; }
+.seminar-card__image {
+  width: 100%; height: 180px; object-fit: cover;
+  border-radius: var(--radius-md); margin-bottom: var(--space-4);
+  border: 1px solid var(--border-subtle);
+}
+.seminar-card__image[src="undefined"],
+.seminar-card__image:not([src]),
+.seminar-card__image[src=""] { display: none; }
+.seminar-card__title {
+  font-size: var(--text-lg); font-weight: var(--weight-semibold);
+  margin-bottom: var(--space-2);
+}
+.seminar-card__desc {
+  font-size: var(--text-sm); color: var(--text-secondary);
+  line-height: var(--leading-relaxed); margin-bottom: var(--space-3); flex: 1;
+}
+.seminar-card__meta {
+  display: flex; flex-wrap: wrap; gap: var(--space-3);
+  font-size: var(--text-xs); color: var(--text-tertiary);
+  font-family: var(--font-mono); margin-top: auto;
+  padding-top: var(--space-3); border-top: 1px solid var(--border-subtle);
+}
+.seminar-card__meta span { display: flex; align-items: center; gap: var(--space-1); }

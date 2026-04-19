@@ -1,0 +1,127 @@
+/* contact.css — Full Screen 3D Majestic Contact Page */
+
+body, html {
+  height: 100%;
+}
+
+/* Container for the entire 3D experience */
+#contact-3d-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  margin-top: -80px; /* Offset nav */
+  padding-top: 80px;
+  background-color: #050505;
+  overflow: hidden;
+}
+body.light-mode #contact-3d-container {
+  background-color: #f0f4f8;
+}
+
+/* Loading overlay */
+#contact-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+  z-index: 100;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  transition: opacity 0.8s ease;
+}
+.spinner {
+  width: 40px; height: 40px;
+  border: 3px solid rgba(0, 229, 160, 0.2);
+  border-top-color: var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: var(--space-4);
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* Title Overlay */
+.contact-hud-title {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 10;
+  pointer-events: none; /* Let clicks pass through */
+}
+.contact-hero__title {
+  font-size: var(--text-5xl); font-weight: var(--weight-extrabold);
+  margin-bottom: var(--space-2); letter-spacing: -0.03em;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  color: #fff;
+}
+body.light-mode .contact-hero__title {
+  color: #1a1a1a; text-shadow: 0 4px 20px rgba(255,255,255,0.5);
+}
+.contact-hero__desc {
+  font-size: var(--text-lg); color: rgba(255,255,255,0.7);
+}
+body.light-mode .contact-hero__desc {
+  color: rgba(0,0,0,0.6);
+}
+
+/* CSS3D Container styling */
+.contact-card {
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-lg);
+  background: rgba(15, 17, 26, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-decoration: none; color: #fff;
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s, opacity 0.5s;
+  min-width: 200px;
+  pointer-events: auto; /* Important for clicking inside CSS3D */
+  cursor: pointer;
+  opacity: 0; /* Managed by JS */
+  transform-style: preserve-3d;
+}
+/* Thickness layer */
+.contact-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(0, 229, 160, 0.05); /* subtle accent tint */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transform: translateZ(-20px); /* Pushed back 20px */
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+  pointer-events: none;
+}
+body.light-mode .contact-card {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #1a1a1a;
+}
+body.light-mode .contact-card::before {
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+.contact-card:hover {
+  background: rgba(20, 24, 38, 0.9);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 30px rgba(0, 229, 160, 0.3);
+}
+body.light-mode .contact-card:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.contact-card__icon {
+  width: 32px; height: 32px; flex-shrink: 0; object-fit: contain;
+}
+body.light-mode .contact-card__icon.invert-light { filter: invert(1); }
+.contact-card__text { font-size: var(--text-md); font-weight: var(--weight-bold); margin-bottom: 2px; }
+.contact-card__sub { font-size: var(--text-xs); opacity: 0.7; }
+
+/* Hide footer naturally inside this immersive page */
+.page-wrapper + #footer-placeholder { display: none; }

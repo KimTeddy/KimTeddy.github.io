@@ -157,10 +157,12 @@ body.light-mode .nav { background: rgba(245,245,250,0.8); }
 @media(max-width:768px){
   .bento-grid { grid-template-columns: repeat(2,1fr); }
   .bento-grid .card.span-3 { grid-column: span 2; }
+  .bento-grid .card.row-2 { grid-row: span 1; }
 }
 @media(max-width:480px){
   .bento-grid { grid-template-columns: 1fr; }
-  .bento-grid .card.span-2,.bento-grid .card.span-3 { grid-column: span 1; }
+  .bento-grid .card.span-2, .bento-grid .card.span-3 { grid-column: span 1; }
+  .bento-grid .card.row-2 { grid-row: span 1; }
 }
 
 /* ── Stat Card ── */

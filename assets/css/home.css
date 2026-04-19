@@ -119,12 +119,14 @@
   .hero__name { font-size: var(--text-5xl); }
   .hero__role { font-size: var(--text-xl); }
   .hero__code-display { min-height: 80px; max-height: 80px; }
+  .stats-grid { grid-column: span 2; grid-row: span 1; }
 }
 @media(max-width:480px){
   .hero__name { font-size: var(--text-4xl); }
   .hero__cta { flex-direction: column; }
   .hero__cta .btn { width: 100%; justify-content: center; }
   .hero__code-display { min-height: 80px; max-height: 80px; }
+  .stats-grid { grid-column: span 1; grid-row: span 1; }
 }
 
 /* ── Stats 2x2 Grid ── */

@@ -1,87 +1,220 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Teddy Kim — 임베디드 시스템 엔지니어. 자기소개 및 학력, 강점 소개.">
+  <meta name="description" content="Teddy Kim — 임베디드 시스템 엔지니어. 자기소개 및 강점 소개.">
   <title>About — TeddyElectronics</title>
   <link rel="icon" type="image/x-icon" href="assets/images/site/TeddyElectronics.ico">
   <link rel="stylesheet" href="assets/css/globals.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/about.css">
 </head>
+
 <body>
-<!-- Navigation -->
-<nav class="nav"><div class="nav__inner">
-  <a href="./" class="nav__logo">&lt;T/&gt; <span>TeddyElectronics</span></a>
-  <div class="nav__links">
-    <a href="./" class="nav__link">Home</a><a href="about.html" class="nav__link">About</a>
-    <a href="projects.html" class="nav__link">Projects</a><a href="experience.html" class="nav__link">Experience</a>
-    <a href="skills.html" class="nav__link">Skills</a><a href="seminars.html" class="nav__link">Seminars</a>
-    <a href="contact.html" class="nav__link">Contact</a>
-  </div>
-  <div class="nav__actions">
-    <button class="theme-toggle" aria-label="Toggle theme">☀️</button>
-    <div class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></div>
-  </div>
-</div><div class="nav__progress"></div>
-<div class="nav__mobile-menu">
-  <a href="./" class="nav__link">Home</a><a href="about.html" class="nav__link">About</a>
-  <a href="projects.html" class="nav__link">Projects</a><a href="experience.html" class="nav__link">Experience</a>
-  <a href="skills.html" class="nav__link">Skills</a><a href="seminars.html" class="nav__link">Seminars</a>
-  <a href="contact.html" class="nav__link">Contact</a>
-</div></nav>
-
-<div class="page-wrapper">
-
-  <!-- Hero -->
-  <section class="about-hero">
-    <div class="container" data-animate="fade-up">
-      <img src="https://avatars.githubusercontent.com/u/68770209?v=4" alt="Teddy Kim" class="about-hero__avatar">
-      <h1 class="about-hero__name">Teddy Kim</h1>
-      <p class="about-hero__role">Embedded System Engineer</p>
-      <p class="about-hero__bio">전자공학과에서 임베디드 트랙을 선택하여 하드웨어와 소프트웨어를 모두 설계하고 제작하는 임베디드 시스템 엔지니어입니다. 다양한 프로젝트와 대회 경험을 통해 실질적인 융합 설계 능력을 키워왔습니다.</p>
-    </div>
-  </section>
-
-  <!-- Strengths -->
-  <section class="section">
-    <div class="container">
-      <p class="section-label" data-animate="fade-up">Strengths</p>
-      <h2 class="section-title" data-animate="fade-up">강점</h2>
-      <div class="strengths">
-        <div class="card strength-item" data-animate="fade-up" data-delay="1">
-          <div class="strength-item__icon">🤖</div>
-          <div><p class="strength-item__title">개발의 즐거움</p><p class="strength-item__desc">하드웨어와 소프트웨어를 직접 설계하고 제작합니다.</p></div>
-        </div>
-        <div class="card strength-item" data-animate="fade-up" data-delay="2">
-          <div class="strength-item__icon">🛠️</div>
-          <div><p class="strength-item__title">실질적인 융합 설계 경험</p><p class="strength-item__desc">SW 프로그래밍뿐만 아니라 3D/PCB 설계, 납땜 등 종합적인 임베디드 시스템 설계 능력을 키웠습니다.</p></div>
-        </div>
-        <div class="card strength-item" data-animate="fade-up" data-delay="3">
-          <div class="strength-item__icon">🌟</div>
-          <div><p class="strength-item__title">다양한 수상 경력</p><p class="strength-item__desc">교내외 로봇/임베디드 대회에서 다수의 상을 수상했습니다.</p></div>
-        </div>
-        <div class="card strength-item" data-animate="fade-up" data-delay="4">
-          <div class="strength-item__icon">🎯</div>
-          <div><p class="strength-item__title">미래를 위한 준비</p><p class="strength-item__desc">프로젝트/대회 경험을 꾸준히 쌓아왔습니다.</p></div>
-        </div>
-        <div class="card strength-item" data-animate="fade-up" data-delay="5">
-          <div class="strength-item__icon">🌐</div>
-          <div><p class="strength-item__title">협업과 네트워킹</p><p class="strength-item__desc">다양한 전공과 학년이 함께 프로젝트를 진행하며 탄탄한 네트워크를 형성하고 있습니다.</p></div>
-        </div>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="./" class="nav__logo">&lt;T/&gt; <span>TeddyElectronics</span></a>
+      <div class="nav__links">
+        <a href="./" class="nav__link">Home</a><a href="about.html" class="nav__link">About</a>
+        <a href="projects.html" class="nav__link">Projects</a><a href="experience.html" class="nav__link">Experience</a>
+        <a href="skills.html" class="nav__link">Skills</a><a href="seminars.html" class="nav__link">Seminars</a>
+        <a href="contact.html" class="nav__link">Contact</a>
+      </div>
+      <div class="nav__actions">
+        <button class="theme-toggle" aria-label="Toggle theme">☀️</button>
+        <div class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></div>
       </div>
     </div>
+    <div class="nav__progress"></div>
+    <div class="nav__mobile-menu">
+      <a href="./" class="nav__link">Home</a><a href="about.html" class="nav__link">About</a>
+      <a href="projects.html" class="nav__link">Projects</a><a href="experience.html" class="nav__link">Experience</a>
+      <a href="skills.html" class="nav__link">Skills</a><a href="seminars.html" class="nav__link">Seminars</a>
+      <a href="contact.html" class="nav__link">Contact</a>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+
+    <!-- Hero -->
+    <section class="about-hero">
+      <div class="container" data-animate="fade-up">
+        <img src="https://avatars.githubusercontent.com/u/68770209?v=4" alt="Teddy Kim" class="about-hero__avatar">
+        <h1 class="about-hero__name">Teddy Kim</h1>
+        <p class="about-hero__role">Embedded System Engineer</p>
+        <p class="about-hero__bio">전자공학과에서 임베디드 트랙을 선택하여 하드웨어와 소프트웨어를 모두 설계하고 제작하는 임베디드 시스템 엔지니어입니다. 다양한 프로젝트와 대회 경험을 통해
+          실질적인 융합 설계 능력을 키워왔습니다.</p>
+      </div>
+    </section>
+
+    <!-- Strengths -->
+    <section class="section">
+      <div class="container">
+        <p class="section-label" data-animate="fade-up">Strengths</p>
+        <h2 class="section-title" data-animate="fade-up">강점</h2>
+        <div class="strengths">
+          <div class="card strength-item" data-animate="fade-up" data-delay="1">
+            <div class="strength-item__icon">🤖</div>
+            <div>
+              <p class="strength-item__title">개발의 즐거움</p>
+              <p class="strength-item__desc">하드웨어와 소프트웨어를 직접 설계하고 제작합니다.</p>
+            </div>
+          </div>
+          <div class="card strength-item" data-animate="fade-up" data-delay="2">
+            <div class="strength-item__icon">🛠️</div>
+            <div>
+              <p class="strength-item__title">실질적인 융합 설계 경험</p>
+              <p class="strength-item__desc">SW 프로그래밍뿐만 아니라 3D/PCB 설계, 납땜 등 종합적인 임베디드 시스템 설계 능력을 키웠습니다.</p>
+            </div>
+          </div>
+          <div class="card strength-item" data-animate="fade-up" data-delay="3">
+            <div class="strength-item__icon">🌟</div>
+            <div>
+              <p class="strength-item__title">다양한 수상 경력</p>
+              <p class="strength-item__desc">교내외 로봇/임베디드 대회에서 다수의 상을 수상했습니다.</p>
+            </div>
+          </div>
+          <div class="card strength-item" data-animate="fade-up" data-delay="4">
+            <div class="strength-item__icon">🎯</div>
+            <div>
+              <p class="strength-item__title">미래를 위한 준비</p>
+              <p class="strength-item__desc">프로젝트/대회 경험을 꾸준히 쌓아왔습니다.</p>
+            </div>
+          </div>
+          <div class="card strength-item" data-animate="fade-up" data-delay="5">
+            <div class="strength-item__icon">🌐</div>
+            <div>
+              <p class="strength-item__title">협업과 네트워킹</p>
+              <p class="strength-item__desc">학사 과정에서 다양한 전공, 학년과 함께 프로젝트를 진행하며 탄탄한 네트워크를 형성하고 있습니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
   </section>
 
-  <!-- Code Animation -->
-  <section class="section--compact">
-    <div class="container" data-animate="fade-up">
-      <div class="about-code">
-        <div class="about-code__header">
-          <span class="about-code__dot"></span><span class="about-code__dot"></span><span class="about-code__dot"></span>
+  <!-- Home IoT 3D Section -->
+  <section class="section section--dark" style="position: relative; overflow: hidden; padding: 0;">
+    <div id="iot-3d-container" style="width: 100%; height: 65vh; position: relative; cursor: grab;"></div>
+    <div id="iot-overlay-bg"
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; background: radial-gradient(circle, transparent 40%, var(--bg-primary) 100%); transition: opacity 1.5s ease; z-index: 1;">
+    </div>
+    <div class="iot-overlay"
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2;">
+      <div id="iot-title-box">
+        <p class="section-label" style="text-shadow: 0 2px 10px rgba(0,0,0,0.8);">Smart Home Ecosystem</p>
+        <h2 class="section-title" style="text-shadow: 0 2px 10px rgba(0,0,0,0.8);">Home IoT 아키텍처</h2>
+        <p class="section-desc" style="text-shadow: 0 2px 10px rgba(0,0,0,0.8);">마우스로 도면을 회전하여 스마트 기기 노드를 확인해 보세요.</p>
+      </div>
+    </div>
+    <!-- HUD for IoT nodes -->
+    <div id="iot-hud"
+      style="position: absolute; display: none; background: rgba(15,17,26,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--accent-primary); border-radius: var(--radius-md); padding: var(--space-4); color: white; pointer-events: none; z-index: 10; max-width: 250px; box-shadow: 0 0 20px rgba(0,229,160,0.2); transform: translate(-50%, -120%); transition: opacity 0.2s; opacity: 0;">
+      <h3 id="iot-hud-title"
+        style="font-size: var(--text-lg); margin-bottom: var(--space-1); color: var(--accent-primary);">Node Name</h3>
+      <p id="iot-hud-desc" style="font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.4;">
+        Description goes here.</p>
+    </div>
+  </section>
+
+  <!-- Life & Hobbies -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label" data-animate="fade-up">Life & Hobbies</p>
+      <h2 class="section-title" data-animate="fade-up">취미와 일상</h2>
+      <p class="section-desc" data-animate="fade-up" style="margin-bottom:var(--space-8)">개발 외에도 무언가를 뚝딱뚝딱 만드는 것을 좋아합니다.
+      </p>
+
+      <div class="hobby-tabs-container" data-animate="fade-up" data-delay="2">
+        <div class="hobby-progress">
+          <div class="hobby-progress-bar" id="hobby-progress"></div>
         </div>
-        <pre class="about-code__display" id="code-display"><span class="cursor"></span></pre>
+        <div class="hobby-tabs">
+          <div class="hobby-tab active" data-target="0">
+            <div class="hobby-tab__icon">🎥</div>
+            <div class="hobby-tab__title">크리에이터</div>
+          </div>
+          <div class="hobby-tab" data-target="1">
+            <div class="hobby-tab__icon">🎲</div>
+            <div class="hobby-tab__title">3D 프린팅</div>
+          </div>
+          <div class="hobby-tab" data-target="2">
+            <div class="hobby-tab__icon">🎛️</div>
+            <div class="hobby-tab__title">홈IoT 자동화</div>
+          </div>
+          <div class="hobby-tab" data-target="3">
+            <div class="hobby-tab__icon">🎹</div>
+            <div class="hobby-tab__title">작곡</div>
+          </div>
+        </div>
+
+        <div class="hobby-panels">
+          <!-- Panel 1 -->
+          <div class="hobby-panel active" id="hobby-panel-0">
+            <img src="" alt="Creator" class="hobby-panel__bg">
+            <div class="hobby-panel__glass">
+              <span class="badge" style="margin-bottom:var(--space-2)">Blog & YouTube</span>
+              <h3 class="card__title">콘텐츠 크리에이터</h3>
+              <p class="card__desc" style="margin-bottom:var(--space-4)">'취미는 홈IoT' 블로그와 유튜브 채널 'TeddyElectronics'를 운영하며
+                지식을 공유합니다.</p>
+              <div style="display:flex; gap:10px;">
+                <a href="https://blog.naver.com/teddy_02" target="_blank" class="btn btn--primary"
+                  style="padding:8px 16px; font-size:0.85rem">블로그 구경가기</a>
+                <a href="https://www.youtube.com/@TeddyElectronics" target="_blank" class="btn btn--secondary"
+                  style="padding:8px 16px; font-size:0.85rem">유튜브 구경가기</a>
+              </div>
+            </div>
+          </div>
+          <!-- Panel 2 -->
+          <div class="hobby-panel" id="hobby-panel-1">
+            <img src="" alt="Making" class="hobby-panel__bg">
+            <div class="hobby-panel__glass">
+              <span class="badge" style="margin-bottom:var(--space-2)">Making</span>
+              <h3 class="card__title">3D 프린팅 & 기구 설계</h3>
+              <p class="card__desc">필요한 부품이나 케이스를 SOLIDWORKS로 직접 설계하고 3D 프린터로 출력하여 활용합니다.</p>
+              <a href="https://kr.store.bambulab.com/products/p2s" target="_blank" class="btn btn--primary"
+                style="padding:8px 16px; font-size:0.85rem">[현재] Bambulab P2S Combo</a>
+              <a href="https://kr.store.bambulab.com/products/p1s?id=613704620565622786" target="_blank"
+                class="btn btn--secondary" style="padding:8px 16px; font-size:0.85rem">[이전 사용/미보유] Bambulab P1S</a>
+              <a href="https://blog.naver.com/teddy_02/222655784214" target="_blank" class="btn btn--secondary"
+                style="padding:8px 16px; font-size:0.85rem">[이전 사용/보유] Creality Ender 5 Plus</a>
+            </div>
+          </div>
+          <!-- Panel 3 -->
+          <div class="hobby-panel" id="hobby-panel-2">
+            <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?auto=format&fit=crop&q=80&w=800"
+              alt="DIY" class="hobby-panel__bg">
+            <div class="hobby-panel__glass">
+              <span class="badge" style="margin-bottom:var(--space-2)">DIY</span>
+              <h3 class="card__title">자체제작 스마트홈</h3>
+              <p class="card__desc">HomeAssistant에서 각종 센서, LED 스트립 등을 조합하여 나만의 자동화를 구축합니다. 하드웨어도 직접 설계합니다.</p>
+              <div style="display:flex; gap:10px;">
+                <a href="https://blog.naver.com/PostList.naver?blogId=teddy_02&categoryNo=26&parentCategoryNo=26&skinType=&skinId=&from=menu"
+                  target="_blank" class="btn btn--primary" style="padding:8px 16px; font-size:0.85rem">블로그 구경가기</a>
+              </div>
+            </div>
+          </div>
+          <!-- Panel 4 -->
+          <div class="hobby-panel" id="hobby-panel-3">
+            <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&q=80&w=800"
+              alt="Music" class="hobby-panel__bg">
+            <div class="hobby-panel__glass">
+              <span class="badge" style="margin-bottom:var(--space-2)">Music</span>
+              <h3 class="card__title">작곡</h3>
+              <p class="card__desc" style="margin-bottom:var(--space-4)">취미로 음악을 작곡합니다. 작업물들은 유튜브와 사운드클라우드에서
+                들으실 수 있습니다.</p>
+              <div style="display:flex; gap:10px;">
+                <a href="https://www.youtube.com/@ComposingTeddy" target="_blank" class="btn btn--primary"
+                  style="padding:8px 16px; font-size:0.85rem">유튜브 구경가기</a>
+                <a href="https://soundcloud.com/teddy-kim-818221387" target="_blank" class="btn btn--secondary"
+                  style="padding:8px 16px; font-size:0.85rem">SoundCloud 듣기</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -94,54 +227,108 @@
       <p class="section-desc" data-animate="fade-up" style="margin-bottom:var(--space-8)">전자공학과 임베디드 트랙 주요 수강 과목입니다.</p>
       <div class="card" data-animate="fade-up" style="overflow-x:auto; padding:var(--space-4)">
         <table class="lectures-table">
-          <thead><tr><th>연도</th><th>성적</th><th>과목명</th><th>주요 내용</th></tr></thead>
+          <thead>
+            <tr>
+              <th>연도</th>
+              <th>성적</th>
+              <th>과목명</th>
+              <th>주요 내용</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td>2019</td><td class="grade">A+</td><td>디지털논리회로</td><td>Digital Logic Circuits</td></tr>
-            <tr><td rowspan="4">2022</td><td class="grade">A+</td><td>고급C언어</td><td>Pointer, Linked List, File I/O</td></tr>
-            <tr><td class="grade">A+</td><td>컴퓨터구조</td><td>OS, Cache, IO, Pipeline, CU</td></tr>
-            <tr><td class="grade">A+</td><td>자료구조</td><td>List, Stack, Queue, Tree, Graph, Sort</td></tr>
-            <tr><td class="grade">A+</td><td>지능형센서응용</td><td>ATmega128A Registers, Microchip Studio</td></tr>
-            <tr><td rowspan="5">2023</td><td class="grade">A+</td><td>마이크로프로세서응용</td><td>STM32F767 (ARM), IAR Embedded Workbench</td></tr>
-            <tr><td class="grade">A+</td><td>임베디드시스템</td><td>Linux, UDOO Board, Cross Compile, Fork, Thread</td></tr>
-            <tr><td class="grade">A+</td><td>컴퓨터그래픽스</td><td>OpenGL, GLUI, C++</td></tr>
-            <tr><td class="grade">A+</td><td>컴퓨터비전시스템</td><td>OpenCV, GLUI, C++</td></tr>
-            <tr><td class="grade">A+</td><td>디지털시스템</td><td>Verilog, Vivado, FPGA (ZedBoard)</td></tr>
-            <tr><td rowspan="3">2024</td><td class="grade">A0</td><td>SoC설계</td><td>Vitis, Vivado, FPGA (Zybo Z7-20)</td></tr>
-            <tr><td class="grade">A+</td><td>의용전자공학</td><td>Medical Instrumentation, Signal Processing</td></tr>
-            <tr><td class="grade">A+</td><td>캡스톤디자인1&2</td><td>Team Project (Leader), A.RM.I</td></tr>
+            <tr>
+              <td>2019</td>
+              <td class="grade">A+</td>
+              <td>디지털논리회로</td>
+              <td>Digital Logic Circuits</td>
+            </tr>
+            <tr>
+              <td rowspan="4">2022</td>
+              <td class="grade">A+</td>
+              <td>고급C언어</td>
+              <td>Pointer, Linked List, File I/O</td>
+            </tr>
+            <tr>
+              <td class="grade">A+</td>
+              <td>컴퓨터구조</td>
+              <td>OS, Cache, IO, Pipeline, CU</td>
+            </tr>
+            <tr>
+              <td class="grade">A+</td>
+              <td>자료구조</td>
+              <td>List, Stack, Queue, Tree, Graph, Sort</td>
+            </tr>
+            <tr>
+              <td class="grade">A+</td>
+              <td>지능형센서응용</td>
+              <td>ATmega128A Registers, Microchip Studio</td>
+            </tr>
+            <tr>
+              <td rowspan="5">2023</td>
+              <td class="grade">A+</td>
+              <td>마이크로프로세서응용</td>
+              <td>STM32F767 (ARM), IAR Embedded Workbench</td>
+            </tr>
+            <tr>
+              <td class="grade">A+</td>
+              <td>임베디드시스템</td>
+              <td>Linux, UDOO Board, Cross Compile, Fork, Thread</td>
+            </tr>
+            <tr>
+              <td class="grade">A+</td>
+              <td>컴퓨터그래픽스</td>
+              <td>OpenGL, GLUI, C++</td>
+            </tr>
+            <tr>
+              <td class="grade">A+</td>
+              <td>컴퓨터비전시스템</td>
+              <td>OpenCV, GLUI, C++</td>
+            </tr>
+            <tr>
+              <td class="grade">A+</td>
+              <td>디지털시스템</td>
+              <td>Verilog, Vivado, FPGA (ZedBoard)</td>
+            </tr>
+            <tr>
+              <td rowspan="3">2024</td>
+              <td class="grade">A0</td>
+              <td>SoC설계</td>
+              <td>Vitis, Vivado, FPGA (Zybo Z7-20)</td>
+            </tr>
+            <tr>
+              <td class="grade">A+</td>
+              <td>의용전자공학</td>
+              <td>Medical Instrumentation, Signal Processing</td>
+            </tr>
+            <tr>
+              <td class="grade">A+</td>
+              <td>캡스톤디자인1&2</td>
+              <td>Team Project (Leader), A.RM.I</td>
+            </tr>
           </tbody>
         </table>
       </div>
     </div>
   </section>
 
-</div>
+  </div>
 
-<div id="footer-placeholder"></div>
-<button class="back-to-top" aria-label="Back to top">↑</button>
+  <div id="footer-placeholder"></div>
+  <button class="back-to-top" aria-label="Back to top">↑</button>
 
-<script src="assets/js/theme.js"></script>
-<script src="assets/js/navigation.js"></script>
-<script src="assets/js/animations.js"></script>
-<script>
-(function(){
-  function initTyping(){
-    var el=document.getElementById('code-display');if(!el)return;
-    var sentences=["My major is electronic engineering.","I am an embedded developer.","Home IoT is my hobby.","I want to be an embedded engineer."];
-    var langs=[
-      {tpl:'<span class="cm">// C</span>\n<span class="fn">printf</span>(<span class="str">"{s}\\n"</span>);'},
-      {tpl:'<span class="cm"># Python</span>\n<span class="fn">print</span>(<span class="str">"{s}"</span>)'},
-      {tpl:'<span class="cm">// Java</span>\n<span class="kw">System</span>.<span class="fn">out.println</span>(<span class="str">"{s}"</span>);'}
-    ];
-    var si=0,ci=0,del=false,out='',lang=langs[0],cur='<span class="cursor"></span>';
-    function tick(){
-      out=lang.tpl.replace('{s}',sentences[si]);
-      if(!del&&ci<=out.length){el.innerHTML=out.slice(0,ci)+cur;ci++;setTimeout(tick,22);}
-      else if(del&&ci>=0){el.innerHTML=out.slice(0,ci)+cur;ci--;setTimeout(tick,8);}
-      else{del=!del;if(!del){si=(si+1)%sentences.length;lang=langs[Math.floor(Math.random()*langs.length)];ci=0;setTimeout(tick,300);}else{setTimeout(tick,1200);}}
-    }tick();
-  }
-  document.readyState==='loading'?document.addEventListener('DOMContentLoaded',initTyping):initTyping();
-})();
-</script>
-</body></html>
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/navigation.js"></script>
+  <script src="assets/js/animations.js"></script>
+  <!-- Three.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- OrbitControls -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <!-- js-yaml Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+  <!-- Custom 3D Room Script -->
+  <script src="assets/js/about3d.js"></script>
+  <!-- Hobby Tabs Script -->
+  <script src="assets/js/about-hobbies.js"></script>
+</body>
+
+</html>

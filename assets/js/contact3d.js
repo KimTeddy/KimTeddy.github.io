@@ -142,13 +142,16 @@
 
   function updateCardPositions() {
     const isMobile = window.innerWidth < 768;
+    const shortScreenFactor = Math.max(0, 800 - window.innerHeight) * 0.4; // Push down more if screen is short
+
     cssObjects.forEach((cssObject, i) => {
       const nodeId = NODES[i];
       let pos = { x: 0, y: 0, z: 0 };
       
       if (isMobile) {
         // Vertical layout for small screens
-        const yOffset = (2 - i) * 120; // 240, 120, 0, -120, -240
+        const baseShift = 150 + shortScreenFactor;
+        const yOffset = (2 - i) * 100 - baseShift;
         const xOffset = (i % 2 === 0) ? -20 : 20; 
         let zOffset = 0;
         switch(nodeId) {
@@ -161,13 +164,16 @@
         pos = { x: xOffset, y: yOffset, z: zOffset };
       } else {
         // Desktop horizontal layout
+        // Scale Y to be tighter on short screens and push the whole set down
+        const scaleY = window.innerHeight < 700 ? 0.6 : 1.0;
         switch(nodeId) {
-          case 'github': pos = { x: -300, y: 150, z: -100 }; break;
-          case 'blog': pos = { x: 300, y: 200, z: -300 }; break;
-          case 'youtube': pos = { x: 0, y: 0, z: 150 }; break;
-          case 'instagram': pos = { x: -400, y: -150, z: 0 }; break;
-          case 'email': pos = { x: 400, y: -100, z: -50 }; break;
+          case 'github': pos = { x: -300, y: 150 * scaleY, z: -100 }; break;
+          case 'blog': pos = { x: 300, y: 200 * scaleY, z: -300 }; break;
+          case 'youtube': pos = { x: 0, y: 0 * scaleY, z: 150 }; break;
+          case 'instagram': pos = { x: -400, y: -150 * scaleY, z: 0 }; break;
+          case 'email': pos = { x: 400, y: -100 * scaleY, z: -50 }; break;
         }
+        pos.y -= shortScreenFactor; // shift everything down on short screens
       }
       
       cssObject.userData.basePos = pos;

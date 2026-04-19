@@ -1,7 +1,7 @@
 /* contact.css — Full Screen 3D Majestic Contact Page */
 
 body, html {
-  height: 100%;
+  min-height: 100%;
 }
 
 /* Container for the entire 3D experience */
@@ -45,7 +45,7 @@ body.light-mode #contact-3d-container {
 /* Title Overlay */
 .contact-hud-title {
   position: absolute;
-  top: 15%;
+  top: max(15%, 120px); /* Prevents overlapping with navbar on zoom/short screens */
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
@@ -80,6 +80,7 @@ body.light-mode .contact-hero__desc {
   text-decoration: none; color: #fff;
   transition: background 0.3s, border-color 0.3s, box-shadow 0.3s, opacity 0.5s;
   min-width: 200px;
+  white-space: nowrap; /* Prevents text from wrapping and stretching the card vertically */
   pointer-events: auto; /* Important for clicking inside CSS3D */
   cursor: pointer;
   opacity: 0; /* Managed by JS */

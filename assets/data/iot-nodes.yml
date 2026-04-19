@@ -1,0 +1,109 @@
+# iot-nodes.yml — Data for the Home IoT Architecture 3D map
+
+nodes:
+  - id: "server"
+    name: "Home Assistant"
+    desc: "거실: 라즈베리파이 로컬 허브. 모든 데이터를 수집하고 제어합니다."
+    pos: [-3, 1.5, 2]
+    color: "0x00e5a0"
+    size: 1.5
+    type: "box"
+    link: "https://blog.naver.com/teddy_02/222645735354"
+    
+  - id: "nest_hub"
+    name: "구글 네스트 허브"
+    desc: "거실: 스마트 디스플레이로 집안 상태를 확인하고 음성으로 제어합니다."
+    pos: [1.2, 1.0, 3.0]
+    color: "0xffffff"
+    size: 1.0
+    type: "nest_hub"
+    link: "https://blog.naver.com/teddy_02/222836154229"
+    
+  - id: "sensor2"
+    name: "모션 센서"
+    desc: "거실: PIR 센서로 움직임을 감지하여 조명 자동화를 트리거합니다."
+    pos: [0, 1.5, 0]
+    color: "0x44aaff"
+    size: 0.8
+    type: "sphere"
+    
+  - id: "plug"
+    name: "스마트 플러그"
+    desc: "주방: 전력량 측정 기능이 포함된 플러그."
+    pos: [-6.0, 1.2, -5.0]
+    color: "0xff4444"
+    size: 0.9
+    type: "box"
+    link: "https://blog.naver.com/teddy_02/224187351377"
+    
+  - id: "knob1"
+    name: "로터리 엔코더 노브"
+    desc: "작은방: 회전하여 조명의 색온도와 밝기를 조절합니다. 길게 누르면 책상등의 전원을 On/Off 할 수 있습니다."
+    pos: [2.0, 1.2, -7.5]
+    color: "0x44aaff"
+    size: 0.8
+    type: "cylinder"
+    link: "https://blog.naver.com/teddy_02/222618213021"
+    
+  - id: "light"
+    name: "안방 천장등"
+    desc: "안방: 천장등 제어를 위해 ESP8266이 포함된 터치 스위치를 만들었습니다."
+    pos: [5.0, 3.0, 4.5]
+    color: "0xffaa00"
+    size: 1.0
+    type: "ceiling_sq"
+    link: "https://blog.naver.com/teddy_02/222838302045"
+    
+  - id: "light_small"
+    name: "작은방 책상등"
+    desc: "작은방: 책상 위를 비추는 집중력 향상용 1자형 스마트 조명입니다."
+    pos: [4.0, 3.0, -2.75]
+    color: "0xffaa00"
+    size: 1.0
+    type: "ceiling_line"
+    link: "https://blog.naver.com/teddy_02/222613656776"
+    
+  - id: "led_living"
+    name: "거실 커튼 LED"
+    desc: "거실 베란다: 웜화이트 간접 조명. 밤에 은은한 무드를 연출합니다."
+    pos: [-3, 3.0, 7.8]
+    color: "0xffeebb"
+    width: 9.5
+    type: "strip"
+    link: "https://blog.naver.com/teddy_02/222853662799"
+    
+  - id: "led_small"
+    name: "작은방 커튼 LED"
+    desc: "작은방 창문: 웜화이트 간접 조명. 창문을 따라 부드러운 빛을 냅니다."
+    pos: [4, 2.3, -7.8]
+    color: "0xffeebb"
+    width: 7.5
+    type: "strip"
+    link: "https://blog.naver.com/teddy_02/222615753312"
+    
+  - id: "tv_led"
+    name: "TV 백라이트 네오픽셀"
+    desc: "거실: TV 화면의 색상과 동기화되어 몰입감을 높여주는 앰비언트 라이트입니다."
+    pos: [1.9, 2.2, 3.0]
+    color: "0xaa44ff"
+    width: 3.8
+    type: "strip_z"
+    link: "https://blog.naver.com/teddy_02/223029665051"
+    
+  - id: "cabinet_led"
+    name: "장식장 상단 네오픽셀"
+    desc: "거실: 장식장 맨 위에서 천장을 비추는 네오픽셀 간접 조명입니다."
+    pos: [7.25, 2.6, -0.5]
+    color: "0xaa44ff"
+    width: 3.0
+    type: "strip_z"
+    link: "https://blog.naver.com/teddy_02/222658524066"
+    
+  - id: "door_sensor"
+    name: "장식장 도어 센서"
+    desc: "거실: 장식장 문 열림을 감지하여 내부 조명을 켜거나 알림을 보냅니다."
+    pos: [6.5, 1.25, -0.5]
+    color: "0x44aaff"
+    size: 0.4
+    type: "box"
+    link: "https://blog.naver.com/teddy_02/222658524066"

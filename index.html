@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -15,13 +16,32 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/home.css">
 </head>
+
 <body>
 
-<!-- Navigation -->
-<nav class="nav" id="main-nav">
-  <div class="nav__inner">
-    <a href="./" class="nav__logo">&lt;T/&gt; <span>TeddyElectronics</span></a>
-    <div class="nav__links">
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav__inner">
+      <a href="./" class="nav__logo">&lt;T/&gt; <span>TeddyElectronics</span></a>
+      <div class="nav__links">
+        <a href="./" class="nav__link">Home</a>
+        <a href="about.html" class="nav__link">About</a>
+        <a href="projects.html" class="nav__link">Projects</a>
+        <a href="experience.html" class="nav__link">Experience</a>
+        <a href="skills.html" class="nav__link">Skills</a>
+        <a href="seminars.html" class="nav__link">Seminars</a>
+        <a href="contact.html" class="nav__link">Contact</a>
+      </div>
+      <div class="nav__actions">
+        <button class="theme-toggle" aria-label="Toggle theme">☀️</button>
+        <div class="nav__burger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+    <div class="nav__progress"></div>
+    <!-- Mobile Menu -->
+    <div class="nav__mobile-menu">
       <a href="./" class="nav__link">Home</a>
       <a href="about.html" class="nav__link">About</a>
       <a href="projects.html" class="nav__link">Projects</a>
@@ -30,258 +50,243 @@
       <a href="seminars.html" class="nav__link">Seminars</a>
       <a href="contact.html" class="nav__link">Contact</a>
     </div>
-    <div class="nav__actions">
-      <button class="theme-toggle" aria-label="Toggle theme">☀️</button>
-      <div class="nav__burger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </div>
-    </div>
-  </div>
-  <div class="nav__progress"></div>
-  <!-- Mobile Menu -->
-  <div class="nav__mobile-menu">
-    <a href="./" class="nav__link">Home</a>
-    <a href="about.html" class="nav__link">About</a>
-    <a href="projects.html" class="nav__link">Projects</a>
-    <a href="experience.html" class="nav__link">Experience</a>
-    <a href="skills.html" class="nav__link">Skills</a>
-    <a href="seminars.html" class="nav__link">Seminars</a>
-    <a href="contact.html" class="nav__link">Contact</a>
-  </div>
-</nav>
+  </nav>
 
-<div class="page-wrapper">
+  <div class="page-wrapper">
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero__grid">
-        <div class="hero__text" data-animate="fade-up">
-          <p class="hero__greeting">EMBEDDED SYSTEM ENGINEER</p>
-          <h1 class="hero__name">안녕하세요,<br><span class="text-gradient">Teddy Kim</span><br>입니다.</h1>
-          <p class="hero__role">하드웨어와 소프트웨어를 직접 설계하고 제작합니다.</p>
-          <div class="hero__cta">
-            <a href="projects.html" class="btn btn--primary">프로젝트 보기 →</a>
-            <a href="contact.html" class="btn btn--ghost">연락하기</a>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero__grid">
+          <div class="hero__text" data-animate="fade-up">
+            <p class="hero__greeting">EMBEDDED SYSTEM ENGINEER</p>
+            <h1 class="hero__name">안녕하세요,<br><span class="text-gradient">Teddy Kim</span><br>입니다.</h1>
+            <p class="hero__role">하드웨어와 소프트웨어를 직접 설계하고 제작합니다.</p>
+            <div class="hero__cta">
+              <a href="projects.html" class="btn btn--primary">프로젝트 보기 →</a>
+              <a href="contact.html" class="btn btn--ghost">연락하기</a>
+            </div>
           </div>
-        </div>
-        <div class="hero__code" data-animate="fade-up" data-delay="2">
-          <div class="hero__code-header">
-            <span class="hero__code-dot"></span>
-            <span class="hero__code-dot"></span>
-            <span class="hero__code-dot"></span>
+          <div class="hero__code" data-animate="fade-up" data-delay="2">
+            <div class="hero__code-header">
+              <span class="hero__code-dot"></span>
+              <span class="hero__code-dot"></span>
+              <span class="hero__code-dot"></span>
+            </div>
+            <pre class="hero__code-display" id="code-display"><span class="cursor"></span></pre>
           </div>
-          <pre class="hero__code-display" id="code-display"><span class="cursor"></span></pre>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Dashboard Bento Grid -->
-  <section class="dashboard">
-    <div class="container">
-      <div class="dashboard__header" data-animate="fade-up">
-        <div>
-          <p class="section-label">Overview</p>
-          <h2 class="section-title">한눈에 보기</h2>
-        </div>
-      </div>
-
-      <div class="bento-grid">
-        <!-- Stats 2x2 block -->
-        <div class="stats-grid" data-animate="fade-up" data-delay="1">
-          <div class="card stat">
-            <span class="stat__number" data-count="10" data-suffix="+">0</span>
-            <span class="stat__label">Years Experience</span>
-          </div>
-          <div class="card stat">
-            <span class="stat__number" data-count="20" data-suffix="+">0</span>
-            <span class="stat__label">Projects</span>
-          </div>
-          <div class="card stat">
-            <span class="stat__number" data-count="7" data-suffix="+">0</span>
-            <span class="stat__label">Awards</span>
-          </div>
-          <div class="card stat">
-            <span class="stat__number" data-count="15" data-suffix="+">0</span>
-            <span class="stat__label">Seminars</span>
-          </div>
-        </div>
-
-        <!-- Featured Project -->
-        <div class="card span-2 row-2 featured-project" data-animate="fade-up" data-delay="2">
+    <!-- Dashboard Bento Grid -->
+    <section class="dashboard">
+      <div class="container">
+        <div class="dashboard__header" data-animate="fade-up">
           <div>
-            <p class="section-label">Featured Project</p>
-            <img src="assets/images/sections/projects/2024/armi.jpg" alt="A.RM.I 프로젝트" class="featured-project__img">
-            <h3 class="card__title">A.RM.I — 졸업작품</h3>
-            <p class="card__desc">ARM과 AI 모델을 활용한 분산형 저전력 객체인식 군용 경계 감시 시스템</p>
-            <div class="featured-project__tags">
-              <span class="badge badge--accent">C/C++</span>
-              <span class="badge badge--accent">STM32</span>
-              <span class="badge badge--accent">PCB</span>
-              <span class="badge badge--accent">팀장</span>
-            </div>
+            <p class="section-label">Overview</p>
+            <h2 class="section-title">한눈에 보기</h2>
           </div>
-          <a href="projects.html" class="dashboard__view-all" style="margin-top:var(--space-4)">모든 프로젝트 보기 →</a>
         </div>
 
-        <!-- Tech Stack Preview -->
-        <div class="card span-2" data-animate="fade-up" data-delay="5">
-          <p class="section-label">Tech Stack</p>
-          <h3 class="card__title" style="margin-bottom:var(--space-4)">기술 스택</h3>
-          <div class="tech-preview">
-            <span class="tech-chip">C</span>
-            <span class="tech-chip">C++</span>
-            <span class="tech-chip">STM32</span>
-            <span class="tech-chip">FPGA</span>
-            <span class="tech-chip">Verilog</span>
-            <span class="tech-chip">KiCad</span>
-            <span class="tech-chip">PCB Design</span>
-            <span class="tech-chip">Linux</span>
-            <span class="tech-chip">Arduino</span>
-            <span class="tech-chip">Raspberry Pi</span>
-            <span class="tech-chip">Home Assistant</span>
-            <span class="tech-chip">ESPHome</span>
-            <span class="tech-chip">SOLIDWORKS</span>
+        <div class="bento-grid">
+          <!-- Statistics Group -->
+          <div class="stats-wrapper" data-animate="fade-up" data-delay="1">
+            <div class="stats-grid-inner">
+              <a href="experience.html" class="card stat-item">
+                <span class="stat__number" data-count="10" data-suffix="+">0</span>
+                <span class="stat__label">Years Experience</span>
+              </a>
+              <a href="projects.html" class="card stat-item">
+                <span class="stat__number" data-count="20" data-suffix="+">0</span>
+                <span class="stat__label">Projects</span>
+              </a>
+              <a href="experience.html" class="card stat-item">
+                <span class="stat__number" data-count="7" data-suffix="+">0</span>
+                <span class="stat__label">Awards</span>
+              </a>
+              <a href="seminars.html" class="card stat-item">
+                <span class="stat__number" data-count="15" data-suffix="+">0</span>
+                <span class="stat__label">Seminars</span>
+              </a>
+            </div>
           </div>
-          <a href="skills.html" class="dashboard__view-all" style="margin-top:var(--space-4)">자세히 보기 →</a>
-        </div>
 
-        <!-- Recent Awards -->
-        <div class="card span-2" data-animate="fade-up" data-delay="6">
-          <p class="section-label">Awards</p>
-          <h3 class="card__title" style="margin-bottom:var(--space-4)">최근 수상</h3>
-          <div class="award-mini">
-            <div class="award-mini__item">
-              <span class="award-mini__name">제22회 임베디드 SW 경진대회</span>
-              <span class="award-mini__type">✨ 입선</span>
+          <!-- Featured Project -->
+          <div class="card featured-project" data-animate="fade-up" data-delay="2">
+            <div>
+              <p class="section-label">Featured Project</p>
+              <img src="assets/images/sections/projects/2024/armi.jpg" alt="A.RM.I 프로젝트" class="featured-project__img">
+              <h3 class="card__title">A.RM.I — 졸업작품</h3>
+              <p class="card__desc">ARM과 AI 모델을 활용한 분산형 저전력 객체인식 군용 경계 감시 시스템</p>
+              <div class="featured-project__tags">
+                <span class="badge badge--accent">C/C++</span>
+                <span class="badge badge--accent">STM32</span>
+                <span class="badge badge--accent">PCB</span>
+                <span class="badge badge--accent">팀장</span>
+              </div>
             </div>
-            <div class="award-mini__item">
-              <span class="award-mini__name">캡스톤디자인 작품발표회</span>
-              <span class="award-mini__type">🥈 은상</span>
-            </div>
-            <div class="award-mini__item">
-              <span class="award-mini__name">ICT멘토링 학술대회 (ACK 2023)</span>
-              <span class="award-mini__type">🏆 최우수상</span>
-            </div>
-            <div class="award-mini__item">
-              <span class="award-mini__name">교내 캡스톤디자인 경진대회 (2022)</span>
-              <span class="award-mini__type">🏆 대상</span>
-            </div>
+            <a href="projects.html" class="dashboard__view-all" style="margin-top:var(--space-4)">모든 프로젝트 보기 →</a>
           </div>
-          <a href="experience.html" class="dashboard__view-all" style="margin-top:var(--space-4)">전체 이력 보기 →</a>
+
+          <!-- Tech Stack Preview -->
+          <div class="card tech-stack-card" data-animate="fade-up" data-delay="5">
+            <p class="section-label">Tech Stack</p>
+            <h3 class="card__title" style="margin-bottom:var(--space-4)">기술 스택</h3>
+            <div class="tech-preview">
+              <span class="tech-chip">C</span>
+              <span class="tech-chip">C++</span>
+              <span class="tech-chip">STM32</span>
+              <span class="tech-chip">FPGA</span>
+              <span class="tech-chip">Verilog</span>
+              <span class="tech-chip">KiCad</span>
+              <span class="tech-chip">PCB Design</span>
+              <span class="tech-chip">Linux</span>
+              <span class="tech-chip">Arduino</span>
+              <span class="tech-chip">Raspberry Pi</span>
+              <span class="tech-chip">Home Assistant</span>
+              <span class="tech-chip">ESPHome</span>
+              <span class="tech-chip">SOLIDWORKS</span>
+            </div>
+            <a href="skills.html" class="dashboard__view-all" style="margin-top:var(--space-4)">자세히 보기 →</a>
+          </div>
+
+          <!-- Recent Awards -->
+          <div class="card awards-card" data-animate="fade-up" data-delay="6">
+            <p class="section-label">Awards</p>
+            <h3 class="card__title" style="margin-bottom:var(--space-4)">최근 수상</h3>
+            <div class="award-mini">
+              <div class="award-mini__item">
+                <span class="award-mini__name">제22회 임베디드 SW 경진대회</span>
+                <span class="award-mini__type">✨ 입선</span>
+              </div>
+              <div class="award-mini__item">
+                <span class="award-mini__name">교내 캡스톤디자인 작품발표회</span>
+                <span class="award-mini__type">🥈 은상</span>
+              </div>
+              <div class="award-mini__item">
+                <span class="award-mini__name">ICT멘토링 학술대회 (ACK 2023)</span>
+                <span class="award-mini__type">🏆 최우수상</span>
+              </div>
+              <div class="award-mini__item">
+                <span class="award-mini__name">교내 캡스톤디자인 경진대회 (2022)</span>
+                <span class="award-mini__type">🏆 대상</span>
+              </div>
+            </div>
+            <a href="experience.html" class="dashboard__view-all" style="margin-top:var(--space-4)">전체 이력 보기 →</a>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-</div>
+  </div>
 
-<!-- Footer -->
-<div id="footer-placeholder"></div>
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
 
-<button class="back-to-top" aria-label="Back to top">↑</button>
+  <button class="back-to-top" aria-label="Back to top">↑</button>
 
-<!-- Scripts -->
-<script src="assets/js/theme.js"></script>
-<script src="assets/js/navigation.js"></script>
-<script src="assets/js/animations.js"></script>
-<script>
-// Typing animation
-(function() {
-  function initTyping() {
-    const el = document.getElementById('code-display');
-    if (!el) return;
-    const sentences = [
-      "My major is electronic engineering.",
-      "I am an embedded developer.",
-      "Home IoT is my hobby.",
-      "I want to be an embedded engineer."
-    ];
-    const languages = [
-      { lang:"C", cm:"//", tpl: '<span class="cm">// C</span>\n<span class="fn">printf</span>(<span class="str">"{s}\\n"</span>);' },
-      { lang:"C++", cm:"//", tpl: '<span class="cm">// C++</span>\n<span class="kw">std</span>::<span class="fn">cout</span> << <span class="str">"{s}"</span> << <span class="kw">std</span>::<span class="fn">endl</span>;' },
-      { lang:"C#", cm:"//", tpl: '<span class="cm">// C#</span>\n<span class="kw">Console</span>.<span class="fn">WriteLine</span>(<span class="str">"{s}"</span>);' },
-      { lang:"Python", cm:"#", tpl: '<span class="cm"># Python</span>\n<span class="fn">print</span>(<span class="str">"{s}"</span>)' },
-      { lang:"Java", cm:"//", tpl: '<span class="cm">// Java</span>\n<span class="kw">System</span>.<span class="fn">out.println</span>(<span class="str">"{s}"</span>);' }
-    ];
-    let si=0, ci=0, deleting=false, output='';
-    let lang = languages[Math.floor(Math.random()*languages.length)];
-    const cursor = '<span class="cursor"></span>';
+  <!-- Scripts -->
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/navigation.js"></script>
+  <script src="assets/js/animations.js"></script>
+  <script>
+    // Typing animation
+    (function () {
+      function initTyping() {
+        const el = document.getElementById('code-display');
+        if (!el) return;
+        const sentences = [
+          "My major is electronic engineering.",
+          "I am an embedded developer.",
+          "Home IoT is my hobby.",
+          "I want to be an embedded engineer."
+        ];
+        const languages = [
+          { lang: "C", cm: "//", tpl: '<span class="cm">// C</span>\n<span class="fn">printf</span>(<span class="str">"{s}\\n"</span>);' },
+          { lang: "C++", cm: "//", tpl: '<span class="cm">// C++</span>\n<span class="kw">std</span>::<span class="fn">cout</span> << <span class="str">"{s}"</span> << <span class="kw">std</span>::<span class="fn">endl</span>;' },
+          { lang: "C#", cm: "//", tpl: '<span class="cm">// C#</span>\n<span class="kw">Console</span>.<span class="fn">WriteLine</span>(<span class="str">"{s}"</span>);' },
+          { lang: "Python", cm: "#", tpl: '<span class="cm"># Python</span>\n<span class="fn">print</span>(<span class="str">"{s}"</span>)' },
+          { lang: "Java", cm: "//", tpl: '<span class="cm">// Java</span>\n<span class="kw">System</span>.<span class="fn">out.println</span>(<span class="str">"{s}"</span>);' }
+        ];
+        let si = 0, ci = 0, deleting = false, output = '';
+        let lang = languages[Math.floor(Math.random() * languages.length)];
+        const cursor = '<span class="cursor"></span>';
 
-    function tick() {
-      const sentence = sentences[si];
-      output = lang.tpl.replace('{s}', sentence);
-      if (!deleting && ci <= output.length) {
-        el.innerHTML = output.slice(0,ci) + cursor;
-        ci++;
-        setTimeout(tick, 22);
-      } else if (deleting && ci >= 0) {
-        el.innerHTML = output.slice(0,ci) + cursor;
-        ci--;
-        setTimeout(tick, 8);
-      } else {
-        deleting = !deleting;
-        if (!deleting) {
-          si = (si+1)%sentences.length;
-          lang = languages[Math.floor(Math.random()*languages.length)];
-          ci = 0;
-          setTimeout(tick, 300);
-        } else {
-          setTimeout(tick, 1200);
+        function tick() {
+          const sentence = sentences[si];
+          output = lang.tpl.replace('{s}', sentence);
+          if (!deleting && ci <= output.length) {
+            el.innerHTML = output.slice(0, ci) + cursor;
+            ci++;
+            setTimeout(tick, 22);
+          } else if (deleting && ci >= 0) {
+            el.innerHTML = output.slice(0, ci) + cursor;
+            ci--;
+            setTimeout(tick, 8);
+          } else {
+            deleting = !deleting;
+            if (!deleting) {
+              si = (si + 1) % sentences.length;
+              lang = languages[Math.floor(Math.random() * languages.length)];
+              ci = 0;
+              setTimeout(tick, 300);
+            } else {
+              setTimeout(tick, 1200);
+            }
+          }
         }
+        tick();
       }
-    }
-    tick();
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initTyping);
-  } else {
-    initTyping();
-  }
-})();
-
-// Count-up animation for stat numbers
-(function() {
-  function animateCountUp(el) {
-    const target = parseInt(el.getAttribute('data-count'), 10);
-    const suffix = el.getAttribute('data-suffix') || '';
-    const duration = 1500;
-    const startTime = performance.now();
-
-    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
-
-    function update(now) {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const current = Math.round(easeOutCubic(progress) * target);
-      el.textContent = current + suffix;
-      if (progress < 1) requestAnimationFrame(update);
-    }
-    requestAnimationFrame(update);
-  }
-
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        animateCountUp(entry.target);
-        observer.unobserve(entry.target);
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initTyping);
+      } else {
+        initTyping();
       }
-    });
-  }, { threshold: 0.5 });
+    })();
 
-  function initCountUp() {
-    document.querySelectorAll('[data-count]').forEach(function(el) {
-      observer.observe(el);
-    });
-  }
+    // Count-up animation for stat numbers
+    (function () {
+      function animateCountUp(el) {
+        const target = parseInt(el.getAttribute('data-count'), 10);
+        const suffix = el.getAttribute('data-suffix') || '';
+        const duration = 1500;
+        const startTime = performance.now();
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initCountUp);
-  } else {
-    initCountUp();
-  }
-})();
-</script>
+        function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+        function update(now) {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const current = Math.round(easeOutCubic(progress) * target);
+          el.textContent = current + suffix;
+          if (progress < 1) requestAnimationFrame(update);
+        }
+        requestAnimationFrame(update);
+      }
+
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            animateCountUp(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      function initCountUp() {
+        document.querySelectorAll('[data-count]').forEach(function (el) {
+          observer.observe(el);
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCountUp);
+      } else {
+        initCountUp();
+      }
+    })();
+  </script>
 </body>
+
 </html>

@@ -76,6 +76,7 @@
 /* Featured project card */
 .featured-project {
   display: flex; flex-direction: column; justify-content: space-between;
+  min-width: 280px;
 }
 .featured-project__img {
   width: 100%; height: 160px; object-fit: cover;
@@ -85,6 +86,7 @@
 .featured-project__tags { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
 
 /* Tech stack preview */
+.tech-stack-card { min-width: 280px; }
 .tech-preview { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 .tech-chip {
   padding: var(--space-1) var(--space-3); border-radius: var(--radius-full);
@@ -98,6 +100,7 @@
 }
 
 /* Recent awards list */
+.awards-card { min-width: 280px; }
 .award-mini { display: flex; flex-direction: column; gap: var(--space-3); }
 .award-mini__item {
   display: flex; justify-content: space-between; align-items: center;
@@ -108,30 +111,35 @@
 .award-mini__item:last-child { border-bottom: none; }
 .award-mini__name { color: var(--text-primary); flex: 1; }
 .award-mini__type {
-  font-family: var(--font-mono); font-size: var(--text-xs);
+  font-size: var(--text-xs); font-weight: var(--weight-medium);
   color: #fbbf24; white-space: nowrap;
 }
 
 /* ── Responsive ── */
-@media(max-width:768px){
+/* ── Stats Wrapper ── */
+.stats-wrapper {
+  background: none; border: none; padding: 0;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.stats-grid-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: var(--space-4); flex: 1;
+}
+.stat-item {
+  text-align: center; display: flex; flex-direction: column;
+  justify-content: center; min-height: 120px;
+}
+
+@media(max-width:1200px){
   .hero { padding: var(--space-16) 0 var(--space-12); }
   .hero__grid { grid-template-columns: 1fr; gap: var(--space-8); }
   .hero__name { font-size: var(--text-5xl); }
   .hero__role { font-size: var(--text-xl); }
   .hero__code-display { min-height: 80px; max-height: 80px; }
-  .stats-grid { grid-column: span 2; grid-row: span 1; }
 }
-@media(max-width:480px){
+@media(max-width:640px){
   .hero__name { font-size: var(--text-4xl); }
   .hero__cta { flex-direction: column; }
   .hero__cta .btn { width: 100%; justify-content: center; }
   .hero__code-display { min-height: 80px; max-height: 80px; }
-  .stats-grid { grid-column: span 1; grid-row: span 1; }
 }
-
-/* ── Stats 2x2 Grid ── */
-.stats-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: var(--space-4); grid-column: span 2; grid-row: span 2;
-}
-.stats-grid .card.stat { min-height: 120px; }

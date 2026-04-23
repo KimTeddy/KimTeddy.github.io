@@ -15,6 +15,7 @@
   let targetX = 0, targetY = 0;
   let windowHalfX = window.innerWidth / 2;
   let windowHalfY = window.innerHeight / 2;
+  let scrollProgress = 0;
 
   init();
   animate();
@@ -58,6 +59,7 @@
     // 8. Event Listeners
     window.addEventListener('resize', onWindowResize, false);
     document.addEventListener('mousemove', onMouseMove, false);
+    window.addEventListener('scroll', onScroll, { passive: true });
 
     // Hide Loading Screen
     const loader = document.getElementById('contact-loading');
@@ -208,6 +210,13 @@
     mouseX = (event.clientX - windowHalfX);
     mouseY = (event.clientY - windowHalfY);
   }
+  
+  function onScroll() {
+    const scrollH = document.documentElement.scrollHeight - window.innerHeight;
+    if (scrollH > 0) {
+      scrollProgress = window.scrollY / scrollH;
+    }
+  }
 
   function animate() {
     requestAnimationFrame(animate);
@@ -222,31 +231,55 @@
     camera.lookAt(sceneCSS.position);
 
     // Rotate Particles & Majestic Structures
-    particles.rotation.y = time * 0.05;
-    particles.rotation.x = time * 0.02;
+    particles.rotation.y = time * 0.05 + scrollProgress * 2;
+    particles.rotation.x = time * 0.02 + scrollProgress * 1;
 
     majesticStructures.forEach((struct, i) => {
-      struct.rotation.y += 0.001 * (i % 2 === 0 ? 1 : -1);
-      struct.rotation.x += 0.0005 * (i % 2 === 0 ? 1 : -1);
+      struct.rotation.y += (0.001 + scrollProgress * 0.01) * (i % 2 === 0 ? 1 : -1);
+      struct.rotation.x += (0.0005 + scrollProgress * 0.005) * (i % 2 === 0 ? 1 : -1);
       struct.rotation.z += 0.0002;
     });
 
-    // Gentle Floating Y and Look-at-Mouse for Cards
+    // Handle Title Fade
+    const titleOverlay = document.querySelector('.contact-hud-title');
+    if (titleOverlay) {
+      titleOverlay.style.opacity = Math.max(0, 1 - scrollProgress * 3);
+      titleOverlay.style.transform = `translateX(-50%) translateY(${-scrollProgress * 200}px)`;
+    }
+
+    // Lavish Animations for Cards
     cssObjects.forEach((obj, i) => {
-      // Float
-      obj.position.y = obj.userData.basePos.y + Math.sin(time * 2 + i) * 15;
+      const basePos = obj.userData.basePos;
       
-      // Rotate slightly toward mouse
+      // 1. Dispersion: Cards fly away from center
+      const disperseFactor = scrollProgress * 1500;
+      const angle = (i / NODES.length) * Math.PI * 2 + time * 0.2;
+      
+      const targetX = basePos.x + Math.cos(angle) * disperseFactor;
+      const targetY = basePos.y + Math.sin(angle) * disperseFactor + Math.sin(time * 2 + i) * 15;
+      const targetZ = basePos.z - scrollProgress * 1000;
+      
+      obj.position.x += (targetX - obj.position.x) * 0.1;
+      obj.position.y += (targetY - obj.position.y) * 0.1;
+      obj.position.z += (targetZ - obj.position.z) * 0.1;
+      
+      // 2. Wild Rotation
       const normX = mouseX / windowHalfX;
       const normY = mouseY / windowHalfY;
       
-      // Target rotations (up to ~17 degrees)
-      const targetRotY = normX * 0.4;
-      const targetRotX = normY * 0.4;
+      const targetRotY = normX * 0.4 + scrollProgress * Math.PI * 2;
+      const targetRotX = normY * 0.4 + scrollProgress * Math.PI;
+      const targetRotZ = scrollProgress * Math.PI * 0.5;
       
-      // Smooth interpolation
       obj.rotation.y += (targetRotY - obj.rotation.y) * 0.1;
       obj.rotation.x += (targetRotX - obj.rotation.x) * 0.1;
+      obj.rotation.z += (targetRotZ - obj.rotation.z) * 0.1;
+
+      // 3. Opacity Fade out at the end
+      const cardEl = obj.element;
+      if (cardEl) {
+        cardEl.style.opacity = Math.max(0, 1 - (scrollProgress - 0.7) * 4);
+      }
     });
 
     rendererWebGL.render(sceneWebGL, camera);

@@ -6,13 +6,14 @@ body, html {
 
 /* Container for the entire 3D experience */
 #contact-3d-container {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
-  margin-top: -80px; /* Offset nav */
-  padding-top: 80px;
   background-color: #050505;
   overflow: hidden;
+  z-index: 0;
 }
 body.light-mode #contact-3d-container {
   background-color: #f0f4f8;
@@ -124,5 +125,15 @@ body.light-mode .contact-card__icon.invert-light { filter: invert(1); }
 .contact-card__text { font-size: var(--text-md); font-weight: var(--weight-bold); margin-bottom: 2px; }
 .contact-card__sub { font-size: var(--text-xs); opacity: 0.7; }
 
-/* Hide footer naturally inside this immersive page */
-.page-wrapper + #footer-placeholder { display: none; }
+/* Scroll spacer to allow page scrolling */
+.contact-scroll-spacer {
+  height: 200vh; /* Adds scroll depth */
+  pointer-events: none; /* Let clicks pass through to 3D scene if needed */
+}
+
+/* Ensure footer appears at the end */
+#footer-placeholder {
+  position: relative;
+  z-index: 10;
+  background-color: var(--bg-primary);
+}

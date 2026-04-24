@@ -106,4 +106,5 @@ nodes:
     color: "0x44aaff"
     size: 0.4
     type: "box"
+    parent: "cabinet_led"
     link: "https://blog.naver.com/teddy_02/222658524066"

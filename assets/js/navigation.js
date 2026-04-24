@@ -1,5 +1,5 @@
 /* navigation.js — Common navigation logic for all pages */
-(function() {
+(function () {
   function init() {
     highlightCurrentPage();
     initBurgerMenu();
@@ -11,7 +11,7 @@
   function highlightCurrentPage() {
     const path = window.location.pathname;
     const filename = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
-    document.querySelectorAll('.nav__link').forEach(function(link) {
+    document.querySelectorAll('.nav__link').forEach(function (link) {
       const href = link.getAttribute('href');
       if (href === filename || (filename === 'index.html' && href === './') || (filename === '' && href === './')) {
         link.classList.add('active');
@@ -24,21 +24,21 @@
     const mobileMenu = document.querySelector('.nav__mobile-menu');
     if (!burger || !mobileMenu) return;
 
-    burger.addEventListener('click', function() {
+    burger.addEventListener('click', function () {
       burger.classList.toggle('open');
       mobileMenu.classList.toggle('open');
     });
 
     // Close on link click
-    mobileMenu.querySelectorAll('.nav__link').forEach(function(link) {
-      link.addEventListener('click', function() {
+    mobileMenu.querySelectorAll('.nav__link').forEach(function (link) {
+      link.addEventListener('click', function () {
         burger.classList.remove('open');
         mobileMenu.classList.remove('open');
       });
     });
 
     // Close on outside click
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
       if (!burger.contains(e.target) && !mobileMenu.contains(e.target)) {
         burger.classList.remove('open');
         mobileMenu.classList.remove('open');
@@ -49,7 +49,7 @@
   function initScrollProgress() {
     const bar = document.querySelector('.nav__progress');
     if (!bar) return;
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
       const scrollH = document.documentElement.scrollHeight - window.innerHeight;
       if (scrollH > 0) {
         bar.style.width = ((window.scrollY / scrollH) * 100) + '%';
@@ -60,7 +60,7 @@
   function initBackToTop() {
     const btn = document.querySelector('.back-to-top');
     if (!btn) return;
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
       if (window.scrollY > 400) {
         btn.classList.add('visible');
       } else {
@@ -79,7 +79,7 @@
         }
       }
     }, { passive: true });
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
@@ -88,9 +88,9 @@
     const placeholder = document.getElementById('footer-placeholder');
     if (!placeholder) return;
     fetch('footer.html')
-      .then(function(r) { return r.text(); })
-      .then(function(html) { placeholder.innerHTML = html; })
-      .catch(function() {});
+      .then(function (r) { return r.text(); })
+      .then(function (html) { placeholder.innerHTML = html; })
+      .catch(function () { });
   }
 
   if (document.readyState === 'loading') {

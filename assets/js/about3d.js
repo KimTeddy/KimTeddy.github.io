@@ -152,7 +152,8 @@
       color: 'rgba(255, 255, 255, 0.7)',
       fontSize: 'var(--text-xs)',
       fontFamily: 'var(--font-mono)',
-      pointerEvents: 'none',
+      pointerEvents: 'auto',
+
       zIndex: '10',
       opacity: '0',
       transition: 'opacity 0.5s ease, transform 0.5s ease',
@@ -199,16 +200,21 @@
             .then(state => {
               if (state === 'granted') {
                 window.addEventListener('deviceorientation', handleOrientation);
-                gyroBtn.style.display = 'none';
+                gyroBtn.innerHTML = '✅ Motion Active';
+                gyroBtn.style.background = 'rgba(0, 229, 160, 0.3)';
+                gyroBtn.style.borderColor = '#00e5a0';
               }
             })
             .catch(e => console.error(e));
         } else {
           window.addEventListener('deviceorientation', handleOrientation);
-          gyroBtn.style.display = 'none';
+          gyroBtn.innerHTML = '✅ Motion Active';
+          gyroBtn.style.background = 'rgba(0, 229, 160, 0.3)';
+          gyroBtn.style.borderColor = '#00e5a0';
         }
       });
     }
+
 
 
     // Show gallery link when section is in view

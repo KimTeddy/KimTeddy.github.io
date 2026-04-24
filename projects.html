@@ -56,6 +56,7 @@
 <script src="assets/js/theme.js"></script>
 <script src="assets/js/navigation.js"></script>
 <script src="assets/js/animations.js"></script>
+  <script src="assets/js/artistic.js"></script>
 <script>
 (function(){
   var attempt=0;
@@ -71,7 +72,7 @@
         categories.add(group.year);
         var title=document.createElement('h3');
         title.className='year-group-title';
-        title.textContent=group.year;
+        title.innerHTML=group.year.replace(/(\d+)/g, '<span class="num">$1</span>');
         title.setAttribute('data-category',group.year);
         title.setAttribute('data-animate','fade-up');
         container.appendChild(title);
@@ -95,7 +96,7 @@
             html+='</div>';
           }
           html+='<div class="project-card__footer">';
-          html+='<span class="project-card__duration">'+p.duration+'</span>';
+          html+='<span class="project-card__duration">'+p.duration.replace(/(\d+)/g, '<span class="num">$1</span>')+'</span>';
           html+='<div class="link-icons">';
           if(p.links){
             if(p.links.github) html+='<a href="'+p.links.github+'" target="_blank"><img src="assets/images/logos/github-mark-white.svg" alt="GitHub" class="invert-light"></a>';
@@ -114,7 +115,7 @@
         var btn=document.createElement('button');
         btn.className='filter-btn';
         btn.setAttribute('data-filter',cat);
-        btn.textContent=cat;
+        btn.innerHTML=cat.replace(/(\d+)/g, '<span class="num">$1</span>');
         filterBar.appendChild(btn);
       });
 
@@ -142,3 +143,4 @@
 })();
 </script>
 </body></html>
+

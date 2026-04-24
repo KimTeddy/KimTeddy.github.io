@@ -62,9 +62,17 @@ body.light-mode .nav { background: rgba(245,245,250,0.8); }
 .nav__mobile-menu.open { display: flex; }
 .nav__mobile-menu .nav__link { padding: var(--space-3) var(--space-4); font-size: var(--text-base); }
 
+@media(max-width:1024px){
+  .nav__inner { padding: 0 var(--space-4); }
+  .nav__logo { font-size: var(--text-base); }
+  .nav__links { gap: var(--space-0-5); }
+  .nav__link { padding: var(--space-2) var(--space-1); font-size: 0.75rem; }
+}
+
 @media(max-width:768px){
   .nav__links { display: none; }
   .nav__burger { display: flex; }
+  .nav__logo span { font-size: 0.85rem; } /* Ensure title stays but smaller */
 }
 
 /* ── Theme Toggle ── */

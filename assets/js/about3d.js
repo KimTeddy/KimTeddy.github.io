@@ -123,7 +123,7 @@
     if (isTouchDevice) {
       controlHint.innerHTML = `
         <div class="control-hint-mobile">
-          Rotate: <span class="key">1-Finger</span> <span class="sep">|</span> Pan: <span class="key">3-Finger</span> <span class="sep">|</span> Zoom: <span class="key">Pinch</span>
+          Rotate: <span class="key">1-Finger</span> <span class="sep">|</span> Pan: <span class="key">2-Fingers</span> <span class="sep">|</span> Zoom: <span class="key">Pinch</span>
           <button id="gyro-btn" class="key" style="margin-left: 10px; cursor: pointer; border: 1px solid var(--accent-primary); background: rgba(0, 229, 160, 0.1); color: var(--accent-primary); font-size: inherit; font-family: inherit; border-radius: 4px; padding: 0 6px;">📳 Motion</button>
         </div>
       `;

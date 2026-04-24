@@ -249,15 +249,34 @@
   border-radius: 3px;
 }
 
-@media (max-width: 992px) {
-  .control-hint-desktop { display: none; }
-  .control-hint-mobile { display: flex; }
+.control-hint-desktop,
+.control-hint-mobile { 
+  display: flex; 
+  align-items: center; 
+  gap: 8px; 
 }
 
-@media (min-width: 993px) {
-  .control-hint-desktop { display: flex; }
-  .control-hint-mobile { display: none; }
+.control-hint-desktop {
+  white-space: nowrap;
 }
+
+@media (max-width: 768px) {
+  #iot-control-hint {
+    bottom: var(--space-4) !important;
+    right: var(--space-4) !important;
+    max-width: calc(100% - var(--space-8));
+    border-radius: var(--radius-lg) !important;
+  }
+  
+  .control-hint-mobile {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    white-space: normal;
+    line-height: 1.6;
+    text-align: right;
+  }
+}
+
 
 /* Gallery Link Badge Styles */
 .gallery-badge {
@@ -304,29 +323,8 @@
   }
 }
 
-.control-hint-item .key,
-.control-hint-item .mouse-icon {
-  color: var(--accent-primary);
-  background: rgba(0, 229, 160, 0.1);
-  padding: 2px 6px;
-  border-radius: 4px;
-  border: 1px solid rgba(0, 229, 160, 0.2);
-  font-weight: 700;
-  letter-spacing: 0.05em;
-}
+/* Combined responsive logic above */
 
-.control-hint-mobile {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .control-hint-item { display: none; }
-  .control-hint-mobile { display: block; }
-  #iot-control-hint {
-    bottom: var(--space-4) !important;
-    right: var(--space-4) !important;
-  }
-}
 
 /* Hobbies Bento Grid */
 .hobbies-grid {

@@ -12,6 +12,10 @@
   let nodes = [];
   let connectionLines = [];
   let hoveredNode = null;
+  let mainGroup; // Group to tilt for gyro parallax
+  let gyroX = 0, gyroY = 0;
+  let targetGyroX = 0, targetGyroY = 0;
+
 
   const hud = document.getElementById('iot-hud');
   const hudTitle = document.getElementById('iot-hud-title');
@@ -76,27 +80,34 @@
     scene.add(gridHelper);
 
     // 7. Create Rooms and Nodes
+    mainGroup = new THREE.Group();
+    scene.add(mainGroup);
+
     createRooms();
     fetchIotNodes();
+
 
     // 8. Interaction Setup
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
-    container.addEventListener('mousemove', onMouseMove);
+    renderer.domElement.addEventListener('pointermove', onMouseMove);
+    renderer.domElement.style.touchAction = 'none';
+
     window.addEventListener('resize', onWindowResize);
 
     // Add click handler for nodes with links
     let startX = 0;
     let startY = 0;
-    container.addEventListener('pointerdown', (e) => {
+    renderer.domElement.addEventListener('pointerdown', (e) => {
       startX = e.clientX;
       startY = e.clientY;
+      onMouseMove(e); // Ensure node is detected on touch start for mobile
     });
 
-    container.addEventListener('pointerup', (e) => {
+    renderer.domElement.addEventListener('pointerup', (e) => {
       const dist = Math.hypot(e.clientX - startX, e.clientY - startY);
-      // If pointer moved less than 5 pixels, it's a click, not a drag
-      if (dist < 5 && hoveredNode && hoveredNode.userData.link) {
+      // If pointer moved less than 10 pixels, it's a click, not a drag (adjusted for mobile)
+      if (dist < 10 && hoveredNode && hoveredNode.userData.link) {
         window.open(hoveredNode.userData.link, '_blank');
       }
     });
@@ -105,20 +116,29 @@
     window.addEventListener('scroll', onScroll);
 
     // 9. Add minimalist control hint
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
     const controlHint = document.createElement('div');
     controlHint.id = 'iot-control-hint';
-    controlHint.innerHTML = `
-      <div class="control-hint-desktop">
-        <span>Rotate: <span class="key">L-Drag</span></span>
-        <span class="sep">|</span>
-        <span>Pan: <span class="key">R-Drag</span></span>
-        <span class="sep">|</span>
-        <span>Zoom: <span class="key">Shift+Scroll</span></span>
-      </div>
-      <div class="control-hint-mobile">
-        Rotate: <span class="key">1-Finger</span> <span class="sep">|</span> Pan: <span class="key">3-Finger</span> <span class="sep">|</span> Zoom: <span class="key">Pinch</span>
-      </div>
-    `;
+
+    if (isTouchDevice) {
+      controlHint.innerHTML = `
+        <div class="control-hint-mobile">
+          Rotate: <span class="key">1-Finger</span> <span class="sep">|</span> Pan: <span class="key">3-Finger</span> <span class="sep">|</span> Zoom: <span class="key">Pinch</span>
+          <button id="gyro-btn" class="key" style="margin-left: 10px; cursor: pointer; border: 1px solid var(--accent-primary); background: rgba(0, 229, 160, 0.1); color: var(--accent-primary); font-size: inherit; font-family: inherit; border-radius: 4px; padding: 0 6px;">📳 Motion</button>
+        </div>
+      `;
+    } else {
+      controlHint.innerHTML = `
+        <div class="control-hint-desktop">
+          <span>Rotate: <span class="key">L-Drag</span></span>
+          <span class="sep">|</span>
+          <span>Pan: <span class="key">R-Drag</span></span>
+          <span class="sep">|</span>
+          <span>Zoom: <span class="key">Shift+Scroll</span></span>
+        </div>
+      `;
+    }
+
     Object.assign(controlHint.style, {
       position: 'absolute',
       bottom: 'var(--space-6)',
@@ -163,6 +183,33 @@
       transform: 'translateY(-10px)'
     });
     container.appendChild(galleryLink);
+
+    // Gyroscope Setup
+    const gyroBtn = controlHint.querySelector('#gyro-btn');
+    const handleOrientation = (event) => {
+      // gamma: left/right tilt, beta: front/back tilt
+      targetGyroX = event.gamma * 0.003;
+      targetGyroY = Math.max(-0.2, Math.min(0.2, (event.beta - 45) * 0.003));
+    };
+
+    if (gyroBtn) {
+      gyroBtn.addEventListener('click', () => {
+        if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+          DeviceOrientationEvent.requestPermission()
+            .then(state => {
+              if (state === 'granted') {
+                window.addEventListener('deviceorientation', handleOrientation);
+                gyroBtn.style.display = 'none';
+              }
+            })
+            .catch(e => console.error(e));
+        } else {
+          window.addEventListener('deviceorientation', handleOrientation);
+          gyroBtn.style.display = 'none';
+        }
+      });
+    }
+
 
     // Show gallery link when section is in view
     const showGallery = () => {
@@ -217,7 +264,8 @@
       const material = new THREE.LineBasicMaterial({ color: room.color, transparent: true, opacity: 0.15 });
       const line = new THREE.LineSegments(edges, material);
       line.position.set(room.x, 1.5, room.z); // y=1.5 so bottom is at y=0
-      scene.add(line);
+      mainGroup.add(line);
+
 
       // 8. Floor Text (Integrated Design - Filling the floor)
       const aspect = room.w / room.d;
@@ -269,7 +317,7 @@
 
       floorLabel.rotation.x = -Math.PI / 2;
       floorLabel.position.set(room.x, 0.05, room.z);
-      scene.add(floorLabel);
+      mainGroup.add(floorLabel);
     });
 
     // --- Architectural Details ---
@@ -279,22 +327,24 @@
     const doorGeo = new THREE.BoxGeometry(8, 3, 0.1);
     const door = new THREE.Mesh(doorGeo, glassMaterial);
     door.position.set(-3, 1.5, 8); // At z=8 (bottom wall)
-    scene.add(door);
+    mainGroup.add(door);
 
     const doorEdges = new THREE.LineSegments(new THREE.EdgesGeometry(doorGeo), new THREE.LineBasicMaterial({ color: 0x88ccff, transparent: true, opacity: 0.2, depthWrite: false }));
     doorEdges.position.set(-3, 1.5, 8);
-    scene.add(doorEdges);
+    mainGroup.add(doorEdges);
+
 
     // 2. Small Room Window (Top wall of small room, z = -8)
     // Small room x: 0 to 8 (center 4). Width 8. Let's make window width 4.
     const windowGeo = new THREE.BoxGeometry(4, 1.5, 0.1);
     const windowMesh = new THREE.Mesh(windowGeo, glassMaterial);
     windowMesh.position.set(4, 1.5, -8); // At z=-8, y=1.5 (half up)
-    scene.add(windowMesh);
+    mainGroup.add(windowMesh);
 
     const windowEdges = new THREE.LineSegments(new THREE.EdgesGeometry(windowGeo), new THREE.LineBasicMaterial({ color: 0x88ccff, transparent: true, opacity: 0.2, depthWrite: false }));
     windowEdges.position.set(4, 1.5, -8);
-    scene.add(windowEdges);
+    mainGroup.add(windowEdges);
+
 
     // 3. Small Room Desk
     // Bottom wall of small room is now at z = -2
@@ -302,11 +352,12 @@
     const deskGeo = new THREE.BoxGeometry(4, 1, 1.5);
     const desk = new THREE.Mesh(deskGeo, deskMaterial);
     desk.position.set(4, 0.5, -2.75);
-    scene.add(desk);
+    mainGroup.add(desk);
 
     const deskEdges = new THREE.LineSegments(new THREE.EdgesGeometry(deskGeo), new THREE.LineBasicMaterial({ color: 0xff4444, transparent: true, opacity: 0.2, depthWrite: false }));
     deskEdges.position.set(4, 0.5, -2.75);
-    scene.add(deskEdges);
+    mainGroup.add(deskEdges);
+
 
     // 4. Living Room TV (Transparent / Ghost Mesh)
     const tvMaterial = new THREE.MeshBasicMaterial({
@@ -318,14 +369,15 @@
     const tvGeo = new THREE.BoxGeometry(0.2, 2, 4);
     const tv = new THREE.Mesh(tvGeo, tvMaterial);
     tv.position.set(1.8, 1.5, 3);
-    scene.add(tv);
+    mainGroup.add(tv);
 
     const tvEdges = new THREE.LineSegments(
       new THREE.EdgesGeometry(tvGeo),
       new THREE.LineBasicMaterial({ color: 0x44aaff, transparent: true, opacity: 0.2, depthWrite: false })
     );
     tvEdges.position.set(1.8, 1.5, 3);
-    scene.add(tvEdges);
+    mainGroup.add(tvEdges);
+
 
     // 5. Display Cabinet (Between Small Room and Master Room, z = -0.5)
     // Positioned against the back wall (x = 8), center at x = 7.25
@@ -333,11 +385,12 @@
     const cabinetGeo = new THREE.BoxGeometry(1.5, 2.5, 3);
     const cabinet = new THREE.Mesh(cabinetGeo, cabinetMaterial);
     cabinet.position.set(7.25, 1.25, -0.5);
-    scene.add(cabinet);
+    mainGroup.add(cabinet);
 
     const cabinetEdges = new THREE.LineSegments(new THREE.EdgesGeometry(cabinetGeo), new THREE.LineBasicMaterial({ color: 0xaa8844, transparent: true, opacity: 0.2, depthWrite: false }));
     cabinetEdges.position.set(7.25, 1.25, -0.5);
-    scene.add(cabinetEdges);
+    mainGroup.add(cabinetEdges);
+
   }
 
   async function fetchIotNodes() {
@@ -414,8 +467,9 @@
         baseScale: mesh.scale.clone()
       };
 
-      scene.add(mesh);
+      mainGroup.add(mesh);
       nodes.push(mesh);
+
 
       // Create connection line (to parent or server)
       if (data.id !== 'server') {
@@ -436,8 +490,9 @@
         const curvePoints = curve.getPoints(20);
         const geometryLine = new THREE.BufferGeometry().setFromPoints(curvePoints);
         const line = new THREE.Line(geometryLine, materialLine);
-        scene.add(line);
+        mainGroup.add(line);
         connectionLines.push({ line, color: data.color });
+
       }
     });
   }
@@ -587,6 +642,15 @@
       hud.style.top = `${clampedY}px`;
     }
 
+    // Gyro Parallax
+    gyroX += (targetGyroX - gyroX) * 0.1;
+    gyroY += (targetGyroY - gyroY) * 0.1;
+    if (mainGroup) {
+      mainGroup.rotation.z = gyroX;
+      mainGroup.rotation.x = gyroY;
+    }
+
     renderer.render(scene, camera);
+
   }
 })();

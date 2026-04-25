@@ -362,6 +362,65 @@
   z-index: 0;
 }
 
+.hobby-card__slideshow {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 0;
+}
+
+.hobby-card__slide {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  animation: hobbyFade 25s infinite;
+}
+
+.hobby-card__slide--dimmed {
+  filter: brightness(0.4) contrast(1.1);
+}
+
+.hobby-card__slide:first-child {
+  opacity: 1; /* Ensure first slide is visible while others are loading/animating */
+}
+
+.hobby-card:hover .hobby-card__slide {
+  transform: scale(1.1);
+}
+
+@keyframes hobbyFade {
+  0% { opacity: 0; transform: scale(1); }
+  4% { opacity: 1; }
+  20% { opacity: 1; }
+  24% { opacity: 0; transform: scale(1.1); }
+  100% { opacity: 0; }
+}
+
+/* Staggered delays for 5 slides (Default) */
+.hobby-card__slide:nth-child(1) { animation-delay: 0s; }
+.hobby-card__slide:nth-child(2) { animation-delay: 5s; }
+.hobby-card__slide:nth-child(3) { animation-delay: 10s; }
+.hobby-card__slide:nth-child(4) { animation-delay: 15s; }
+.hobby-card__slide:nth-child(5) { animation-delay: 20s; }
+
+/* Dedicated 2-slide logic to avoid empty gaps */
+.hobby-card__slideshow--2 .hobby-card__slide {
+  animation: hobbyFade2 12s infinite;
+}
+
+.hobby-card__slideshow--2 .hobby-card__slide:nth-child(1) { animation-delay: 0s; }
+.hobby-card__slideshow--2 .hobby-card__slide:nth-child(2) { animation-delay: 6s; }
+
+@keyframes hobbyFade2 {
+  0% { opacity: 0; transform: scale(1); }
+  8% { opacity: 1; }
+  50% { opacity: 1; }
+  58% { opacity: 0; transform: scale(1.05); }
+  100% { opacity: 0; }
+}
+
 .hobby-card::before {
   content: '';
   position: absolute;

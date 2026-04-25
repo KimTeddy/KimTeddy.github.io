@@ -38,12 +38,12 @@ nodes:
     
   - id: "robot_vacuum"
     name: "로보락 S8MaxV Ultra"
-    desc: "거실: 정해진 스케줄에 따라 거실을 청소하고 스테이션으로 자동 복귀합니다."
+    desc: "거실: 정해진 스케줄에 따라 청소합니다. 모든 상태는 Home Assistant와 공유됩니다."
     pos: [-7.8, 0.1, 1.0]
     color: "0x222222"
     size: 0.8
     type: "cylinder_flat"
-    link: "https://blog.naver.com/teddy_02/222836536452"
+    link: "https://blog.naver.com/teddy_02/222747745523"
     
   - id: "light_kitchen"
     name: "주방 식탁등"

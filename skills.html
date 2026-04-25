@@ -193,5 +193,19 @@
 <script src="assets/js/navigation.js"></script>
 <script src="assets/js/animations.js"></script>
   <script src="assets/js/artistic.js"></script>
+  <script>
+    // Hide broken images in skill chips
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.skill-chip img').forEach(function(img) {
+        img.onerror = function() {
+          this.style.display = 'none';
+        };
+        // Check if already broken
+        if (img.complete && img.naturalWidth === 0) {
+          img.style.display = 'none';
+        }
+      });
+    });
+  </script>
 </body></html>
 

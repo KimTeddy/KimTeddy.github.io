@@ -215,11 +215,40 @@ body.light-mode .nav {
   overflow: hidden;
 }
 
+/* Disable transform transition when JS tilt is active to prevent jitter */
+.js-tilt-enabled .card:not(.stat-item) {
+  transition: border-color var(--transition-base), background var(--transition-base), box-shadow var(--transition-base), opacity var(--transition-base);
+}
+
 .card:hover {
   border-color: var(--border-accent);
   background: var(--bg-glass-hover);
   transform: translateY(-4px);
   box-shadow: var(--shadow-glow);
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--shine-x, 50%) var(--shine-y, 50%),
+    rgba(255, 255, 255, 0.12) 0%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.card:hover::after {
+  opacity: 1;
+}
+
+/* No shine for stat items */
+.stat-item::after {
+  display: none;
 }
 
 .card__image {

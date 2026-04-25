@@ -210,26 +210,62 @@
     });
   }
 
-  // 4. Card Tilt Effect
+  // 4. Card Tilt Effect (Smoothed & Sync with Shine)
   function initCardTilt() {
-    const cards = document.querySelectorAll('.card');
+    // Only apply to Home, About, Skills
+    const path = window.location.pathname;
+    const page = path.split("/").pop();
+    const allowed = ["", "index.html", "about.html", "skills.html"];
+    if (!allowed.includes(page)) return;
+
+    document.body.classList.add('js-tilt-enabled');
+
+    const cards = document.querySelectorAll('.card:not(.stat-item)');
     cards.forEach(card => {
+      let state = {
+        targetX: 0, targetY: 0,
+        currentX: 0, currentY: 0,
+        isHovered: false
+      };
+
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-        const factor = card.classList.contains('card--tilt-subtle') ? 60 : 20;
-        const rotateX = (y - centerY) / factor;
-        const rotateY = (centerX - x) / factor;
-
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+        
+        state.isHovered = true;
+        const factor = card.classList.contains('card--tilt-subtle') ? 80 : 10;
+        state.targetY = (x - centerX) / factor;
+        state.targetX = (centerY - y) / factor;
       });
 
       card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        state.isHovered = false;
+        state.targetX = 0;
+        state.targetY = 0;
       });
+
+      function update() {
+        // Smoothing (lerp)
+        state.currentX += (state.targetX - state.currentX) * 0.1;
+        state.currentY += (state.targetY - state.currentY) * 0.1;
+
+        const rotateX = state.currentX;
+        const rotateY = state.currentY;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(${state.isHovered ? 1.01 : 1}, ${state.isHovered ? 1.01 : 1}, ${state.isHovered ? 1.01 : 1})`;
+        
+        // Sync shine with the smoothed rotation
+        const shineX = 50 + (rotateY * 4);
+        const shineY = 50 - (rotateX * 4);
+        card.style.setProperty('--shine-x', `${shineX}%`);
+        card.style.setProperty('--shine-y', `${shineY}%`);
+
+        requestAnimationFrame(update);
+      }
+      update();
     });
   }
 

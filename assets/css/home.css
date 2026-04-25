@@ -97,11 +97,30 @@
   width: 100%;
   aspect-ratio: 16 / 9;
   background: transparent;
-  /* Smooth edge blurring (Reverted to Radial) */
+  /* Dark mode: Original elliptical blur */
   mask-image: radial-gradient(ellipse at center, black 40%, transparent 95%);
   -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 95%);
   overflow: hidden;
   position: relative;
+}
+
+/* Light mode: Tighter rectangular blur as requested */
+body.light-mode .hero__video-container {
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent),
+              linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
+  mask-composite: intersect;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent),
+                      linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-composite: source-in;
+}
+
+body.light-mode .hero__video-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 60px 20px #f5f5fa; /* Fades video into light bg */
+  z-index: 5;
+  pointer-events: none;
 }
 
 /* Block all YouTube interactions */

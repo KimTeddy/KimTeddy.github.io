@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,137 +11,147 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/projects.css">
 </head>
+
 <body>
-<nav class="nav"><div class="nav__inner">
-  <a href="./" class="nav__logo">&lt;T/&gt; <span>TeddyElectronics</span></a>
-  <div class="nav__links">
-    <a href="./" class="nav__link">Home</a><a href="about.html" class="nav__link">About</a>
-    <a href="projects.html" class="nav__link">Projects</a><a href="experience.html" class="nav__link">Experience</a>
-    <a href="skills.html" class="nav__link">Skills</a><a href="seminars.html" class="nav__link">Seminars</a>
-    <a href="contact.html" class="nav__link">Contact</a>
-  </div>
-  <div class="nav__actions">
-    <button class="theme-toggle" aria-label="Toggle theme">☀️</button>
-    <div class="nav__burger"><span></span><span></span><span></span></div>
-  </div>
-</div><div class="nav__progress"></div>
-<div class="nav__mobile-menu">
-  <a href="./" class="nav__link">Home</a><a href="about.html" class="nav__link">About</a>
-  <a href="projects.html" class="nav__link">Projects</a><a href="experience.html" class="nav__link">Experience</a>
-  <a href="skills.html" class="nav__link">Skills</a><a href="seminars.html" class="nav__link">Seminars</a>
-  <a href="contact.html" class="nav__link">Contact</a>
-</div></nav>
-
-<div class="page-wrapper">
-  <section class="projects-header">
-    <div class="container">
-      <p class="section-label" data-animate="fade-up">Projects</p>
-      <h1 class="section-title" data-animate="fade-up">프로젝트</h1>
-      <p class="section-desc" data-animate="fade-up">임베디드 시스템, IoT, FPGA, 컴퓨터 그래픽스 등 다양한 분야의 프로젝트입니다.</p>
-    </div>
-  </section>
-  <section class="section--compact">
-    <div class="container">
-      <div class="filter-bar" id="filter-bar">
-        <button class="filter-btn active" data-filter="all">전체</button>
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="./" class="nav__logo">&lt;T/&gt; <span>TeddyElectronics</span></a>
+      <div class="nav__links">
+        <a href="./" class="nav__link">Home</a><a href="about.html" class="nav__link">About</a>
+        <a href="projects.html" class="nav__link">Projects</a><a href="experience.html" class="nav__link">Experience</a>
+        <a href="skills.html" class="nav__link">Skills</a><a href="seminars.html" class="nav__link">Seminars</a>
+        <a href="contact.html" class="nav__link">Contact</a>
       </div>
-      <div id="projects-container"></div>
+      <div class="nav__actions">
+        <button class="theme-toggle" aria-label="Toggle theme">☀️</button>
+        <div class="nav__burger"><span></span><span></span><span></span></div>
+      </div>
     </div>
-  </section>
-</div>
+    <div class="nav__progress"></div>
+    <div class="nav__mobile-menu">
+      <a href="./" class="nav__link">Home</a><a href="about.html" class="nav__link">About</a>
+      <a href="projects.html" class="nav__link">Projects</a><a href="experience.html" class="nav__link">Experience</a>
+      <a href="skills.html" class="nav__link">Skills</a><a href="seminars.html" class="nav__link">Seminars</a>
+      <a href="contact.html" class="nav__link">Contact</a>
+    </div>
+  </nav>
 
-<div id="footer-placeholder"></div>
-<button class="back-to-top" aria-label="Back to top">↑</button>
+  <div class="page-wrapper">
+    <section class="projects-header">
+      <div class="container">
+        <p class="section-label" data-animate="fade-up">Projects</p>
+        <h1 class="section-title" data-animate="fade-up">프로젝트</h1>
+        <p class="section-desc" data-animate="fade-up">임베디드 시스템, IoT, FPGA, 컴퓨터 그래픽스 등 다양한 분야의 프로젝트입니다.</p>
+      </div>
+    </section>
+    <section class="section--compact">
+      <div class="container">
+        <div class="filter-bar" id="filter-bar">
+          <button class="filter-btn active" data-filter="all">전체</button>
+        </div>
+        <div id="projects-container"></div>
+      </div>
+    </section>
+  </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
-<script src="assets/js/theme.js"></script>
-<script src="assets/js/navigation.js"></script>
-<script src="assets/js/animations.js"></script>
+  <div id="footer-placeholder"></div>
+  <button class="back-to-top" aria-label="Back to top">↑</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/navigation.js"></script>
+  <script src="assets/js/animations.js"></script>
   <script src="assets/js/artistic.js"></script>
-<script>
-(function(){
-  var attempt=0;
-  function load(){
-    fetch('assets/data/projects.yaml').then(function(r){return r.text()}).then(function(t){
-      var data=jsyaml.load(t);
-      var container=document.getElementById('projects-container');
-      var filterBar=document.getElementById('filter-bar');
-      var categories=new Set();
-      if(!data.projects) return;
+  <script>
+    (function () {
+      var attempt = 0;
+      function load() {
+        fetch('assets/data/projects.yaml').then(function (r) { return r.text() }).then(function (t) {
+          var data = jsyaml.load(t);
+          var container = document.getElementById('projects-container');
+          var filterBar = document.getElementById('filter-bar');
+          var categories = new Set();
+          if (!data.projects) return;
 
-      data.projects.forEach(function(group){
-        categories.add(group.year);
-        var title=document.createElement('h3');
-        title.className='year-group-title';
-        title.innerHTML=group.year.replace(/(\d+)/g, '<span class="num">$1</span>');
-        title.setAttribute('data-category',group.year);
-        title.setAttribute('data-animate','fade-up');
-        container.appendChild(title);
+          data.projects.forEach(function (group) {
+            categories.add(group.year);
+            var title = document.createElement('h3');
+            title.className = 'year-group-title';
+            title.innerHTML = group.year.replace(/(\d+)/g, '<span class="num">$1</span>');
+            title.setAttribute('data-category', group.year);
+            title.setAttribute('data-animate', 'fade-up');
+            container.appendChild(title);
 
-        var grid=document.createElement('div');
-        grid.className='projects-grid';
-        grid.setAttribute('data-category',group.year);
+            var grid = document.createElement('div');
+            grid.className = 'projects-grid';
+            grid.setAttribute('data-category', group.year);
 
-        group.projects.forEach(function(p){
-          var card=document.createElement('div');
-          card.className='card project-card';
-          card.setAttribute('data-animate','fade-up');
-          var html='';
-          if(p.image) html+='<img src="'+p.image+'" alt="'+p.title+'" class="card__image">';
-          html+='<h3 class="card__title">'+p.title+'</h3>';
-          html+='<p class="card__desc">'+p.description+'</p>';
-          html+='<p class="project-card__role"><strong>['+p.team+']</strong> '+p.role+'</p>';
-          if(p.tags){
-            html+='<div class="project-card__tags">';
-            p.tags.forEach(function(tag){html+='<span class="badge">'+tag+'</span>';});
-            html+='</div>';
-          }
-          html+='<div class="project-card__footer">';
-          html+='<span class="project-card__duration">'+p.duration.replace(/(\d+)/g, '<span class="num">$1</span>')+'</span>';
-          html+='<div class="link-icons">';
-          if(p.links){
-            if(p.links.github) html+='<a href="'+p.links.github+'" target="_blank"><img src="assets/images/logos/github-mark-white.svg" alt="GitHub" class="invert-light"></a>';
-            if(p.links.youtube) html+='<a href="'+p.links.youtube+'" target="_blank"><img src="assets/images/logos/youtubeicon.png" alt="YouTube"></a>';
-            if(p.links.other) html+='<a href="'+p.links.other+'" target="_blank" class="btn--icon" style="font-size:var(--text-xs);width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:var(--bg-glass);border:1px solid var(--border-subtle);border-radius:var(--radius-sm)">🔗</a>';
-          }
-          html+='</div></div>';
-          card.innerHTML=html;
-          grid.appendChild(card);
+            group.projects.forEach(function (p) {
+              var card = document.createElement('div');
+              card.className = 'card project-card';
+              card.setAttribute('data-animate', 'fade-up');
+              var html = '';
+              if (p.image) html += '<img src="' + p.image + '" alt="' + p.title + '" class="card__image">';
+              html += '<h3 class="card__title">' + p.title + '</h3>';
+              html += '<p class="card__desc">' + p.description + '</p>';
+              if (p.role) {
+                var roleContent = (p.role === "개인 프로젝트") ? p.role : '<span class="role-label">담당 업무</span> ' + p.role;
+                html += '<p class="project-card__role"><strong>[' + p.team + ']</strong> ' + roleContent + '</p>';
+              } else {
+                html += '<p class="project-card__role"><strong>[' + p.team + ']</strong></p>';
+              }
+              if (p.tags) {
+                html += '<div class="project-card__tags">';
+                p.tags.forEach(function (tag) { html += '<span class="badge">' + tag + '</span>'; });
+                html += '</div>';
+              }
+              html += '<div class="project-card__footer">';
+              html += '<span class="project-card__duration">' + p.duration.replace(/(\d+)/g, '<span class="num">$1</span>') + '</span>';
+              html += '<div class="link-icons">';
+              if (p.links) {
+                if (p.links.github) html += '<a href="' + p.links.github + '" target="_blank"><img src="assets/images/logos/github-mark-white.svg" alt="GitHub" class="invert-light"></a>';
+                if (p.links.youtube) html += '<a href="' + p.links.youtube + '" target="_blank"><img src="assets/images/logos/youtubeicon.png" alt="YouTube"></a>';
+                if (p.links.other) html += '<a href="' + p.links.other + '" target="_blank" class="btn--icon" style="font-size:var(--text-xs);width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:var(--bg-glass);border:1px solid var(--border-subtle);border-radius:var(--radius-sm)">🔗</a>';
+              }
+              html += '</div></div>';
+              card.innerHTML = html;
+              grid.appendChild(card);
+            });
+            container.appendChild(grid);
+          });
+
+          // Build filter buttons
+          categories.forEach(function (cat) {
+            var btn = document.createElement('button');
+            btn.className = 'filter-btn';
+            btn.setAttribute('data-filter', cat);
+            btn.innerHTML = cat.replace(/(\d+)/g, '<span class="num">$1</span>');
+            filterBar.appendChild(btn);
+          });
+
+          // Filter logic
+          filterBar.addEventListener('click', function (e) {
+            var btn = e.target.closest('.filter-btn');
+            if (!btn) return;
+            filterBar.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            var f = btn.getAttribute('data-filter');
+            container.querySelectorAll('[data-category]').forEach(function (el) {
+              el.style.display = (f === 'all' || el.getAttribute('data-category') === f) ? '' : 'none';
+            });
+          });
+
+          // Re-init animations for dynamically added elements
+          if (typeof window.reinitAnimations === 'function') window.reinitAnimations();
+
+        }).catch(function (err) {
+          if (++attempt < 3) setTimeout(load, 2000);
+          else document.getElementById('projects-container').innerHTML = '<p class="loading-text">프로젝트 데이터를 불러오지 못했습니다.</p>';
         });
-        container.appendChild(grid);
-      });
+      }
+      document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', load) : load();
+    })();
+  </script>
+</body>
 
-      // Build filter buttons
-      categories.forEach(function(cat){
-        var btn=document.createElement('button');
-        btn.className='filter-btn';
-        btn.setAttribute('data-filter',cat);
-        btn.innerHTML=cat.replace(/(\d+)/g, '<span class="num">$1</span>');
-        filterBar.appendChild(btn);
-      });
-
-      // Filter logic
-      filterBar.addEventListener('click',function(e){
-        var btn=e.target.closest('.filter-btn');
-        if(!btn) return;
-        filterBar.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
-        btn.classList.add('active');
-        var f=btn.getAttribute('data-filter');
-        container.querySelectorAll('[data-category]').forEach(function(el){
-          el.style.display=(f==='all'||el.getAttribute('data-category')===f)?'':'none';
-        });
-      });
-
-      // Re-init animations for dynamically added elements
-      if(typeof window.reinitAnimations==='function') window.reinitAnimations();
-
-    }).catch(function(err){
-      if(++attempt<3) setTimeout(load,2000);
-      else document.getElementById('projects-container').innerHTML='<p class="loading-text">프로젝트 데이터를 불러오지 못했습니다.</p>';
-    });
-  }
-  document.readyState==='loading'?document.addEventListener('DOMContentLoaded',load):load();
-})();
-</script>
-</body></html>
-
+</html>

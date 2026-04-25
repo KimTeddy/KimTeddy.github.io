@@ -29,6 +29,21 @@
 .project-card__role {
   font-size: var(--text-xs); color: var(--text-tertiary);
   font-family: var(--font-sans); margin-bottom: var(--space-2);
+  line-height: 1.6;
+}
+.role-label {
+  display: inline-block;
+  padding: 2px 6px;
+  background: var(--accent-glow);
+  color: var(--accent-primary);
+  border: 1px solid var(--border-accent);
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: var(--weight-bold);
+  margin: 0 4px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
 }
 .project-card__tags {
   display: flex; flex-wrap: wrap; gap: var(--space-1);

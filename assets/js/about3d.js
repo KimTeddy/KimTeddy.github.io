@@ -134,7 +134,7 @@
           <span class="sep">|</span>
           <span>Pan: <span class="key">R-Drag</span></span>
           <span class="sep">|</span>
-          <span>Zoom: <span class="key">Shift+Scroll</span></span>
+          <span>Zoom: <span class="key">Shift+Scroll</span> or <span class="key">Wheel-click Drag</span></span>
         </div>
       `;
     }
@@ -397,6 +397,52 @@
     cabinetEdges.position.set(7.25, 1.25, -0.5);
     mainGroup.add(cabinetEdges);
 
+
+    // 6. Kitchen Dining Table (Ghost Mesh)
+    const tableMaterial = new THREE.MeshBasicMaterial({ color: 0xffaa00, transparent: true, opacity: 0.05, depthWrite: false });
+    const tableGeo = new THREE.BoxGeometry(3, 0.8, 1.8);
+    const table = new THREE.Mesh(tableGeo, tableMaterial);
+    table.position.set(-2.0, 0.4, -4.5);
+    table.rotation.y = Math.PI / 2;
+    mainGroup.add(table);
+
+    const tableEdges = new THREE.LineSegments(new THREE.EdgesGeometry(tableGeo), new THREE.LineBasicMaterial({ color: 0xffaa00, transparent: true, opacity: 0.2, depthWrite: false }));
+    tableEdges.position.set(-2.0, 0.4, -4.5);
+    tableEdges.rotation.y = Math.PI / 2;
+    mainGroup.add(tableEdges);
+
+
+    // 7. Kitchen Veranda Glass Door (Top wall of kitchen, z = -8)
+    const kitchenDoorGeo = new THREE.BoxGeometry(3, 3, 0.1);
+    const kitchenDoor = new THREE.Mesh(kitchenDoorGeo, glassMaterial);
+    kitchenDoor.position.set(-1.5, 1.5, -8);
+    mainGroup.add(kitchenDoor);
+
+    const kitchenDoorEdges = new THREE.LineSegments(new THREE.EdgesGeometry(kitchenDoorGeo), new THREE.LineBasicMaterial({ color: 0x88ccff, transparent: true, opacity: 0.2, depthWrite: false }));
+    kitchenDoorEdges.position.set(-1.5, 1.5, -8);
+    mainGroup.add(kitchenDoorEdges);
+
+
+    // 8. Kitchen Sink & Cabinet (Corner)
+    const sinkMaterial = new THREE.MeshBasicMaterial({ color: 0xffaa00, transparent: true, opacity: 0.05, depthWrite: false });
+    const sinkGeo = new THREE.BoxGeometry(3, 0.8, 1);
+    const sink = new THREE.Mesh(sinkGeo, sinkMaterial);
+    sink.position.set(-6.5, 0.4, -7.5);
+    mainGroup.add(sink);
+
+    const sinkEdges = new THREE.LineSegments(new THREE.EdgesGeometry(sinkGeo), new THREE.LineBasicMaterial({ color: 0xffaa00, transparent: true, opacity: 0.2, depthWrite: false }));
+    sinkEdges.position.set(-6.5, 0.4, -7.5);
+    mainGroup.add(sinkEdges);
+
+    const kitchenCabinetGeo = new THREE.BoxGeometry(3, 1, 1);
+    const kitchenCabinet = new THREE.Mesh(kitchenCabinetGeo, sinkMaterial);
+    kitchenCabinet.position.set(-6.5, 2.5, -7.5);
+    mainGroup.add(kitchenCabinet);
+
+    const kitchenCabinetEdges = new THREE.LineSegments(new THREE.EdgesGeometry(kitchenCabinetGeo), new THREE.LineBasicMaterial({ color: 0xffaa00, transparent: true, opacity: 0.2, depthWrite: false }));
+    kitchenCabinetEdges.position.set(-6.5, 2.5, -7.5);
+    mainGroup.add(kitchenCabinetEdges);
+
   }
 
   async function fetchIotNodes() {
@@ -424,6 +470,7 @@
       if (data.type === 'box') geometry = new THREE.BoxGeometry(data.size, data.size, data.size, 2, 2, 2);
       else if (data.type === 'sphere') geometry = new THREE.SphereGeometry(data.size * 0.6, 12, 12);
       else if (data.type === 'cylinder') geometry = new THREE.CylinderGeometry(data.size * 0.5, data.size * 0.5, data.size, 12, 3);
+      else if (data.type === 'cylinder_flat') geometry = new THREE.CylinderGeometry(data.size * 0.5, data.size * 0.5, 0.15, 24, 1);
       else if (data.type === 'strip') geometry = new THREE.BoxGeometry(data.width || 5, 0.1, 0.1, 8, 1, 1);
       else if (data.type === 'strip_z') geometry = new THREE.BoxGeometry(0.1, 0.1, data.width || 5, 1, 1, 8);
       else if (data.type === 'nest_hub') {
@@ -445,12 +492,24 @@
         geometry.translate(0, 0, -0.05);
         geometry.rotateX(Math.PI / 2);
       }
+      else if (data.type === 'ceiling_pill') {
+        const shape = new THREE.Shape();
+        const r = 0.4, l = 2.2; // radius and length of the flat part
+        shape.absarc(-l / 2, 0, r, Math.PI / 2, Math.PI * 1.5, false);
+        shape.lineTo(l / 2, -r);
+        shape.absarc(l / 2, 0, r, Math.PI * 1.5, Math.PI * 2.5, false);
+        shape.lineTo(-l / 2, r);
+        geometry = new THREE.ExtrudeGeometry(shape, { depth: 0.1, bevelEnabled: false });
+        geometry.translate(0, 0, -0.05);
+        geometry.rotateX(Math.PI / 2);
+      }
       else if (data.type === 'ceiling_line') geometry = new THREE.BoxGeometry(3, 0.1, 0.4);
 
-      const isSolidLight = data.type === 'strip' || data.type === 'strip_z' || data.type === 'ceiling_sq' || data.type === 'ceiling_line';
+      const isSolidLight = data.type === 'strip' || data.type === 'strip_z' || data.type === 'ceiling_sq' || data.type === 'ceiling_line' || data.type === 'ceiling_pill';
 
+      const isNeo = data.type === 'strip_z';
       const material = new THREE.MeshBasicMaterial({
-        color: data.color,
+        color: isNeo ? 0xffffff : data.color,
         transparent: true,
         opacity: isSolidLight ? 0.9 : 0.8, // Increased from 0.5/0.8
         wireframe: !isSolidLight
@@ -459,15 +518,30 @@
       const mesh = new THREE.Mesh(geometry, material);
       mesh.position.set(data.pos[0], data.pos[1], data.pos[2]);
 
+      if (isNeo) {
+        const canvas = document.createElement('canvas');
+        canvas.width = 64; canvas.height = 1;
+        const texture = new THREE.CanvasTexture(canvas);
+        material.map = texture;
+        mesh.userData.neoCanvas = canvas;
+        mesh.userData.neoTexture = texture;
+      }
+
       if (data.type === 'nest_hub') {
         mesh.scale.set(1.0, 0.35, 1.0); // Slightly thicker on Y-axis
         mesh.rotation.y = 0;
       }
 
+      if (data.rot) {
+        mesh.rotation.set(data.rot[0], data.rot[1], data.rot[2]);
+      }
+
+      const oldUserData = mesh.userData || {};
       mesh.userData = {
+        ...oldUserData,
         name: data.name,
         desc: data.desc,
-        baseColor: data.color,
+        baseColor: new THREE.Color(data.color),
         type: data.type,
         link: data.link,
         baseScale: mesh.scale.clone()
@@ -475,6 +549,18 @@
 
       mainGroup.add(mesh);
       nodes.push(mesh);
+
+      // Add invisible hitbox for Curtain LED (strip) to make window area interactive
+      if (data.type === 'strip') {
+        const hitboxGeo = new THREE.BoxGeometry(data.width || 5, 3.0, 0.5);
+        const hitboxMat = new THREE.MeshBasicMaterial({ visible: false });
+        const hitbox = new THREE.Mesh(hitboxGeo, hitboxMat);
+        // Position it to cover the window area (center at y=1.5)
+        hitbox.position.set(data.pos[0], 1.5, data.pos[2]);
+        hitbox.userData = { isHitbox: true, visualMesh: mesh };
+        mainGroup.add(hitbox);
+        nodes.push(hitbox);
+      }
 
 
       // Create connection line (to parent or server)
@@ -513,7 +599,12 @@
 
     if (intersects.length > 0) {
       container.style.cursor = 'pointer';
-      const object = intersects[0].object;
+      let object = intersects[0].object;
+
+      // If we hit a hitbox, redirect to the visual LED mesh
+      if (object.userData.isHitbox && object.userData.visualMesh) {
+        object = object.userData.visualMesh;
+      }
 
       // If we hovered a new object
       if (hoveredNode !== object) {
@@ -535,7 +626,7 @@
 
         let descHtml = object.userData.desc;
         if (object.userData.link) {
-          descHtml += '<br><br><span style="color: var(--accent-color); font-weight: 600; font-size: 0.9em; display: inline-block; padding: 4px 8px; border: 1px solid var(--accent-color); border-radius: 4px; background: rgba(0, 229, 160, 0.1);">🔗 클릭하여 자세히 보기</span>';
+          descHtml += '<br><br><span style="color: var(--accent-primary); font-weight: 600; font-size: 0.9em; display: inline-block; padding: 4px 8px; border: 1px solid var(--accent-primary); border-radius: 4px; background: rgba(0, 229, 160, 0.1);">🔗 클릭하여 자세히 보기</span>';
         }
         hudDesc.innerHTML = descHtml;
         hud.style.display = 'block';
@@ -551,7 +642,7 @@
       container.style.cursor = 'grab';
       if (hoveredNode) {
         nodes.forEach(n => {
-          const isSolidLight = n.userData.type === 'strip' || n.userData.type === 'strip_z' || n.userData.type === 'ceiling_sq' || n.userData.type === 'ceiling_line';
+          const isSolidLight = n.userData.type === 'strip' || n.userData.type === 'strip_z' || n.userData.type === 'ceiling_sq' || n.userData.type === 'ceiling_line' || n.userData.type === 'ceiling_pill';
           n.material.opacity = isSolidLight ? 0.9 : 0.8;
           if (n.userData.baseScale) {
             n.scale.copy(n.userData.baseScale);
@@ -602,9 +693,42 @@
       item.line.material.opacity = 0.15 + Math.sin(time + index) * 0.15;
     });
 
-    // Make nodes float slightly
+    // Make nodes float slightly and animate curtain colors
     nodes.forEach((node, index) => {
-      const isSolidLight = node.userData.type === 'strip' || node.userData.type === 'strip_z' || node.userData.type === 'ceiling_sq' || node.userData.type === 'ceiling_line';
+      const isStrip = node.userData.type === 'strip';
+      const isSolidLight = isStrip || node.userData.type === 'strip_z' || node.userData.type === 'ceiling_sq' || node.userData.type === 'ceiling_line' || node.userData.type === 'ceiling_pill';
+
+      // Color transition for Curtain LEDs (strips)
+      if (isStrip) {
+        const coolColor = new THREE.Color(0xddeeff);
+        const t = (Math.sin(time * 0.8) + 1) / 2; // Cycle every ~8 seconds
+        node.material.color.copy(node.userData.baseColor).lerp(coolColor, t);
+      }
+
+      // NeoPixel Animation for strip_z (TV, Cabinet)
+      if (node.userData.type === 'strip_z' && node.userData.neoCanvas) {
+        const canvas = node.userData.neoCanvas;
+        const ctx = canvas.getContext('2d');
+        
+        // 1. Draw Moving Rainbow
+        const grad = ctx.createLinearGradient(0, 0, canvas.width, 0);
+        for (let i = 0; i <= 1; i += 0.2) {
+          const hue = (i + time * 0.2) % 1;
+          grad.addColorStop(i, `hsl(${hue * 360}, 100%, 65%)`);
+        }
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // 2. Overlay Purple (oscillate intensity)
+        const purpleIntensity = (Math.sin(time * 0.4) + 1) / 2; // 0 to 1
+        ctx.globalAlpha = purpleIntensity;
+        ctx.fillStyle = '#aa44ff'; // User's requested purple
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.globalAlpha = 1.0;
+        
+        node.userData.neoTexture.needsUpdate = true;
+      }
+
       // Small vertical float for all except ceiling lights / strips (which are fixed to the ceiling/box)
       if (!isSolidLight) {
         node.position.y += Math.sin(time * 2 + index) * 0.005;
@@ -617,7 +741,7 @@
 
     // Animation and HUD positioning for hovered node
     if (hoveredNode) {
-      const isSolidLight = hoveredNode.userData.type === 'strip' || hoveredNode.userData.type === 'strip_z' || hoveredNode.userData.type === 'ceiling_sq' || hoveredNode.userData.type === 'ceiling_line';
+      const isSolidLight = hoveredNode.userData.type === 'strip' || hoveredNode.userData.type === 'strip_z' || hoveredNode.userData.type === 'ceiling_sq' || hoveredNode.userData.type === 'ceiling_line' || hoveredNode.userData.type === 'ceiling_pill';
       if (!isSolidLight) {
         hoveredNode.rotation.y += 0.05; // Fast spin on hover
         hoveredNode.rotation.x += 0.02;

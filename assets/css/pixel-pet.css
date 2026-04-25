@@ -1,0 +1,59 @@
+.pixel-pet {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    z-index: 1000;
+    pointer-events: none;
+    background-image: url('../images/site/pixel-character.png');
+    background-size: 128px 128px;
+    background-repeat: no-repeat;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+    will-change: left, top, background-position;
+}
+
+/* Animations based on 4x4 grid */
+.pixel-pet--idle {
+    animation: pet-idle 0.8s steps(4) infinite;
+}
+
+.pixel-pet--walking {
+    animation: pet-walk 0.5s steps(4) infinite;
+}
+
+.pixel-pet--jumping {
+    background-position: 0 -64px;
+    /* Row 3, Frame 1 */
+    animation: none;
+}
+
+.pixel-pet--falling {
+    background-position: -64px -64px;
+    /* Row 3, Frame 3 */
+    animation: none;
+}
+
+.pixel-pet--chasing {
+    animation: pet-chase 0.4s steps(4) infinite;
+}
+
+@keyframes pet-idle {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: -128px 0;
+    }
+}
+
+@keyframes pet-walk {
+    from {
+        background-position: 0 -32px;
+    }
+
+    to {
+        background-position: -128px -32px;
+    }
+}

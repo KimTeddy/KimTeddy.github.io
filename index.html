@@ -75,13 +75,26 @@
               <a href="contact.html" class="btn btn--ghost">연락하기</a>
             </div>
           </div>
-          <div class="hero__code" data-animate="fade-up" data-delay="2">
-            <div class="hero__code-header">
-              <span class="hero__code-dot"></span>
-              <span class="hero__code-dot"></span>
-              <span class="hero__code-dot"></span>
+          <!-- Visual Elements (Right Side) -->
+          <div class="hero__visuals">
+            <!-- Hero Video Block (Ambient Style - Interaction Blocked) -->
+            <div class="hero__video" data-animate="fade-up" data-delay="3">
+              <div class="hero__video-progress">
+                <div class="hero__video-progress-bar" id="hero-video-bar"></div>
+              </div>
+              <div class="hero__video-container">
+                <iframe id="hero-video-iframe" width="100%" height="100%" src="https://www.youtube.com/embed/lMb9GxdRdFw?autoplay=1&mute=1&loop=1&playlist=lMb9GxdRdFw&controls=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0&playsinline=1&enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" style="pointer-events: none;"></iframe>
+              </div>
             </div>
-            <pre class="hero__code-display" id="code-display"><span class="cursor"></span></pre>
+
+            <div class="hero__code" data-animate="fade-up" data-delay="4">
+              <div class="hero__code-header">
+                <span class="hero__code-dot"></span>
+                <span class="hero__code-dot"></span>
+                <span class="hero__code-dot"></span>
+              </div>
+              <pre class="hero__code-display" id="code-display"><span class="cursor"></span></pre>
+            </div>
           </div>
         </div>
       </div>
@@ -253,6 +266,62 @@
         initTyping();
       }
     })();
+
+    // YouTube Playback Rate Control
+    window.onYouTubeIframeAPIReady = function() {
+      window.player = new YT.Player('hero-video-iframe', {
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    };
+
+    function onPlayerReady(event) {
+      // YouTube requires a short delay sometimes for speed settings to take effect
+      setTimeout(() => {
+        const rates = event.target.getAvailablePlaybackRates();
+        if (rates.includes(2)) {
+          event.target.setPlaybackRate(2);
+        } else {
+          // Fallback to highest possible if 2 is not available
+          event.target.setPlaybackRate(rates[rates.length - 1]);
+        }
+        event.target.mute();
+        event.target.playVideo();
+      }, 500);
+
+      // Smooth Progress bar update (200ms with linear transition for optimization)
+      setInterval(function() {
+        if (window.player && window.player.getCurrentTime) {
+          var current = window.player.getCurrentTime();
+          var total = window.player.getDuration();
+          if (total > 0) {
+            var pct = (current / total) * 100;
+            var bar = document.getElementById('hero-video-bar');
+            if (bar) bar.style.width = pct + '%';
+          }
+        }
+      }, 200);
+
+      // Continuous speed enforcement (less frequent check)
+      setInterval(function() {
+        if (window.player && window.player.getPlaybackRate && window.player.getPlaybackRate() !== 2) {
+          window.player.setPlaybackRate(2);
+        }
+      }, 1000);
+    }
+
+    function onPlayerStateChange(event) {
+      if (event.data == YT.PlayerState.PLAYING) {
+        event.target.setPlaybackRate(2);
+      }
+    }
+
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
     // Count-up animation for stat numbers
     (function () {

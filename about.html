@@ -118,6 +118,13 @@
       <p id="iot-hud-desc" style="font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.4;">
         Description goes here.</p>
     </div>
+
+    <!-- Video Tour Trigger -->
+    <div class="gallery-badge" id="iot-video-btn" style="position: absolute; top: 85px; right: 30px; cursor: pointer; pointer-events: auto; z-index: 10;">
+      <div class="video-trigger__icon">▶</div>
+      <span>시스템 투어 영상</span>
+      <span class="arrow">→</span>
+    </div>
   </section>
 
   <!-- Life & Hobbies -->
@@ -313,6 +320,46 @@
   <script src="assets/js/about3d.js"></script>
   <!-- Hobby Tabs Script -->
   <script src="assets/js/about-hobbies.js"></script>
+
+  <!-- Video Modal -->
+  <div class="video-modal" id="iot-video-modal">
+    <div class="video-modal__container">
+      <button class="video-modal__close" id="iot-video-close">×</button>
+      <iframe id="iot-video-iframe" width="100%" height="100%" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <script>
+    // Video Modal Logic
+    (function() {
+      const btn = document.getElementById('iot-video-btn');
+      const modal = document.getElementById('iot-video-modal');
+      const close = document.getElementById('iot-video-close');
+      const iframe = document.getElementById('iot-video-iframe');
+      const videoId = 'lMb9GxdRdFw';
+
+      if(btn && modal && close && iframe) {
+        btn.addEventListener('click', () => {
+          iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+          modal.style.display = 'flex';
+          setTimeout(() => modal.classList.add('active'), 10);
+        });
+
+        const closeModal = () => {
+          modal.classList.remove('active');
+          setTimeout(() => {
+            modal.style.display = 'none';
+            iframe.src = '';
+          }, 400);
+        };
+
+        close.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+          if(e.target === modal) closeModal();
+        });
+      }
+    })();
+  </script>
 </body>
 
 </html>

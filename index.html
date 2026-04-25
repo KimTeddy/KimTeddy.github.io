@@ -83,7 +83,11 @@
                 <div class="hero__video-progress-bar" id="hero-video-bar"></div>
               </div>
               <div class="hero__video-container">
-                <iframe id="hero-video-iframe" width="100%" height="100%" src="https://www.youtube.com/embed/lMb9GxdRdFw?autoplay=1&mute=1&loop=1&playlist=lMb9GxdRdFw&controls=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0&playsinline=1&enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" style="pointer-events: none;"></iframe>
+                <iframe id="hero-video-iframe" width="100%" height="100%"
+                  src="https://www.youtube.com/embed/lMb9GxdRdFw?autoplay=1&mute=1&loop=1&playlist=lMb9GxdRdFw&controls=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0&playsinline=1&enablejsapi=1"
+                  title="YouTube video player" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  style="pointer-events: none;"></iframe>
               </div>
             </div>
 
@@ -139,7 +143,7 @@
               <p class="section-label">Featured Project</p>
               <img src="assets/images/sections/projects/2024/armi.jpg" alt="A.RM.I 프로젝트" class="featured-project__img">
               <h3 class="card__title">A.RM.I — 졸업작품</h3>
-              <p class="card__desc">ARM과 AI 모델을 활용한 분산형 저전력 객체인식 군용 경계 감시 시스템</p>
+              <p class="card__desc">ARM과 AI 모델을 활용한 분산형 저전력 온디바이스 객체인식 군용 경계 감시 시스템</p>
               <div class="featured-project__tags">
                 <span class="badge badge--accent">C/C++</span>
                 <span class="badge badge--accent">STM32</span>
@@ -268,7 +272,7 @@
     })();
 
     // YouTube Playback Rate Control
-    window.onYouTubeIframeAPIReady = function() {
+    window.onYouTubeIframeAPIReady = function () {
       window.player = new YT.Player('hero-video-iframe', {
         events: {
           'onReady': onPlayerReady,
@@ -292,7 +296,7 @@
       }, 500);
 
       // Smooth Progress bar update (200ms with linear transition for optimization)
-      setInterval(function() {
+      setInterval(function () {
         if (window.player && window.player.getCurrentTime) {
           var current = window.player.getCurrentTime();
           var total = window.player.getDuration();
@@ -305,7 +309,7 @@
       }, 200);
 
       // Continuous speed enforcement (less frequent check)
-      setInterval(function() {
+      setInterval(function () {
         if (window.player && window.player.getPlaybackRate && window.player.getPlaybackRate() !== 2) {
           window.player.setPlaybackRate(2);
         }

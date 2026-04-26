@@ -81,6 +81,13 @@
     const friction = 0.995; // Reduced air resistance
     const groundFriction = 0.98; // Reduced ground friction
 
+    // Expose cursor ball state globally for pixel-pet interaction
+    window.__cursorBall = { x: 0, y: 0, vx: 0, vy: 0, isFalling: false, radius: 16,
+      applyImpulse: function(dvx, dvy) {
+        if (isFalling) { velX += dvx; velY += dvy; }
+      }
+    };
+
     function animateFollower() {
       if (firstMove) {
         requestAnimationFrame(animateFollower);
@@ -135,6 +142,13 @@
         follower.style.background = ''; 
         follower.style.borderColor = '';
       }
+
+      // Sync global cursor ball state for pixel-pet interaction
+      window.__cursorBall.x = finalX;
+      window.__cursorBall.y = finalY;
+      window.__cursorBall.vx = isFalling ? velX : 0;
+      window.__cursorBall.vy = isFalling ? velY : 0;
+      window.__cursorBall.isFalling = isFalling;
 
       follower.style.transform = `translate3d(${finalX}px, ${finalY}px, 0) translate(-50%, -50%)`;
       // Cursor dot also follows physics

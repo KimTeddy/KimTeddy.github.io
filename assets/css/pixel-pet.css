@@ -38,6 +38,12 @@
     animation: pet-chase 0.4s steps(4) infinite;
 }
 
+/* Hanging from subtitle — uses Row 4 (climbing/reaching frames) + swing */
+.pixel-pet--hanging-subtitle {
+    animation: pet-hang-swing 1.2s ease-in-out infinite, pet-hang-frames 0.8s steps(2) infinite;
+    transform-origin: top center;
+}
+
 @keyframes pet-idle {
     from {
         background-position: 0 0;
@@ -56,4 +62,126 @@
     to {
         background-position: -128px -32px;
     }
+}
+
+@keyframes pet-hang-swing {
+    0%, 100% { transform: rotate(-8deg) scaleX(1); }
+    50% { transform: rotate(8deg) scaleX(1); }
+}
+
+@keyframes pet-hang-frames {
+    from {
+        background-position: 0 -96px;
+    }
+    to {
+        background-position: -64px -96px;
+    }
+}
+
+@keyframes pet-chase {
+    from {
+        background-position: 0 -32px;
+    }
+    to {
+        background-position: -128px -32px;
+    }
+}
+
+/* ── Ball Riding Circus Tricks ── */
+
+/* Balance: gentle sway on idle pose */
+.pixel-pet--riding-balance {
+    animation: pet-idle 0.8s steps(4) infinite, pet-ride-sway 1.5s ease-in-out infinite;
+    transform-origin: bottom center;
+}
+
+@keyframes pet-ride-sway {
+    0%, 100% { transform: rotate(-6deg) scaleX(var(--face-dir, 1)); }
+    50% { transform: rotate(6deg) scaleX(var(--face-dir, 1)); }
+}
+
+/* Handstand: flip upside-down, use jump frame */
+.pixel-pet--riding-handstand {
+    background-position: -32px -64px;
+    animation: pet-ride-handstand 2s ease-in-out infinite;
+    transform-origin: bottom center;
+}
+
+@keyframes pet-ride-handstand {
+    0% { transform: scaleY(1) translateY(0); }
+    15% { transform: scaleY(1) translateY(-4px); }
+    30%, 70% { transform: scaleY(-1) translateY(-28px); }
+    85% { transform: scaleY(1) translateY(-4px); }
+    100% { transform: scaleY(1) translateY(0); }
+}
+
+/* Wave: arms up, reaching frames from Row 4 */
+.pixel-pet--riding-wave {
+    animation: pet-ride-wave-frames 0.6s steps(2) infinite, pet-ride-wave-bounce 0.4s ease-in-out infinite;
+    transform-origin: bottom center;
+}
+
+@keyframes pet-ride-wave-frames {
+    from { background-position: 0 -96px; }
+    to { background-position: -64px -96px; }
+}
+
+@keyframes pet-ride-wave-bounce {
+    0%, 100% { transform: translateY(0) scaleX(var(--face-dir, 1)); }
+    50% { transform: translateY(-3px) scaleX(var(--face-dir, 1)); }
+}
+
+/* Spin: full rotation with walk frames */
+.pixel-pet--riding-spin {
+    animation: pet-walk 0.4s steps(4) infinite, pet-ride-spin 1s linear infinite;
+    transform-origin: center center;
+}
+
+@keyframes pet-ride-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Kick: wind-up lunge with walk frame */
+.pixel-pet--riding-kick {
+    background-position: -64px -32px;
+    animation: pet-ride-kick 0.4s ease-out forwards;
+    transform-origin: bottom center;
+}
+
+@keyframes pet-ride-kick {
+    0% { transform: rotate(0deg) translateX(0) scaleX(var(--face-dir, 1)); }
+    40% { transform: rotate(-15deg) translateX(-3px) scaleX(var(--face-dir, 1)); }
+    70% { transform: rotate(20deg) translateX(6px) scaleX(var(--face-dir, 1)); }
+    100% { transform: rotate(0deg) translateX(0) scaleX(var(--face-dir, 1)); }
+}
+
+/* iOS tilt permission button */
+.tilt-enable-btn {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    z-index: 10001;
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border-subtle, rgba(255,255,255,0.15));
+    background: var(--bg-secondary, rgba(20,20,30,0.85));
+    color: var(--text-primary, #fff);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    transition: opacity 0.3s, transform 0.3s;
+    animation: tilt-btn-pulse 2s ease-in-out infinite;
+}
+
+.tilt-enable-btn:hover {
+    transform: scale(1.05);
+}
+
+@keyframes tilt-btn-pulse {
+    0%, 100% { box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
+    50% { box-shadow: 0 4px 24px rgba(0,200,150,0.25); }
 }

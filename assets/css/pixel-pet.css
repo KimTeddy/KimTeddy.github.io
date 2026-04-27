@@ -156,6 +156,31 @@
     100% { transform: rotate(0deg) translateX(0) scaleX(var(--face-dir, 1)); }
 }
 
+/* Ball-walk: bear walks on the ball, rolling it forward */
+.pixel-pet--riding-ball-walk {
+    animation: pet-walk 0.35s steps(4) infinite, pet-ride-walk-tilt 0.8s ease-in-out infinite;
+    transform-origin: bottom center;
+}
+
+@keyframes pet-ride-walk-tilt {
+    0%, 100% { transform: rotate(-3deg) scaleX(var(--face-dir, 1)); }
+    50% { transform: rotate(3deg) scaleX(var(--face-dir, 1)); }
+}
+
+/* Soccer Kick */
+.pixel-pet--soccer-kick {
+    background-position: -64px -32px;
+    animation: pet-soccer-kick 0.3s ease-out forwards;
+    transform-origin: bottom center;
+}
+
+@keyframes pet-soccer-kick {
+    0% { transform: rotate(0deg) translateX(0) scaleX(var(--face-dir, 1)); }
+    40% { transform: rotate(-15deg) translateX(-3px) scaleX(var(--face-dir, 1)); }
+    70% { transform: rotate(20deg) translateX(6px) scaleX(var(--face-dir, 1)); }
+    100% { transform: rotate(0deg) translateX(0) scaleX(var(--face-dir, 1)); }
+}
+
 /* iOS tilt permission button */
 .tilt-enable-btn {
     position: fixed;

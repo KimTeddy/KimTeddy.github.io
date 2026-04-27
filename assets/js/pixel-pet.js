@@ -35,6 +35,9 @@ class PhysicsObject {
             return;
         }
 
+        // Soccer kick cooldown
+        if (this.soccerKickCooldown > 0) this.soccerKickCooldown--;
+
         // Apply mobile tilt force
         if (this._tiltForce) {
             this.vx += this._tiltForce;
@@ -90,8 +93,24 @@ class PhysicsObject {
         const dist = Math.sqrt(dx * dx + dy * dy);
         const mountDist = ball.radius + this.height;
 
-        // Close enough to mount the ball → hop on top
+        // Close enough to interact with the ball
         if (dist < mountDist && this.isGrounded) {
+            // Soccer mode: kick the ball on the ground instead of mounting
+            if (this.isSoccerMode) {
+                this.performSoccerKick(ball, dx);
+                return;
+            }
+
+            // 15% chance to play soccer, 85% to mount
+            if (Math.random() < 0.15) {
+                this.isSoccerMode = true;
+                this.soccerKickCount = 0;
+                this.soccerMaxKicks = 3 + Math.floor(Math.random() * 4); // 3~6 kicks
+                this.soccerKickCooldown = 0;
+                this.performSoccerKick(ball, dx);
+                return;
+            }
+
             this.isRidingBall = true;
             this.isChasingBall = false;
             this.ballTrickTimer = 0;
@@ -117,6 +136,40 @@ class PhysicsObject {
         this.ballTrickTimer++;
         this.ballTrickPhase += 0.05;
 
+        // Ball-walk: bear walks on ball, rolling it across the floor
+        if (this.ballTrickState === 'ball-walk') {
+            const walkSpeed = 1.2 * (this.ballFacingDir || 1);
+            // Push ball horizontally
+            ball.applyImpulse(walkSpeed * 0.12, 0);
+
+            // Position bear on top of ball
+            this.x = ball.x - this.width / 2 + window.scrollX;
+            this.y = ball.y - ball.radius - this.height + window.scrollY;
+
+            // Slight up-down bob from walking
+            const walkBob = Math.sin(this.ballTrickPhase * 6) * 1.5;
+            this.y += walkBob;
+
+            // Freeze physics while riding
+            this.vx = 0;
+            this.vy = 0;
+            this.isGrounded = false;
+
+            // Reverse direction when hitting viewport edges
+            if (ball.x < ball.radius + 30 && this.ballFacingDir < 0) {
+                this.ballFacingDir = 1;
+            } else if (ball.x > window.innerWidth - ball.radius - 30 && this.ballFacingDir > 0) {
+                this.ballFacingDir = -1;
+            }
+
+            // Switch trick after cycle
+            const trickCycleDuration = 180; // 3 seconds for walk
+            if (this.ballTrickTimer % trickCycleDuration === 0) {
+                this.switchBallTrick();
+            }
+            return;
+        }
+
         // Position bear on top of the ball
         const ballScreenX = ball.x;
         const ballScreenY = ball.y;
@@ -132,10 +185,7 @@ class PhysicsObject {
         // Switch to a random trick every ~2 seconds
         const trickCycleDuration = 120; // frames
         if (this.ballTrickTimer % trickCycleDuration === 0) {
-            const tricks = ['balance', 'wave', 'spin', 'kick'];
-            this.ballTrickState = tricks[Math.floor(Math.random() * tricks.length)];
-            // Randomly flip facing direction on trick change
-            if (Math.random() > 0.5) this.ballFacingDir *= -1;
+            this.switchBallTrick();
         }
 
         // Kick: dismount and boot the ball away!
@@ -158,6 +208,46 @@ class PhysicsObject {
 
         // Slightly dampen ball velocity to show bear's weight
         ball.applyImpulse(0, -0.05);
+    }
+
+    switchBallTrick() {
+        const tricks = ['balance', 'wave', 'spin', 'kick', 'ball-walk', 'ball-walk'];
+        this.ballTrickState = tricks[Math.floor(Math.random() * tricks.length)];
+        // Randomly flip facing direction on trick change
+        if (Math.random() > 0.5) this.ballFacingDir *= -1;
+    }
+
+    performSoccerKick(ball, dx) {
+        // Cooldown between kicks (wait for ball to travel before chasing)
+        if (this.soccerKickCooldown > 0) return;
+
+        this.isChasingBall = false;
+        this.soccerKickCount++;
+
+        // Kick direction: towards center of screen, or random
+        const kickDir = dx > 0 ? 1 : -1;
+        const kickPower = 5 + Math.random() * 4; // 5~9
+        const kickUp = -2 - Math.random() * 3;   // slight upward arc
+
+        ball.applyImpulse(kickDir * kickPower, kickUp);
+
+        // Bear does a little kick hop
+        this.vx = kickDir * 2;
+        this.vy = -3;
+        this.isGrounded = false;
+        this.soccerKicking = true;
+
+        // Set cooldown: wait ~40 frames before chasing again
+        this.soccerKickCooldown = 40;
+
+        // Clear kick animation after a short time
+        setTimeout(() => { this.soccerKicking = false; }, 300);
+
+        // End soccer mode after enough kicks
+        if (this.soccerKickCount >= this.soccerMaxKicks) {
+            this.isSoccerMode = false;
+            this.soccerKickCount = 0;
+        }
     }
 
     checkSubtitleCollision() {
@@ -220,7 +310,7 @@ class PhysicsObject {
     checkCollisions() {
         this.isGrounded = false;
         this.isHanging = false;
-        
+
         const docWidth = document.documentElement.clientWidth;
         if (this.x < 0) {
             this.x = 0;
@@ -231,8 +321,8 @@ class PhysicsObject {
         }
 
         const cards = Array.from(document.querySelectorAll('.card, .stat-item, .tech-chip, .featured-project'));
-        const borderRadius = 24; 
-        
+        const borderRadius = 24;
+
         for (let card of cards) {
             const rect = card.getBoundingClientRect();
             const cardTop = rect.top + window.scrollY;
@@ -242,7 +332,7 @@ class PhysicsObject {
             if (this.x + this.width > cardLeft && this.x < cardRight) {
                 let effectiveTop = cardTop;
                 const petCenterX = this.x + this.width / 2;
-                
+
                 // Corner logic
                 if (petCenterX < cardLeft + borderRadius) {
                     const dx = (cardLeft + borderRadius) - petCenterX;
@@ -252,8 +342,8 @@ class PhysicsObject {
                     effectiveTop = cardTop + (borderRadius - Math.sqrt(Math.max(0, borderRadius * borderRadius - dx * dx)));
                 }
 
-                if (this.y + this.height >= effectiveTop && 
-                    this.y + this.height <= effectiveTop + 20 && 
+                if (this.y + this.height >= effectiveTop &&
+                    this.y + this.height <= effectiveTop + 20 &&
                     this.vy >= 0) {
                     this.y = effectiveTop - this.height;
                     if (effectiveTop > cardTop) {
@@ -282,9 +372,9 @@ class PhysicsObject {
             }
         }
 
-        const docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
-        if (this.y + this.height > docHeight) {
-            this.y = docHeight - this.height;
+        const viewportBottom = window.scrollY + window.innerHeight;
+        if (this.y + this.height > viewportBottom) {
+            this.y = viewportBottom - this.height;
             this.vy *= -this.bounce;
             if (Math.abs(this.vy) < 1) this.vy = 0;
             this.isGrounded = true;
@@ -322,6 +412,11 @@ class PixelPet extends PhysicsObject {
         this.ballTrickTimer = 0;
         this.ballTrickPhase = 0;
         this._tiltForce = 0;
+        this.isSoccerMode = false;
+        this.soccerKickCount = 0;
+        this.soccerMaxKicks = 0;
+        this.soccerKickCooldown = 0;
+        this.soccerKicking = false;
         this.init();
     }
 
@@ -377,7 +472,7 @@ class PixelPet extends PhysicsObject {
             const chance = Math.random();
             if (chance > 0.3) { // 70% chance to do something
                 const allCards = Array.from(document.querySelectorAll('.card, .stat-item, .tech-chip, .featured-project'));
-                
+
                 // ~15% chance: Jump to subtitle
                 if (chance > 0.85) {
                     this.jumpToSubtitle();
@@ -409,7 +504,7 @@ class PixelPet extends PhysicsObject {
 
     jumpTowards(targetX) {
         if (!this.isGrounded) return;
-        
+
         const dx = targetX - this.x;
         // Limit horizontal velocity to max 8 pixels per frame
         this.vx = Math.max(-8, Math.min(8, dx * 0.04));
@@ -432,16 +527,16 @@ class PixelPet extends PhysicsObject {
         if (dy < 20) return; // Too close or above - skip
 
         const dx = subCenterX - (this.x + this.width / 2);
-        
+
         // Stronger jump to reach the subtitle
         const jumpPower = Math.min(18, Math.max(12, Math.sqrt(dy * 1.4)));
         this.vy = -jumpPower;
-        
+
         // Calculate frames to reach top of arc
         const framesToApex = jumpPower / this.gravity;
         // Needed horizontal speed = distance / frames
         this.vx = Math.max(-10, Math.min(10, dx / framesToApex));
-        
+
         this.isGrounded = false;
     }
 
@@ -455,7 +550,8 @@ class PixelPet extends PhysicsObject {
         this.el.classList.remove(
             'pixel-pet--idle', 'pixel-pet--walking', 'pixel-pet--jumping',
             'pixel-pet--falling', 'pixel-pet--hanging-subtitle', 'pixel-pet--chasing',
-            'pixel-pet--riding-balance', 'pixel-pet--riding-wave', 'pixel-pet--riding-spin', 'pixel-pet--riding-kick'
+            'pixel-pet--riding-balance', 'pixel-pet--riding-wave', 'pixel-pet--riding-spin', 'pixel-pet--riding-kick',
+            'pixel-pet--riding-ball-walk', 'pixel-pet--soccer-kick'
         );
 
         if (this.isHangingSubtitle) {
@@ -475,6 +571,14 @@ class PixelPet extends PhysicsObject {
         if (!this.isGrounded) {
             if (this.vy < 0) this.el.classList.add('pixel-pet--jumping');
             else this.el.classList.add('pixel-pet--falling');
+        } else if (this.soccerKicking) {
+            this.el.classList.add('pixel-pet--soccer-kick');
+            // Face the kick direction
+            if (Math.abs(this.vx) > 0.1) {
+                this.el.style.setProperty('--face-dir', this.vx > 0 ? 1 : -1);
+                this.el.style.transform = '';
+            }
+            return;
         } else if (this.isChasingBall) {
             this.el.classList.add('pixel-pet--chasing');
         } else {

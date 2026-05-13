@@ -205,6 +205,37 @@
       </div>
     </section>
 
+    <!-- A.RM.I PCB 3D Showcase -->
+    <section class="pcb-showcase" data-animate="fade-up">
+      <div class="pcb-showcase__glow"></div>
+      <div class="pcb-showcase__3d-wrap" id="pcb-3d-container">
+        <span class="pcb-showcase__loading" id="pcb-loading">PCB 모델 로딩 중...</span>
+        <img src="assets/images/sections/projects/2024/armi.jpg" alt="A.RM.I PCB" class="pcb-showcase__fallback" id="pcb-fallback-img">
+      </div>
+      <div class="pcb-showcase__overlay">
+        <div class="pcb-showcase__info">
+          <h3 class="pcb-showcase__title">A.RM.I — <span class="text-gradient">PCB Design</span></h3>
+          <p class="pcb-showcase__desc">ARM과 AI 모델을 활용한 분산형 저전력 온디바이스 객체인식 군용 경계 감시 시스템의 직접 설계한 PCB 기판</p>
+          <div class="pcb-showcase__tags">
+            <span class="badge badge--accent">KiCad</span>
+            <span class="badge badge--accent">PCB Design</span>
+            <span class="badge badge--accent">STM32</span>
+            <span class="badge badge--accent">Hand Soldering</span>
+          </div>
+        </div>
+      </div>
+      <a href="https://github.com/KimTeddy/2024_A.RM.I_Public" target="_blank" class="pcb-showcase__link">
+        <div class="gallery-badge">
+          <span>🔗</span>
+          <span>GitHub에서 보기</span>
+          <span>↗</span>
+        </div>
+      </a>
+      <div class="pcb-showcase__hint" id="pcb-control-hint">
+        Rotate: <span class="key">Drag</span><span class="sep">|</span>Zoom: <span class="key">Shift+Scroll</span>
+      </div>
+    </section>
+
   </div>
 
   <!-- Footer -->
@@ -218,6 +249,11 @@
   <script src="assets/js/animations.js"></script>
   <script src="assets/js/artistic.js"></script>
   <script src="assets/js/pixel-pet.js"></script>
+  <!-- Three.js + GLTFLoader for PCB 3D Showcase -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="assets/js/pcb3d.js"></script>
   <script>
     // Typing animation
     (function () {

@@ -60,38 +60,53 @@ for mat in bpy.data.materials:
     mat_name = mat.name.upper()
     avg_brightness = sum(base_color[:3]) / 3.0
     
-    # Metallic parts: pins, solder, metals, and bright SHAPE materials (pin header posts)
+    # Metallic parts: pins, solder, metals, and bright SHAPE materials
     if any(k in mat_name for k in ['PIN', 'MET-', 'SOLDER', 'SHAPE_1.001', 'SHAPE_15', 'SHAPE_36', 'SHAPE_81', 'SHAPE_61', 'SHAPE_147']):
-        metallic = 0.6
-        roughness = 0.25
+        metallic = 0.8
+        roughness = 0.2
     elif mat_name.startswith('SHAPE_') and avg_brightness > 0.5:
         # Bright SHAPE = likely metal (pin header posts, connectors)
-        metallic = 0.6
-        roughness = 0.25
+        metallic = 0.8
+        roughness = 0.2
+    elif mat_name.startswith('SHAPE_') and avg_brightness < 0.3:
+        # Dark SHAPE = plastic IC/connector housing — match IC-BODY exactly
+        base_color = [0.025, 0.024, 0.025, 1.0]  # Match IC-BODY-EPOXY-04 black
+        metallic = 0.0
+        roughness = 0.6
     elif 'RES' in mat_name:
-        # Chip resistors — very matte to stay black under strong light
+        # Chip resistors — force black, very matte
+        base_color = [0.02, 0.02, 0.02, 1.0]
         metallic = 0.0
         roughness = 0.85
     elif 'IC-BODY' in mat_name:
-        # IC bodies — matte plastic
+        # IC bodies — matte epoxy plastic
         metallic = 0.0
         roughness = 0.6
-    elif 'PLASTIC' in mat_name:
-        # Plastic parts — slight sheen for realism
+    elif 'IC-LABEL' in mat_name:
+        # IC top label — slightly glossy
         metallic = 0.0
         roughness = 0.5
+    elif 'PLASTIC' in mat_name:
+        # Plastic parts — match IC-BODY feel
+        metallic = 0.0
+        roughness = 0.6
     
-    # Gold color override for pin headers and connectors
+    # Specific color overrides for pin headers and connectors
     mat_exact = mat.name
     if mat_exact == 'PIN-02' or mat_exact == 'SHAPE_1.001':
-        # Gold-plated pins — muted gold, high metallic
+        # Gold-plated pins — muted gold, metallic
         base_color = [0.85, 0.72, 0.35, 1.0]
         metallic = 0.8
         roughness = 0.2
     elif mat_exact == 'PIN-01':
-        # Tin/silver-plated pins
+        # Tin/silver-plated IC legs & pins — fully metallic
         base_color = [0.90, 0.90, 0.87, 1.0]
-        metallic = 0.6
+        metallic = 0.8
+        roughness = 0.15
+    elif mat_exact == 'Solder Joint':
+        # Solder joints — shiny metal
+        base_color = [0.78, 0.78, 0.72, 1.0]
+        metallic = 0.8
         roughness = 0.2
     
     nodes.remove(custom_node)

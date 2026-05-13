@@ -62,8 +62,8 @@
     }, true);
 
     // 5. Lighting
-    // Ambient — soft fill
-    const ambient = new THREE.AmbientLight(0xffffff, 0.7);
+    // Ambient — balanced fill
+    const ambient = new THREE.AmbientLight(0xffffff, 0.8);
     scene.add(ambient);
 
     // Main directional — key light with shadows
@@ -87,8 +87,13 @@
     accentLight.position.set(0, -0.5, 0);
     scene.add(accentLight);
 
+    // Fill light from front-left — prevent dark shadows
+    const fillLight = new THREE.DirectionalLight(0xffffff, 0.4);
+    fillLight.position.set(-3, 3, 5);
+    scene.add(fillLight);
+
     // Rim light — from behind
-    const rimLight = new THREE.DirectionalLight(0x3b82f6, 0.3);
+    const rimLight = new THREE.DirectionalLight(0x3b82f6, 0.5);
     rimLight.position.set(-2, 2, -3);
     scene.add(rimLight);
 

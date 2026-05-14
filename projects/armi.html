@@ -72,59 +72,47 @@
     <!-- ===== Key Metrics ===== -->
     <section class="project-section">
       <div class="project-section__header">
-        <p class="project-section__label">Key Metrics</p>
-        <h2 class="project-section__title">핵심 성능 지표</h2>
+        <p class="project-section__label">Impact & Value</p>
+        <h2 class="project-section__title">프로젝트 차별점 및 임팩트</h2>
       </div>
       <div class="project-stats">
         <div class="project-stat">
-          <div class="project-stat__value">5.29mW</div>
-          <div class="project-stat__label">대기 전력</div>
-          <div class="project-stat__sub">Standby Mode</div>
+          <div class="project-stat__value">0.02%</div>
+          <div class="project-stat__label">전력 소비량 절감</div>
+          <div class="project-stat__sub">기존 장비 대비 (8.43Wh/년)</div>
         </div>
         <div class="project-stat">
-          <div class="project-stat__value">555mW</div>
-          <div class="project-stat__label">피크 전력</div>
-          <div class="project-stat__sub">RF + Camera Active</div>
+          <div class="project-stat__value">>95%</div>
+          <div class="project-stat__label">객체인식 정확도</div>
+          <div class="project-stat__sub">1:N 분산형 AI 아키텍처</div>
         </div>
         <div class="project-stat">
-          <div class="project-stat__value">320×240</div>
-          <div class="project-stat__label">이미지 해상도</div>
-          <div class="project-stat__sub">Grayscale QVGA</div>
+          <div class="project-stat__value">14만원</div>
+          <div class="project-stat__label">초저가 구축 비용</div>
+          <div class="project-stat__sub">기존 수백만 원 장비 대체</div>
         </div>
         <div class="project-stat">
-          <div class="project-stat__value">1:N</div>
-          <div class="project-stat__label">분산 아키텍처</div>
-          <div class="project-stat__sub">Server : Edge Devices</div>
+          <div class="project-stat__value">178g</div>
+          <div class="project-stat__label">초경량 무선 디바이스</div>
+          <div class="project-stat__sub">설치 제약 극복 및 가변적 증설</div>
         </div>
       </div>
     </section>
 
-    <!-- ===== 3D PCB Showcase ===== -->
+    <!-- ===== Hero Images ===== -->
     <section class="project-pcb-section">
-      <div class="pcb3d-container" id="armi-pcb-viewer" style="width: 100%; height: 500px; position: relative;">
-        <div class="pcb3d-hint"
-          style="position: absolute; bottom: 16px; right: 24px; z-index: 10; font-family: var(--font-mono); font-size: 12px; color: var(--text-tertiary);">
-          Rotate: <span style="color: var(--text-accent);">Drag</span> &nbsp;|&nbsp; Zoom: <span
-            style="color: var(--text-accent);">Shift+Scroll</span>
-        </div>
-      </div>
-      <div style="text-align: center; padding: var(--space-4) 0;">
-        <p style="font-family: var(--font-mono); font-size: var(--text-sm); color: var(--text-tertiary);">
-          A.RM.I — Custom PCB Design (KiCad) — Interactive 3D Model
-        </p>
-      </div>
       <div class="project-diagrams" style="padding: 0 var(--space-6) var(--space-8);">
         <div class="project-diagram">
-          <img src="../assets/projects/armi/images/pcb-3d-render.png" alt="PCB 3D Render" class="project-diagram__img"
-            loading="lazy">
+          <img src="../assets/projects/armi/images/edge-device-final.jpg" alt="Edge Device Final"
+            class="project-diagram__img" loading="lazy">
           <div class="project-diagram__caption">
-            <div class="project-diagram__title">KiCad 3D Render</div>
-            <div class="project-diagram__desc">A.RM.I Edge Device PCB — 4레이어 커스텀 설계</div>
+            <div class="project-diagram__title">Edge Device 최종 모습</div>
+            <div class="project-diagram__desc">카메라 + PIR 센서 + RF 안테나 조립 상태</div>
           </div>
         </div>
         <div class="project-diagram">
-          <img src="../assets/projects/armi/images/armi-concept-diagram.jpg" alt="A.RM.I Concept"
-            class="project-diagram__img" loading="lazy">
+          <img src="../assets/projects/armi/images/diagram-idea.png" alt="A.RM.I Concept" class="project-diagram__img"
+            loading="lazy">
           <div class="project-diagram__caption">
             <div class="project-diagram__title">System Concept</div>
             <div class="project-diagram__desc">STM32 MCU · PIR Sensor · NRF24L01 · OV2640 구성도</div>
@@ -133,44 +121,67 @@
       </div>
     </section>
 
+    <!-- ===== Project Demo ===== -->
+    <section class="project-section">
+      <div class="project-section__header">
+        <p class="project-section__label">Demo Video</p>
+        <h2 class="project-section__title">시연 영상</h2>
+        <p class="project-section__desc">A.RM.I 시스템의 실제 동작 및 객체 인식 시연 과정입니다.</p>
+      </div>
+      <div class="video-container"
+        style="max-width: var(--container-max); margin: 0 auto; aspect-ratio: 16 / 9; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-subtle); box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/RNpNJ6A_28k" title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
+    </section>
+
     <!-- ===== Overview ===== -->
     <section class="project-section project-section--alt">
       <div class="project-section__header">
         <p class="project-section__label">Overview</p>
         <h2 class="project-section__title">프로젝트 개요</h2>
-        <p class="project-section__desc">대한민국의 병력 부족과 무기 첨단화에 따라 군사 경계 시스템의 효율성 개선이 요구됩니다.</p>
+        <p class="project-section__desc">전력 공급이 어려운 지형적 한계와 병력 부족 문제를 해결하기 위해, 초저전력 엣지 디바이스와 서버를 연동한 분산형 AI 경계 감시 시스템을
+          제안합니다.</p>
       </div>
       <div class="project-overview">
         <div class="project-card">
           <span class="project-card__icon">🎯</span>
-          <h3 class="project-card__title">목적</h3>
-          <p class="project-card__desc">기존의 24시간 병사 감시 체제를 보조·대체하여 저전력 AI 기반 분산형 경계 감시 시스템을 구현합니다.</p>
+          <h3 class="project-card__title">혁신적 감시 체계</h3>
+          <p class="project-card__desc">기존 24시간 병사 감시 체제를 보조·대체하며, 전력 공급이 어려운 지역에서도 장기간 운용 가능한 저전력 AI 기반 분산형 경계 감시
+            시스템입니다.</p>
         </div>
         <div class="project-card">
           <span class="project-card__icon">⚡</span>
-          <h3 class="project-card__title">저전력 설계</h3>
-          <p class="project-card__desc">ARM의 Standby 모드와 저전력 실측으로 약 0.01Ω 센트 저항 전압 강하 측정 기반 초저전력 운영을 실현합니다.</p>
+          <h3 class="project-card__title">0.02% 초저전력 운영</h3>
+          <p class="project-card__desc">상시 작동하는 기존 장비(연간 45kWh)와 달리, 이벤트 기반 동작과 대기 전력 차단을 통해 <strong>연간 8.43Wh (기존 대비
+              0.02%)</strong> 수준으로 전력 소모를 극단적으로 최소화했습니다.</p>
         </div>
         <div class="project-card">
           <span class="project-card__icon">🧠</span>
-          <h3 class="project-card__title">온디바이스 AI</h3>
-          <p class="project-card__desc">STM32에 Cube.AI를 활용하여 320×240 그레이스케일 이미지 기반 CNN 객체인식 모델을 내장하여 Edge에서 직접 추론합니다.
+          <h3 class="project-card__title">높은 정확도의 분산형 AI</h3>
+          <p class="project-card__desc">기존 단일 장비(85%)의 한계를 넘어, Edge(CNN)와 Server(YOLOv4)를 연동한 1:N 아키텍처를 구축해 객체인식 정확도를
+            <strong>95% 이상으로 대폭 향상</strong>시켰습니다.
           </p>
         </div>
         <div class="project-card">
           <span class="project-card__icon">📡</span>
-          <h3 class="project-card__title">RF 통신</h3>
-          <p class="project-card__desc">nRF24L01+ 모듈로 Edge Device와 서버 PC 간 무선 통신을 구현하며, 감지된 이미지만 전송하여 대역폭을 절약합니다.</p>
+          <h3 class="project-card__title">초경량 무선 확장성</h3>
+          <p class="project-card__desc">무겁고 유선망이 필수적인 기존 장비와 달리 <strong>178g의 초경량 디바이스</strong>와 무선 RF 통신을 활용하여, 감시 지점의
+            제약 없이 장비를 무한 증설할 수 있습니다.</p>
         </div>
         <div class="project-card">
-          <span class="project-card__icon">🔋</span>
-          <h3 class="project-card__title">에너지 하베스팅</h3>
-          <p class="project-card__desc">MPPT(Maximum Power Point Tracking) 회로와 태양광 패널을 사용하여 배터리 충전 효율을 극대화합니다.</p>
+          <span class="project-card__icon">💰</span>
+          <h3 class="project-card__title">초저가 구축 및 자급자족</h3>
+          <p class="project-card__desc">대당 수백만 원에 달하는 기존 시스템을 대체하여, 대당 <strong>약 14만 원의 초저가 제작 비용</strong>과 태양광 MPPT 에너지
+            하베스팅을 통한 무보수 운영을 실현했습니다.</p>
         </div>
         <div class="project-card">
           <span class="project-card__icon">🖥️</span>
-          <h3 class="project-card__title">서버 & 모니터링</h3>
-          <p class="project-card__desc">서버 PC에서 다수 Edge 디바이스의 이미지를 수신하고, CNN 기반 1:N 객체 인식을 실시간으로 수행합니다.</p>
+          <h3 class="project-card__title">통합 관제 서버</h3>
+          <p class="project-card__desc">서버 PC에서 다수 Edge 디바이스의 이미지를 수신하고 실시간으로 분석하여, 군사 및 상업 보안 영역의 인력 부족 문제를 효과적으로
+            해결합니다.</p>
         </div>
       </div>
     </section>
@@ -186,7 +197,7 @@
           <div class="project-spec-group__header">// Edge Device — Hardware</div>
           <div class="project-spec-row">
             <span class="project-spec-row__label">MCU</span>
-            <span class="project-spec-row__value">STM32F401RBT6 (SPN)</span>
+            <span class="project-spec-row__value">STM32H7A3VIT6</span>
           </div>
           <div class="project-spec-row">
             <span class="project-spec-row__label">Clock</span>
@@ -194,10 +205,10 @@
           </div>
           <div class="project-spec-row">
             <span class="project-spec-row__label">Flash / RAM</span>
-            <span class="project-spec-row__value">128KB / 64KB</span>
+            <span class="project-spec-row__value">1 MB / 1.4 MB</span>
           </div>
           <div class="project-spec-row">
-            <span class="project-spec-row__label">카메라</span>
+            <span class="project-spec-row__label">이미지센서</span>
             <span class="project-spec-row__value">OV2640</span>
           </div>
           <div class="project-spec-row">
@@ -205,7 +216,7 @@
             <span class="project-spec-row__value">nRF24L01+</span>
           </div>
           <div class="project-spec-row">
-            <span class="project-spec-row__label">센서</span>
+            <span class="project-spec-row__label">동작감지센서</span>
             <span class="project-spec-row__value">PIR Sensor</span>
           </div>
           <div class="project-spec-row">
@@ -225,15 +236,15 @@
           </div>
           <div class="project-spec-row">
             <span class="project-spec-row__label">AI Model</span>
-            <span class="project-spec-row__value">NNCase / INT8 MACC</span>
+            <span class="project-spec-row__value">CNN(Custom Model), TF Lite</span>
           </div>
           <div class="project-spec-row">
-            <span class="project-spec-row__label">Flash 사용량</span>
-            <span class="project-spec-row__value">~67% (83KB)</span>
+            <span class="project-spec-row__label">CNN모델 Flash 사용량</span>
+            <span class="project-spec-row__value">54.97 KiB</span>
           </div>
           <div class="project-spec-row">
-            <span class="project-spec-row__label">RAM 사용량</span>
-            <span class="project-spec-row__value">~75% (48KB)</span>
+            <span class="project-spec-row__label">CNN모델 RAM 사용량</span>
+            <span class="project-spec-row__value">662.78 KiB</span>
           </div>
         </div>
         <div class="project-spec-group">
@@ -267,6 +278,24 @@
       </div>
       <div class="project-diagrams">
         <div class="project-diagram">
+          <img src="../assets/projects/armi/images/diagram-hw.png" alt="HW Architecture" class="project-diagram__img"
+            loading="lazy">
+          <div class="project-diagram__caption">
+            <div class="project-diagram__title">HW 구성도</div>
+            <div class="project-diagram__desc">Edge Device 하드웨어 아키텍처</div>
+          </div>
+        </div>
+        <div class="project-diagram">
+          <img src="../assets/projects/armi/images/diagram-sw.png" alt="SW Architecture" class="project-diagram__img"
+            loading="lazy">
+          <div class="project-diagram__caption">
+            <div class="project-diagram__title">SW 구성도</div>
+            <div class="project-diagram__desc">Edge Device 소프트웨어 아키텍처</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-diagrams" style="margin-top: var(--space-6);">
+        <div class="project-diagram">
           <img src="../assets/projects/armi/images/flowchart-edge.png" alt="Edge Device Flowchart"
             class="project-diagram__img" loading="lazy">
           <div class="project-diagram__caption">
@@ -283,7 +312,7 @@
           </div>
         </div>
         <div class="project-diagram">
-          <img src="../assets/projects/armi/images/sequence-diagram.png" alt="Communication Sequence"
+          <img src="../assets/projects/armi/images/diagram-sequence.png" alt="Communication Sequence"
             class="project-diagram__img" loading="lazy">
           <div class="project-diagram__caption">
             <div class="project-diagram__title">RF 통신 시퀀스</div>
@@ -293,78 +322,156 @@
       </div>
     </section>
 
-    <!-- ===== Low-Power Design ===== -->
+    <!-- ===== AI Model Development ===== -->
     <section class="project-section">
       <div class="project-section__header">
-        <p class="project-section__label">Low-Power Design</p>
-        <h2 class="project-section__title">저전력 설계</h2>
-        <p class="project-section__desc">실측 전력 소모 데이터 — 0.01Ω 센트 저항 전압 강하 + 전류계 측정</p>
+        <p class="project-section__label">AI Model</p>
+        <h2 class="project-section__title">온디바이스 CNN 모델 제작</h2>
+        <p class="project-section__desc">가장 전력을 많이 소모하는 '무선 RF 통신'을 최소화하기 위해, 엣지 디바이스 내부에서 자체적으로 타겟을 선별하는 가벼운 AI 모델을
+          구축했습니다.</p>
       </div>
-      <div class="project-overview" style="max-width: 700px;">
+      <div class="project-overview">
         <div class="project-card">
-          <span class="project-card__icon">⚡</span>
-          <h3 class="project-card__title">피크 소비 전력</h3>
-          <p class="project-card__desc" style="font-family: var(--font-mono); font-size: var(--text-sm);">
-            RF 모듈 + 카메라 활성<br>
-            3.7V × 150mA = <strong style="color: var(--text-accent);">555mW</strong>
+          <span class="project-card__icon">🧠</span>
+          <h3 class="project-card__title">On-Device AI의 핵심 목적</h3>
+          <p class="project-card__desc">배터리 기반 시스템에서 무선 통신은 전력 소모의 가장 큰 원인(Peak 시 555mW)입니다. 모든 이미지를 무조건 전송하지 않고,
+            <strong>엣지 디바이스 자체 CNN 모델로 사람을 식별한 경우에만 이미지를 송신</strong>하도록 설계하여 무의미한 통신 전력 소모를 원천 차단했습니다.
           </p>
         </div>
         <div class="project-card">
-          <span class="project-card__icon">😴</span>
-          <h3 class="project-card__title">대기 모드 전력</h3>
-          <p class="project-card__desc" style="font-family: var(--font-mono); font-size: var(--text-sm);">
-            MCU Standby + PIR만 활성<br>
-            3.7V × 1.43mA = <strong style="color: var(--text-accent);">5.29mW</strong>
-          </p>
+          <span class="project-card__icon">📸</span>
+          <h3 class="project-card__title">커스텀 데이터셋 구축</h3>
+          <p class="project-card__desc">기존 오픈 데이터셋은 타겟 환경인 산악 지형과 배경이 달라 인식률이 크게 떨어졌습니다. 이를 해결하고자 <strong>실제 산에서 직접 훈련
+              데이터를 촬영</strong>하여 모델에 최적화된 전용 데이터셋을 구축했습니다.</p>
         </div>
-      </div>
-      <div class="project-diagrams" style="margin-top: var(--space-8);">
-        <div class="project-diagram">
-          <img src="../assets/projects/armi/images/power-measure-standby.jpg" alt="Standby Power"
-            class="project-diagram__img" loading="lazy">
-          <div class="project-diagram__caption">
-            <div class="project-diagram__title">Standby 모드 전류 측정</div>
-            <div class="project-diagram__desc">0.01Ω 센트 저항 전압 강하: 1.5mV → 1.43mA</div>
-          </div>
-        </div>
-        <div class="project-diagram">
-          <img src="../assets/projects/armi/images/power-measure-active.jpg" alt="Active Power"
-            class="project-diagram__img" loading="lazy">
-          <div class="project-diagram__caption">
-            <div class="project-diagram__title">Active 모드 전류 측정</div>
-            <div class="project-diagram__desc">RF + Camera 활성 시: 14.3mV → ~150mA</div>
-          </div>
-        </div>
-        <div class="project-diagram">
-          <img src="../assets/projects/armi/images/power-measure-detail.jpg" alt="Power Detail"
-            class="project-diagram__img" loading="lazy">
-          <div class="project-diagram__caption">
-            <div class="project-diagram__title">전류 측정 상세</div>
-            <div class="project-diagram__desc">멀티미터 + PCB + LiPo 배터리 실측 환경</div>
-          </div>
-        </div>
-      </div>
-      <div style="max-width: 700px; margin: var(--space-8) auto 0;">
         <div class="project-card">
-          <h3 class="project-card__title">Standby Mode 동작</h3>
-          <p class="project-card__desc">
-            MCU는 Standby모드에서 PIR 센서를 통해 Wake Up합니다. 이벤트 발생 시 이미지를 촬영하고 CNN 모델로 객체를 인식합니다.
-            감지 시에만 이미지를 서버로 전송하고, 처리가 완료되면 다시 Standby 모드로 전환됩니다.
-          </p>
+          <span class="project-card__icon">📉</span>
+          <h3 class="project-card__title">해상도 일치화 (320x240)</h3>
+          <p class="project-card__desc">고해상도 촬영 후 압축 시 발생하는 이미지 질 저하를 막기 위해, Edge Device의 실제 카메라(OV2640) <strong>입력 해상도인
+              320×240으로 처음부터 훈련 데이터를 직접 촬영</strong>하여 손실을 방지했습니다.</p>
         </div>
-      </div>
-      <div style="max-width: 700px; margin: var(--space-6) auto 0;">
         <div class="project-card">
-          <h3 class="project-card__title">3.3V On/Off MOSFET 회로</h3>
-          <p class="project-card__desc">
-            MOSFET 회로를 구성하여 이미지 센서(OV2640)와 RF 모듈의 전원을 개별 제어하여 비활성 시 대기 전력을 완전히 제거합니다.
+          <span class="project-card__icon">⚙️</span>
+          <h3 class="project-card__title">TensorFlow Keras 학습</h3>
+          <p class="project-card__desc">TensorFlow와 Keras API를 활용하여 CNN 신경망을 설계하였으며, Adam 옵티마이저와 Cross Entropy 손실 함수를
+            적용하여 하드웨어 제약 조건에 맞는 커스텀 학습을 진행했습니다.</p>
+        </div>
+        <div class="project-card">
+          <span class="project-card__icon">🗜️</span>
+          <h3 class="project-card__title">TFLite 양자화 (INT8)</h3>
+          <p class="project-card__desc">STM32 MCU의 제한된 메모리(Flash, RAM)에 모델을 탑재하기 위해 TensorFlow Lite 형식으로 변환 후,
+            <strong>32비트 부동소수점을 8비트 정수로 양자화(Quantization)</strong>하여 모델 용량을 원본의 약 10% 수준으로 대폭 압축했습니다.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- ===== Hardware Gallery ===== -->
+    <!-- ===== Low-Power Design ===== -->
     <section class="project-section project-section--alt">
+      <div class="project-section__header">
+        <p class="project-section__label">Low-Power Design</p>
+        <h2 class="project-section__title">저전력 설계</h2>
+        <p class="project-section__desc">실측 전력 소모 데이터 — 0.01Ω 센트 저항 전압 강하 + 전류계 측정</p>
+      </div>
+      <div class="project-overview"
+        style="max-width: 900px; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6);">
+        <div class="project-card" style="padding: 0; overflow: hidden; text-align: center;">
+          <h3 class="project-card__title"
+            style="font-size: 1.1em; margin: 0; padding: var(--space-4) var(--space-6); border-bottom: 1px solid var(--border-subtle);">
+            &lt;Peak Power Consumption&gt;</h3>
+          <img src="../assets/projects/armi/images/power-measure-v2.1-peak.jpg" alt="Peak Power Measurement"
+            style="display: block; width: 100%; height: auto; aspect-ratio: 4/3; object-fit: cover; border-bottom: 1px solid var(--border-subtle);">
+          <div style="padding: var(--space-6);">
+            <p class="project-card__desc"
+              style="font-size: 0.9em; color: var(--text-secondary); margin-bottom: var(--space-4);">(RF Module in Use)
+            </p>
+
+            <div style="font-family: var(--font-mono); font-size: 1.2em; line-height: 1.5; margin-top: var(--space-4);">
+              <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px;">
+                <span>3.7V ×</span>
+                <span style="display: inline-flex; flex-direction: column; text-align: center; font-size: 0.9em;">
+                  <span style="border-bottom: 1px solid currentColor; padding: 0 4px;">1.5mV</span>
+                  <span style="padding: 0 4px;">0.01Ω</span>
+                </span>
+                <span>= 3.7V × 150mA</span>
+              </div>
+              <strong style="color: var(--text-accent); font-size: 1.3em;">≈ 555mW</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card" style="padding: 0; overflow: hidden; text-align: center;">
+          <h3 class="project-card__title"
+            style="font-size: 1.1em; margin: 0; padding: var(--space-4) var(--space-6); border-bottom: 1px solid var(--border-subtle);">
+            &lt;Standby Mode Power Consumption&gt;</h3>
+          <img src="../assets/projects/armi/images/power-measure-v2-standby.jpg" alt="Standby Power Measurement"
+            style="display: block; width: 100%; height: auto; aspect-ratio: 4/3; object-fit: cover; border-bottom: 1px solid var(--border-subtle);">
+          <div style="padding: var(--space-6);">
+            <p class="project-card__desc"
+              style="font-size: 0.9em; color: var(--text-secondary); margin-bottom: var(--space-4);">(MCU Power Save
+              Mode + Modules Off + PIR Sensor in Use)</p>
+
+            <div style="font-family: var(--font-mono); font-size: 1.2em; line-height: 1.5; margin-top: var(--space-4);">
+              <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px;">
+                <span>3.7V × 1.43mA</span>
+              </div>
+              <strong style="color: var(--text-accent); font-size: 1.3em;">≈ 5.29mW</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="project-overview" style="margin-top: var(--space-8);">
+        <div class="project-card">
+          <h3 class="project-card__title">Standby Mode</h3>
+          <p class="project-card__desc">
+            MCU는 평소 초저전력 Standby 모드로 대기하다가 PIR 센서를 통해 Wake Up 합니다. 이때 무조건 이미지를 보내지 않고, <strong>온디바이스 CNN 모델로 타겟 유무를 먼저
+              확인하여 통신(가장 큰 전력 소모) 빈도를 최소화</strong>합니다. 타겟이 확인된 경우에만 서버로 이미지를 무선 전송한 후 다시 Standby 모드로 복귀합니다.
+          </p>
+        </div>
+        <div class="project-card" style="padding: 0; overflow: hidden;">
+          <h3 class="project-card__title"
+            style="margin: 0; padding: var(--space-4) var(--space-6); border-bottom: 1px solid var(--border-subtle);">
+            3.3V On/Off MOSFET Circuit</h3>
+          <img src="../assets/projects/armi/images/lowpower-3v3onoff.png" alt="3.3V On/Off MOSFET Circuit"
+            style="display: block; width: 100%; height: auto; border-bottom: 1px solid var(--border-subtle);">
+          <div style="padding: var(--space-6);">
+            <p class="project-card__desc">
+              MOSFET 회로를 구성하여 이미지 센서와 RF 모듈의 전원을 차단하여, OV2640 이미지 센서와 RF 모듈의 대기 전력을 완전히 제거하였다.
+            </p>
+          </div>
+        </div>
+        <div class="project-card" style="padding: 0; overflow: hidden;">
+          <h3 class="project-card__title"
+            style="margin: 0; padding: var(--space-4) var(--space-6); border-bottom: 1px solid var(--border-subtle);">
+            Energy Harvesting</h3>
+          <img src="../assets/projects/armi/images/lowpower-mppt.png" alt="MPPT Charger Circuit"
+            style="display: block; width: 100%; height: auto; border-bottom: 1px solid var(--border-subtle);">
+          <div style="padding: var(--space-6);">
+            <p class="project-card__desc">
+              MPPT(Maximum Power Point Tracking) 회로를 구성하여 태양광을 사용한 배터리 충전 효율을 극대화하였다.
+            </p>
+          </div>
+        </div>
+        <div class="project-card" style="padding: 0; overflow: hidden;">
+          <h3 class="project-card__title"
+            style="margin: 0; padding: var(--space-4) var(--space-6); border-bottom: 1px solid var(--border-subtle);">
+            객체인식 모델</h3>
+          <img src="../assets/projects/armi/images/lowpower-model-size.png" alt="NN Model Size"
+            style="display: block; width: 100%; height: auto; border-bottom: 1px solid var(--border-subtle);">
+          <div style="padding: var(--space-6);">
+            <p class="project-card__desc">
+              320 × 240 grayscale 이미지 객체인식 모델을 설계하여 Edge Device에 이식되는 모델의 크기, 연산량을 최소화하였다.<br><br>
+              <strong style="color: var(--text-primary);">NN 모델 Flash / RAM 사용 용량</strong><br>
+              <span style="font-family: var(--font-mono); font-size: 0.9em;">- Used Flash: 88.92 KiB<br>- Used RAM:
+                625.87 KiB</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Hardware Gallery ===== -->
+    <section class="project-section">
       <div class="project-section__header">
         <p class="project-section__label">Hardware</p>
         <h2 class="project-section__title">하드웨어 갤러리</h2>
@@ -376,7 +483,7 @@
           <img src="../assets/projects/armi/images/pcb-v1-front.png" alt="PCB v1.0 Front" class="project-diagram__img"
             loading="lazy">
           <div class="project-diagram__caption">
-            <div class="project-diagram__title">PCB v1.0 — 앞면</div>
+            <div class="project-diagram__title">PCB v1 — 앞면</div>
             <div class="project-diagram__desc">초기 프로토타입 PCB 설계</div>
           </div>
         </div>
@@ -384,37 +491,60 @@
           <img src="../assets/projects/armi/images/pcb-v1-back.png" alt="PCB v1.0 Back" class="project-diagram__img"
             loading="lazy">
           <div class="project-diagram__caption">
-            <div class="project-diagram__title">PCB v1.0 — 뒷면</div>
-            <div class="project-diagram__desc">4레이어 기판 하부 배선</div>
+            <div class="project-diagram__title">PCB v1 — 뒷면</div>
+            <div class="project-diagram__desc">2레이어 기판 하부 배선</div>
           </div>
         </div>
         <div class="project-diagram">
           <img src="../assets/projects/armi/images/pcb-v2-standalone.jpg" alt="PCB v2.1" class="project-diagram__img"
             loading="lazy">
           <div class="project-diagram__caption">
-            <div class="project-diagram__title">PCB v2.1 — 단독 보드</div>
+            <div class="project-diagram__title">PCB v2 — 단독 보드</div>
             <div class="project-diagram__desc">최종 버전 커스텀 PCB 실물</div>
           </div>
         </div>
         <div class="project-diagram">
-          <img src="../assets/projects/armi/images/pcb-v2-with-nucleo.jpg" alt="PCB with Nucleo"
+          <img src="../assets/projects/armi/images/pcb-v1-front-with-nucleo.jpg" alt="PCB with Nucleo"
             class="project-diagram__img" loading="lazy">
           <div class="project-diagram__caption">
-            <div class="project-diagram__title">Nucleo-U5 + PCB v2.1</div>
+            <div class="project-diagram__title">PCB v1 — Nucleo-U5 + PCB</div>
             <div class="project-diagram__desc">디버깅용 Nucleo 보드 연결 상태</div>
           </div>
         </div>
       </div>
-      <!-- Edge Device & Enclosure -->
-      <div class="project-diagrams" style="margin-top: var(--space-6);">
-        <div class="project-diagram">
-          <img src="../assets/projects/armi/images/edge-device-final.jpg" alt="Edge Device Final"
-            class="project-diagram__img" loading="lazy">
-          <div class="project-diagram__caption">
-            <div class="project-diagram__title">Edge Device 최종 조립</div>
-            <div class="project-diagram__desc">카메라 + PIR 센서 + RF 안테나 — 전시용 거치대</div>
+
+      <!-- Interactive 3D PCB Showcase -->
+      <section class="pcb-showcase" data-animate="fade-up">
+        <div class="pcb-showcase__glow"></div>
+        <div class="pcb-showcase__3d-wrap" id="pcb-3d-container" data-model-src="../assets/models/armi-pcb.glb">
+          <span class="pcb-showcase__loading" id="pcb-loading">PCB 모델 로딩 중...</span>
+          <img src="../assets/projects/armi/images/pcb-v2-3d-render.png" alt="PCB 3D Render"
+            class="pcb-showcase__fallback" id="pcb-fallback-img">
+        </div>
+        <div class="pcb-showcase__overlay">
+          <div class="pcb-showcase__info">
+            <h3 class="pcb-showcase__title">A.RM.I — <span class="text-gradient">PCB v2 Design</span></h3>
+            <p class="pcb-showcase__desc">직접 설계한 Edge Device 커스텀 회로 기판 3D 모델</p>
+            <div class="pcb-showcase__tags">
+              <span class="badge badge--accent">KiCad</span>
+              <span class="badge badge--accent">PCB Design</span>
+            </div>
           </div>
         </div>
+        <a href="https://github.com/KimTeddy/2024_A.RM.I_Public" target="_blank" class="pcb-showcase__link">
+          <div class="gallery-badge">
+            <span>🔗</span>
+            <span>GitHub에서 보기</span>
+            <span>↗</span>
+          </div>
+        </a>
+        <div class="pcb-showcase__hint" id="pcb-control-hint">
+          Rotate: <span class="key">Drag</span><span class="sep">|</span>Zoom: <span class="key">Shift+Scroll</span>
+        </div>
+      </section>
+
+      <!-- Edge Device & Enclosure -->
+      <div class="project-diagrams" style="margin-top: var(--space-6);">
         <div class="project-diagram">
           <img src="../assets/projects/armi/images/enclosure-front.jpg" alt="Enclosure Front"
             class="project-diagram__img" loading="lazy">
@@ -451,18 +581,18 @@
           </div>
         </div>
         <div class="project-diagram">
-          <img src="../assets/projects/armi/images/edge-device-prototype-front.jpg" alt="Prototype Front"
-            class="project-diagram__img" loading="lazy">
+          <img src="../assets/projects/armi/images/pcb-v2.1-layer.png" alt="PCB Layer" class="project-diagram__img"
+            loading="lazy">
           <div class="project-diagram__caption">
-            <div class="project-diagram__title">프로토타입 — 전면</div>
-            <div class="project-diagram__desc">초기 Edge Device 조립 상태</div>
+            <div class="project-diagram__title">PCB Layer 구조</div>
+            <div class="project-diagram__desc">4레이어 기판 배선 설계</div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ===== Development Timeline ===== -->
-    <section class="project-section">
+    <section class="project-section project-section--alt">
       <div class="project-section__header">
         <p class="project-section__label">Timeline</p>
         <h2 class="project-section__title">개발 타임라인</h2>
@@ -514,7 +644,7 @@
     </section>
 
     <!-- ===== Achievements ===== -->
-    <section class="project-section project-section--alt">
+    <section class="project-section">
       <div class="project-section__header">
         <p class="project-section__label">Achievements</p>
         <h2 class="project-section__title">프로젝트 성과</h2>
@@ -567,7 +697,7 @@
     </section>
 
     <!-- ===== Team ===== -->
-    <section class="project-section">
+    <section class="project-section project-section--alt">
       <div class="project-section__header">
         <p class="project-section__label">Team</p>
         <h2 class="project-section__title">팀원</h2>
@@ -575,12 +705,12 @@
       </div>
       <div class="project-team">
         <div class="project-member">
-          <div class="project-member__role">HW / PCB / FW</div>
+          <div class="project-member__role">HW / PCB / Algorithm</div>
           <div class="project-member__name">KimTeddy</div>
           <a href="https://github.com/KimTeddy" target="_blank" class="project-member__github">@KimTeddy</a>
         </div>
         <div class="project-member">
-          <div class="project-member__role">Server / UI</div>
+          <div class="project-member__role">Sleep Mode / Server UI</div>
           <div class="project-member__name">MoonScott</div>
           <a href="https://github.com/MoonScott" target="_blank" class="project-member__github">@MoonScott</a>
         </div>
@@ -598,6 +728,247 @@
           <div class="project-member__role">CNN Model & Porting</div>
           <div class="project-member__name">jungminhye</div>
           <a href="https://github.com/jungminhye" target="_blank" class="project-member__github">@jungminhye</a>
+        </div>
+      </div>
+      <div class="project-team-common"
+        style="margin-top: var(--space-10); max-width: var(--container-max); margin-left: auto; margin-right: auto;">
+        <h3 class="project-section__title"
+          style="font-size: 1.2rem; margin-bottom: var(--space-5); text-align: center;">역할 분담</h3>
+        <div style="overflow-x: auto;">
+          <table class="project-role-table"
+            style="width: 100%; border-collapse: separate; border-spacing: 0; background: var(--bg-surface); border-radius: var(--radius-lg); border: 1px solid var(--border-subtle); overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); min-width: 700px;">
+            <thead>
+              <tr style="background: rgba(255,255,255,0.02);">
+                <th
+                  style="padding: var(--space-4); text-align: left; font-weight: var(--weight-bold); color: var(--text-primary); border-bottom: 1px solid var(--border-subtle); border-right: 1px solid var(--border-subtle); width: 35%;">
+                  수행 내용</th>
+                <th
+                  style="padding: var(--space-4) var(--space-2); text-align: center; font-weight: var(--weight-medium); color: var(--text-primary); border-bottom: 1px solid var(--border-subtle);">
+                  KimTeddy</th>
+                <th
+                  style="padding: var(--space-4) var(--space-2); text-align: center; font-weight: var(--weight-medium); color: var(--text-primary); border-bottom: 1px solid var(--border-subtle);">
+                  iamgodjinsu</th>
+                <th
+                  style="padding: var(--space-4) var(--space-2); text-align: center; font-weight: var(--weight-medium); color: var(--text-primary); border-bottom: 1px solid var(--border-subtle);">
+                  jungminhye</th>
+                <th
+                  style="padding: var(--space-4) var(--space-2); text-align: center; font-weight: var(--weight-medium); color: var(--text-primary); border-bottom: 1px solid var(--border-subtle);">
+                  MoonScott</th>
+                <th
+                  style="padding: var(--space-4) var(--space-2); text-align: center; font-weight: var(--weight-medium); color: var(--text-primary); border-bottom: 1px solid var(--border-subtle);">
+                  minjoll</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); border-right: 1px solid var(--border-subtle); vertical-align: middle;">
+                  <span class="badge badge--accent" style="margin-bottom: 6px;">기획 및 사양 분석</span>
+                  <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">시스템 아키텍처 구상, 필요 부품 분석
+                    및 선정</div>
+                </td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+              </tr>
+              <tr>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); border-right: 1px solid var(--border-subtle); vertical-align: middle;">
+                  <span class="badge badge--accent" style="margin-bottom: 6px;">PCB 설계 및 HW 제작</span>
+                  <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">회로 설계(KiCad), PCB
+                    아트워크 및 하드웨어 조립</div>
+                </td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--text-tertiary); font-size: 1.2rem;">
+                  -</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--text-tertiary); font-size: 1.2rem;">
+                  -</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--text-tertiary); font-size: 1.2rem;">
+                  -</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--text-tertiary); font-size: 1.2rem;">
+                  -</td>
+              </tr>
+              <tr>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); border-right: 1px solid var(--border-subtle); vertical-align: middle;">
+                  <span class="badge badge--accent" style="margin-bottom: 6px;">이미지 센서(OV2640) 제어</span>
+                  <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">OV2640 레지스터 세팅 및 이미지
+                    획득 제어</div>
+                </td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--text-tertiary); font-size: 1.2rem;">
+                  -</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--text-tertiary); font-size: 1.2rem;">
+                  -</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+              </tr>
+              <tr>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); border-right: 1px solid var(--border-subtle); vertical-align: middle;">
+                  <span class="badge badge--accent" style="margin-bottom: 6px;">On-Device AI 설계</span>
+                  <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">CNN 모델 설계 및 MCU 이식
+                  </div>
+                </td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--text-tertiary); font-size: 1.2rem;">
+                  -</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--text-tertiary); font-size: 1.2rem;">
+                  -</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--text-tertiary); font-size: 1.2rem;">
+                  -</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--text-tertiary); font-size: 1.2rem;">
+                  -</td>
+              </tr>
+              <tr>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); border-right: 1px solid var(--border-subtle); vertical-align: middle;">
+                  <span class="badge badge--accent" style="margin-bottom: 6px;">사용자 인터페이스(UI)</span>
+                  <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">Qt 기반 모니터링 관리 프로그램 개발
+                  </div>
+                </td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--text-tertiary); font-size: 1.2rem;">
+                  -</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--text-tertiary); font-size: 1.2rem;">
+                  -</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--text-tertiary); font-size: 1.2rem;">
+                  -</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+              </tr>
+              <tr>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); border-right: 1px solid var(--border-subtle); vertical-align: middle;">
+                  <span class="badge badge--accent" style="margin-bottom: 6px;">서버 YOLO 시스템 구축</span>
+                  <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">PC 서버 환경 YOLOv4 모델 적용
+                    및 최적화</div>
+                </td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--text-tertiary); font-size: 1.2rem;">
+                  -</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--text-tertiary); font-size: 1.2rem;">
+                  -</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--text-tertiary); font-size: 1.2rem;">
+                  -</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--text-tertiary); font-size: 1.2rem;">
+                  -</td>
+              </tr>
+              <tr>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); border-right: 1px solid var(--border-subtle); vertical-align: middle;">
+                  <span class="badge badge--accent" style="margin-bottom: 6px;">서버 이미지 통신 및 처리</span>
+                  <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">서버-디바이스 간 이미지 데이터 통신
+                    및 수신 처리</div>
+                </td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--text-tertiary); font-size: 1.2rem;">
+                  -</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--text-tertiary); font-size: 1.2rem;">
+                  -</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--text-tertiary); font-size: 1.2rem;">
+                  -</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--text-tertiary); font-size: 1.2rem;">
+                  -</td>
+              </tr>
+              <tr>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); border-right: 1px solid var(--border-subtle); vertical-align: middle;">
+                  <span class="badge badge--accent" style="margin-bottom: 6px;">무선 통신 및 프로토콜</span>
+                  <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">nRF24L01 기반 1:N 통신
+                    알고리즘 구현</div>
+                </td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--text-tertiary); font-size: 1.2rem;">
+                  -</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+                <td
+                  style="padding: var(--space-4); border-bottom: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+              </tr>
+              <tr>
+                <td
+                  style="padding: var(--space-4); border-right: 1px solid var(--border-subtle); vertical-align: middle;">
+                  <span class="badge badge--accent" style="margin-bottom: 6px;">문서화 및 성과 보고</span>
+                  <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">보고서, 발표 자료 및 포스터 공동
+                    제작</div>
+                </td>
+                <td
+                  style="padding: var(--space-4); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+                <td
+                  style="padding: var(--space-4); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+                <td
+                  style="padding: var(--space-4); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+                <td
+                  style="padding: var(--space-4); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+                <td
+                  style="padding: var(--space-4); text-align: center; vertical-align: middle; color: var(--accent-primary); font-size: 1.2rem;">
+                  ●</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
@@ -628,15 +999,15 @@
   <script src="../assets/js/animations.js"></script>
   <script src="../assets/js/artistic.js"></script>
 
-  <!-- 3D PCB Viewer -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-  <script src="../assets/projects/armi/armi-pcb.js"></script>
 
   <script>
     fetch('/footer.html').then(r => r.text()).then(h => document.getElementById('footer-placeholder').innerHTML = h);
   </script>
+  <!-- Three.js + GLTFLoader for PCB 3D Showcase -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="../assets/js/pcb3d.js"></script>
 </body>
 
 </html>

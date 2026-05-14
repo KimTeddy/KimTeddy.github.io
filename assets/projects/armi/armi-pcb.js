@@ -109,7 +109,7 @@
   function loadModel() {
     const loader = new THREE.GLTFLoader();
     loader.load(
-      'assets/models/armi-pcb.glb',
+      '../assets/models/armi-pcb.glb',
       (gltf) => {
         pcbModel = gltf.scene;
         const box = new THREE.Box3().setFromObject(pcbModel);

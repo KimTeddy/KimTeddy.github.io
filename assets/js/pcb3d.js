@@ -26,7 +26,7 @@
       0.01,
       100
     );
-    camera.position.set(0, 0.40, 0.35);
+    camera.position.set(0, 0.22, 0.20);
 
     // 3. Renderer
     renderer = new THREE.WebGLRenderer({
@@ -161,8 +161,9 @@
   function loadModel() {
     const loader = new THREE.GLTFLoader();
 
+    const modelSrc = container.getAttribute('data-model-src') || 'assets/models/armi-pcb.glb';
     loader.load(
-      'assets/models/armi-pcb.glb',
+      modelSrc,
       (gltf) => {
         pcbModel = gltf.scene;
 

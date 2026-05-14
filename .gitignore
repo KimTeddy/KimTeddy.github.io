@@ -1,1 +1,7 @@
-assets/models/armi-pcb.blend
+*.blend
+*.pptx
+*.hwpx
+*.pdf
+*.txt
+assets/projects/armi/extracted_media
+assets/projects/armi/README.md

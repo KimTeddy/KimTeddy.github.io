@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NOsquito — FFT 알고리즘 기반 모기 위치 식별 및 방제 시스템">
+  <meta property="og:title" content="NOsquito — 모기 위치 식별 및 방제 시스템">
+  <meta property="og:description" content="FFT로 모기 날개짓(400Hz) 주파수를 판별하여 위치 추적 후 스프레이 자동 분사 및 앱 알림 전송 프로젝트">
+  <title>NOsquito — TeddyElectronics</title>
+  <link rel="icon" type="image/x-icon" href="../assets/images/site/TeddyElectronics.ico">
+  <link rel="stylesheet" href="../assets/css/globals.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/project-detail.css">
+</head>
+
+<body>
+
+  <!-- Artistic Background Elements -->
+  <div class="noise-overlay"></div>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo">&lt;T/&gt; <span>TeddyElectronics</span></a>
+      <div class="nav__links">
+        <a href="../index.html" class="nav__link">Home</a><a href="../about.html" class="nav__link">About</a>
+        <a href="../projects.html" class="nav__link">Projects</a><a href="../experience.html" class="nav__link">Experience</a>
+        <a href="../skills.html" class="nav__link">Skills</a><a href="../seminars.html" class="nav__link">Seminars</a>
+        <a href="../contact.html" class="nav__link">Contact</a>
+      </div>
+      <div class="nav__actions">
+        <button class="theme-toggle" aria-label="Toggle theme">☀️</button>
+        <div class="nav__burger"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+    <div class="nav__progress"></div>
+    <div class="nav__mobile-menu">
+      <a href="../index.html" class="nav__link">Home</a><a href="../about.html" class="nav__link">About</a>
+      <a href="../projects.html" class="nav__link">Projects</a><a href="../experience.html" class="nav__link">Experience</a>
+      <a href="../skills.html" class="nav__link">Skills</a><a href="../seminars.html" class="nav__link">Seminars</a>
+      <a href="../contact.html" class="nav__link">Contact</a>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+
+    <!-- ===== Hero ===== -->
+    <section class="project-hero">
+      <div class="project-hero__bg" style="background-image: radial-gradient(circle at top right, rgba(0, 229, 160, 0.1), transparent 50%);"></div>
+      <div class="project-hero__content">
+        <span class="project-hero__badge">💡 2023-1 마이크로프로세서응용 프로젝트</span>
+        <h1 class="project-hero__title"><span>NOsquito</span></h1>
+        <p class="project-hero__subtitle">
+          FFT 알고리즘 기반 모기 위치 식별 및 방제 시스템
+        </p>
+        <div class="project-hero__tags">
+          <span class="project-hero__tag">STM32F767</span>
+          <span class="project-hero__tag">C</span>
+          <span class="project-hero__tag">IAR Embedded Workbench</span>
+          <span class="project-hero__tag">FFT Algorithm</span>
+          <span class="project-hero__tag">Bluetooth</span>
+          <span class="project-hero__tag">TFT-LCD</span>
+          <span class="project-hero__tag">Servo Motor</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Key Metrics ===== -->
+    <section class="project-section">
+      <div class="project-section__header">
+        <p class="project-section__label">Key Specs</p>
+        <h2 class="project-section__title">주요 식별 스펙</h2>
+      </div>
+      <div class="project-stats">
+        <div class="project-stat">
+          <div class="project-stat__value">400Hz</div>
+          <div class="project-stat__label">타겟 주파수</div>
+          <div class="project-stat__sub">암컷 모기 날개짓 소리</div>
+        </div>
+        <div class="project-stat">
+          <div class="project-stat__value">2-Ch</div>
+          <div class="project-stat__label">마이크로폰 센서</div>
+          <div class="project-stat__sub">좌/우 방향 감지</div>
+        </div>
+        <div class="project-stat">
+          <div class="project-stat__value">4방향</div>
+          <div class="project-stat__label">스프레이 분사</div>
+          <div class="project-stat__sub">위치 확률 기반 자동 방제</div>
+        </div>
+        <div class="project-stat">
+          <div class="project-stat__value">Real-time</div>
+          <div class="project-stat__label">타이머 인터럽트</div>
+          <div class="project-stat__sub">실시간 감지 및 알림</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Overview ===== -->
+    <section class="project-section project-section--alt">
+      <div class="project-section__header">
+        <p class="project-section__label">Overview</p>
+        <h2 class="project-section__title">프로젝트 개요</h2>
+        <p class="project-section__desc">마이크로폰으로 입력되는 소리를 푸리에 변환(FFT)하여 모기 주파수(400Hz)를 감지하고, 위치 판별 후 모기약을 자동 분사하는 임베디드 방제 시스템입니다.</p>
+      </div>
+      <div class="project-overview">
+        <div class="project-card">
+          <span class="project-card__icon">🔊</span>
+          <h3 class="project-card__title">주파수 센싱 (FFT)</h3>
+          <p class="project-card__desc">마이크로폰 센서로 측정되는 음성의 파형을 FFT 알고리즘으로 분석하여 암컷 모기의 날개짓 주파수인 400Hz 대역을 식별합니다.</p>
+        </div>
+        <div class="project-card">
+          <span class="project-card__icon">📍</span>
+          <h3 class="project-card__title">위치 추적 알고리즘</h3>
+          <p class="project-card__desc">양방향으로 배치된 센서의 입력값을 비교해 점수를 부여하고, 모기가 존재할 확률이 높은 위치(좌/우/양방향)를 판단합니다.</p>
+        </div>
+        <div class="project-card">
+          <span class="project-card__icon">💨</span>
+          <h3 class="project-card__title">서보모터 자동 방제</h3>
+          <p class="project-card__desc">감지된 모기 위치를 기반으로 4방향 스프레이 분사 시스템을 가동합니다. 최적화를 위해 분사 횟수를 소프트웨어적으로 제한합니다.</p>
+        </div>
+        <div class="project-card">
+          <span class="project-card__icon">📱</span>
+          <h3 class="project-card__title">스마트폰 앱 알림</h3>
+          <p class="project-card__desc">블루투스 통신을 이용해 모기 감지 시점과 위치를 안드로이드 앱으로 실시간 전송하고 경보음을 울려 사용자가 인지하도록 돕습니다.</p>
+        </div>
+        <div class="project-card">
+          <span class="project-card__icon">💡</span>
+          <h3 class="project-card__title">LED 상태 표시</h3>
+          <p class="project-card__desc">평소 흰색으로 점등되던 LED가 모기 감지 즉시 해당 방향만 빨간색으로 변경되어 초기 경보 및 직관적 상태를 표시합니다.</p>
+        </div>
+        <div class="project-card">
+          <span class="project-card__icon">🖥️</span>
+          <h3 class="project-card__title">TFT-LCD 디스플레이</h3>
+          <p class="project-card__desc">두 마이크의 FFT 변환 결과 그래프를 함께 표시하고, 식별 상태(왼쪽/오른쪽/양방향/실패) 아이콘을 출력하여 작동 상태를 시각화합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== System Specs ===== -->
+    <section class="project-section">
+      <div class="project-section__header">
+        <p class="project-section__label">Specifications</p>
+        <h2 class="project-section__title">시스템 사양</h2>
+      </div>
+      <div class="project-specs">
+        <div class="project-spec-group">
+          <div class="project-spec-group__header">// Hardware</div>
+          <div class="project-spec-row">
+            <span class="project-spec-row__label">MCU</span>
+            <span class="project-spec-row__value">STM32F767</span>
+          </div>
+          <div class="project-spec-row">
+            <span class="project-spec-row__label">사운드 센서</span>
+            <span class="project-spec-row__value">마이크 증폭 모듈 x2</span>
+          </div>
+          <div class="project-spec-row">
+            <span class="project-spec-row__label">모터 제어</span>
+            <span class="project-spec-row__value">Servo Motor (스프레이 분사용)</span>
+          </div>
+          <div class="project-spec-row">
+            <span class="project-spec-row__label">디스플레이</span>
+            <span class="project-spec-row__value">TFT-LCD 디스플레이</span>
+          </div>
+          <div class="project-spec-row">
+            <span class="project-spec-row__label">통신</span>
+            <span class="project-spec-row__value">Bluetooth Module</span>
+          </div>
+          <div class="project-spec-row">
+            <span class="project-spec-row__label">추가 구성</span>
+            <span class="project-spec-row__value">DEMUX, 풀다운 저항, LED 스트립</span>
+          </div>
+        </div>
+        <div class="project-spec-group">
+          <div class="project-spec-group__header">// Software</div>
+          <div class="project-spec-row">
+            <span class="project-spec-row__label">IDE</span>
+            <span class="project-spec-row__value">IAR Embedded Workbench</span>
+          </div>
+          <div class="project-spec-row">
+            <span class="project-spec-row__label">Language</span>
+            <span class="project-spec-row__value">C / Assembly</span>
+          </div>
+          <div class="project-spec-row">
+            <span class="project-spec-row__label">알고리즘</span>
+            <span class="project-spec-row__value">Fast Fourier Transform (FFT)</span>
+          </div>
+          <div class="project-spec-row">
+            <span class="project-spec-row__label">주요 기술</span>
+            <span class="project-spec-row__value">Timer Interrupt, ADC, PWM</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Operations / Process ===== -->
+    <section class="project-section project-section--alt">
+      <div class="project-section__header">
+        <p class="project-section__label">Process</p>
+        <h2 class="project-section__title">작동 프로세스</h2>
+        <p class="project-section__desc">기기의 전원을 켠 순간부터 모기를 탐지하고 방제하기까지의 흐름도입니다.</p>
+      </div>
+      <div class="project-diagrams">
+        <div class="project-diagram">
+          <img src="https://private-user-images.githubusercontent.com/68770209/391125644-ef608e09-694c-47f0-af81-a13e52951542.png" alt="Init Display" class="project-diagram__img" loading="lazy">
+          <div class="project-diagram__caption">
+            <div class="project-diagram__title">1. 시스템 초기화</div>
+            <div class="project-diagram__desc">전원 인가 시 TFT-LCD에 NOsquito 초기 로고 화면 출력</div>
+          </div>
+        </div>
+        <div class="project-diagram">
+          <img src="https://private-user-images.githubusercontent.com/68770209/391125693-525d8781-3018-453f-941f-fc2f9629ef1f.png" alt="FFT Graph Display" class="project-diagram__img" loading="lazy">
+          <div class="project-diagram__caption">
+            <div class="project-diagram__title">2. 주파수 감시 (FFT)</div>
+            <div class="project-diagram__desc">마이크 센서를 통해 주변 소리를 감지하고 두 채널의 주파수 대역 그래프를 실시간 표시</div>
+          </div>
+        </div>
+        <div class="project-diagram">
+          <img src="https://private-user-images.githubusercontent.com/68770209/391125711-2ef2674e-19f9-435e-949d-be5bdd52ffed.png" alt="Mosquito Detected" class="project-diagram__img" loading="lazy">
+          <div class="project-diagram__caption">
+            <div class="project-diagram__title">3. 모기 감지 및 위치 산출</div>
+            <div class="project-diagram__desc">400Hz 대역 식별 시 모기 이미지 출력 및 좌/우 방향 추적 완료</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="project-diagrams" style="margin-top: var(--space-6);">
+        <div class="project-diagram">
+          <img src="https://private-user-images.githubusercontent.com/68770209/391122994-2c23f569-9421-4ad4-af5c-bef35df45543.png" alt="Spray Action" class="project-diagram__img" loading="lazy">
+          <div class="project-diagram__caption">
+            <div class="project-diagram__title">4. 스프레이 자동 분사</div>
+            <div class="project-diagram__desc">산출된 방향에 맞춰 서보모터 동작 및 해당 구역 LED 적색 점등</div>
+          </div>
+        </div>
+        <div class="project-diagram">
+          <img src="https://private-user-images.githubusercontent.com/68770209/391137917-f86af7a6-1e11-4d07-905d-03c667d83205.png" alt="App Notification" class="project-diagram__img" loading="lazy" style="object-fit: contain; background: #fff;">
+          <div class="project-diagram__caption">
+            <div class="project-diagram__title">5. 스마트폰 앱 알림</div>
+            <div class="project-diagram__desc">블루투스를 통해 감지 시간/위치 전송 및 분사 완료 로그 기록</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Hardware & Implementation ===== -->
+    <section class="project-section">
+      <div class="project-section__header">
+        <p class="project-section__label">Hardware</p>
+        <h2 class="project-section__title">하드웨어 및 구현</h2>
+        <p class="project-section__desc">회로 구성부터 3D 프린팅 기구부 모델링까지</p>
+      </div>
+      <div class="project-diagrams">
+        <div class="project-diagram">
+          <img src="https://private-user-images.githubusercontent.com/68770209/391219291-2e9a4c33-3631-4c47-84c3-59bd2a69b57a.png" alt="Schematics" class="project-diagram__img" loading="lazy" style="object-fit: contain; background: #fff;">
+          <div class="project-diagram__caption">
+            <div class="project-diagram__title">회로도 (Schematics)</div>
+            <div class="project-diagram__desc">STM32F767 기반 센서 및 모터 제어 회로 설계</div>
+          </div>
+        </div>
+        <div class="project-diagram">
+          <img src="https://private-user-images.githubusercontent.com/68770209/391126853-99fbfea3-a717-4edb-b256-52a19a296a65.png" alt="3D Modeling" class="project-diagram__img" loading="lazy">
+          <div class="project-diagram__caption">
+            <div class="project-diagram__title">3D 프린팅 기구부</div>
+            <div class="project-diagram__desc">스프레이를 직접 누르기 위한 서보모터 결합 구조 설계</div>
+          </div>
+        </div>
+        <div class="project-diagram">
+          <img src="https://private-user-images.githubusercontent.com/68770209/391122849-925e2492-43e5-479e-9ff5-22c116afdc60.png" alt="DEMUX Circuit" class="project-diagram__img" loading="lazy">
+          <div class="project-diagram__caption">
+            <div class="project-diagram__title">DEMUX 및 주변 회로</div>
+            <div class="project-diagram__desc">LED 제어 및 신호 분배를 위한 로직 회로 구성</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Development Timeline ===== -->
+    <section class="project-section project-section--alt">
+      <div class="project-section__header">
+        <p class="project-section__label">Timeline</p>
+        <h2 class="project-section__title">개발 타임라인</h2>
+      </div>
+      <div class="project-timeline">
+        <div class="project-timeline__item">
+          <div class="project-timeline__dot"></div>
+          <div class="project-timeline__date">2023.03 ~ 2023.04</div>
+          <div class="project-timeline__title">요구사항 분석 및 부품 선정</div>
+          <div class="project-timeline__body">
+            <ul>
+              <li>모기 날개짓 주파수(400Hz) 분석 자료 조사</li>
+              <li>마이크로폰 센서, 서보모터 스펙 검토 및 구매</li>
+              <li>하드웨어 회로도 초안 작성</li>
+            </ul>
+          </div>
+        </div>
+        <div class="project-timeline__item">
+          <div class="project-timeline__dot"></div>
+          <div class="project-timeline__date">2023.04 ~ 2023.05</div>
+          <div class="project-timeline__title">핵심 알고리즘 및 회로 구현</div>
+          <div class="project-timeline__body">
+            <ul>
+              <li>ADC 인터럽트 설정 및 FFT 알고리즘 C언어 이식</li>
+              <li>TFT-LCD 디스플레이 UI 설계 (그래프, 아이콘 출력)</li>
+              <li>모터 구동 및 블루투스 시리얼 통신 연동</li>
+            </ul>
+          </div>
+        </div>
+        <div class="project-timeline__item">
+          <div class="project-timeline__dot"></div>
+          <div class="project-timeline__date">2023.05 ~ 2023.06</div>
+          <div class="project-timeline__title">통합 테스트 및 3D 기구물 제작</div>
+          <div class="project-timeline__body">
+            <ul>
+              <li>방향 추적 알고리즘 정확도 최적화</li>
+              <li>스프레이 분사 기구 3D 모델링 및 출력</li>
+              <li>안드로이드 앱 UI 연동 및 최종 작동 테스트 완료</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Team ===== -->
+    <section class="project-section">
+      <div class="project-section__header">
+        <p class="project-section__label">Team</p>
+        <h2 class="project-section__title">팀원 및 역할</h2>
+        <p class="project-section__desc">총 3인 팀 프로젝트</p>
+      </div>
+      <div class="project-team">
+        <div class="project-member">
+          <div class="project-member__role">Team Leader / FFT / FW / HW</div>
+          <div class="project-member__name">KimTeddy</div>
+          <a href="https://github.com/KimTeddy" target="_blank" class="project-member__github">@KimTeddy</a>
+        </div>
+        <div class="project-member">
+          <div class="project-member__role">Android APP / TFT-LCD UI</div>
+          <div class="project-member__name">Member 1</div>
+        </div>
+        <div class="project-member">
+          <div class="project-member__role">3D Design / Appearance</div>
+          <div class="project-member__name">Member 2</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="project-cta">
+      <h2 class="project-section__title">소스코드 보기</h2>
+      <p class="project-section__desc">NOsquito의 MCU(C언어) 코드가 공개되어 있습니다.</p>
+      <div class="project-cta__links">
+        <a href="https://github.com/KimTeddy/2023_NOsquito" target="_blank" class="project-cta__btn project-cta__btn--primary">
+          GitHub 리포지토리 →
+        </a>
+        <a href="../projects.html" class="project-cta__btn project-cta__btn--secondary">
+          ← 프로젝트 목록
+        </a>
+      </div>
+    </section>
+
+  </div><!-- page-wrapper -->
+
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Common scripts -->
+  <script src="../assets/js/theme.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+  <script src="../assets/js/animations.js"></script>
+  <script src="../assets/js/artistic.js"></script>
+
+  <script>
+    fetch('/footer.html').then(r => r.text()).then(h => document.getElementById('footer-placeholder').innerHTML = h);
+  </script>
+</body>
+
+</html>

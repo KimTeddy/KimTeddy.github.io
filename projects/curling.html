@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mini Curling Game — Verilog로 프로그래밍한 ZedBoard 기반 컬링 게임 프로젝트">
+  <meta property="og:title" content="Mini Curling Game">
+  <meta property="og:description" content="FPGA와 Verilog를 활용한 컬링 게임: 점수 계산, 색상 12BIT 확장 및 그래픽 출력">
+  <title>Mini Curling Game — TeddyElectronics</title>
+  <link rel="icon" type="image/x-icon" href="../assets/images/site/TeddyElectronics.ico">
+  <link rel="stylesheet" href="../assets/css/globals.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/project-detail.css">
+</head>
+
+<body>
+
+  <!-- Artistic Background Elements -->
+  <div class="noise-overlay"></div>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo">&lt;T/&gt; <span>TeddyElectronics</span></a>
+      <div class="nav__links">
+        <a href="../index.html" class="nav__link">Home</a><a href="../about.html" class="nav__link">About</a>
+        <a href="../projects.html" class="nav__link">Projects</a><a href="../experience.html" class="nav__link">Experience</a>
+        <a href="../skills.html" class="nav__link">Skills</a><a href="../seminars.html" class="nav__link">Seminars</a>
+        <a href="../contact.html" class="nav__link">Contact</a>
+      </div>
+      <div class="nav__actions">
+        <button class="theme-toggle" aria-label="Toggle theme">☀️</button>
+        <div class="nav__burger"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+    <div class="nav__progress"></div>
+    <div class="nav__mobile-menu">
+      <a href="../index.html" class="nav__link">Home</a><a href="../about.html" class="nav__link">About</a>
+      <a href="../projects.html" class="nav__link">Projects</a><a href="../experience.html" class="nav__link">Experience</a>
+      <a href="../skills.html" class="nav__link">Skills</a><a href="../seminars.html" class="nav__link">Seminars</a>
+      <a href="../contact.html" class="nav__link">Contact</a>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+
+    <!-- ===== Hero ===== -->
+    <section class="project-hero">
+      <div class="project-hero__bg" style="background-image: radial-gradient(circle at top right, rgba(0, 204, 153, 0.1), transparent 50%);"></div>
+      <div class="project-hero__content">
+        <span class="project-hero__badge">🎮 2023 디지털시스템 프로젝트</span>
+        <h1 class="project-hero__title"><span>Mini Curling Game</span></h1>
+        <p class="project-hero__subtitle">
+          Verilog로 프로그래밍하여 ZedBoard에서 실행하는 컬링 게임 시스템
+        </p>
+        <div class="project-hero__tags">
+          <span class="project-hero__tag">Verilog</span>
+          <span class="project-hero__tag">FPGA</span>
+          <span class="project-hero__tag">ZedBoard</span>
+          <span class="project-hero__tag">Digital System</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Key Metrics ===== -->
+    <section class="project-section">
+      <div class="project-section__header">
+        <p class="project-section__label">Key Features</p>
+        <h2 class="project-section__title">주요 시뮬레이션 기능</h2>
+      </div>
+      <div class="project-stats">
+        <div class="project-stat">
+          <div class="project-stat__value">FSM</div>
+          <div class="project-stat__label">스테이트 머신 제어</div>
+          <div class="project-stat__sub">게임 세트 및 스톤의 움직임 상태 전이</div>
+        </div>
+        <div class="project-stat">
+          <div class="project-stat__value">12-Bit</div>
+          <div class="project-stat__label">그래픽 컬러 확장</div>
+          <div class="project-stat__sub">기존 8bit 대비 정교해진 색상 파라미터 적용</div>
+        </div>
+        <div class="project-stat">
+          <div class="project-stat__value">Physics</div>
+          <div class="project-stat__label">충돌 & 마찰 구현</div>
+          <div class="project-stat__sub">스톤 간 충돌각 계산 및 브룸 마찰력 감소 알고리즘</div>
+        </div>
+        <div class="project-stat">
+          <div class="project-stat__value">PMOD</div>
+          <div class="project-stat__label">키패드 I/O 제어</div>
+          <div class="project-stat__sub">위치, 파워, 스위핑 등 모든 조작의 하드웨어 입력</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Overview ===== -->
+    <section class="project-section project-section--alt">
+      <div class="project-section__header">
+        <p class="project-section__label">Overview</p>
+        <h2 class="project-section__title">게임 진행 프로세스</h2>
+        <p class="project-section__desc">PMOD 키패드를 활용하여 타이밍에 맞춰 위치, 스핀, 파워를 조작하는 FPGA 하드웨어 기반 게임입니다.</p>
+      </div>
+      <div class="project-overview">
+        <div class="project-card">
+          <span class="project-card__icon">🏁</span>
+          <h3 class="project-card__title">1. 세트 시작 & 스톤 세팅</h3>
+          <p class="project-card__desc">키패드 1번을 눌러 게임을 시작하면 스톤이 좌우 왕복 이동을 시작합니다. 키패드 2번을 통해 시작 위치와 스핀 방향을 확정합니다.</p>
+        </div>
+        <div class="project-card">
+          <span class="project-card__icon">⚡</span>
+          <h3 class="project-card__title">2. 파워 게이지 제어</h3>
+          <p class="project-card__desc">위치 설정 후 하단 파워 게이지가 좌우로 움직이며, 키패드 3번을 눌러 지시계를 멈춘 곳의 위치가 스톤의 초기 속력(파워)이 됩니다.</p>
+        </div>
+        <div class="project-card">
+          <span class="project-card__icon">🧹</span>
+          <h3 class="project-card__title">3. 스위핑 조작 (브룸)</h3>
+          <p class="project-card__desc">이동 중 키패드 A/B를 연타하면 직진 방향 마찰력 감소 또는 스핀 방향 변화를 줍니다. 횟수 제한과 정지 상태 미작동 로직이 반영되었습니다.</p>
+        </div>
+        <div class="project-card">
+          <span class="project-card__icon">💥</span>
+          <h3 class="project-card__title">4. 물리 및 충돌 판정</h3>
+          <p class="project-card__desc">스톤이 벽에 부딪히거나 다른 스톤과 충돌 시 반발하며 튕겨나가며, 수직 충돌 시 정지하는 디테일한 물리 알고리즘을 적용했습니다.</p>
+        </div>
+        <div class="project-card">
+          <span class="project-card__icon">🎯</span>
+          <h3 class="project-card__title">5. 과녁 점수 계산</h3>
+          <p class="project-card__desc">모든 스톤 정지 후, 컬링 룰에 기반한 점수 계산 알고리즘(거리 비교 모듈)을 통해 과녁 중심에 가장 가까운 팀에 점수를 부여합니다.</p>
+        </div>
+        <div class="project-card">
+          <span class="project-card__icon">🔄</span>
+          <h3 class="project-card__title">6. 다음 세트 (FSM)</h3>
+          <p class="project-card__desc">3세트로 구성된 게임 스테이트를 관리하며 키패드 D/F를 통해 점수를 이어가거나 완전 초기화할 수 있습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Code Architecture ===== -->
+    <section class="project-section">
+      <div class="project-section__header">
+        <p class="project-section__label">Architecture</p>
+        <h2 class="project-section__title">하드웨어 코드 아키텍처</h2>
+        <p class="project-section__desc">Verilog HDL을 활용한 주요 모듈의 코드 설계 및 논리 구조입니다. GitHub 리포지토리의 실제 코드를 분석하여 작성되었습니다.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 2rem;">
+        <!-- Code Card 1 -->
+        <div style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; display: flex; flex-direction: column;">
+          <div style="background: rgba(0,0,0,0.2); padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+            <span style="font-family: monospace; color: var(--text-1); font-weight: 600; font-size: 1.1rem;">scoring.v</span>
+            <span class="project-hero__tag" style="margin:0;">FSM & Scoring Logic</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+            <div style="padding: 1.5rem; font-family: monospace; font-size: 0.85rem; color: #a8b2d1; background: #0d1117; overflow-x: auto; line-height: 1.6; border-right: 1px solid var(--border);">
+<pre style="margin:0;"><code><span style="color:#ff7b72;">always @</span>(<span style="color:#ff7b72;">posedge</span> clk, <span style="color:#ff7b72;">posedge</span> rst) <span style="color:#ff7b72;">begin</span>
+    <span style="color:#ff7b72;">if</span>(rst) c_state &lt;= WAIT;
+    <span style="color:#ff7b72;">else</span>    c_state &lt;= n_state;
+<span style="color:#ff7b72;">end</span>
+
+<span style="color:#8b949e;">// 거리 기반 점수 계산 State Machine</span>
+<span style="color:#ff7b72;">always @</span>(*) <span style="color:#ff7b72;">begin</span>
+    <span style="color:#ff7b72;">case</span> (c_state)
+        WAIT:    <span style="color:#ff7b72;">begin</span> <span style="color:#ff7b72;">if</span>(calc_trigger) n_state=ORDERSTART; <span style="color:#ff7b72;">else</span> n_state=WAIT; <span style="color:#ff7b72;">end</span>
+        ORDER0:  <span style="color:#ff7b72;">begin</span> n_state=ORDER1; <span style="color:#ff7b72;">end</span>
+        ...
+        SCOREA0: <span style="color:#ff7b72;">begin</span> <span style="color:#ff7b72;">if</span>(order[<span style="color:#79c0ff;">0</span>]%<span style="color:#79c0ff;">2</span>==<span style="color:#79c0ff;">0</span> &amp;&amp; max_count&gt;=<span style="color:#79c0ff;">0</span>) n_state=SCOREA1; <span style="color:#ff7b72;">else</span> n_state=SCOREB0; <span style="color:#ff7b72;">end</span>
+    <span style="color:#ff7b72;">endcase</span>
+<span style="color:#ff7b72;">end</span></code></pre>
+            </div>
+            <div style="padding: 2rem; display: flex; flex-direction: column; justify-content: center;">
+              <h3 style="color: var(--text-1); margin-bottom: 0.75rem; font-size: 1.25rem;">정교한 스테이트 머신(FSM) 설계</h3>
+              <p style="color: var(--text-2); line-height: 1.6;">게임의 턴 진행, 스톤 투구 순서, 과녁 중앙과의 거리 계산, 그리고 랭킹 산정까지 복잡한 과정들을 유한 상태 기계(Finite State Machine)로 모델링했습니다. 클럭 엣지에 동기화되어 충돌 없이 순차적으로 실행되도록 제어 로직을 구현했습니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Code Card 2 -->
+        <div style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; display: flex; flex-direction: column;">
+          <div style="background: rgba(0,0,0,0.2); padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+            <span style="font-family: monospace; color: var(--text-1); font-weight: 600; font-size: 1.1rem;">circle.v & distance_t.v</span>
+            <span class="project-hero__tag" style="margin:0;">Geometric Graphics</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+            <div style="padding: 1.5rem; font-family: monospace; font-size: 0.85rem; color: #a8b2d1; background: #0d1117; overflow-x: auto; line-height: 1.6; border-right: 1px solid var(--border);">
+<pre style="margin:0;"><code><span style="color:#8b949e;">// 픽셀 좌표(x,y)와 중심 좌표(cir_x,cir_y) 간의 거리 제곱</span>
+<span style="color:#ff7b72;">assign</span> distance = (((cir_x-x)*(cir_x-x)) + ((cir_y-y)*(cir_y-y)));
+
+<span style="color:#8b949e;">// 반지름의 제곱과 비교하여 원 내부 픽셀 판정 (출력 제어)</span>
+<span style="color:#ff7b72;">assign</span> circle_on = (cir_r*cir_r &gt;= distance)? <span style="color:#79c0ff;">1</span> : <span style="color:#79c0ff;">0</span>; 
+
+<span style="color:#8b949e;">// 동일한 로직을 응용한 스톤-타겟 거리 계산</span>
+<span style="color:#ff7b72;">assign</span> distance_sq = (((target_x-stone_x)*(target_x-stone_x)) + 
+                      ((target_y-stone_y)*(target_y-stone_y)));</code></pre>
+            </div>
+            <div style="padding: 2rem; display: flex; flex-direction: column; justify-content: center;">
+              <h3 style="color: var(--text-1); margin-bottom: 0.75rem; font-size: 1.25rem;">기하학적 렌더링 및 연산 최적화</h3>
+              <p style="color: var(--text-2); line-height: 1.6;">모니터 출력에 필요한 원 그리기(스톤, 타겟)와 점수 산정을 위한 거리 비교를 피타고라스 정리(<code style="background:rgba(255,255,255,0.1); padding:0.1rem 0.3rem; border-radius:4px;">x² + y² ≤ r²</code>) 기반의 Combinational Logic으로 구현했습니다. 하드웨어에서 무거운 제곱근 연산을 생략하고 거리의 제곱값만으로 비교하여 자원을 크게 최적화했습니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Team ===== -->
+    <section class="project-section project-section--alt">
+      <div class="project-section__header">
+        <p class="project-section__label">Team</p>
+        <h2 class="project-section__title">팀원 및 역할</h2>
+        <p class="project-section__desc">총 3인 팀 프로젝트</p>
+      </div>
+      <div class="project-team">
+        <div class="project-member">
+          <div class="project-member__role">Score Algorithm / Geometric Circle / 12-Bit Color</div>
+          <div class="project-member__name">KimTeddy</div>
+          <a href="https://github.com/KimTeddy" target="_blank" class="project-member__github">@KimTeddy</a>
+        </div>
+        <div class="project-member">
+          <div class="project-member__role">Keypad / Game FSM / Stone Direction & Speed</div>
+          <div class="project-member__name">kms0511</div>
+        </div>
+        <div class="project-member">
+          <div class="project-member__role">Stone & Broom Design / Broom Acceleration Alg.</div>
+          <div class="project-member__name">HidenSong</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="project-cta">
+      <h2 class="project-section__title">관련 링크</h2>
+      <p class="project-section__desc">작동 영상과 전체 코드는 아래에서 확인 가능합니다.</p>
+      <div class="project-cta__links">
+        <a href="https://youtu.be/kMXLUSBVb8M?si=x7CI9Pl3NyCPjwdU" target="_blank" class="project-cta__btn project-cta__btn--primary">
+          YouTube 동작 영상 →
+        </a>
+        <a href="https://github.com/kms0511/DS_TeamProject2023" target="_blank" class="project-cta__btn project-cta__btn--secondary">
+          GitHub 리포지토리 →
+        </a>
+        <a href="../projects.html" class="project-cta__btn project-cta__btn--secondary">
+          ← 프로젝트 목록
+        </a>
+      </div>
+    </section>
+
+  </div><!-- page-wrapper -->
+
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Common scripts -->
+  <script src="../assets/js/theme.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+  <script src="../assets/js/animations.js"></script>
+  <script src="../assets/js/artistic.js"></script>
+
+  <script>
+    fetch('/footer.html').then(r => r.text()).then(h => document.getElementById('footer-placeholder').innerHTML = h);
+  </script>
+</body>
+
+</html>

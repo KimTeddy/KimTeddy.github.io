@@ -61,6 +61,7 @@ projects:
         tags: ["2024", "C", "Cpp", "STM32", "Cube.AI", "PCB", "hand-soldering", "Circuit-design", "졸업작품"]
         duration: "2024년 3월 ~ 2024년 12월"
         links:
+          other: "projects/armi.html"
           github: "https://github.com/KimTeddy/2024_A.RM.I_Public"
           youtube: "https://youtu.be/RNpNJ6A_28k?si=IeHd7aC45Z5TKPu1"
 
@@ -72,6 +73,7 @@ projects:
         tags: ["2023", "C", "STM32", "hand-soldering", "Circuit-design", "마이크로프로세서응용"]
         duration: "2023년 6월 ~ 2023년 12월"
         links:
+          other: "projects/nosquito.html"
           github: "https://github.com/KimTeddy/2023_NOsquito"
 
       - title: "2023_Driver's_License_Test_Simulation"
@@ -82,6 +84,7 @@ projects:
         tags: ["2023", "C", "Linux", "cross-compile", "frame-buffer", "임베디드시스템"]
         duration: "2023년 10월 1일 ~ 12월 21일"
         links:
+          other: "projects/driver-license.html"
           github: "https://github.com/KimTeddy/2023_Driver-s_License_Test_Simulation"
 
       - title: "2023_Mini Curling Game"
@@ -92,6 +95,7 @@ projects:
         tags: ["2023", "Verilog", "FPGA", "디지털시스템"]
         duration: "2023년 11월 23일 ~ 12월 12일"
         links:
+          other: "projects/curling.html"
           github: "https://github.com/kms0511/DS_TeamProject2023"
           youtube: "https://youtu.be/kMXLUSBVb8M?si=x7CI9Pl3NyCPjwdU"
 
@@ -106,6 +110,7 @@ projects:
         tags: ["2023", "PCB", "hand-soldering", "Circuit-design", "동아리"]
         duration: "2023년 7월 ~ 2023년 12월"
         links:
+          other: "projects/jokbal.html"
           youtube: "https://youtu.be/tqQg0wU-9ns?si=lssECIQScBdo7ebp"
 
       - title: "JokBal1"
@@ -116,6 +121,7 @@ projects:
         tags: ["2022", "Circuit-design", "hand-soldering", "동아리"]
         duration: "2022년 3월 ~ 2022년 12월"
         links:
+          other: "projects/jokbal.html"
           youtube: "https://www.youtube.com/watch?v=Qg1aSdmr12A"
           github: "https://github.com/KimTeddy/Arduino_Public/tree/main/2022"
 

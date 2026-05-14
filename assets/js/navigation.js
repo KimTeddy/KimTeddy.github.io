@@ -87,7 +87,7 @@
   function loadFooter() {
     const placeholder = document.getElementById('footer-placeholder');
     if (!placeholder) return;
-    fetch('footer.html')
+    fetch('/footer.html')
       .then(function (r) { return r.text(); })
       .then(function (html) { placeholder.innerHTML = html; })
       .catch(function () { });

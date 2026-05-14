@@ -26,7 +26,7 @@
       0.01,
       100
     );
-    camera.position.set(0, 0.15, 0.35);
+    camera.position.set(0, 0.40, 0.35);
 
     // 3. Renderer
     renderer = new THREE.WebGLRenderer({

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="운전면허 장내기능시험 모의 시뮬레이터 — 리눅스 환경 기반 임베디드 프로젝트">
+  <meta property="og:title" content="운전면허 장내기능시험 모의 시뮬레이터">
+  <meta property="og:description" content="UDOO 보드와 OpenGL, OpenCV를 활용한 임베디드 운전면허 시뮬레이션 시스템">
+  <title>Driver's License Test Simulation — TeddyElectronics</title>
+  <link rel="icon" type="image/x-icon" href="../assets/images/site/TeddyElectronics.ico">
+  <link rel="stylesheet" href="../assets/css/globals.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/project-detail.css">
+</head>
+
+<body>
+
+  <!-- Artistic Background Elements -->
+  <div class="noise-overlay"></div>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo">&lt;T/&gt; <span>TeddyElectronics</span></a>
+      <div class="nav__links">
+        <a href="../index.html" class="nav__link">Home</a><a href="../about.html" class="nav__link">About</a>
+        <a href="../projects.html" class="nav__link">Projects</a><a href="../experience.html" class="nav__link">Experience</a>
+        <a href="../skills.html" class="nav__link">Skills</a><a href="../seminars.html" class="nav__link">Seminars</a>
+        <a href="../contact.html" class="nav__link">Contact</a>
+      </div>
+      <div class="nav__actions">
+        <button class="theme-toggle" aria-label="Toggle theme">☀️</button>
+        <div class="nav__burger"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+    <div class="nav__progress"></div>
+    <div class="nav__mobile-menu">
+      <a href="../index.html" class="nav__link">Home</a><a href="../about.html" class="nav__link">About</a>
+      <a href="../projects.html" class="nav__link">Projects</a><a href="../experience.html" class="nav__link">Experience</a>
+      <a href="../skills.html" class="nav__link">Skills</a><a href="../seminars.html" class="nav__link">Seminars</a>
+      <a href="../contact.html" class="nav__link">Contact</a>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+
+    <!-- ===== Hero ===== -->
+    <section class="project-hero">
+      <div class="project-hero__bg" style="background-image: radial-gradient(circle at top right, rgba(0, 119, 255, 0.1), transparent 50%);"></div>
+      <div class="project-hero__content">
+        <span class="project-hero__badge">🚗 2023-2 임베디드시스템 프로젝트</span>
+        <h1 class="project-hero__title"><span>Driver's License Test Simulation</span></h1>
+        <p class="project-hero__subtitle">
+          UDOO 보드와 OpenGL, OpenCV를 활용한 장내기능시험 모의 시뮬레이터
+        </p>
+        <div class="project-hero__tags">
+          <span class="project-hero__tag">Linux</span>
+          <span class="project-hero__tag">C/C++</span>
+          <span class="project-hero__tag">OpenGL</span>
+          <span class="project-hero__tag">OpenCV</span>
+          <span class="project-hero__tag">Frame Buffer</span>
+          <span class="project-hero__tag">UDOO Board</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Key Metrics ===== -->
+    <section class="project-section">
+      <div class="project-section__header">
+        <p class="project-section__label">Key Features</p>
+        <h2 class="project-section__title">주요 시뮬레이션 기능</h2>
+      </div>
+      <div class="project-stats">
+        <div class="project-stat">
+          <div class="project-stat__value">Gyro</div>
+          <div class="project-stat__label">자이로/가속도 센서</div>
+          <div class="project-stat__sub">키트 기울임으로 스티어링/가속/브레이크 조작</div>
+        </div>
+        <div class="project-stat">
+          <div class="project-stat__value">7-Seg</div>
+          <div class="project-stat__label">FND 점수 출력</div>
+          <div class="project-stat__sub">현재 점수 및 감점 애니메이션 실시간 적용</div>
+        </div>
+        <div class="project-stat">
+          <div class="project-stat__value">Frame</div>
+          <div class="project-stat__label">TFT-LCD 디스플레이</div>
+          <div class="project-stat__sub">OpenGL 렌더링 후 BMP 프레임 버퍼 출력</div>
+        </div>
+        <div class="project-stat">
+          <div class="project-stat__value">Sound</div>
+          <div class="project-stat__label">Buzzer 효과음</div>
+          <div class="project-stat__sub">깜빡이, 감점, 돌발 등 7종의 상황별 사운드</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Overview ===== -->
+    <section class="project-section project-section--alt">
+      <div class="project-section__header">
+        <p class="project-section__label">Overview</p>
+        <h2 class="project-section__title">프로젝트 개요</h2>
+        <p class="project-section__desc">현실적인 운전 경험을 모의로 제공하여 시간과 공간의 제약 없이 운전면허 기능시험을 연습할 수 있도록 제작된 임베디드 시뮬레이션 시스템입니다.</p>
+      </div>
+      <div class="project-overview">
+        <div class="project-card">
+          <span class="project-card__icon">🕹️</span>
+          <h3 class="project-card__title">자이로스코프 핸들 제어</h3>
+          <p class="project-card__desc">가속도 및 자이로 센서를 이용하여 키트 전체를 핸들처럼 사용합니다. 기울기를 통해 좌/우회전, 가속, 브레이크를 제어합니다.</p>
+        </div>
+        <div class="project-card">
+          <span class="project-card__icon">🚦</span>
+          <h3 class="project-card__title">RGB 신호등 및 상황 처리</h3>
+          <p class="project-card__desc">Color LED를 통해 신호등(적, 황, 녹)을 구현하며, 빨간불일 때 교차로 진입 시 즉시 실격 처리되는 실제와 같은 로직을 반영합니다.</p>
+        </div>
+        <div class="project-card">
+          <span class="project-card__icon">🎛️</span>
+          <h3 class="project-card__title">기능 조작 테스트</h3>
+          <p class="project-card__desc">전조등, 와이퍼, 기어, 방향지시등 중 랜덤으로 2개가 출제되며 제한 시간 내 버튼을 통한 응답을 테스트합니다. 버튼 클릭 시 LED로 상태를 동기화합니다.</p>
+        </div>
+        <div class="project-card">
+          <span class="project-card__icon">📺</span>
+          <h3 class="project-card__title">프레임 버퍼 렌더링</h3>
+          <p class="project-card__desc">Xwindow 사용 제약으로 인해 OpenGL로 렌더링된 장면을 BMP 파일로 추출하여 프레임 버퍼(Frame Buffer)에 띄우는 방식으로 3D 그래픽을 구현했습니다.</p>
+        </div>
+        <div class="project-card">
+          <span class="project-card__icon">🔢</span>
+          <h3 class="project-card__title">FND 동적 점수 표시</h3>
+          <p class="project-card__desc">7-Segment를 활용해 "현재 점수"와 "감점될 점수"를 표시하며, 감점 발생 시 점수가 깜빡거리며 서서히 줄어드는 애니메이션을 구현했습니다.</p>
+        </div>
+        <div class="project-card">
+          <span class="project-card__icon">🔊</span>
+          <h3 class="project-card__title">Buzzer 청각적 피드백</h3>
+          <p class="project-card__desc">출발 알림음, 깜빡이 릴레이 소리, 단계 통과음, 돌발 경고음, 감점음 등 주행 시 필요한 다양한 7가지 사운드 이펙트를 재생합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== System Specs ===== -->
+    <section class="project-section">
+      <div class="project-section__header">
+        <p class="project-section__label">Specifications</p>
+        <h2 class="project-section__title">시스템 사양</h2>
+      </div>
+      <div class="project-specs">
+        <div class="project-spec-group">
+          <div class="project-spec-group__header">// Hardware & Devices</div>
+          <div class="project-spec-row">
+            <span class="project-spec-row__label">메인 보드</span>
+            <span class="project-spec-row__value">UDOO Board (Linux UDOOBuntu)</span>
+          </div>
+          <div class="project-spec-row">
+            <span class="project-spec-row__label">확장 보드</span>
+            <span class="project-spec-row__value">PERI Board (GPIO)</span>
+          </div>
+          <div class="project-spec-row">
+            <span class="project-spec-row__label">센서</span>
+            <span class="project-spec-row__value">Gyro / Accelerometer / Magnetometer</span>
+          </div>
+          <div class="project-spec-row">
+            <span class="project-spec-row__label">출력 인터페이스</span>
+            <span class="project-spec-row__value">TFT-LCD (Touch), Text-LCD, FND (6-digit)</span>
+          </div>
+          <div class="project-spec-row">
+            <span class="project-spec-row__label">입출력 컴포넌트</span>
+            <span class="project-spec-row__value">Button, LED, Color LED (RGB), Buzzer</span>
+          </div>
+        </div>
+        <div class="project-spec-group">
+          <div class="project-spec-group__header">// Software Stack</div>
+          <div class="project-spec-row">
+            <span class="project-spec-row__label">OS 환경</span>
+            <span class="project-spec-row__value">Linux (HamoniKR 64bit / VirtualBox)</span>
+          </div>
+          <div class="project-spec-row">
+            <span class="project-spec-row__label">Language</span>
+            <span class="project-spec-row__value">C / C++</span>
+          </div>
+          <div class="project-spec-row">
+            <span class="project-spec-row__label">Graphics & Vision</span>
+            <span class="project-spec-row__value">OpenGL, OpenCV, Frame Buffer</span>
+          </div>
+          <div class="project-spec-row">
+            <span class="project-spec-row__label">Build System</span>
+            <span class="project-spec-row__value">Makefile, Shell script (Cross-compile)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Hardware & Implementation ===== -->
+    <section class="project-section project-section--alt">
+      <div class="project-section__header">
+        <p class="project-section__label">Implementation</p>
+        <h2 class="project-section__title">작동 및 구현 화면</h2>
+        <p class="project-section__desc">주요 기능별 실제 시뮬레이션 동작 화면</p>
+      </div>
+      <div class="project-diagrams">
+        <div class="project-diagram">
+          <img src="https://private-user-images.githubusercontent.com/68770209/299677198-f3162c6e-9d3a-416f-9905-bf8205e7b953.gif" alt="OpenGL 3D Graphics" class="project-diagram__img" loading="lazy">
+          <div class="project-diagram__caption">
+            <div class="project-diagram__title">OpenGL 3D 렌더링 & 시점 변환</div>
+            <div class="project-diagram__desc">자동차 이동 알고리즘 적용 및 3D 그래픽 화면 출력</div>
+          </div>
+        </div>
+        <div class="project-diagram">
+          <img src="https://private-user-images.githubusercontent.com/68770209/299989604-d675a11e-160a-43b1-a85e-2d3721de3157.gif" alt="Button and LED" class="project-diagram__img" loading="lazy">
+          <div class="project-diagram__caption">
+            <div class="project-diagram__title">차량 기능 조작 테스트</div>
+            <div class="project-diagram__desc">방향지시등, 비상등 버튼 입력 시 실제와 같은 LED 깜빡임 구현</div>
+          </div>
+        </div>
+        <div class="project-diagram">
+          <img src="https://private-user-images.githubusercontent.com/68770209/299991919-55f56318-1a87-4ecb-b421-f4bc3e5fe0c1.gif" alt="FND Score Animation" class="project-diagram__img" loading="lazy">
+          <div class="project-diagram__caption">
+            <div class="project-diagram__title">FND 감점 애니메이션</div>
+            <div class="project-diagram__desc">감점 시 차감될 점수가 깜빡이고 현재 점수가 부드럽게 감소하는 효과</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="project-diagrams" style="margin-top: var(--space-6);">
+        <div class="project-diagram">
+          <img src="https://private-user-images.githubusercontent.com/68770209/299676149-401bddce-b0d8-4e9d-9b4e-1ff345532bfd.gif" alt="Traffic Light" class="project-diagram__img" loading="lazy">
+          <div class="project-diagram__caption">
+            <div class="project-diagram__title">교차로 신호등 (RGB LED)</div>
+            <div class="project-diagram__desc">빨강, 주황, 초록불 전환 로직 적용. 빨간불 진입 시 실격 처리</div>
+          </div>
+        </div>
+        <div class="project-diagram">
+          <img src="https://private-user-images.githubusercontent.com/68770209/299991603-484a86e7-2857-44dd-b669-3461553506f5.jpg" alt="Kit Overview" class="project-diagram__img" loading="lazy" style="object-fit: cover;">
+          <div class="project-diagram__caption">
+            <div class="project-diagram__title">전체 시스템 구성도</div>
+            <div class="project-diagram__desc">UDOO 보드, PERI 보드, 터치스크린 및 기타 입출력 센서 통합 환경</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Team ===== -->
+    <section class="project-section">
+      <div class="project-section__header">
+        <p class="project-section__label">Team</p>
+        <h2 class="project-section__title">팀원 및 역할</h2>
+        <p class="project-section__desc">총 4인 팀 프로젝트</p>
+      </div>
+      <div class="project-team">
+        <div class="project-member">
+          <div class="project-member__role">Team Leader / OpenGL / Sensor / Buzzer / FND</div>
+          <div class="project-member__name">KimTeddy</div>
+          <a href="https://github.com/KimTeddy" target="_blank" class="project-member__github">@KimTeddy</a>
+        </div>
+        <div class="project-member">
+          <div class="project-member__role">Button & LED / FrameBuffer / RGB LED</div>
+          <div class="project-member__name">Member 1</div>
+        </div>
+        <div class="project-member">
+          <div class="project-member__role">Map Modeling / Track Logic / Char LCD</div>
+          <div class="project-member__name">Member 2</div>
+        </div>
+        <div class="project-member">
+          <div class="project-member__role">Car Modeling / Sensor Logic / Touch UI</div>
+          <div class="project-member__name">Member 3</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="project-cta">
+      <h2 class="project-section__title">소스코드 보기</h2>
+      <p class="project-section__desc">운전면허 시뮬레이터 프로젝트의 전체 코드가 공개되어 있습니다.</p>
+      <div class="project-cta__links">
+        <a href="https://github.com/KimTeddy/2023_Driver-s_License_Test_Simulation" target="_blank" class="project-cta__btn project-cta__btn--primary">
+          GitHub 리포지토리 →
+        </a>
+        <a href="../projects.html" class="project-cta__btn project-cta__btn--secondary">
+          ← 프로젝트 목록
+        </a>
+      </div>
+    </section>
+
+  </div><!-- page-wrapper -->
+
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Common scripts -->
+  <script src="../assets/js/theme.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+  <script src="../assets/js/animations.js"></script>
+  <script src="../assets/js/artistic.js"></script>
+
+  <script>
+    fetch('/footer.html').then(r => r.text()).then(h => document.getElementById('footer-placeholder').innerHTML = h);
+  </script>
+</body>
+
+</html>

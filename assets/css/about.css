@@ -360,6 +360,23 @@
   background-position: center;
   transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
   z-index: 0;
+  overflow: hidden;
+}
+
+.hobby-card__video-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 320%; /* Aggressive width to cover the tall bento aspect ratio */
+  height: 100%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  filter: brightness(0.45) saturate(0.8);
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.hobby-card:hover .hobby-card__video-bg {
+  transform: translate(-50%, -50%) scale(1.05);
 }
 
 .hobby-card__slideshow {

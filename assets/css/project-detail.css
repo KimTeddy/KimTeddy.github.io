@@ -15,7 +15,7 @@
   position: absolute;
   inset: 0;
   background: radial-gradient(ellipse at 30% 40%, rgba(0, 229, 160, 0.08) 0%, transparent 60%),
-              radial-gradient(ellipse at 70% 60%, rgba(59, 130, 246, 0.06) 0%, transparent 50%);
+    radial-gradient(ellipse at 70% 60%, rgba(59, 130, 246, 0.06) 0%, transparent 50%);
   z-index: 0;
 }
 
@@ -561,8 +561,15 @@
 
 /* ===== Animations ===== */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ===== Responsive ===== */
@@ -577,18 +584,23 @@
     min-height: 50vh;
     padding: var(--space-16) var(--space-4);
   }
+
   .project-section {
     padding: var(--space-12) var(--space-4);
   }
+
   .project-diagrams {
     grid-template-columns: 1fr;
   }
+
   .project-specs {
     grid-template-columns: 1fr;
   }
+
   .project-stats {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .project-team {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -662,7 +674,9 @@ body.light-mode .pcb-showcase__desc {
 }
 
 @keyframes pcb-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .pcb-showcase__fallback {
@@ -726,8 +740,15 @@ body.light-mode .pcb-showcase__desc {
 }
 
 @keyframes pcb-glow-pulse {
-  0% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
-  100% { opacity: 1; transform: translate(-50%, -50%) scale(1.3); }
+  0% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.3);
+  }
 }
 
 .pcb-showcase__hint {
@@ -797,9 +818,11 @@ body.light-mode .pcb-showcase__desc {
     height: 45vh;
     min-height: 300px;
   }
+
   .pcb-showcase__title {
     font-size: var(--text-xl);
   }
+
   .pcb-showcase__hint {
     bottom: var(--space-4);
     right: var(--space-4);

@@ -158,8 +158,14 @@
 
         <!-- 🎲 3D Printing (Tall Card) -->
         <div class="card hobby-card hobby-card--tall" data-animate="fade-up" data-delay="2">
-          <div class="hobby-card__bg"
-            style="background-image: url('https://images.unsplash.com/photo-1631281558245-045c477be7bb?auto=format&fit=crop&q=80&w=800')">
+          <div class="hobby-card__bg">
+            <iframe 
+              id="hobby-video-iframe"
+              src="https://www.youtube.com/embed/nqrPMixf8zE?autoplay=1&mute=1&loop=1&playlist=nqrPMixf8zE&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&playsinline=1&start=5&end=30&enablejsapi=1" 
+              class="hobby-card__video-bg"
+              title="3D Printing Video" 
+              frameborder="0" 
+              allow="autoplay; encrypted-media"></iframe>
           </div>
           <div class="hobby-card__content">
             <div class="hobby-card__header">
@@ -335,6 +341,29 @@
   </div>
 
   <script>
+    // YouTube IFrame API for Hobby Video Speed
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    window.onYouTubeIframeAPIReady = function() {
+      new YT.Player('hobby-video-iframe', {
+        events: {
+          'onReady': function(event) {
+            event.target.setPlaybackRate(0.25);
+            event.target.mute();
+            event.target.playVideo();
+          },
+          'onStateChange': function(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+              event.target.setPlaybackRate(0.25);
+            }
+          }
+        }
+      });
+    };
+
     // Video Modal Logic
     (function() {
       const btn = document.getElementById('iot-video-btn');

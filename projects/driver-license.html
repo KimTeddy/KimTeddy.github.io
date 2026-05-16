@@ -7,6 +7,9 @@
   <meta name="description" content="운전면허 장내기능시험 모의 시뮬레이터 — 리눅스 환경 기반 임베디드 프로젝트">
   <meta property="og:title" content="운전면허 장내기능시험 모의 시뮬레이터">
   <meta property="og:description" content="UDOO 보드와 OpenGL, OpenCV를 활용한 임베디드 운전면허 시뮬레이션 시스템">
+  <meta property="og:image" content="https://kimteddy.github.io/assets/projects/drivers-license-test-simulation/images/full-view.jpg">
+  <meta property="og:url" content="https://kimteddy.github.io/projects/driver-license.html">
+  <meta name="twitter:card" content="summary_large_image">
   <title>Driver's License Test Simulation — TeddyElectronics</title>
   <link rel="icon" type="image/x-icon" href="../assets/images/site/TeddyElectronics.ico">
   <link rel="stylesheet" href="../assets/css/globals.css">
@@ -14,7 +17,7 @@
   <link rel="stylesheet" href="../assets/css/project-detail.css">
   <style>
     /* Custom styles for Driver License Project */
-    
+
     /* Background & Problem Section */
     .project-problem {
       display: grid;
@@ -24,13 +27,13 @@
       max-width: var(--container-max);
       margin: 0 auto;
     }
-    
+
     .project-problem__text {
       font-size: var(--text-lg);
       line-height: var(--leading-relaxed);
       color: var(--text-secondary);
     }
-    
+
     .project-problem__highlight {
       margin: var(--space-6) 0;
       padding: var(--space-6);
@@ -40,7 +43,7 @@
       font-weight: var(--weight-semibold);
       font-style: italic;
     }
-    
+
     .glass-image {
       width: 100%;
       border-radius: var(--radius-lg);
@@ -48,18 +51,18 @@
       box-shadow: var(--shadow-lg);
       transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
+
     .glass-image:hover {
       transform: scale(1.02) rotate(1deg);
     }
-    
+
     .image-caption {
       margin-top: var(--space-3);
       font-size: var(--text-xs);
       color: var(--text-tertiary);
       text-align: center;
     }
-    
+
     /* Architecture Showcase */
     .architecture-showcase {
       display: grid;
@@ -69,32 +72,32 @@
       margin: 0 auto;
       align-items: center;
     }
-    
+
     .architecture-diagram {
       background: #f8fafc;
       padding: var(--space-8);
       border-radius: var(--radius-xl);
       border: 1px solid var(--border-subtle);
-      box-shadow: inset 0 0 40px rgba(0,0,0,0.02);
+      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.02);
     }
-    
+
     .architecture-img {
       width: 100%;
       height: auto;
-      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
+      filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
     }
-    
+
     .info-title {
       font-size: var(--text-xl);
       margin-bottom: var(--space-6);
       color: var(--text-primary);
     }
-    
+
     .info-list {
       list-style: none;
       padding: 0;
     }
-    
+
     .info-list li {
       margin-bottom: var(--space-4);
       padding-left: var(--space-6);
@@ -102,7 +105,7 @@
       font-size: var(--text-sm);
       color: var(--text-secondary);
     }
-    
+
     .info-list li::before {
       content: '→';
       position: absolute;
@@ -110,7 +113,7 @@
       color: var(--accent-primary);
       font-weight: bold;
     }
-    
+
     /* Flowchart Gallery */
     .flowchart-gallery {
       display: grid;
@@ -119,7 +122,7 @@
       max-width: var(--container-max);
       margin: 0 auto;
     }
-    
+
     .flowchart-item {
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
@@ -132,14 +135,14 @@
       align-items: center;
       gap: var(--space-4);
     }
-    
+
     .flowchart-item:hover {
       background: var(--bg-primary);
       border-color: var(--accent-primary);
       transform: translateY(-5px);
       box-shadow: 0 10px 30px rgba(0, 229, 160, 0.1);
     }
-    
+
     .flowchart-item img {
       width: 100%;
       height: 180px;
@@ -148,14 +151,14 @@
       padding: var(--space-2);
       border-radius: var(--radius-md);
     }
-    
+
     .flowchart-item span {
       font-family: var(--font-mono);
       font-size: var(--text-xs);
       color: var(--text-accent);
       font-weight: var(--weight-bold);
     }
-    
+
     /* Hardware Grid */
     .hardware-section-content {
       max-width: var(--container-max);
@@ -164,7 +167,7 @@
       flex-direction: column;
       gap: var(--space-8);
     }
-    
+
     .hardware-main {
       position: relative;
       border-radius: var(--radius-2xl);
@@ -172,18 +175,18 @@
       box-shadow: var(--shadow-glow);
       width: 100%;
     }
-    
+
     .hardware-main img {
       width: 100%;
       height: auto;
       display: block;
       transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
+
     .hardware-main:hover img {
       transform: scale(1.02);
     }
-    
+
     .hardware-main__info {
       position: absolute;
       bottom: var(--space-6);
@@ -199,19 +202,19 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
     }
-    
+
     .hardware-sub-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: var(--space-8);
     }
-    
+
     .hardware-item {
       display: flex;
       flex-direction: column;
       gap: var(--space-4);
     }
-    
+
     .hardware-item__visual {
       background: var(--bg-glass);
       border: 1px solid var(--border-subtle);
@@ -225,49 +228,49 @@
       width: fit-content;
       margin: 0 auto;
     }
-    
+
     .hardware-item__visual img {
       height: 100%;
       width: auto;
       object-fit: contain;
       filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4));
     }
-    
+
     .hardware-item:hover .hardware-item__visual {
       border-color: var(--accent-primary);
       transform: translateY(-10px);
       background: rgba(255, 255, 255, 0.05);
     }
-    
+
     .hardware-item__info {
       text-align: center;
     }
-    
+
     .hardware-item__title {
       font-size: var(--text-lg);
       color: var(--text-primary);
       font-weight: var(--weight-bold);
       margin-bottom: 4px;
     }
-    
+
     .hardware-item__desc {
       font-size: var(--text-sm);
       color: var(--text-tertiary);
     }
-    
+
     @media (max-width: 768px) {
       .hardware-sub-grid {
         grid-template-columns: 1fr;
       }
     }
-    
+
     /* Traffic Lights */
     .traffic-light-set {
       display: flex;
       gap: var(--space-4);
       margin-top: var(--space-8);
     }
-    
+
     .traffic-light-item {
       flex: 1;
       text-align: center;
@@ -276,7 +279,7 @@
       border-radius: var(--radius-lg);
       border: 2px solid #333;
     }
-    
+
     .traffic-light-item img {
       width: 100%;
       aspect-ratio: 1;
@@ -286,23 +289,31 @@
       filter: grayscale(0.5);
       transition: all 0.3s ease;
     }
-    
+
     .traffic-light-item:hover img {
       filter: grayscale(0) brightness(1.2);
       box-shadow: 0 0 20px currentColor;
     }
-    
-    .traffic-light-item:nth-child(1) { color: #ff4d4d; }
-    .traffic-light-item:nth-child(2) { color: #ffad33; }
-    .traffic-light-item:nth-child(3) { color: #00e676; }
-    
+
+    .traffic-light-item:nth-child(1) {
+      color: #ff4d4d;
+    }
+
+    .traffic-light-item:nth-child(2) {
+      color: #ffad33;
+    }
+
+    .traffic-light-item:nth-child(3) {
+      color: #00e676;
+    }
+
     .traffic-light-item span {
       font-family: var(--font-mono);
       font-size: var(--text-xs);
       text-transform: uppercase;
       font-weight: bold;
     }
-    
+
     /* Feature Details */
     .feature-detail {
       display: flex;
@@ -311,28 +322,28 @@
       max-width: var(--container-max);
       margin: 0 auto var(--space-24);
     }
-    
+
     .feature-detail--reverse {
       flex-direction: row-reverse;
     }
-    
+
     .feature-detail__content {
       flex: 1;
       display: flex;
       flex-direction: column;
     }
-    
+
     .feature-detail__visual {
       flex: 1;
       display: flex;
     }
-    
+
     .feature-detail__title {
       font-size: var(--text-2xl);
       margin-bottom: var(--space-4);
       color: var(--text-primary);
     }
-    
+
     .feature-gif {
       width: 100%;
       height: 100%;
@@ -340,17 +351,17 @@
       border-radius: var(--radius-xl);
       box-shadow: var(--shadow-glow);
     }
-    
+
     .visual-stack {
       position: relative;
       border-radius: var(--radius-xl);
       overflow: hidden;
     }
-    
+
     .visual-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
       display: flex;
       align-items: flex-end;
       padding: var(--space-6);
@@ -358,14 +369,14 @@
       font-family: var(--font-mono);
       font-size: var(--text-sm);
     }
-    
+
     .feature-img {
       width: 100%;
       height: auto;
       border-radius: var(--radius-xl);
       display: block;
     }
-    
+
     /* Feature Grid */
     .feature-grid {
       display: grid;
@@ -374,7 +385,7 @@
       max-width: var(--container-max);
       margin: var(--space-16) auto;
     }
-    
+
     .feature-card__img-wrap {
       width: 100%;
       height: 240px;
@@ -384,37 +395,37 @@
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
     }
-    
+
     .feature-card__img-wrap img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.5s ease;
     }
-    
+
     .feature-card:hover .feature-card__img-wrap img {
       transform: scale(1.05);
     }
-    
+
     .feature-card__title {
       font-size: var(--text-lg);
       font-weight: var(--weight-bold);
       margin-bottom: var(--space-2);
       color: var(--text-primary);
     }
-    
+
     .feature-card__desc {
       font-size: var(--text-sm);
       color: var(--text-secondary);
       line-height: var(--leading-relaxed);
     }
-    
+
     /* UI Showcase */
     .ui-showcase {
       margin-top: var(--space-20);
       text-align: center;
     }
-    
+
     .ui-gallery {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -424,7 +435,7 @@
       margin-left: auto;
       margin-right: auto;
     }
-    
+
     .ui-gallery img {
       width: 100%;
       height: auto;
@@ -435,14 +446,14 @@
       border: 1px solid var(--border-subtle);
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    
+
     .ui-gallery img:hover {
       transform: translateY(-10px) scale(1.05);
       z-index: 2;
       box-shadow: var(--shadow-glow);
       border-color: var(--accent-primary);
     }
-    
+
     /* OpenGL Story */
     .opengl-story {
       display: grid;
@@ -455,7 +466,7 @@
       position: relative;
       overflow: hidden;
     }
-    
+
     .opengl-story::before {
       content: '';
       position: absolute;
@@ -466,25 +477,25 @@
       background: radial-gradient(circle at 70% 50%, rgba(0, 229, 160, 0.1), transparent 50%);
       pointer-events: none;
     }
-    
+
     .opengl-note {
       margin-top: var(--space-6);
-      color: rgba(255,255,255,0.6);
+      color: rgba(255, 255, 255, 0.6);
       font-size: var(--text-sm);
       border-left: 2px solid var(--accent-primary);
       padding-left: var(--space-4);
     }
-    
+
     .opengl-gif {
       width: 100%;
       border-radius: var(--radius-lg);
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
-    
+
     .opengl-story__visual {
       position: relative;
     }
-    
+
     .opengl-badge {
       position: absolute;
       top: -15px;
@@ -496,9 +507,9 @@
       font-size: var(--text-xs);
       font-weight: bold;
       transform: rotate(5deg);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
     }
-    
+
     /* Hero Slideshow */
     .project-hero__bg {
       position: absolute;
@@ -506,7 +517,7 @@
       overflow: hidden;
       z-index: -1;
     }
-    
+
     .hero-slideshow {
       position: absolute;
       inset: 0;
@@ -515,7 +526,7 @@
       opacity: 0.15;
       filter: saturate(0.5) blur(2px);
     }
-    
+
     .hero-slide {
       position: absolute;
       inset: 0;
@@ -526,20 +537,49 @@
       opacity: 0;
       animation: heroFade 20s infinite linear;
     }
-    
-    .hero-slide:nth-child(1) { background-image: url('../assets/projects/drivers-license-test-simulation/images/full-view.jpg'); animation-delay: 0s; }
-    .hero-slide:nth-child(2) { background-image: url('../assets/projects/drivers-license-test-simulation/images/peri-board.jpg'); animation-delay: 5s; }
-    .hero-slide:nth-child(3) { background-image: url('../assets/projects/drivers-license-test-simulation/images/operation-lcd-touch-bmp-overlay.png'); animation-delay: 10s; }
-    .hero-slide:nth-child(4) { background-image: url('../assets/projects/drivers-license-test-simulation/images/tft-lcd.jpg'); animation-delay: 15s; }
-    
-    @keyframes heroFade {
-      0% { opacity: 0; }
-      10% { opacity: 1; }
-      25% { opacity: 1; }
-      35% { opacity: 0; }
-      100% { opacity: 0; }
+
+    .hero-slide:nth-child(1) {
+      background-image: url('../assets/projects/drivers-license-test-simulation/images/full-view.jpg');
+      animation-delay: 0s;
     }
-    
+
+    .hero-slide:nth-child(2) {
+      background-image: url('../assets/projects/drivers-license-test-simulation/images/peri-board.jpg');
+      animation-delay: 5s;
+    }
+
+    .hero-slide:nth-child(3) {
+      background-image: url('../assets/projects/drivers-license-test-simulation/images/operation-lcd-touch-bmp-overlay.png');
+      animation-delay: 10s;
+    }
+
+    .hero-slide:nth-child(4) {
+      background-image: url('../assets/projects/drivers-license-test-simulation/images/tft-lcd.jpg');
+      animation-delay: 15s;
+    }
+
+    @keyframes heroFade {
+      0% {
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      25% {
+        opacity: 1;
+      }
+
+      35% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
     .project-hero::after {
       content: '';
       position: absolute;
@@ -547,30 +587,42 @@
       background: radial-gradient(circle at center, transparent, var(--bg-primary));
       z-index: 0;
     }
-    
+
     /* Responsive */
     @media (max-width: 1024px) {
-      .project-problem, .architecture-showcase, .hardware-grid, .feature-detail, .opengl-story {
+
+      .project-problem,
+      .architecture-showcase,
+      .hardware-grid,
+      .feature-detail,
+      .opengl-story {
         grid-template-columns: 1fr;
         gap: var(--space-8);
       }
+
       .feature-detail--reverse {
         flex-direction: column;
       }
-      .flowchart-gallery, .feature-grid {
+
+      .flowchart-gallery,
+      .feature-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
-    
+
     @media (max-width: 768px) {
-      .flowchart-gallery, .ui-gallery, .feature-grid {
+
+      .flowchart-gallery,
+      .ui-gallery,
+      .feature-grid {
         grid-template-columns: 1fr;
       }
+
       .traffic-light-set {
         flex-wrap: wrap;
       }
     }
-    
+
     /* Video Section */
     .project-video {
       max-width: 900px;
@@ -579,14 +631,15 @@
       overflow: hidden;
       box-shadow: var(--shadow-glow);
     }
-    
+
     .video-container {
       position: relative;
-      padding-bottom: 56.25%; /* 16:9 */
+      padding-bottom: 56.25%;
+      /* 16:9 */
       height: 0;
       overflow: hidden;
     }
-    
+
     .video-container iframe {
       position: absolute;
       top: 0;
@@ -604,7 +657,7 @@
       flex-wrap: wrap;
       margin-top: var(--space-10);
     }
-    
+
     .project-cta__btn--youtube {
       display: inline-flex;
       align-items: center;
@@ -617,7 +670,7 @@
       background: rgba(255, 0, 0, 0.05);
       text-decoration: none;
     }
-    
+
     /* Role Matrix Table */
     .role-matrix-container {
       max-width: var(--container-max);
@@ -628,13 +681,13 @@
       border: 1px solid var(--border-subtle);
       padding: var(--space-4);
     }
-    
+
     .role-matrix {
       width: 100%;
       border-collapse: collapse;
       font-size: var(--text-sm);
     }
-    
+
     .role-matrix th {
       background: var(--bg-surface);
       color: var(--text-primary);
@@ -646,7 +699,7 @@
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
-    
+
     .role-matrix th small {
       display: block;
       color: var(--text-tertiary);
@@ -654,18 +707,18 @@
       text-transform: none;
       margin-top: 4px;
     }
-    
+
     .role-matrix td {
       padding: var(--space-4);
       border-bottom: 1px solid var(--border-subtle);
       vertical-align: top;
       color: var(--text-secondary);
     }
-    
+
     .role-matrix tr:last-child td {
       border-bottom: none;
     }
-    
+
     .member-info {
       background: var(--bg-surface);
       text-align: center;
@@ -674,35 +727,35 @@
       color: var(--text-primary) !important;
       border-right: 1px solid var(--border-subtle);
     }
-    
+
     .member-info span {
       display: block;
       font-size: var(--text-xs);
       color: var(--accent-primary);
       font-weight: normal;
     }
-    
+
     .role-matrix ul {
       padding-left: var(--space-4);
       margin: 0;
       list-style-type: '• ';
     }
-    
+
     .role-matrix ul li {
       margin-bottom: var(--space-2);
       line-height: 1.4;
     }
-    
+
     .common-row {
       background: rgba(0, 229, 160, 0.05);
       font-style: italic;
       text-align: center;
     }
-    
+
     .common-row td {
       vertical-align: middle;
     }
-    
+
     @media (max-width: 768px) {
       .role-matrix {
         min-width: 800px;
@@ -722,7 +775,8 @@
       <a href="../index.html" class="nav__logo">&lt;T/&gt; <span>TeddyElectronics</span></a>
       <div class="nav__links">
         <a href="../index.html" class="nav__link">Home</a><a href="../about.html" class="nav__link">About</a>
-        <a href="../projects.html" class="nav__link">Projects</a><a href="../experience.html" class="nav__link">Experience</a>
+        <a href="../projects.html" class="nav__link">Projects</a><a href="../experience.html"
+          class="nav__link">Experience</a>
         <a href="../skills.html" class="nav__link">Skills</a><a href="../seminars.html" class="nav__link">Seminars</a>
         <a href="../contact.html" class="nav__link">Contact</a>
       </div>
@@ -734,7 +788,8 @@
     <div class="nav__progress"></div>
     <div class="nav__mobile-menu">
       <a href="../index.html" class="nav__link">Home</a><a href="../about.html" class="nav__link">About</a>
-      <a href="../projects.html" class="nav__link">Projects</a><a href="../experience.html" class="nav__link">Experience</a>
+      <a href="../projects.html" class="nav__link">Projects</a><a href="../experience.html"
+        class="nav__link">Experience</a>
       <a href="../skills.html" class="nav__link">Skills</a><a href="../seminars.html" class="nav__link">Seminars</a>
       <a href="../contact.html" class="nav__link">Contact</a>
     </div>
@@ -751,7 +806,9 @@
           <div class="hero-slide"></div>
           <div class="hero-slide"></div>
         </div>
-        <div style="position: absolute; inset: 0; background: radial-gradient(circle at top right, rgba(0, 119, 255, 0.1), transparent 50%);"></div>
+        <div
+          style="position: absolute; inset: 0; background: radial-gradient(circle at top right, rgba(0, 119, 255, 0.1), transparent 50%);">
+        </div>
       </div>
       <div class="project-hero__content">
         <span class="project-hero__badge">🚗 2023-2 임베디드시스템 프로젝트</span>
@@ -808,10 +865,8 @@
       </div>
       <div class="project-video">
         <div class="video-container">
-          <iframe 
-            src="https://www.youtube.com/embed/CFCqOFiHfQY" 
-            title="Driver's License Simulation Demo" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          <iframe src="https://www.youtube.com/embed/CFCqOFiHfQY" title="Driver's License Simulation Demo"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen>
           </iframe>
         </div>
@@ -823,7 +878,8 @@
       <div class="project-section__header">
         <p class="project-section__label">Overview</p>
         <h2 class="project-section__title">프로젝트 개요</h2>
-        <p class="project-section__desc">현실적인 운전 경험을 모의로 제공하여 시간과 공간의 제약 없이 운전면허 기능시험을 연습할 수 있도록 제작된 임베디드 시뮬레이션 시스템입니다.</p>
+        <p class="project-section__desc">현실적인 운전 경험을 모의로 제공하여 시간과 공간의 제약 없이 운전면허 기능시험을 연습할 수 있도록 제작된 임베디드 시뮬레이션 시스템입니다.
+        </p>
       </div>
       <div class="project-overview">
         <div class="project-card">
@@ -834,22 +890,26 @@
         <div class="project-card">
           <span class="project-card__icon">🚦</span>
           <h3 class="project-card__title">RGB 신호등 및 상황 처리</h3>
-          <p class="project-card__desc">Color LED를 통해 신호등(적, 황, 녹)을 구현하며, 빨간불일 때 교차로 진입 시 즉시 실격 처리되는 실제와 같은 로직을 반영합니다.</p>
+          <p class="project-card__desc">Color LED를 통해 신호등(적, 황, 녹)을 구현하며, 빨간불일 때 교차로 진입 시 즉시 실격 처리되는 실제와 같은 로직을 반영합니다.
+          </p>
         </div>
         <div class="project-card">
           <span class="project-card__icon">🎛️</span>
           <h3 class="project-card__title">기능 조작 테스트</h3>
-          <p class="project-card__desc">전조등, 와이퍼, 기어, 방향지시등 중 랜덤으로 2개가 출제되며 제한 시간 내 버튼을 통한 응답을 테스트합니다. 버튼 클릭 시 LED로 상태를 동기화합니다.</p>
+          <p class="project-card__desc">전조등, 와이퍼, 기어, 방향지시등 중 랜덤으로 2개가 출제되며 제한 시간 내 버튼을 통한 응답을 테스트합니다. 버튼 클릭 시 LED로 상태를
+            동기화합니다.</p>
         </div>
         <div class="project-card">
           <span class="project-card__icon">📺</span>
           <h3 class="project-card__title">프레임 버퍼 렌더링</h3>
-          <p class="project-card__desc">Xwindow 사용 제약으로 인해 OpenGL로 렌더링된 장면을 BMP 파일로 추출하여 프레임 버퍼(Frame Buffer)에 띄우는 방식으로 3D 그래픽을 구현했습니다.</p>
+          <p class="project-card__desc">Xwindow 사용 제약으로 인해 OpenGL로 렌더링된 장면을 BMP 파일로 추출하여 프레임 버퍼(Frame Buffer)에 띄우는 방식으로
+            3D 그래픽을 구현했습니다.</p>
         </div>
         <div class="project-card">
           <span class="project-card__icon">🔢</span>
           <h3 class="project-card__title">FND 동적 점수 표시</h3>
-          <p class="project-card__desc">7-Segment를 활용해 "현재 점수"와 "감점될 점수"를 표시하며, 감점 발생 시 점수가 깜빡거리며 서서히 줄어드는 애니메이션을 구현했습니다.</p>
+          <p class="project-card__desc">7-Segment를 활용해 "현재 점수"와 "감점될 점수"를 표시하며, 감점 발생 시 점수가 깜빡거리며 서서히 줄어드는 애니메이션을
+            구현했습니다.</p>
         </div>
         <div class="project-card">
           <span class="project-card__icon">🔊</span>
@@ -930,7 +990,8 @@
           </p>
         </div>
         <div class="project-problem__image">
-          <img src="../assets/projects/drivers-license-test-simulation/images/idea.png" alt="Statistics and Idea" class="glass-image">
+          <img src="../assets/projects/drivers-license-test-simulation/images/idea.png" alt="Statistics and Idea"
+            class="glass-image">
           <p class="image-caption">출처: 통계청 - 운전면허 시험 합격률 추이 및 프로젝트 제안 배경</p>
         </div>
       </div>
@@ -945,7 +1006,8 @@
       </div>
       <div class="architecture-showcase">
         <div class="architecture-diagram">
-          <img src="../assets/projects/drivers-license-test-simulation/images/diagram-sw.png" alt="Software Architecture Diagram" class="architecture-img">
+          <img src="../assets/projects/drivers-license-test-simulation/images/diagram-sw.png"
+            alt="Software Architecture Diagram" class="architecture-img">
         </div>
         <div class="architecture-info">
           <h3 class="info-title">SW 계층 구조</h3>
@@ -972,23 +1034,28 @@
           <span>Main Logic</span>
         </div>
         <div class="flowchart-item">
-          <img src="../assets/projects/drivers-license-test-simulation/images/flowchart-accelerometer-thread.png" alt="Accelerometer Thread">
+          <img src="../assets/projects/drivers-license-test-simulation/images/flowchart-accelerometer-thread.png"
+            alt="Accelerometer Thread">
           <span>Sensor Thread</span>
         </div>
         <div class="flowchart-item">
-          <img src="../assets/projects/drivers-license-test-simulation/images/flowchart-button-led-thread.png" alt="Button & LED Thread">
+          <img src="../assets/projects/drivers-license-test-simulation/images/flowchart-button-led-thread.png"
+            alt="Button & LED Thread">
           <span>Control Thread</span>
         </div>
         <div class="flowchart-item">
-          <img src="../assets/projects/drivers-license-test-simulation/images/flowchart-traffic-light-thread.png" alt="Traffic Light Thread">
+          <img src="../assets/projects/drivers-license-test-simulation/images/flowchart-traffic-light-thread.png"
+            alt="Traffic Light Thread">
           <span>Traffic Thread</span>
         </div>
         <div class="flowchart-item">
-          <img src="../assets/projects/drivers-license-test-simulation/images/flowchart-fnd-thread.png" alt="FND Thread">
+          <img src="../assets/projects/drivers-license-test-simulation/images/flowchart-fnd-thread.png"
+            alt="FND Thread">
           <span>Display Thread</span>
         </div>
         <div class="flowchart-item">
-          <img src="../assets/projects/drivers-license-test-simulation/images/flowchart-buzzer-thread.png" alt="Buzzer Thread">
+          <img src="../assets/projects/drivers-license-test-simulation/images/flowchart-buzzer-thread.png"
+            alt="Buzzer Thread">
           <span>Sound Thread</span>
         </div>
       </div>
@@ -1002,7 +1069,8 @@
       </div>
       <div class="hardware-section-content">
         <div class="hardware-main">
-          <img src="../assets/projects/drivers-license-test-simulation/images/full-view.jpg" alt="Total System Overview">
+          <img src="../assets/projects/drivers-license-test-simulation/images/full-view.jpg"
+            alt="Total System Overview">
           <div class="hardware-main__info">Total System Overview</div>
         </div>
         <div class="hardware-sub-grid">
@@ -1034,7 +1102,7 @@
         <p class="project-section__label">Implementation</p>
         <h2 class="project-section__title">작동 및 구현 디테일</h2>
       </div>
-      
+
       <!-- Feature 1: Traffic Lights -->
       <div class="feature-detail">
         <div class="feature-detail__content">
@@ -1044,21 +1112,25 @@
           </p>
           <div class="traffic-light-set">
             <div class="traffic-light-item">
-              <img src="../assets/projects/drivers-license-test-simulation/images/operation-rgbled-red-light.jpg" alt="Red Light">
+              <img src="../assets/projects/drivers-license-test-simulation/images/operation-rgbled-red-light.jpg"
+                alt="Red Light">
               <span>Red</span>
             </div>
             <div class="traffic-light-item">
-              <img src="../assets/projects/drivers-license-test-simulation/images/operation-rgbled-orange-light.jpg" alt="Orange Light">
+              <img src="../assets/projects/drivers-license-test-simulation/images/operation-rgbled-orange-light.jpg"
+                alt="Orange Light">
               <span>Orange</span>
             </div>
             <div class="traffic-light-item">
-              <img src="../assets/projects/drivers-license-test-simulation/images/operation-rgbled-green-light.jpg" alt="Green Light">
+              <img src="../assets/projects/drivers-license-test-simulation/images/operation-rgbled-green-light.jpg"
+                alt="Green Light">
               <span>Green</span>
             </div>
           </div>
         </div>
         <div class="feature-detail__visual">
-          <img src="../assets/projects/drivers-license-test-simulation/images/operation-rgbled-traffic-light.gif" alt="Traffic Light Animation" class="feature-gif">
+          <img src="../assets/projects/drivers-license-test-simulation/images/operation-rgbled-traffic-light.gif"
+            alt="Traffic Light Animation" class="feature-gif">
         </div>
       </div>
 
@@ -1072,7 +1144,8 @@
         </div>
         <div class="feature-detail__visual">
           <div class="visual-stack">
-            <img src="../assets/projects/drivers-license-test-simulation/images/operation-accelerometer.jpg" alt="Accelerometer Operation" class="feature-img">
+            <img src="../assets/projects/drivers-license-test-simulation/images/operation-accelerometer.jpg"
+              alt="Accelerometer Operation" class="feature-img">
             <div class="visual-overlay">Sensor Feedback</div>
           </div>
         </div>
@@ -1082,28 +1155,32 @@
       <div class="feature-grid">
         <div class="feature-card">
           <div class="feature-card__img-wrap">
-            <img src="../assets/projects/drivers-license-test-simulation/images/operation-fnd-score-system.gif" alt="FND Score">
+            <img src="../assets/projects/drivers-license-test-simulation/images/operation-fnd-score-system.gif"
+              alt="FND Score">
           </div>
           <h4 class="feature-card__title">FND 동적 점수 표시</h4>
           <p class="feature-card__desc">감점 발생 시 차감 점수가 깜빡이며, 현재 점수가 서서히 줄어드는 애니메이션을 구현했습니다.</p>
         </div>
         <div class="feature-card">
           <div class="feature-card__img-wrap">
-            <img src="../assets/projects/drivers-license-test-simulation/images/operation-buzzer.png" alt="Buzzer System">
+            <img src="../assets/projects/drivers-license-test-simulation/images/operation-buzzer.png"
+              alt="Buzzer System">
           </div>
           <h4 class="feature-card__title">청각적 피드백 시스템</h4>
           <p class="feature-card__desc">깜빡이 소리, 경고음, 합격음 등 7가지 상황별 사운드 이펙트를 제작하여 몰입감을 높였습니다.</p>
         </div>
         <div class="feature-card">
           <div class="feature-card__img-wrap">
-            <img src="../assets/projects/drivers-license-test-simulation/images/operation-button.gif" alt="Button Control">
+            <img src="../assets/projects/drivers-license-test-simulation/images/operation-button.gif"
+              alt="Button Control">
           </div>
           <h4 class="feature-card__title">차량 기능 조작 테스트</h4>
           <p class="feature-card__desc">버튼 입력을 통해 전조등, 와이퍼 등 장내기능시험의 기초 조작 항목을 테스트합니다.</p>
         </div>
         <div class="feature-card">
           <div class="feature-card__img-wrap">
-            <img src="../assets/projects/drivers-license-test-simulation/images/operation-turn-signal.gif" alt="Turn Signal">
+            <img src="../assets/projects/drivers-license-test-simulation/images/operation-turn-signal.gif"
+              alt="Turn Signal">
           </div>
           <h4 class="feature-card__title">방향지시등 및 비상등</h4>
           <p class="feature-card__desc">실제 차량과 동일한 릴레이 로직을 적용하여 방향지시등의 시각적/청각적 효과를 구현했습니다.</p>
@@ -1116,9 +1193,12 @@
           <h3 class="ui-title">LCD 터치 인터페이스 & UI 오버레이</h3>
         </div>
         <div class="ui-gallery">
-          <img src="../assets/projects/drivers-license-test-simulation/images/operation-lcd-touch-bmp-overlay.png" alt="Touch UI">
-          <img src="../assets/projects/drivers-license-test-simulation/images/operation-tft-lcd-bmp-overlay.png" alt="BMP Overlay">
-          <img src="../assets/projects/drivers-license-test-simulation/images/operation-tft-lcd-bmp-framebuffer.png" alt="Framebuffer Output">
+          <img src="../assets/projects/drivers-license-test-simulation/images/operation-lcd-touch-bmp-overlay.png"
+            alt="Touch UI">
+          <img src="../assets/projects/drivers-license-test-simulation/images/operation-tft-lcd-bmp-overlay.png"
+            alt="BMP Overlay">
+          <img src="../assets/projects/drivers-license-test-simulation/images/operation-tft-lcd-bmp-framebuffer.png"
+            alt="Framebuffer Output">
         </div>
       </div>
     </section>
@@ -1128,12 +1208,14 @@
       <div class="opengl-story__content">
         <h2 class="project-section__title">The OpenGL Story</h2>
         <p>
-          프로젝트 초기에는 OpenGL을 활용한 완전한 3D 그래픽 환경을 구축했습니다. 하지만 Xwindow 사용 불가라는 임베디드 환경의 제약으로 인해 코드의 상당 부분을 폐기하고, 프레임 버퍼로 이미지를 직접 출력하는 방식으로 전면 수정하는 결단을 내렸습니다. 
+          프로젝트 초기에는 OpenGL을 활용한 완전한 3D 그래픽 환경을 구축했습니다. 하지만 Xwindow 사용 불가라는 임베디드 환경의 제약으로 인해 코드의 상당 부분을 폐기하고, 프레임 버퍼로
+          이미지를 직접 출력하는 방식으로 전면 수정하는 결단을 내렸습니다.
         </p>
         <p class="opengl-note">비록 최종본에는 적용되지 못했지만, 시점 변환과 자동차 이동 알고리즘의 기초가 된 중요한 개발 과정이었습니다.</p>
       </div>
       <div class="opengl-story__visual">
-        <img src="../assets/projects/drivers-license-test-simulation/images/initial-dev-opengl-3d.gif" alt="Initial OpenGL Dev" class="opengl-gif">
+        <img src="../assets/projects/drivers-license-test-simulation/images/initial-dev-opengl-3d.gif"
+          alt="Initial OpenGL Dev" class="opengl-gif">
         <div class="opengl-badge">Legacy Prototype</div>
       </div>
     </section>
@@ -1292,10 +1374,12 @@
       <h2 class="project-section__title">소스코드 보기</h2>
       <p class="project-section__desc">운전면허 시뮬레이터 프로젝트의 전체 코드가 공개되어 있습니다.</p>
       <div class="project-cta__links">
-        <a href="https://github.com/KimTeddy/2023_Driver-s_License_Test_Simulation" target="_blank" class="project-cta__btn project-cta__btn--primary">
+        <a href="https://github.com/KimTeddy/2023_Driver-s_License_Test_Simulation" target="_blank"
+          class="project-cta__btn project-cta__btn--primary">
           GitHub 리포지토리 →
         </a>
-        <a href="https://www.youtube.com/watch?v=CFCqOFiHfQY" target="_blank" class="project-cta__btn project-cta__btn--youtube">
+        <a href="https://www.youtube.com/watch?v=CFCqOFiHfQY" target="_blank"
+          class="project-cta__btn project-cta__btn--youtube">
           YouTube 시연 영상 →
         </a>
         <a href="../projects.html" class="project-cta__btn project-cta__btn--secondary">

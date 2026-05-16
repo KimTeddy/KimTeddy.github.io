@@ -193,10 +193,10 @@
 
     animateFollower();
 
-    // Hover states
-    const interactables = document.querySelectorAll('a, button, .card, .tech-chip');
-    interactables.forEach(el => {
-      el.addEventListener('mouseenter', () => {
+    // Hover states (Event Delegation for improved reliability across all pages)
+    document.addEventListener('mouseover', (e) => {
+      const el = e.target.closest('a, button, .card, .tech-chip, .stat-item, [role="button"], .hobby-card, .project-cta__btn, .hardware-item, .flowchart-item, .nav__link');
+      if (el) {
         follower.classList.add('is-hovering');
         cursor.classList.add('is-hovering');
         
@@ -205,22 +205,26 @@
           cursorLabel.textContent = '🕶️ 눈뽕 주의!';
           cursorLabel.classList.add('is-visible');
         }
-      });
-
-      // Hide label immediately on click (theme toggle)
-      if (el.classList.contains('theme-toggle')) {
-        el.addEventListener('click', () => {
-          cursorLabel.classList.remove('is-visible');
-          follower.classList.remove('is-hovering');
-          cursor.classList.remove('is-hovering');
-        });
       }
+    });
 
-      el.addEventListener('mouseleave', () => {
+    document.addEventListener('mouseout', (e) => {
+      const el = e.target.closest('a, button, .card, .tech-chip, .stat-item, [role="button"], .hobby-card, .project-cta__btn, .hardware-item, .flowchart-item, .nav__link');
+      if (el) {
         follower.classList.remove('is-hovering');
         cursor.classList.remove('is-hovering');
         cursorLabel.classList.remove('is-visible');
-      });
+      }
+    });
+
+    // Special click handler for theme toggle to clear labels
+    document.addEventListener('click', (e) => {
+      const el = e.target.closest('.theme-toggle');
+      if (el) {
+        cursorLabel.classList.remove('is-visible');
+        follower.classList.remove('is-hovering');
+        cursor.classList.remove('is-hovering');
+      }
     });
   }
 

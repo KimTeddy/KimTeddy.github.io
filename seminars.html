@@ -72,12 +72,14 @@
         if(s.image) html+='<img src="'+s.image+'" alt="'+s.title+'" class="seminar-card__image">';
         html+='<h3 class="seminar-card__title">'+s.title+'</h3>';
         html+='<p class="seminar-card__desc">'+s.description+'</p>';
+        html+='<div class="seminar-card__footer">';
         html+='<div class="seminar-card__meta">';
         html+='<span>👤 '+s.organizer+'</span>';
         if(s.headcount) html+='<span>🎓 '+s.headcount+'명</span>';
         html+='<span>📅 '+s.period+'</span>';
         html+='</div>';
-        if(s.link) html+='<a href="'+s.link+'" target="_blank" class="btn btn--ghost" style="margin-top:var(--space-3);font-size:var(--text-xs);padding:var(--space-2) var(--space-4)">GitHub →</a>';
+        if(s.link) html+='<div class="link-icons"><a href="'+s.link+'" target="_blank"><img src="assets/images/logos/github-mark-white.svg" alt="GitHub" class="invert-light"></a></div>';
+        html+='</div>';
         card.innerHTML=html;
         container.appendChild(card);
       });

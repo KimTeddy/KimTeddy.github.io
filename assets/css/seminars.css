@@ -25,7 +25,12 @@
 .seminar-card__meta {
   display: flex; flex-wrap: wrap; gap: var(--space-3);
   font-size: var(--text-xs); color: var(--text-tertiary);
-  font-family: var(--font-mono); margin-top: auto;
-  padding-top: var(--space-3); border-top: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
 }
 .seminar-card__meta span { display: flex; align-items: center; gap: var(--space-1); }
+
+.seminar-card__footer {
+  margin-top: auto; display: flex; justify-content: space-between;
+  align-items: center; padding-top: var(--space-3);
+  border-top: 1px solid var(--border-subtle);
+}

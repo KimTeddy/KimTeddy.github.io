@@ -11,7 +11,7 @@
   <meta property="og:url" content="https://kimteddy.github.io/projects/armi.html">
   <meta name="twitter:card" content="summary_large_image">
   <title>A.RM.I — TeddyElectronics</title>
-  <link rel="icon" type="image/x-icon" href="../assets/images/site/TeddyElectronics.ico">
+  <link rel="icon" type="image/png" href="../assets/projects/armi/images/logo.png">
   <link rel="stylesheet" href="../assets/css/globals.css">
   <link rel="stylesheet" href="../assets/css/components.css">
   <link rel="stylesheet" href="../assets/css/project-detail.css">
@@ -23,7 +23,7 @@
       overflow: hidden;
       z-index: -1;
     }
-    
+
     .hero-slideshow {
       position: absolute;
       inset: 0;
@@ -32,7 +32,7 @@
       opacity: 0.15;
       filter: saturate(0.5) blur(2px);
     }
-    
+
     .hero-slide {
       position: absolute;
       inset: 0;
@@ -43,20 +43,49 @@
       opacity: 0;
       animation: heroFade 20s infinite linear;
     }
-    
-    .hero-slide:nth-child(1) { background-image: url('../assets/projects/armi/images/edge-device-final.jpg'); animation-delay: 0s; }
-    .hero-slide:nth-child(2) { background-image: url('../assets/projects/armi/images/pcb-v2-standalone.jpg'); animation-delay: 5s; }
-    .hero-slide:nth-child(3) { background-image: url('../assets/projects/armi/images/enclosure-front.jpg'); animation-delay: 10s; }
-    .hero-slide:nth-child(4) { background-image: url('../assets/projects/armi/images/power-measure-v2.1-peak.jpg'); animation-delay: 15s; }
-    
-    @keyframes heroFade {
-      0% { opacity: 0; }
-      10% { opacity: 1; }
-      25% { opacity: 1; }
-      35% { opacity: 0; }
-      100% { opacity: 0; }
+
+    .hero-slide:nth-child(1) {
+      background-image: url('../assets/projects/armi/images/edge-device-final.jpg');
+      animation-delay: 0s;
     }
-    
+
+    .hero-slide:nth-child(2) {
+      background-image: url('../assets/projects/armi/images/pcb-v2-standalone.jpg');
+      animation-delay: 5s;
+    }
+
+    .hero-slide:nth-child(3) {
+      background-image: url('../assets/projects/armi/images/enclosure-front.jpg');
+      animation-delay: 10s;
+    }
+
+    .hero-slide:nth-child(4) {
+      background-image: url('../assets/projects/armi/images/power-measure-v2.1-peak.jpg');
+      animation-delay: 15s;
+    }
+
+    @keyframes heroFade {
+      0% {
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      25% {
+        opacity: 1;
+      }
+
+      35% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
     .project-hero::after {
       content: '';
       position: absolute;
@@ -109,7 +138,9 @@
           <div class="hero-slide"></div>
           <div class="hero-slide"></div>
         </div>
-        <div style="position: absolute; inset: 0; background: radial-gradient(circle at top right, rgba(0, 119, 255, 0.1), transparent 50%);"></div>
+        <div
+          style="position: absolute; inset: 0; background: radial-gradient(circle at top right, rgba(0, 119, 255, 0.1), transparent 50%);">
+        </div>
       </div>
       <div class="project-hero__content">
         <span class="project-hero__badge">🎓 2024 캡스톤디자인 졸업작품</span>

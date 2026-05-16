@@ -86,6 +86,7 @@ projects:
         links:
           other: "projects/driver-license.html"
           github: "https://github.com/KimTeddy/2023_Driver-s_License_Test_Simulation"
+          youtube: "https://www.youtube.com/watch?v=CFCqOFiHfQY"
 
       - title: "2023_Mini Curling Game"
         description: "Verilog로 프로그래밍하여 ZedBoard에서 실행하여 키패드를 사용하고 RGB 포트로 화면 출력하는 컬링 게임"
@@ -185,6 +186,7 @@ projects:
         duration: "2023년 6월 7일"
         links:
           github: "https://github.com/KimTeddy/OpenGL/tree/main/2309-12_Drivers_license_test_Simulation"
+          youtube: "https://www.youtube.com/watch?v=CFCqOFiHfQY"
 ############################################################################################
   - year: "OpenCV"
     projects:

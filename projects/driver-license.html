@@ -12,6 +12,703 @@
   <link rel="stylesheet" href="../assets/css/globals.css">
   <link rel="stylesheet" href="../assets/css/components.css">
   <link rel="stylesheet" href="../assets/css/project-detail.css">
+  <style>
+    /* Custom styles for Driver License Project */
+    
+    /* Background & Problem Section */
+    .project-problem {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+      align-items: center;
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+    
+    .project-problem__text {
+      font-size: var(--text-lg);
+      line-height: var(--leading-relaxed);
+      color: var(--text-secondary);
+    }
+    
+    .project-problem__highlight {
+      margin: var(--space-6) 0;
+      padding: var(--space-6);
+      background: var(--bg-glass);
+      border-left: 4px solid var(--accent-primary);
+      color: var(--text-primary);
+      font-weight: var(--weight-semibold);
+      font-style: italic;
+    }
+    
+    .glass-image {
+      width: 100%;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-lg);
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .glass-image:hover {
+      transform: scale(1.02) rotate(1deg);
+    }
+    
+    .image-caption {
+      margin-top: var(--space-3);
+      font-size: var(--text-xs);
+      color: var(--text-tertiary);
+      text-align: center;
+    }
+    
+    /* Architecture Showcase */
+    .architecture-showcase {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: var(--space-8);
+      max-width: var(--container-max);
+      margin: 0 auto;
+      align-items: center;
+    }
+    
+    .architecture-diagram {
+      background: #f8fafc;
+      padding: var(--space-8);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-subtle);
+      box-shadow: inset 0 0 40px rgba(0,0,0,0.02);
+    }
+    
+    .architecture-img {
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
+    }
+    
+    .info-title {
+      font-size: var(--text-xl);
+      margin-bottom: var(--space-6);
+      color: var(--text-primary);
+    }
+    
+    .info-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .info-list li {
+      margin-bottom: var(--space-4);
+      padding-left: var(--space-6);
+      position: relative;
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+    }
+    
+    .info-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent-primary);
+      font-weight: bold;
+    }
+    
+    /* Flowchart Gallery */
+    .flowchart-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+    
+    .flowchart-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      text-align: center;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-4);
+    }
+    
+    .flowchart-item:hover {
+      background: var(--bg-primary);
+      border-color: var(--accent-primary);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 229, 160, 0.1);
+    }
+    
+    .flowchart-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      background: #fff;
+      padding: var(--space-2);
+      border-radius: var(--radius-md);
+    }
+    
+    .flowchart-item span {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--text-accent);
+      font-weight: var(--weight-bold);
+    }
+    
+    /* Hardware Grid */
+    .hardware-section-content {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+    }
+    
+    .hardware-main {
+      position: relative;
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-glow);
+      width: 100%;
+    }
+    
+    .hardware-main img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .hardware-main:hover img {
+      transform: scale(1.02);
+    }
+    
+    .hardware-main__info {
+      position: absolute;
+      bottom: var(--space-6);
+      left: var(--space-6);
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--accent-primary);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    
+    .hardware-sub-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+    }
+    
+    .hardware-item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+    
+    .hardware-item__visual {
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      height: 320px;
+      width: fit-content;
+      margin: 0 auto;
+    }
+    
+    .hardware-item__visual img {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4));
+    }
+    
+    .hardware-item:hover .hardware-item__visual {
+      border-color: var(--accent-primary);
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .hardware-item__info {
+      text-align: center;
+    }
+    
+    .hardware-item__title {
+      font-size: var(--text-lg);
+      color: var(--text-primary);
+      font-weight: var(--weight-bold);
+      margin-bottom: 4px;
+    }
+    
+    .hardware-item__desc {
+      font-size: var(--text-sm);
+      color: var(--text-tertiary);
+    }
+    
+    @media (max-width: 768px) {
+      .hardware-sub-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Traffic Lights */
+    .traffic-light-set {
+      display: flex;
+      gap: var(--space-4);
+      margin-top: var(--space-8);
+    }
+    
+    .traffic-light-item {
+      flex: 1;
+      text-align: center;
+      background: #000;
+      padding: var(--space-4);
+      border-radius: var(--radius-lg);
+      border: 2px solid #333;
+    }
+    
+    .traffic-light-item img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: var(--space-2);
+      filter: grayscale(0.5);
+      transition: all 0.3s ease;
+    }
+    
+    .traffic-light-item:hover img {
+      filter: grayscale(0) brightness(1.2);
+      box-shadow: 0 0 20px currentColor;
+    }
+    
+    .traffic-light-item:nth-child(1) { color: #ff4d4d; }
+    .traffic-light-item:nth-child(2) { color: #ffad33; }
+    .traffic-light-item:nth-child(3) { color: #00e676; }
+    
+    .traffic-light-item span {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    
+    /* Feature Details */
+    .feature-detail {
+      display: flex;
+      align-items: stretch;
+      gap: var(--space-12);
+      max-width: var(--container-max);
+      margin: 0 auto var(--space-24);
+    }
+    
+    .feature-detail--reverse {
+      flex-direction: row-reverse;
+    }
+    
+    .feature-detail__content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .feature-detail__visual {
+      flex: 1;
+      display: flex;
+    }
+    
+    .feature-detail__title {
+      font-size: var(--text-2xl);
+      margin-bottom: var(--space-4);
+      color: var(--text-primary);
+    }
+    
+    .feature-gif {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-glow);
+    }
+    
+    .visual-stack {
+      position: relative;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+    
+    .visual-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+      display: flex;
+      align-items: flex-end;
+      padding: var(--space-6);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+    }
+    
+    .feature-img {
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius-xl);
+      display: block;
+    }
+    
+    /* Feature Grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-8);
+      max-width: var(--container-max);
+      margin: var(--space-16) auto;
+    }
+    
+    .feature-card__img-wrap {
+      width: 100%;
+      height: 240px;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-4);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+    }
+    
+    .feature-card__img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .feature-card:hover .feature-card__img-wrap img {
+      transform: scale(1.05);
+    }
+    
+    .feature-card__title {
+      font-size: var(--text-lg);
+      font-weight: var(--weight-bold);
+      margin-bottom: var(--space-2);
+      color: var(--text-primary);
+    }
+    
+    .feature-card__desc {
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+      line-height: var(--leading-relaxed);
+    }
+    
+    /* UI Showcase */
+    .ui-showcase {
+      margin-top: var(--space-20);
+      text-align: center;
+    }
+    
+    .ui-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+      margin-top: var(--space-8);
+      max-width: var(--container-max);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .ui-gallery img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 3;
+      object-fit: contain;
+      background: #000;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .ui-gallery img:hover {
+      transform: translateY(-10px) scale(1.05);
+      z-index: 2;
+      box-shadow: var(--shadow-glow);
+      border-color: var(--accent-primary);
+    }
+    
+    /* OpenGL Story */
+    .opengl-story {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: var(--space-12);
+      align-items: center;
+      background: #050505;
+      color: #fff;
+      padding: var(--space-24) var(--space-6);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .opengl-story::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 70% 50%, rgba(0, 229, 160, 0.1), transparent 50%);
+      pointer-events: none;
+    }
+    
+    .opengl-note {
+      margin-top: var(--space-6);
+      color: rgba(255,255,255,0.6);
+      font-size: var(--text-sm);
+      border-left: 2px solid var(--accent-primary);
+      padding-left: var(--space-4);
+    }
+    
+    .opengl-gif {
+      width: 100%;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .opengl-story__visual {
+      position: relative;
+    }
+    
+    .opengl-badge {
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      background: var(--accent-primary);
+      color: #000;
+      padding: var(--space-2) var(--space-4);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      font-weight: bold;
+      transform: rotate(5deg);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+    
+    /* Hero Slideshow */
+    .project-hero__bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: -1;
+    }
+    
+    .hero-slideshow {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.15;
+      filter: saturate(0.5) blur(2px);
+    }
+    
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      animation: heroFade 20s infinite linear;
+    }
+    
+    .hero-slide:nth-child(1) { background-image: url('../assets/projects/drivers-license-test-simulation/images/full-view.jpg'); animation-delay: 0s; }
+    .hero-slide:nth-child(2) { background-image: url('../assets/projects/drivers-license-test-simulation/images/peri-board.jpg'); animation-delay: 5s; }
+    .hero-slide:nth-child(3) { background-image: url('../assets/projects/drivers-license-test-simulation/images/operation-lcd-touch-bmp-overlay.png'); animation-delay: 10s; }
+    .hero-slide:nth-child(4) { background-image: url('../assets/projects/drivers-license-test-simulation/images/tft-lcd.jpg'); animation-delay: 15s; }
+    
+    @keyframes heroFade {
+      0% { opacity: 0; }
+      10% { opacity: 1; }
+      25% { opacity: 1; }
+      35% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    
+    .project-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, transparent, var(--bg-primary));
+      z-index: 0;
+    }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .project-problem, .architecture-showcase, .hardware-grid, .feature-detail, .opengl-story {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+      }
+      .feature-detail--reverse {
+        flex-direction: column;
+      }
+      .flowchart-gallery, .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .flowchart-gallery, .ui-gallery, .feature-grid {
+        grid-template-columns: 1fr;
+      }
+      .traffic-light-set {
+        flex-wrap: wrap;
+      }
+    }
+    
+    /* Video Section */
+    .project-video {
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-glow);
+    }
+    
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+      overflow: hidden;
+    }
+    
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .project-cta__links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+      margin-top: var(--space-10);
+    }
+    
+    .project-cta__btn--youtube {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-full);
+      font-weight: var(--weight-bold);
+      transition: all 0.3s ease;
+      border: 1px solid #ff0000;
+      color: #ff0000;
+      background: rgba(255, 0, 0, 0.05);
+      text-decoration: none;
+    }
+    
+    /* Role Matrix Table */
+    .role-matrix-container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      overflow-x: auto;
+      background: var(--bg-glass);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-subtle);
+      padding: var(--space-4);
+    }
+    
+    .role-matrix {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--text-sm);
+    }
+    
+    .role-matrix th {
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      padding: var(--space-4);
+      text-align: center;
+      border-bottom: 2px solid var(--accent-primary);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .role-matrix th small {
+      display: block;
+      color: var(--text-tertiary);
+      font-weight: normal;
+      text-transform: none;
+      margin-top: 4px;
+    }
+    
+    .role-matrix td {
+      padding: var(--space-4);
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: top;
+      color: var(--text-secondary);
+    }
+    
+    .role-matrix tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .member-info {
+      background: var(--bg-surface);
+      text-align: center;
+      vertical-align: middle !important;
+      font-weight: var(--weight-bold);
+      color: var(--text-primary) !important;
+      border-right: 1px solid var(--border-subtle);
+    }
+    
+    .member-info span {
+      display: block;
+      font-size: var(--text-xs);
+      color: var(--accent-primary);
+      font-weight: normal;
+    }
+    
+    .role-matrix ul {
+      padding-left: var(--space-4);
+      margin: 0;
+      list-style-type: '• ';
+    }
+    
+    .role-matrix ul li {
+      margin-bottom: var(--space-2);
+      line-height: 1.4;
+    }
+    
+    .common-row {
+      background: rgba(0, 229, 160, 0.05);
+      font-style: italic;
+      text-align: center;
+    }
+    
+    .common-row td {
+      vertical-align: middle;
+    }
+    
+    @media (max-width: 768px) {
+      .role-matrix {
+        min-width: 800px;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -47,7 +744,15 @@
 
     <!-- ===== Hero ===== -->
     <section class="project-hero">
-      <div class="project-hero__bg" style="background-image: radial-gradient(circle at top right, rgba(0, 119, 255, 0.1), transparent 50%);"></div>
+      <div class="project-hero__bg">
+        <div class="hero-slideshow">
+          <div class="hero-slide"></div>
+          <div class="hero-slide"></div>
+          <div class="hero-slide"></div>
+          <div class="hero-slide"></div>
+        </div>
+        <div style="position: absolute; inset: 0; background: radial-gradient(circle at top right, rgba(0, 119, 255, 0.1), transparent 50%);"></div>
+      </div>
       <div class="project-hero__content">
         <span class="project-hero__badge">🚗 2023-2 임베디드시스템 프로젝트</span>
         <h1 class="project-hero__title"><span>Driver's License Test Simulation</span></h1>
@@ -91,6 +796,24 @@
           <div class="project-stat__value">Sound</div>
           <div class="project-stat__label">Buzzer 효과음</div>
           <div class="project-stat__sub">깜빡이, 감점, 돌발 등 7종의 상황별 사운드</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Demo Video ===== -->
+    <section class="project-section">
+      <div class="project-section__header">
+        <p class="project-section__label">Demonstration</p>
+        <h2 class="project-section__title">시연 영상</h2>
+      </div>
+      <div class="project-video">
+        <div class="video-container">
+          <iframe 
+            src="https://www.youtube.com/embed/CFCqOFiHfQY" 
+            title="Driver's License Simulation Demo" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+          </iframe>
         </div>
       </div>
     </section>
@@ -188,61 +911,238 @@
       </div>
     </section>
 
-    <!-- ===== Hardware & Implementation ===== -->
+    <!-- ===== Background & Goal ===== -->
     <section class="project-section project-section--alt">
       <div class="project-section__header">
-        <p class="project-section__label">Implementation</p>
-        <h2 class="project-section__title">작동 및 구현 화면</h2>
-        <p class="project-section__desc">주요 기능별 실제 시뮬레이션 동작 화면</p>
+        <p class="project-section__label">Background</p>
+        <h2 class="project-section__title">제안 배경 및 목표</h2>
       </div>
-      <div class="project-diagrams">
-        <div class="project-diagram">
-          <img src="https://private-user-images.githubusercontent.com/68770209/299677198-f3162c6e-9d3a-416f-9905-bf8205e7b953.gif" alt="OpenGL 3D Graphics" class="project-diagram__img" loading="lazy">
-          <div class="project-diagram__caption">
-            <div class="project-diagram__title">OpenGL 3D 렌더링 & 시점 변환</div>
-            <div class="project-diagram__desc">자동차 이동 알고리즘 적용 및 3D 그래픽 화면 출력</div>
+      <div class="project-problem">
+        <div class="project-problem__text">
+          <p>
+            대한민국의 운전면허 시험 합격률은 점차 낮아지고 있으며, 초보 운전자의 숙련도 미숙으로 인한 사고는 사회적 문제로 대두되고 있습니다.
+          </p>
+          <div class="project-problem__highlight">
+            "현실적인 운전 경험을 모의로 제공하여 시간과 공간의 제약 없이 연습할 수 있는 환경을 구축하는 것"
           </div>
+          <p>
+            본 프로젝트는 실제 장내기능시험의 로직을 임베디드 시스템에 그대로 이식하여, 자이로 센서를 통한 핸들 조작과 실시간 피드백을 제공하는 시뮬레이터를 목표로 합니다.
+          </p>
         </div>
-        <div class="project-diagram">
-          <img src="https://private-user-images.githubusercontent.com/68770209/299989604-d675a11e-160a-43b1-a85e-2d3721de3157.gif" alt="Button and LED" class="project-diagram__img" loading="lazy">
-          <div class="project-diagram__caption">
-            <div class="project-diagram__title">차량 기능 조작 테스트</div>
-            <div class="project-diagram__desc">방향지시등, 비상등 버튼 입력 시 실제와 같은 LED 깜빡임 구현</div>
-          </div>
-        </div>
-        <div class="project-diagram">
-          <img src="https://private-user-images.githubusercontent.com/68770209/299991919-55f56318-1a87-4ecb-b421-f4bc3e5fe0c1.gif" alt="FND Score Animation" class="project-diagram__img" loading="lazy">
-          <div class="project-diagram__caption">
-            <div class="project-diagram__title">FND 감점 애니메이션</div>
-            <div class="project-diagram__desc">감점 시 차감될 점수가 깜빡이고 현재 점수가 부드럽게 감소하는 효과</div>
-          </div>
+        <div class="project-problem__image">
+          <img src="../assets/projects/drivers-license-test-simulation/images/idea.png" alt="Statistics and Idea" class="glass-image">
+          <p class="image-caption">출처: 통계청 - 운전면허 시험 합격률 추이 및 프로젝트 제안 배경</p>
         </div>
       </div>
-      
-      <div class="project-diagrams" style="margin-top: var(--space-6);">
-        <div class="project-diagram">
-          <img src="https://private-user-images.githubusercontent.com/68770209/299676149-401bddce-b0d8-4e9d-9b4e-1ff345532bfd.gif" alt="Traffic Light" class="project-diagram__img" loading="lazy">
-          <div class="project-diagram__caption">
-            <div class="project-diagram__title">교차로 신호등 (RGB LED)</div>
-            <div class="project-diagram__desc">빨강, 주황, 초록불 전환 로직 적용. 빨간불 진입 시 실격 처리</div>
-          </div>
+    </section>
+
+    <!-- ===== System Architecture ===== -->
+    <section class="project-section">
+      <div class="project-section__header">
+        <p class="project-section__label">Architecture</p>
+        <h2 class="project-section__title">시스템 아키텍처</h2>
+        <p class="project-section__desc">멀티스레드 기반의 견고한 SW 구조</p>
+      </div>
+      <div class="architecture-showcase">
+        <div class="architecture-diagram">
+          <img src="../assets/projects/drivers-license-test-simulation/images/diagram-sw.png" alt="Software Architecture Diagram" class="architecture-img">
         </div>
-        <div class="project-diagram">
-          <img src="https://private-user-images.githubusercontent.com/68770209/299991603-484a86e7-2857-44dd-b669-3461553506f5.jpg" alt="Kit Overview" class="project-diagram__img" loading="lazy" style="object-fit: cover;">
-          <div class="project-diagram__caption">
-            <div class="project-diagram__title">전체 시스템 구성도</div>
-            <div class="project-diagram__desc">UDOO 보드, PERI 보드, 터치스크린 및 기타 입출력 센서 통합 환경</div>
+        <div class="architecture-info">
+          <h3 class="info-title">SW 계층 구조</h3>
+          <ul class="info-list">
+            <li><strong>Hardware Layer:</strong> UDOO & PERI Board, 각종 센서 및 출력 소자</li>
+            <li><strong>Driver Layer:</strong> 커스텀 제작된 디바이스 드라이버 (LED, Button, Buzzer, FND, Text LCD 등)</li>
+            <li><strong>Library Layer:</strong> libMyPeri, libtouch (API 추상화)</li>
+            <li><strong>Application Layer:</strong> 멀티스레드 기반의 메인 시뮬레이션 로직</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Multi-threaded Logic ===== -->
+    <section class="project-section project-section--alt">
+      <div class="project-section__header">
+        <p class="project-section__label">Logics</p>
+        <h2 class="project-section__title">프로세스 플로우 차트</h2>
+        <p class="project-section__desc">6개의 핵심 스레드가 유기적으로 동작하여 실시간 반응형 시스템을 구현합니다.</p>
+      </div>
+      <div class="flowchart-gallery">
+        <div class="flowchart-item">
+          <img src="../assets/projects/drivers-license-test-simulation/images/flowchart-main.png" alt="Main Flowchart">
+          <span>Main Logic</span>
+        </div>
+        <div class="flowchart-item">
+          <img src="../assets/projects/drivers-license-test-simulation/images/flowchart-accelerometer-thread.png" alt="Accelerometer Thread">
+          <span>Sensor Thread</span>
+        </div>
+        <div class="flowchart-item">
+          <img src="../assets/projects/drivers-license-test-simulation/images/flowchart-button-led-thread.png" alt="Button & LED Thread">
+          <span>Control Thread</span>
+        </div>
+        <div class="flowchart-item">
+          <img src="../assets/projects/drivers-license-test-simulation/images/flowchart-traffic-light-thread.png" alt="Traffic Light Thread">
+          <span>Traffic Thread</span>
+        </div>
+        <div class="flowchart-item">
+          <img src="../assets/projects/drivers-license-test-simulation/images/flowchart-fnd-thread.png" alt="FND Thread">
+          <span>Display Thread</span>
+        </div>
+        <div class="flowchart-item">
+          <img src="../assets/projects/drivers-license-test-simulation/images/flowchart-buzzer-thread.png" alt="Buzzer Thread">
+          <span>Sound Thread</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Hardware Components ===== -->
+    <section class="project-section">
+      <div class="project-section__header">
+        <p class="project-section__label">Hardware</p>
+        <h2 class="project-section__title">하드웨어 구성</h2>
+      </div>
+      <div class="hardware-section-content">
+        <div class="hardware-main">
+          <img src="../assets/projects/drivers-license-test-simulation/images/full-view.jpg" alt="Total System Overview">
+          <div class="hardware-main__info">Total System Overview</div>
+        </div>
+        <div class="hardware-sub-grid">
+          <div class="hardware-item">
+            <div class="hardware-item__visual">
+              <img src="../assets/projects/drivers-license-test-simulation/images/tft-lcd.jpg" alt="TFT-LCD">
+            </div>
+            <div class="hardware-item__info">
+              <div class="hardware-item__title">TFT-LCD</div>
+              <div class="hardware-item__desc">3.5" Resistive Touch Display</div>
+            </div>
+          </div>
+          <div class="hardware-item">
+            <div class="hardware-item__visual">
+              <img src="../assets/projects/drivers-license-test-simulation/images/peri-board.jpg" alt="PERI Board">
+            </div>
+            <div class="hardware-item__info">
+              <div class="hardware-item__title">PERI Board</div>
+              <div class="hardware-item__desc">GPIO Interface & Sensor Hub</div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== Team ===== -->
+    <!-- ===== Operational Details ===== -->
+    <section class="project-section project-section--alt">
+      <div class="project-section__header">
+        <p class="project-section__label">Implementation</p>
+        <h2 class="project-section__title">작동 및 구현 디테일</h2>
+      </div>
+      
+      <!-- Feature 1: Traffic Lights -->
+      <div class="feature-detail">
+        <div class="feature-detail__content">
+          <h3 class="feature-detail__title">RGB LED 기반 교차로 신호등</h3>
+          <p class="feature-detail__desc">
+            빛의 3원색을 조합하여 빨강, 주황, 초록불을 구현했습니다. 교차로 진입 시 신호 상태를 감지하여 빨간불일 경우 즉시 실격 처리되는 실제 기능시험 로직을 완벽히 반영했습니다.
+          </p>
+          <div class="traffic-light-set">
+            <div class="traffic-light-item">
+              <img src="../assets/projects/drivers-license-test-simulation/images/operation-rgbled-red-light.jpg" alt="Red Light">
+              <span>Red</span>
+            </div>
+            <div class="traffic-light-item">
+              <img src="../assets/projects/drivers-license-test-simulation/images/operation-rgbled-orange-light.jpg" alt="Orange Light">
+              <span>Orange</span>
+            </div>
+            <div class="traffic-light-item">
+              <img src="../assets/projects/drivers-license-test-simulation/images/operation-rgbled-green-light.jpg" alt="Green Light">
+              <span>Green</span>
+            </div>
+          </div>
+        </div>
+        <div class="feature-detail__visual">
+          <img src="../assets/projects/drivers-license-test-simulation/images/operation-rgbled-traffic-light.gif" alt="Traffic Light Animation" class="feature-gif">
+        </div>
+      </div>
+
+      <!-- Feature 2: Sensor Control -->
+      <div class="feature-detail feature-detail--reverse">
+        <div class="feature-detail__content">
+          <h3 class="feature-detail__title">자이로/가속도 센서 핸들 제어</h3>
+          <p class="feature-detail__desc">
+            키트 전체를 핸들처럼 사용하여 물리적인 기울기값을 실시간으로 측정합니다. 좌/우 기울기로 방향 조절, 앞/뒤 기울기로 가속 및 브레이크를 제어하여 직관적인 조작감을 제공합니다.
+          </p>
+        </div>
+        <div class="feature-detail__visual">
+          <div class="visual-stack">
+            <img src="../assets/projects/drivers-license-test-simulation/images/operation-accelerometer.jpg" alt="Accelerometer Operation" class="feature-img">
+            <div class="visual-overlay">Sensor Feedback</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 3: Score & Sound -->
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-card__img-wrap">
+            <img src="../assets/projects/drivers-license-test-simulation/images/operation-fnd-score-system.gif" alt="FND Score">
+          </div>
+          <h4 class="feature-card__title">FND 동적 점수 표시</h4>
+          <p class="feature-card__desc">감점 발생 시 차감 점수가 깜빡이며, 현재 점수가 서서히 줄어드는 애니메이션을 구현했습니다.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__img-wrap">
+            <img src="../assets/projects/drivers-license-test-simulation/images/operation-buzzer.png" alt="Buzzer System">
+          </div>
+          <h4 class="feature-card__title">청각적 피드백 시스템</h4>
+          <p class="feature-card__desc">깜빡이 소리, 경고음, 합격음 등 7가지 상황별 사운드 이펙트를 제작하여 몰입감을 높였습니다.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__img-wrap">
+            <img src="../assets/projects/drivers-license-test-simulation/images/operation-button.gif" alt="Button Control">
+          </div>
+          <h4 class="feature-card__title">차량 기능 조작 테스트</h4>
+          <p class="feature-card__desc">버튼 입력을 통해 전조등, 와이퍼 등 장내기능시험의 기초 조작 항목을 테스트합니다.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__img-wrap">
+            <img src="../assets/projects/drivers-license-test-simulation/images/operation-turn-signal.gif" alt="Turn Signal">
+          </div>
+          <h4 class="feature-card__title">방향지시등 및 비상등</h4>
+          <p class="feature-card__desc">실제 차량과 동일한 릴레이 로직을 적용하여 방향지시등의 시각적/청각적 효과를 구현했습니다.</p>
+        </div>
+      </div>
+
+      <!-- Feature 4: UI & Graphics -->
+      <div class="ui-showcase">
+        <div class="ui-header">
+          <h3 class="ui-title">LCD 터치 인터페이스 & UI 오버레이</h3>
+        </div>
+        <div class="ui-gallery">
+          <img src="../assets/projects/drivers-license-test-simulation/images/operation-lcd-touch-bmp-overlay.png" alt="Touch UI">
+          <img src="../assets/projects/drivers-license-test-simulation/images/operation-tft-lcd-bmp-overlay.png" alt="BMP Overlay">
+          <img src="../assets/projects/drivers-license-test-simulation/images/operation-tft-lcd-bmp-framebuffer.png" alt="Framebuffer Output">
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== The OpenGL Legacy ===== -->
+    <section class="project-section opengl-story">
+      <div class="opengl-story__content">
+        <h2 class="project-section__title">The OpenGL Story</h2>
+        <p>
+          프로젝트 초기에는 OpenGL을 활용한 완전한 3D 그래픽 환경을 구축했습니다. 하지만 Xwindow 사용 불가라는 임베디드 환경의 제약으로 인해 코드의 상당 부분을 폐기하고, 프레임 버퍼로 이미지를 직접 출력하는 방식으로 전면 수정하는 결단을 내렸습니다. 
+        </p>
+        <p class="opengl-note">비록 최종본에는 적용되지 못했지만, 시점 변환과 자동차 이동 알고리즘의 기초가 된 중요한 개발 과정이었습니다.</p>
+      </div>
+      <div class="opengl-story__visual">
+        <img src="../assets/projects/drivers-license-test-simulation/images/initial-dev-opengl-3d.gif" alt="Initial OpenGL Dev" class="opengl-gif">
+        <div class="opengl-badge">Legacy Prototype</div>
+      </div>
+    </section>
+    <!-- ===== Team & Roles ===== -->
     <section class="project-section">
       <div class="project-section__header">
-        <p class="project-section__label">Team</p>
-        <h2 class="project-section__title">팀원 및 역할</h2>
-        <p class="project-section__desc">총 4인 팀 프로젝트</p>
+        <p class="project-section__label">Collaborators</p>
+        <h2 class="project-section__title">팀원 및 역할 분담</h2>
+        <p class="project-section__desc">각 파트별 상세 기여도 및 역할 상세</p>
       </div>
       <div class="project-team">
         <div class="project-member">
@@ -252,16 +1152,138 @@
         </div>
         <div class="project-member">
           <div class="project-member__role">Button & LED / FrameBuffer / RGB LED</div>
-          <div class="project-member__name">Member 1</div>
+          <div class="project-member__name">kms0511</div>
+          <a href="https://github.com/kms0511" target="_blank" class="project-member__github">@kms0511</a>
         </div>
         <div class="project-member">
           <div class="project-member__role">Map Modeling / Track Logic / Char LCD</div>
-          <div class="project-member__name">Member 2</div>
+          <div class="project-member__name">bllobll5</div>
+          <a href="https://github.com/bllobll5" target="_blank" class="project-member__github">@bllobll5</a>
         </div>
         <div class="project-member">
           <div class="project-member__role">Car Modeling / Sensor Logic / Touch UI</div>
-          <div class="project-member__name">Member 3</div>
+          <div class="project-member__name">JW-LEE-1015</div>
+          <a href="https://github.com/JW-LEE-1015" target="_blank" class="project-member__github">@JW-LEE-1015</a>
         </div>
+      </div>
+
+      <div class="role-matrix-container" style="margin-top: var(--space-12);">
+        <h3 class="info-title" style="text-align: center; margin-bottom: var(--space-8);">상세 기여도 매트릭스</h3>
+        <table class="role-matrix">
+          <thead>
+            <tr>
+              <th width="15%">팀원</th>
+              <th width="28%">초기 프로젝트 기여<br><small>(OpenGL / 3D)</small></th>
+              <th width="17%">Device Driver 제작<br><small>(GPIO API)</small></th>
+              <th width="40%">최종 프로젝트 기여<br><small>(Logic / UI / Graphics)</small></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="member-info">
+                <strong>KimTeddy</strong>
+                <span>(팀장)</span>
+              </td>
+              <td>
+                <ul>
+                  <li>OpenGL 시점 변환/애니메이션</li>
+                  <li>자동차 이동 알고리즘 설계</li>
+                  <li>Main Menu 디자인</li>
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  <li>Buzzer Driver</li>
+                  <li>Gyro/Accel/Mag Sensor</li>
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  <li>OpenCV: 영상을 BMP 프레임으로 변환</li>
+                  <li>FND: 점수 애니메이션 로직</li>
+                  <li>Buzzer: 7종 효과음 제작</li>
+                  <li>차선이탈/추돌 판정 알고리즘</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td class="member-info">
+                <strong>kms0511</strong>
+              </td>
+              <td>
+                <ul>
+                  <li>Color LED 신호등 기본 코드</li>
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  <li>LED / Button / FND</li>
+                  <li>BMP / Framebuffer</li>
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  <li>전체 프로그램 메인 알고리즘</li>
+                  <li>코드 통합 및 최적화</li>
+                  <li>Shell Script: 자동화 환경 구축</li>
+                  <li>RGB LED 신호등 연동</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td class="member-info">
+                <strong>bllobll5</strong>
+              </td>
+              <td>
+                <ul>
+                  <li>차량 트랙 및 맵 모델링</li>
+                  <li>차선 이탈 판별 로직</li>
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  <li>Character LCD</li>
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  <li>Buzzer 효과음 함수 구현</li>
+                  <li>안내 메시지 BMP 제작</li>
+                  <li>최종 보고서/PPT 제작</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td class="member-info">
+                <strong>JW-LEE-1015</strong>
+              </td>
+              <td>
+                <ul>
+                  <li>자동차 외형 모델링</li>
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  <li>Button / Color LED</li>
+                  <li>Temp / Touch Screen</li>
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  <li>C-LCD: 시간/단계 출력</li>
+                  <li>Gyro: 핸들 조작 물리 구현</li>
+                  <li>Touch: 인터페이스 범위 지정</li>
+                  <li>Manual 이미지 및 UI 제작</li>
+                </ul>
+              </td>
+            </tr>
+            <tr class="common-row">
+              <td class="member-info"><strong>공통</strong></td>
+              <td colspan="2">디바이스 드라이버 기초 학습 및 환경 설정</td>
+              <td>BMP 이미지 리소스 제작, 결과 보고서 작성</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
@@ -273,8 +1295,11 @@
         <a href="https://github.com/KimTeddy/2023_Driver-s_License_Test_Simulation" target="_blank" class="project-cta__btn project-cta__btn--primary">
           GitHub 리포지토리 →
         </a>
+        <a href="https://www.youtube.com/watch?v=CFCqOFiHfQY" target="_blank" class="project-cta__btn project-cta__btn--youtube">
+          YouTube 시연 영상 →
+        </a>
         <a href="../projects.html" class="project-cta__btn project-cta__btn--secondary">
-          ← 프로젝트 목록
+          ← 프로젝트 목록으로 돌아가기
         </a>
       </div>
     </section>

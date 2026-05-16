@@ -18,6 +18,12 @@ class PhysicsObject {
         this.isHangingSubtitle = false;
         this.hangSubtitleTimer = 0;
         this.hangSwingPhase = 0;
+        this.stuckTimer = 0;
+        this.lastX = x;
+        this.lastY = y;
+        this.jitterCount = 0;
+        this.jitterTimer = 0;
+        this.lastVx = 0;
     }
 
     update() {
@@ -52,7 +58,70 @@ class PhysicsObject {
         this.checkCollisions();
         this.checkSubtitleCollision();
         this.checkBallCollision();
+        this.checkStuck();
+        this.checkJitter();
         this.applyPosition();
+    }
+
+    checkStuck() {
+        if (this.isRidingBall || this.isHangingSubtitle || this.isHanging || !this.isGrounded) {
+            this.stuckTimer = 0;
+            return;
+        }
+
+        const dist = Math.sqrt(Math.pow(this.x - this.lastX, 2) + Math.pow(this.y - this.lastY, 2));
+        if (dist < 1) {
+            this.stuckTimer++;
+        } else {
+            this.stuckTimer = 0;
+            this.lastX = this.x;
+            this.lastY = this.y;
+        }
+
+        // If stuck for 2 seconds (approx 120 frames at 60fps) - Lowered for faster response
+        if (this.stuckTimer > 120) {
+            this.stuckTimer = 0;
+            // Jump out!
+            this.vy = -11 - Math.random() * 5;
+            this.vx = (Math.random() - 0.5) * 14;
+            this.isGrounded = false;
+        }
+    }
+
+    checkJitter() {
+        if (!this.isGrounded || Math.abs(this.vx) < 0.1) {
+            this.lastVx = this.vx;
+            return;
+        }
+
+        // Check for direction change
+        if ((this.lastVx > 0.1 && this.vx < -0.1) || (this.lastVx < -0.1 && this.vx > 0.1)) {
+            this.jitterCount++;
+            this.jitterTimer = 60; // 1 second window
+        }
+        this.lastVx = this.vx;
+
+        if (this.jitterTimer > 0) {
+            this.jitterTimer--;
+        } else {
+            this.jitterCount = 0;
+        }
+
+        // Trigger faster (3 changes instead of 5)
+        if (this.jitterCount > 3) {
+            this.jitterCount = 0;
+            this.jitterTimer = 0;
+            
+            if (Math.random() > 0.4) {
+                // Dash
+                this.vx = (Math.random() > 0.5 ? 1 : -1) * 8;
+            } else {
+                // Low escape jump
+                this.vy = -7 - Math.random() * 3;
+                this.vx = (Math.random() - 0.5) * 10;
+                this.isGrounded = false;
+            }
+        }
     }
 
     checkBallCollision() {
@@ -322,6 +391,10 @@ class PhysicsObject {
 
         const cards = Array.from(document.querySelectorAll('.card, .stat-item, .tech-chip, .featured-project'));
         const borderRadius = 24;
+        const petCenterX = this.x + this.width / 2;
+        
+        let bestGroundY = Infinity;
+        let groundSlopeForce = 0;
 
         for (let card of cards) {
             const rect = card.getBoundingClientRect();
@@ -329,9 +402,10 @@ class PhysicsObject {
             const cardLeft = rect.left + window.scrollX;
             const cardRight = cardLeft + rect.width;
 
-            if (this.x + this.width > cardLeft && this.x < cardRight) {
+            // Use pet's center to determine grounding. 
+            // This prevents sticking in gaps between rounded corners of adjacent cards.
+            if (petCenterX >= cardLeft && petCenterX <= cardRight) {
                 let effectiveTop = cardTop;
-                const petCenterX = this.x + this.width / 2;
 
                 // Corner logic
                 if (petCenterX < cardLeft + borderRadius) {
@@ -343,21 +417,25 @@ class PhysicsObject {
                 }
 
                 if (this.y + this.height >= effectiveTop &&
-                    this.y + this.height <= effectiveTop + 20 &&
+                    this.y + this.height <= effectiveTop + 25 &&
                     this.vy >= 0) {
-                    this.y = effectiveTop - this.height;
-                    if (effectiveTop > cardTop) {
-                        const slope = (petCenterX < cardLeft + borderRadius) ? -1 : 1;
-                        this.vx += slope * 0.2;
+                    
+                    if (effectiveTop < bestGroundY) {
+                        bestGroundY = effectiveTop;
+                        // Apply slope push if on rounded corner
+                        if (effectiveTop > cardTop) {
+                            const side = (petCenterX < cardLeft + borderRadius) ? -1 : 1;
+                            groundSlopeForce = side * 0.4;
+                        } else {
+                            groundSlopeForce = 0;
+                        }
                     }
-                    this.vy = 0;
                     this.isGrounded = true;
-                    break;
                 }
             }
 
             // Hanging logic (Side edges)
-            const edgeThreshold = 10;
+            const edgeThreshold = 12;
             const hangDepth = 40;
             if (this.y > cardTop && this.y < cardTop + hangDepth && !this.isGrounded) {
                 if (Math.abs((this.x + this.width) - cardLeft) < edgeThreshold) {
@@ -370,6 +448,12 @@ class PhysicsObject {
                     this.hangSide = 1;
                 }
             }
+        }
+
+        if (this.isGrounded) {
+            this.y = bestGroundY - this.height;
+            this.vy = 0;
+            this.vx += groundSlopeForce;
         }
 
         const viewportBottom = window.scrollY + window.innerHeight;

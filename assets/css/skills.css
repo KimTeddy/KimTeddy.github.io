@@ -78,3 +78,12 @@ a.skill-chip--repo:hover::after { opacity: 1; }
 @media(max-width:480px){
   .skills-bento { grid-template-columns: 1fr; }
 }
+
+/* In light mode, invert white logos and adjust chip accent color to black */
+body.light-mode .skill-chip[style*="#ffffff" i] {
+  --c: #000000 !important;
+}
+
+body.light-mode .skill-chip[style*="#ffffff" i] img {
+  filter: invert(1);
+}

@@ -194,8 +194,10 @@
     animateFollower();
 
     // Hover states (Event Delegation for improved reliability across all pages)
+    const interactiveSelector = 'a, button, [role="button"], .nav__link, .stat-item, .project-card--linked, .project-cta__btn, .video-trigger__icon, .gallery-badge';
+    
     document.addEventListener('mouseover', (e) => {
-      const el = e.target.closest('a, button, .card, .tech-chip, .stat-item, [role="button"], .hobby-card, .project-cta__btn, .hardware-item, .flowchart-item, .nav__link');
+      const el = e.target.closest(interactiveSelector);
       if (el) {
         follower.classList.add('is-hovering');
         cursor.classList.add('is-hovering');
@@ -209,7 +211,7 @@
     });
 
     document.addEventListener('mouseout', (e) => {
-      const el = e.target.closest('a, button, .card, .tech-chip, .stat-item, [role="button"], .hobby-card, .project-cta__btn, .hardware-item, .flowchart-item, .nav__link');
+      const el = e.target.closest(interactiveSelector);
       if (el) {
         follower.classList.remove('is-hovering');
         cursor.classList.remove('is-hovering');
@@ -293,7 +295,7 @@
     transitionOverlay.className = 'transition-overlay';
     document.body.appendChild(transitionOverlay);
 
-    const links = document.querySelectorAll('a.stat-item, a.card');
+    const links = document.querySelectorAll('a.stat-item, a.card, .card-overlay-link');
     
     links.forEach(link => {
       link.addEventListener('click', (e) => {

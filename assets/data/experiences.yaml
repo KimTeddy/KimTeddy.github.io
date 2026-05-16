@@ -47,6 +47,9 @@
 experiences:
   - year: "2025년도"
     competitions:
+      - name: "KIST 인턴연구원"
+        awards:
+          - type: "인턴"
       - name: "네이버블로그 최고 투데이 방문자수(25.01.24: 1,453명)"
         awards:
           - type: "기록"

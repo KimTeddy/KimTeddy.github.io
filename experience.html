@@ -63,7 +63,11 @@
   <script src="assets/js/artistic.js"></script>
   <script>
     (function () {
-      var icons = { "대상": "🏆", "최우수상": "🏆", "우수상": "🏅", "금상": "🥇", "은상": "🥈", "동상": "🥉", "입선": "✨", "장려상": "✨", "1등": "🥇" };
+      var icons = { 
+        "대상": "🏆", "최우수상": "🏆", "우수상": "🏅", "금상": "🥇", "은상": "🥈", "동상": "🥉", 
+        "입선": "✨", "장려상": "✨", "1등": "🥇", 
+        "인턴": "🔬", "기록": "📈", "시작": "🚀", "참가": "🙋", "시연": "💻", "전시": "🖼️" 
+      };
 
       function load() {
         Promise.all([
@@ -91,46 +95,75 @@
             h.setAttribute('data-animate', 'fade-up');
             container.appendChild(h);
 
-            // Awards for this year
+            // Merge competitions for this year
             var awardYear = awardsData.awards ? awardsData.awards.find(function (a) { return a.year === year; }) : null;
-            if (awardYear && awardYear.competitions && awardYear.competitions.length) {
+            var expYear = expData.experiences ? expData.experiences.find(function (e) { return e.year === year; }) : null;
+            
+            var mergedMap = new Map();
+            
+            if (awardYear && awardYear.competitions) {
+              awardYear.competitions.forEach(function(comp) {
+                var name = comp.name.trim();
+                mergedMap.set(name, { name: comp.name, awards: comp.awards.slice(), isAward: true });
+              });
+            }
+            
+            if (expYear && expYear.competitions) {
+              expYear.competitions.forEach(function(comp) {
+                var name = comp.name.trim();
+                if (mergedMap.has(name)) {
+                  var existing = mergedMap.get(name);
+                  comp.awards.forEach(function(a) {
+                    if (!existing.awards.find(function(ea) { return ea.type === a.type; })) {
+                      existing.awards.push(a);
+                    }
+                  });
+                } else {
+                  mergedMap.set(name, { name: comp.name, awards: comp.awards.slice(), isAward: false });
+                }
+              });
+            }
+            
+            var awardItems = [], expItems = [];
+            mergedMap.forEach(function(item) {
+              if (item.isAward) awardItems.push(item);
+              else expItems.push(item);
+            });
+
+            if (awardItems.length) {
               var label = document.createElement('p');
               label.className = 'timeline-section-label'; label.textContent = '🏆 Awards';
               container.appendChild(label);
-              awardYear.competitions.forEach(function (comp) {
-                var item = document.createElement('div');
-                item.className = 'timeline-item'; item.setAttribute('data-animate', 'fade-up');
-                var badgesHtml = '';
-                comp.awards.forEach(function (a) {
-                  var icon = icons[a.type] || '✨';
-                  var cls = (['대상', '최우수상', '금상', '은상', '동상'].indexOf(a.type) >= 0) ? 'badge--award' : 'badge--accent';
-                  badgesHtml += '<span class="badge ' + cls + '">' + icon + ' ' + a.type + (a.count && a.count > 1 ? ' (' + a.count + ')' : '') + '</span>';
-                });
-                item.innerHTML = '<div class="card"><p class="timeline-item__name">' + comp.name + '</p><div class="timeline-item__badges">' + badgesHtml + '</div></div>';
-                container.appendChild(item);
+              awardItems.forEach(function (comp) {
+                container.appendChild(createItemEl(comp, true));
               });
             }
 
-            // Experiences for this year
-            var expYear = expData.experiences ? expData.experiences.find(function (e) { return e.year === year; }) : null;
-            if (expYear && expYear.competitions && expYear.competitions.length) {
+            if (expItems.length) {
               var label2 = document.createElement('p');
               label2.className = 'timeline-section-label'; label2.textContent = '📋 Experiences';
               container.appendChild(label2);
-              expYear.competitions.forEach(function (comp) {
-                var item = document.createElement('div');
-                item.className = 'timeline-item'; item.setAttribute('data-animate', 'fade-up');
-                var badgesHtml = '';
-                comp.awards.forEach(function (a) {
-                  var icon = icons[a.type] || '📌';
-                  badgesHtml += '<span class="badge">' + icon + ' ' + a.type + '</span>';
-                });
-                item.innerHTML = '<div class="card"><p class="timeline-item__name">' + comp.name + '</p><div class="timeline-item__badges">' + badgesHtml + '</div></div>';
-                container.appendChild(item);
+              expItems.forEach(function (comp) {
+                container.appendChild(createItemEl(comp, false));
               });
             }
           });
+
+          function createItemEl(comp, isAwardSection) {
+            var item = document.createElement('div');
+            item.className = 'timeline-item'; item.setAttribute('data-animate', 'fade-up');
+            var badgesHtml = '';
+            comp.awards.forEach(function (a) {
+              var icon = icons[a.type] || (isAwardSection ? '✨' : '📌');
+              var isPrize = ['대상', '최우수상', '우수상', '금상', '은상', '동상', '1등', '입선', '장려상'].indexOf(a.type) >= 0;
+              var cls = isPrize ? 'badge--award' : '';
+              badgesHtml += '<span class="badge ' + cls + '">' + icon + ' ' + a.type + (a.count && a.count > 1 ? ' (' + a.count + ')' : '') + '</span>';
+            });
+            item.innerHTML = '<div class="card"><p class="timeline-item__name">' + comp.name + '</p><div class="timeline-item__badges">' + badgesHtml + '</div></div>';
+            return item;
+          }
         }).catch(function (err) {
+          console.error(err);
           document.getElementById('timeline-container').innerHTML = '<p class="loading-text">데이터를 불러오지 못했습니다.</p>';
         });
       }

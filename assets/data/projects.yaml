@@ -11,8 +11,11 @@
 #   image: "이미지 경로"           # 프로젝트 대표 이미지 (선택)
 #   tags: ["태그 목록", ...]       # 태그 목록 (선택, 문자열로 콤마로 구분)
 #   links:                        # 프로젝트 관련 링크 목록 (선택)
+#     page: "페이지 링크"          # 카드 클릭 시 이동할 링크 (선택)
+#     to: "사이트 내 링크"        # 사이트 내부 상대 링크, 사이트 로고 아이콘 표시 (선택)
 #     youtube: "유튜브 링크"       # 유튜브 관련 링크 (선택)
 #     github: "깃허브 링크"        # 깃허브 관련 링크 (선택)
+#     blog: "블로그 링크"          # 네이버 블로그 링크 (선택)
 #     other: "기타 링크"           # 기타 관련 링크 (선택)
 #     other_logo: "로고 이미지 경로" # 기타 링크에 사용할 로고 이미지 경로 (선택)
 # ------------------------------------------------------------------------------
@@ -26,6 +29,7 @@
 #     image: "assets/images/projects/robot.jpg"
 #     tags: ["로봇", "인공지능", "2023"]
 #     links:
+#       page: "projects/example.html"
 #       youtube: "https://youtu.be/example"
 #       github: "https://github.com/example"
 #       other: "https://example.com"
@@ -61,7 +65,8 @@ projects:
         tags: ["2024", "C", "Cpp", "STM32", "Cube.AI", "PCB", "hand-soldering", "Circuit-design", "졸업작품"]
         duration: "2024년 3월 ~ 2024년 12월"
         links:
-          other: "projects/armi.html"
+          page: "projects/armi.html"
+          to: "projects/armi.html"
           github: "https://github.com/KimTeddy/2024_A.RM.I_Public"
           youtube: "https://youtu.be/RNpNJ6A_28k?si=IeHd7aC45Z5TKPu1"
 
@@ -73,7 +78,8 @@ projects:
         tags: ["2023", "C", "STM32", "hand-soldering", "Circuit-design", "마이크로프로세서응용"]
         duration: "2023년 6월 ~ 2023년 12월"
         links:
-          other: "projects/nosquito.html"
+          page: "projects/nosquito.html"
+          to: "projects/nosquito.html"
           github: "https://github.com/KimTeddy/2023_NOsquito"
 
       - title: "2023_Driver's_License_Test_Simulation"
@@ -84,7 +90,8 @@ projects:
         tags: ["2023", "C", "Linux", "cross-compile", "frame-buffer", "임베디드시스템"]
         duration: "2023년 10월 1일 ~ 12월 21일"
         links:
-          other: "projects/driver-license.html"
+          page: "projects/driver-license.html"
+          to: "projects/driver-license.html"
           github: "https://github.com/KimTeddy/2023_Driver-s_License_Test_Simulation"
           youtube: "https://www.youtube.com/watch?v=CFCqOFiHfQY"
 
@@ -96,7 +103,8 @@ projects:
         tags: ["2023", "Verilog", "FPGA", "디지털시스템"]
         duration: "2023년 11월 23일 ~ 12월 12일"
         links:
-          other: "projects/curling.html"
+          page: "projects/curling.html"
+          to: "projects/curling.html"
           github: "https://github.com/kms0511/DS_TeamProject2023"
           youtube: "https://youtu.be/kMXLUSBVb8M?si=x7CI9Pl3NyCPjwdU"
 
@@ -111,7 +119,8 @@ projects:
         tags: ["2023", "PCB", "hand-soldering", "Circuit-design", "동아리"]
         duration: "2023년 7월 ~ 2023년 12월"
         links:
-          other: "projects/jokbal.html"
+          page: "projects/jokbal.html"
+          to: "projects/jokbal.html"
           youtube: "https://youtu.be/tqQg0wU-9ns?si=lssECIQScBdo7ebp"
 
       - title: "JokBal1"
@@ -122,7 +131,8 @@ projects:
         tags: ["2022", "Circuit-design", "hand-soldering", "동아리"]
         duration: "2022년 3월 ~ 2022년 12월"
         links:
-          other: "projects/jokbal.html"
+          page: "projects/jokbal.html"
+          to: "projects/jokbal.html"
           youtube: "https://www.youtube.com/watch?v=Qg1aSdmr12A"
           github: "https://github.com/KimTeddy/Arduino_Public/tree/main/2022"
 
@@ -231,6 +241,7 @@ projects:
         duration: "2021년 11월 ~ Present"
         links:
           youtube: "https://youtu.be/lMb9GxdRdFw?si=_HGZ0BQtBs_uDtKv"
+          to: "about.html#home-iot"
 
       - title: "IoT 5 ~ 12V LED 조명 제어 PCB (Ver.1~4)"
         description: "ESP-01과 NMOS를 활용한 &lt;IoT 5 ~ 12V LED 조명 제어 PCB&gt; 설계 Ver.1~4"
@@ -240,7 +251,7 @@ projects:
         tags: ["2021", "ESP", "IoT", "PCB", "KiCad", "hand-soldering"]
         duration: "2021년 11월 ~ Present"
         links:
-          other: "https://blog.naver.com/teddy_02/223019402838"
+          blog: "https://blog.naver.com/teddy_02/223019402838"
 
       - title: "거실 라이트쇼"
         description: "ESP8266, WLED, Neopixel, SMPS를 활용한 &lt;거실 라이트쇼&gt;"
@@ -273,7 +284,7 @@ projects:
         duration: "2023년 10월 9일"
         links:
           github: "https://github.com/KimTeddy/2023_DigitalSystem/tree/main/Homework1-CLA/Homework1-CLA.srcs/sources_1/new"
-          other: "https://blog.naver.com/teddy_02/223353123937"
+          blog: "https://blog.naver.com/teddy_02/223353123937"
 
       - title: "UART"
         description: "Verilog로 설계한 UART"

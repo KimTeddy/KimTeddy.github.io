@@ -88,16 +88,16 @@
 
             group.projects.forEach(function (p) {
               var card = document.createElement('div');
-              card.className = 'card project-card' + (p.links && p.links.other ? ' project-card--linked' : '');
+              card.className = 'card project-card' + (p.links && p.links.page ? ' project-card--linked' : '');
               card.setAttribute('data-animate', 'fade-up');
               
               // Card Click Handler
-              if (p.links && p.links.other) {
+              if (p.links && p.links.page) {
                 card.style.cursor = 'pointer';
                 card.addEventListener('click', function(e) {
                   // Don't navigate if clicking on specific link icons
                   if (e.target.closest('.link-icons a')) return;
-                  window.location.href = p.links.other;
+                  window.location.href = p.links.page;
                 });
               }
 
@@ -122,6 +122,8 @@
               if (p.links) {
                 if (p.links.github) html += '<a href="' + p.links.github + '" target="_blank"><img src="assets/images/logos/github-mark-white.svg" alt="GitHub" class="invert-light"></a>';
                 if (p.links.youtube) html += '<a href="' + p.links.youtube + '" target="_blank"><img src="assets/images/logos/youtubeicon.png" alt="YouTube"></a>';
+                if (p.links.blog) html += '<a href="' + p.links.blog + '" target="_blank"><img src="assets/images/logos/naverblog.svg" alt="Naver Blog"></a>';
+                if (p.links.to) html += '<a href="' + p.links.to + '"><img src="assets/images/site/TeddyElectronics.ico" alt="TeddyElectronics"></a>';
                 if (p.links.other) html += '<a href="' + p.links.other + '" class="btn--icon" style="font-size:var(--text-xs);width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:var(--bg-glass);border:1px solid var(--border-subtle);border-radius:var(--radius-sm)">🔗</a>';
               }
               html += '</div></div>';

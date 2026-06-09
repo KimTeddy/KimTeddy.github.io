@@ -47,14 +47,15 @@
     );
     camera.position.copy(homeCameraPos);
 
+    const isMobile = window.innerWidth <= 768;
     renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setClearColor(0x000000, 0);
     renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.toneMapping = THREE.NoToneMapping;
     renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.shadowMap.type = isMobile ? THREE.PCFShadowMap : THREE.PCFSoftShadowMap;
     container.appendChild(renderer.domElement);
 
     // Controls (disabled during reveal)
@@ -184,114 +185,102 @@
       pcbModel.position.sub(scaledCenter);
       pcbModel.position.y += homeModelY;
 
+      const matCache = {};
       pcbModel.traverse((child) => {
         if (child.isMesh) {
           child.castShadow = true;
           child.receiveShadow = true;
-          let mat = child.material;
+          const mat = child.material;
           if (mat) {
-            // Clone the material so parts sharing the same generic material (e.g. KiCad merging white plastics with capacitors) 
-            // can be colored independently.
-            if (!Array.isArray(mat)) {
-              mat = mat.clone();
-              child.material = mat;
-            }
-            
-            (Array.isArray(mat) ? mat : [mat]).forEach((m) => {
-              if (m.map) m.map.encoding = THREE.sRGBEncoding;
-              if (m.emissiveMap) m.emissiveMap.encoding = THREE.sRGBEncoding;
-              if (m.aoMap) m.aoMap.encoding = THREE.sRGBEncoding;
-              
-              const mName = m.name ? m.name.toLowerCase() : '';
-              
-              // Traverse up the hierarchy to find the reference designator in parent nodes
-              let ancestorName = '';
-              let curr = child;
-              while (curr) {
-                if (curr.name) ancestorName += curr.name.toLowerCase() + ' ';
-                curr = curr.parent;
-              }
+             const mName = mat.name ? mat.name.toLowerCase() : '';
+             
+             let ancestorName = '';
+             let curr = child;
+             while (curr) {
+               if (curr.name) ancestorName += curr.name.toLowerCase() + ' ';
+               curr = curr.parent;
+             }
 
-              // Identify based on mesh/parent name (Reference Designator) or material name
-              const isSwitchOrConnector = ancestorName.match(/(?:^|\s)sw\d/) || ancestorName.match(/(?:^|\s)j\d/) || 
-                                          ancestorName.includes('usb') || ancestorName.includes('button') || ancestorName.includes('switch') ||
-                                          mName.includes('plastic-white') || mName.includes('button') || mName.includes('usb');
-              
-              const isCapacitor = !isSwitchOrConnector && (mName.includes('cap') || mName.includes('ceramic') || mName.includes('mlcc') || 
-                                                           mName.includes('tantalum') || mName.includes('tant') ||
-                                                           mName.includes('plastic-yellow') || mName.includes('plastic-orange') ||
-                                                           ancestorName.match(/(?:^|\s)c\d/));
+             const isSwitchOrConnector = ancestorName.match(/(?:^|\s)sw\d/) || ancestorName.match(/(?:^|\s)j\d/) || 
+                                         ancestorName.includes('usb') || ancestorName.includes('button') || ancestorName.includes('switch') ||
+                                         mName.includes('plastic-white') || mName.includes('button') || mName.includes('usb');
+             
+             const isCapacitor = !isSwitchOrConnector && (mName.includes('cap') || mName.includes('ceramic') || mName.includes('mlcc') || 
+                                                          mName.includes('tantalum') || mName.includes('tant') ||
+                                                          mName.includes('plastic-yellow') || mName.includes('plastic-orange') ||
+                                                          ancestorName.match(/(?:^|\s)c\d/));
 
-              if (mName.includes('metal') || mName.includes('solder') || mName.includes('iron') || 
-                  mName.includes('lead') || mName.includes('tin') || mName.includes('silver') || 
-                  mName.includes('pad')) {
-                // High metallic for solder and pads
-                m.metalness = 1.0;
-                m.roughness = Math.min(m.roughness, 0.2); 
-                
-                if (m.color && m.color.getHSL({}).l < 0.5) {
-                  m.color.offsetHSL(0, 0, 0.2); 
-                }
-              } else if (mName.includes('pin') || mName.includes('header')) {
-                // High metallic for pin headers, but keep some diffuse so they don't go pure black
-                m.metalness = 0.9;
-                m.roughness = Math.min(m.roughness, 0.3);
-                
-                if (m.color) {
-                  const hsl = m.color.getHSL({});
-                  // Boost lightness to prevent it from looking black, but preserve the original color (like gold)
-                  if (hsl.l < 0.6) {
-                    m.color.setHSL(hsl.h, hsl.s, 0.6); 
-                  }
-                }
-              } else if (isSwitchOrConnector) {
-                // Buttons, USB-C inner plastic, white plastic: keep them white
-                m.metalness = 0.1;
-                m.roughness = 0.6;
-                if (m.color) {
-                  m.color.setHSL(0, 0, 0.9); // Bright white
-                }
-              } else if (isCapacitor) {
-                // Chip capacitors (MLCC & Tantalum): prevent them from being caught by 'chip' or 'body' and turning black
-                m.metalness = 0.1;
-                m.roughness = 0.6; // Slightly more matte
-                if (m.color) {
-                  const hsl = m.color.getHSL({});
-                  if (mName.includes('tantalum') || mName.includes('tant') || mName.includes('plastic-yellow') || mName.includes('plastic-orange')) {
-                    // Tantalum: Brighter yellow/orange
-                    const h = hsl.s === 0 ? 0.1 : hsl.h;
-                    const s = Math.max(hsl.s, 0.6);
-                    m.color.setHSL(h, s, 0.45);
-                  } else {
-                    // MLCC: Darker richer brown
-                    const h = hsl.s === 0 ? 0.08 : hsl.h; 
-                    const s = Math.max(hsl.s, 0.4);
-                    m.color.setHSL(h, s, 0.3); 
-                  }
-                }
-              } else if (mName.includes('plastic') || mName.includes('package') || mName.includes('body') || 
-                         mName.includes('ic') || mName.includes('black') || mName.includes('resin') || 
-                         mName.includes('chip') || mName.includes('mcu') || mName.includes('resistor') || 
-                         mName.includes('res')) {
-                // Darken black plastic, IC packages, and chip resistors for a richer look
-                m.metalness = 0.1;
-                m.roughness = Math.max(m.roughness, 0.6); // Matte plastic look
-                
-                if (m.color) {
-                  const hsl = m.color.getHSL({});
-                  if (hsl.l > 0.01) {
-                    m.color.setHSL(hsl.h, hsl.s, 0.01); // Make it almost pure black
-                  }
-                }
-              }
+             const cacheKey = mat.uuid + '_' + (isSwitchOrConnector ? 'sw' : (isCapacitor ? 'cap' : 'norm'));
 
-              m.needsUpdate = true;
-            });
+             if (matCache[cacheKey]) {
+                child.material = matCache[cacheKey];
+             } else {
+                let newMat = mat;
+                if (!Array.isArray(mat)) {
+                  newMat = mat.clone();
+                  child.material = newMat;
+                  matCache[cacheKey] = newMat;
+                }
+                
+                (Array.isArray(newMat) ? newMat : [newMat]).forEach((m) => {
+                  if (m.map) m.map.encoding = THREE.sRGBEncoding;
+                  if (m.emissiveMap) m.emissiveMap.encoding = THREE.sRGBEncoding;
+                  if (m.aoMap) m.aoMap.encoding = THREE.sRGBEncoding;
+                  
+                  if (mName.includes('metal') || mName.includes('solder') || mName.includes('iron') || 
+                      mName.includes('lead') || mName.includes('tin') || mName.includes('silver') || 
+                      mName.includes('pad')) {
+                    m.metalness = 1.0;
+                    m.roughness = Math.min(m.roughness, 0.2); 
+                    if (m.color && m.color.getHSL({}).l < 0.5) m.color.offsetHSL(0, 0, 0.2); 
+                  } else if (mName.includes('pin') || mName.includes('header')) {
+                    m.metalness = 0.9;
+                    m.roughness = Math.min(m.roughness, 0.3);
+                    if (m.color) {
+                      const hsl = m.color.getHSL({});
+                      if (hsl.l < 0.6) m.color.setHSL(hsl.h, hsl.s, 0.6); 
+                    }
+                  } else if (isSwitchOrConnector) {
+                    m.metalness = 0.1;
+                    m.roughness = 0.6;
+                    if (m.color) m.color.setHSL(0, 0, 0.9); 
+                  } else if (isCapacitor) {
+                    m.metalness = 0.1;
+                    m.roughness = 0.6; 
+                    if (m.color) {
+                      const hsl = m.color.getHSL({});
+                      if (mName.includes('tantalum') || mName.includes('tant') || mName.includes('plastic-yellow') || mName.includes('plastic-orange')) {
+                        const h = hsl.s === 0 ? 0.1 : hsl.h;
+                        const s = Math.max(hsl.s, 0.6);
+                        m.color.setHSL(h, s, 0.45);
+                      } else {
+                        const h = hsl.s === 0 ? 0.08 : hsl.h; 
+                        const s = Math.max(hsl.s, 0.4);
+                        m.color.setHSL(h, s, 0.3); 
+                      }
+                    }
+                  } else if (mName.includes('plastic') || mName.includes('package') || mName.includes('body') || 
+                             mName.includes('ic') || mName.includes('black') || mName.includes('resin') || 
+                             mName.includes('chip') || mName.includes('mcu') || mName.includes('resistor') || 
+                             mName.includes('res')) {
+                    m.metalness = 0.1;
+                    m.roughness = Math.max(m.roughness, 0.6); 
+                    if (m.color) {
+                      const hsl = m.color.getHSL({});
+                      if (hsl.l > 0.01) m.color.setHSL(hsl.h, hsl.s, 0.01); 
+                    }
+                  }
+                  m.needsUpdate = true;
+                });
+             }
           }
         }
       });
 
       scene.add(pcbModel);
+
+      // Precompile shaders for the main scene
+      renderer.compile(scene, camera);
 
       if (loadingEl) loadingEl.style.display = 'none';
 
@@ -356,6 +345,7 @@
     revealCamera.lookAt(0, 0, 0);
 
     // Create a separate fullscreen canvas for the reveal
+    const isMobile = window.innerWidth <= 768;
     const revealCanvas = document.createElement('canvas');
     revealCanvas.id = 'pcb-reveal-canvas';
     revealCanvas.style.cssText = `
@@ -365,8 +355,7 @@
       pointer-events: none;
       opacity: 0;
       transition: opacity 0.5s ease;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      ${isMobile ? '' : 'backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);'}
     `;
     document.body.appendChild(revealCanvas);
 
@@ -379,10 +368,13 @@
     // Semi-transparent background
     revealRenderer.setClearColor(0x08080f, 0.75);
     revealRenderer.setSize(window.innerWidth, window.innerHeight);
-    revealRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    revealRenderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
     revealRenderer.outputEncoding = THREE.sRGBEncoding;
     revealRenderer.shadowMap.enabled = true;
-    revealRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    revealRenderer.shadowMap.type = isMobile ? THREE.PCFShadowMap : THREE.PCFSoftShadowMap;
+
+    // Precompile reveal shaders
+    revealRenderer.compile(revealScene, revealCamera);
 
     // Fade in the reveal canvas
     requestAnimationFrame(() => {

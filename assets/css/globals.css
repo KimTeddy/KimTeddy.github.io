@@ -108,6 +108,21 @@ body {
 .blob--2 { bottom: -10%; right: -10%; background: rgba(59, 130, 246, 0.2); animation-delay: -5s; }
 .blob--3 { top: 40%; right: 20%; background: rgba(0, 229, 160, 0.15); animation-delay: -10s; width: 30vw; height: 30vw; }
 
+/* Disable heavy visual effects on mobile to prevent periodic stuttering/freezing */
+@media (max-width: 768px) {
+  .noise-overlay {
+    display: none !important;
+    animation: none !important;
+  }
+  .bg-blobs {
+    filter: blur(40px) !important; /* Reduced blur radius to save pixel fill rate */
+    opacity: 0.2 !important;
+  }
+  .blob {
+    animation: none !important; /* Stop periodic CSS transform animations */
+  }
+}
+
 @keyframes blob-float {
   0% { transform: translate(0, 0) scale(1); }
   33% { transform: translate(10%, 10%) scale(1.1); }

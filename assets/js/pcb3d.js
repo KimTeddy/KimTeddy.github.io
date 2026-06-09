@@ -104,17 +104,23 @@
     revealCamera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.01, 100);
     addLighting(revealScene);
 
-    // Load model
-    loadModel();
-
     // Resize (only post-reveal)
     window.addEventListener('resize', onResize);
 
-    // IntersectionObserver (post-reveal)
+    let hasStartedLoading = false;
+
+    // IntersectionObserver (load only when visible, then play post-reveal)
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         isInView = entry.isIntersecting;
-        if (isInView && !animationId && revealComplete) animate();
+        if (isInView) {
+          if (!hasStartedLoading) {
+            hasStartedLoading = true;
+            loadModel();
+          } else if (!animationId && revealComplete) {
+            animate();
+          }
+        }
       });
     }, { threshold: 0.1 });
     observer.observe(container);

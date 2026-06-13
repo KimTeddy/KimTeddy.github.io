@@ -86,13 +86,14 @@ experiences:
         badges:
           - label: "입선"
           - label: "논문(학술대회)"
+          - label: "발표(영상)"
       - title: "제22회 임베디드 소프트웨어 경진대회 (자유공모 부문)"
         date: "24.11.29"
         description: "A.RM.I"
         organization: "임베디드소프트웨어·시스템산업협회"
         badges:
-          - label: "입선"
-          - label: "시연"
+          - label: "입선(공동5등)"
+          - label: "발표 및 시연(11/02)"
       - title: "2024 SEP 융합 Festival"
         date: "24.12.02"
         description: "A.RM.I"

@@ -1,42 +1,45 @@
 # ==============================================================================
-# 수상내역 데이터 파일 (experiences.yaml)
-# 이 파일은 웹사이트에서 수상 내역 데이터를 동적으로 로드하는 데 사용됩니다.
+# 경험 및 수상 데이터 파일 (experiences.yaml)
+# 이 파일은 웹사이트에서 경험 및 수상 내역 데이터를 동적으로 로드하는 데 사용됩니다.
 #
-# 각 수상 내역은 다음과 같은 구조를 따라야 합니다:
+# 각 항목은 다음과 같은 구조를 따라야 합니다:
 # ------------------------------------------------------------------------------
-# - year: "연도"                  # 수상 내역의 연도 (필수)
-#   competitions:                 # 대회 목록 (필수)
-#     - name: "대회명"            # 대회의 이름 (필수)
-#       awards:                   # 수상 내역 목록 (필수)
-#         - type: "상 종류"       # 수상의 종류 (필수, 예: 대상, 금상, 은상 등)
-#           count: 수상 횟수       # 동일한 상을 받은 횟수 (선택, 1 이상의 정수)
+# - year: "연도"                  # 내역의 연도 (필수)
+#   items:                        # 경험/대회 목록 (필수)
+#     - title: "경험/대회명"      # 경험 또는 대회의 이름 (필수)
+#       date: "기간/날짜"         # 기간 또는 날짜 (선택, 예: '2024.05 ~ 2024.11' 또는 '24.01.24')
+#       description: "상세 내용"  # 어떤 내용으로 수상/참여했는지 설명 (선택)
+#       organization: "수여 기관" # 상을 수여하거나 주최한 기관명 (선택)
+#       badges:                   # 내역 목록 (선택)
+#         - label: "종류"         # 종류 (예: 대상, 금상, 인턴, 기록, 참가 등)
+#           count: 횟수           # 동일한 항목의 횟수 (선택, 1 이상의 정수)
 # ------------------------------------------------------------------------------
 # 예시:
 # ------------------------------------------------------------------------------
 # experiences:
 #   - year: "2024년도"
-#     competitions:
-#       - name: "2024 한이음 ICT멘토링 공모전"
-#         awards:
-#           - type: "입선"
+#     items:
+#       - title: "2024 한이음 ICT멘토링 공모전"
+#         badges:
+#           - label: "입선"
 #             count: 2
-#       - name: "2024 SEP 융합 Festival"
-#         awards:
-#           - type: "동상"
+#       - title: "2024 SEP 융합 Festival"
+#         badges:
+#           - label: "동상"
 #             count: 1
-#       - name: "제 3회 교내 창의적SW프로그램 경진대회"
-#         awards:
-#           - type: "대상"
+#       - title: "제 3회 교내 창의적SW프로그램 경진대회"
+#         badges:
+#           - label: "대상"
 #             count: 1
 # ------------------------------------------------------------------------------
 # 필수 항목만 포함된 최소 예시:
 # ------------------------------------------------------------------------------
 # experiences:
 #   - year: "연도"
-#     competitions:
-#       - name: "대회명"
-#         awards:
-#           - type: "상 종류"
+#     items:
+#       - title: "대회명"
+#         badges:
+#           - label: "상 종류"
 # ------------------------------------------------------------------------------
 # 주의사항:
 # 1. YAML 파일은 들여쓰기와 공백에 민감합니다. 각 항목은 2칸 들여쓰기를 유지하세요.
@@ -46,89 +49,160 @@
 
 experiences:
   - year: "2025년도"
-    competitions:
-      - name: "KIST 인턴연구원"
-        awards:
-          - type: "인턴"
-      - name: "네이버블로그 최고 투데이 방문자수(25.01.24: 1,453명)"
-        awards:
-          - type: "기록"
-      - name: "네이버블로그 최고 투데이 조회수(25.01.24: 1,639회)"
-        awards:
-          - type: "기록"
+    items:
+      - title: "KIST 인턴연구원"
+        date: "25.03~26.02"
+        description: ""
+        organization: ""
+        badges:
+          - label: "인턴"
+      - title: "네이버블로그 최고 투데이 방문자수" # (25.01.24: 1,453명)
+        date: "25.01.24"
+        description: "1,453명"
+        organization: ""
+        badges:
+          - label: "기록"
+      - title: "네이버블로그 최고 투데이 조회수" # (25.01.24: 1,639회)
+        date: "25.01.24"
+        description: "1,639회"
+        organization: ""
+        badges:
+          - label: "기록"
 
   - year: "2024년도"
-    competitions:
-      - name: "2024 한이음 ICT멘토링 공모전"
-        awards:
-          - type: "입선"
-      - name: "제22회 임베디드 SW 경진대회"
-        awards:
-          - type: "입선"
-          - type: "시연"
-      - name: "2024 교내 전자공학과 캡스톤디자인 작품발표회"
-        awards:
-          - type: "은상"
-          - type: "전시"
-      - name: "2024 SEP 융합 Festival"
-        awards:
-          - type: "전시"
-          - type: "참가"
-      - name: "2024 교내 캡스톤디자인 경진대회"
-        awards:
-          - type: "전시"
-          - type: "참가"
-      - name: "네이버블로그 10만 방문자수 달성(24.08.04)"
-        awards:
-          - type: "기록"
-      - name: "네이버블로그 하루 방문자수 첫 1천명 달성(24.01.19: 1,093명)"
-        awards:
-          - type: "기록"
-      
+    items:
+      - title: "2024년 교내 전자공학과 캡스톤디자인 작품발표회"
+        date: "24.12.10"
+        description: "분산형 저전력 객체인식 군용 경계 감시 시스템, \"A.RM.I\""
+        organization: "교내 전자공학과"
+        badges:
+          - label: "은상(공동2등)"
+          - label: "전시(11/28)"
+          - label: "발표 및 시연(11/28)"
+      - title: "2024년 한이음 ICT멘토링 공모전"
+        date: "24.12.04"
+        description: "A.RM.I"
+        organization: "한국정보산업연합회"
+        badges:
+          - label: "입선"
+          - label: "논문(학술대회)"
+      - title: "제22회 임베디드 소프트웨어 경진대회 (자유공모 부문)"
+        date: "24.11.29"
+        description: "A.RM.I"
+        organization: "임베디드소프트웨어·시스템산업협회"
+        badges:
+          - label: "입선"
+          - label: "시연"
+      - title: "2024 SEP 융합 Festival"
+        date: "24.12.02"
+        description: "A.RM.I"
+        organization: "교내 SEP 사업단"
+        badges:
+          - label: "전시"
+          - label: "발표 및 시연"
+      - title: "네이버블로그 10만 방문자수 달성(24.08.04)"
+        date: "24.08.04"
+        description: ""
+        organization: ""
+        badges:
+          - label: "기록"
+      - title: "네이버블로그 하루 방문자수 첫 1천명 달성" # (24.01.19: 1,093명)
+        date: "24.01.19"
+        description: "1,093명"
+        organization: ""
+        badges:
+          - label: "기록"
+      - title: "2024 교내 ECC 캡스톤디자인 경진대회"
+        date: "24.08"
+        description: "A.RM.I"
+        organization: "교내 공학교육혁신센터"
+        badges:
+          - label: "참가"
+      - title: "제3회 역사 UCC 제작 프로젝트 공모전"
+        date: "24.06.18"
+        description: "'국새'를 아시나요? : 국새의 가치"
+        organization: "교내 방목기초교육대학"
+        badges:
+          - label: "동상"
+
   - year: "2023년도"
-    competitions:
-      - name: "2023 한이음 ICT멘토링 공모전"
-        awards:
-          - type: "참가"
-      - name: "2023 한이음 ICT멘토링 학술대회(ACK 2023)"
-        awards:
-          - type: "최우수상"
-      - name: "2023 2,3학년을 위한 교내 캡스톤디자인 경진대회"
-        awards:
-          - type: "은상"
-          - type: "전시"
-      - name: "CDE DX Awards 2023 대학/연구소 부문"
-        awards:
-          - type: "장려상"
-      - name: "제21회 임베디드 SW 경진대회"
-        awards:
-          - type: "참가"
+    items:
+      - title: "CDE DX Awards 2023"
+        date: "24.01.30"
+        description: "동물을 위한 웨어러블 로봇"
+        organization: "한국CDE학회"
+        badges:
+          - label: "장려상"
+      - title: "2023 2,3학년을 위한 교내 캡스톤디자인 프로젝트 경진대회"
+        date: "23.12.20"
+        description: "강아지 웨어러블 로봇"
+        organization: "교내 공학교육혁신센터"
+        badges:
+          - label: "은상(3등)"
+          - label: "전시"
+      - title: "ICT멘토링 학술대회 (ACK 2023)"
+        date: "23.11.03"
+        description: "강화학습 적용 동물 웨어러블 로봇 설계 및 개발"
+        organization: "한국정보처리학회"
+        badges:
+          - label: "최우수상(공동1등(5팀))"
+          - label: "논문(학술대회)"
+      - title: "2023 한이음 ICT멘토링 공모전"
+        date: "23.03~23.11"
+        description: "강아지 의족 v2"
+        organization: ""
+        badges:
+          - label: "참가"
+      - title: "제21회 임베디드 SW 경진대회"
+        date: "23.09"
+        description: "강아지 의족 v2"
+        organization: ""
+        badges:
+          - label: "참가"
 
   - year: "2022년도"
-    competitions:
-      - name: "2022 공학페스티벌(E^2 Festa 2022)"
-        awards:
-          - type: "전시"
-          - type: "참가"
-      - name: "2022 2,3학년을 위한 교내 캡스톤디자인 경진대회"
-        awards:
-          - type: "대상"
-          - type: "전시"
-      - name: "2022년 도시형소공인 집적지구 캡스톤 및 제품 전시회(용인시산업진흥원)"
-        awards:
-          - type: "전시"
+    items:
+      - title: "2022 2,3학년을 위한 교내 캡스톤디자인 프로젝트 경진대회"
+        date: "22.12.26"
+        description: "강아지 의족 v1"
+        organization: "교내 공학교육혁신센터"
+        badges:
+          - label: "대상(1등)"
+          - label: "전시"
+      - title: "2022 공학페스티벌 (E² Festa 2022)"
+        date: "22.11.10~11.11"
+        description: "강아지 의족 v1"
+        organization: "산업통상자원부"
+        badges:
+          - label: "전시"
+          - label: "참가"
+      - title: "2022년 도시형소공인 집적지구 캡스톤 및 제품전시회"
+        date: "22.12.20 ~ 12.23"
+        description: "강아지 의족 v1"
+        organization: "용인시산업진흥원"
+        badges:
+          - label: "전시"
 
   - year: "2021년도"
-    competitions:
-      - name: "Home Assistant 구성 시작"
-        awards:
-          - type: "시작"
-      - name: "네이버블로그 제대로 시작"
-        awards:
-          - type: "시작"
+    items:
+      - title: "Home Assistant 구성 시작"
+        date: ""
+        description: ""
+        organization: ""
+        badges:
+          - label: "시작"
+      - title: "네이버블로그 제대로 시작"
+        date: ""
+        description: ""
+        organization: ""
+        badges:
+          - label: "시작"
 
   - year: "2019년도"
-    competitions:
-      - name: "교내 로봇 중앙동아리 신입생 라인트레이서 대회"
-        awards:
-          - type: "1등"
+    items:
+      - title: "교내 로봇 중앙동아리 신입생 라인트레이서 대회"
+        date: "19.11.07"
+        description: ""
+        organization: ""
+        badges:
+          - label: "1등"

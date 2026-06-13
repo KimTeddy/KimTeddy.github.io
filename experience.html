@@ -66,106 +66,103 @@
       var icons = { 
         "대상": "🏆", "최우수상": "🏆", "우수상": "🏅", "금상": "🥇", "은상": "🥈", "동상": "🥉", 
         "입선": "✨", "장려상": "✨", "1등": "🥇", 
-        "인턴": "🔬", "기록": "📈", "시작": "🚀", "참가": "🙋", "시연": "💻", "전시": "🖼️" 
+        "인턴": "🔬", "기록": "📈", "시작": "🚀", "참가": "🙋", "시연": "💻", "전시": "🖼️",
+        "발표 및 시연": "🎤", "논문(학술대회)": "📝"
       };
 
       function load() {
-        Promise.all([
-          fetch('assets/data/awards.yaml').then(function (r) { return r.text() }),
-          fetch('assets/data/experiences.yaml').then(function (r) { return r.text() })
-        ]).then(function (results) {
-          var awardsData = jsyaml.load(results[0]);
-          var expData = jsyaml.load(results[1]);
-          var container = document.getElementById('timeline-container');
-          container.innerHTML = '';
+        var prizeTypes = ['최우수상', '장려상', '우수상', '대상', '금상', '은상', '동상', '입선', '1등'];
+        var iconKeys = Object.keys(icons).sort(function(a, b) { return b.length - a.length; });
+        
+        fetch('assets/data/experiences.yaml')
+          .then(function (r) { return r.text(); })
+          .then(function (result) {
+            var expData = jsyaml.load(result);
+            var container = document.getElementById('timeline-container');
+            container.innerHTML = '';
 
-          // Merge by year
-          var years = new Set();
-          if (awardsData.awards) awardsData.awards.forEach(function (a) { years.add(a.year); });
-          if (expData.experiences) expData.experiences.forEach(function (e) { years.add(e.year); });
-          var sortedYears = Array.from(years).sort(function (a, b) {
-            var na = parseInt(a), nb = parseInt(b);
-            return (isNaN(nb) ? 0 : nb) - (isNaN(na) ? 0 : na);
-          });
-
-          sortedYears.forEach(function (year) {
-            var h = document.createElement('h3');
-            h.className = 'timeline-year';
-            h.innerHTML = year.replace(/(\d+)/g, '<span class="num">$1</span>');
-            h.setAttribute('data-animate', 'fade-up');
-            container.appendChild(h);
-
-            // Merge competitions for this year
-            var awardYear = awardsData.awards ? awardsData.awards.find(function (a) { return a.year === year; }) : null;
-            var expYear = expData.experiences ? expData.experiences.find(function (e) { return e.year === year; }) : null;
-            
-            var mergedMap = new Map();
-            
-            if (awardYear && awardYear.competitions) {
-              awardYear.competitions.forEach(function(comp) {
-                var name = comp.name.trim();
-                mergedMap.set(name, { name: comp.name, awards: comp.awards.slice(), isAward: true });
-              });
-            }
-            
-            if (expYear && expYear.competitions) {
-              expYear.competitions.forEach(function(comp) {
-                var name = comp.name.trim();
-                if (mergedMap.has(name)) {
-                  var existing = mergedMap.get(name);
-                  comp.awards.forEach(function(a) {
-                    if (!existing.awards.find(function(ea) { return ea.type === a.type; })) {
-                      existing.awards.push(a);
-                    }
-                  });
-                } else {
-                  mergedMap.set(name, { name: comp.name, awards: comp.awards.slice(), isAward: false });
-                }
-              });
-            }
-            
-            var awardItems = [], expItems = [];
-            mergedMap.forEach(function(item) {
-              if (item.isAward) awardItems.push(item);
-              else expItems.push(item);
+            var years = new Set();
+            if (expData.experiences) expData.experiences.forEach(function (e) { years.add(e.year); });
+            var sortedYears = Array.from(years).sort(function (a, b) {
+              var na = parseInt(a), nb = parseInt(b);
+              return (isNaN(nb) ? 0 : nb) - (isNaN(na) ? 0 : na);
             });
 
-            if (awardItems.length) {
-              var label = document.createElement('p');
-              label.className = 'timeline-section-label'; label.textContent = '🏆 Awards';
-              container.appendChild(label);
-              awardItems.forEach(function (comp) {
-                container.appendChild(createItemEl(comp, true));
-              });
-            }
+            sortedYears.forEach(function (year) {
+              var h = document.createElement('h3');
+              h.className = 'timeline-year';
+              h.innerHTML = year.replace(/(\d+)/g, '<span class="num">$1</span>');
+              h.setAttribute('data-animate', 'fade-up');
+              container.appendChild(h);
 
-            if (expItems.length) {
-              var label2 = document.createElement('p');
-              label2.className = 'timeline-section-label'; label2.textContent = '📋 Experiences';
-              container.appendChild(label2);
-              expItems.forEach(function (comp) {
-                container.appendChild(createItemEl(comp, false));
-              });
-            }
-          });
+              var expYear = expData.experiences ? expData.experiences.find(function (e) { return e.year === year; }) : null;
+              
+              var awardItems = [], expItems = [];
+              if (expYear && expYear.items) {
+                expYear.items.forEach(function(comp) {
+                  var isAward = false;
+                  if (comp.badges) {
+                    isAward = comp.badges.some(function(a) { return prizeTypes.some(function(pt) { return a.label.indexOf(pt) >= 0; }); });
+                  }
+                  if (isAward) {
+                    awardItems.push(comp);
+                  } else {
+                    expItems.push(comp);
+                  }
+                });
+              }
 
-          function createItemEl(comp, isAwardSection) {
-            var item = document.createElement('div');
-            item.className = 'timeline-item'; item.setAttribute('data-animate', 'fade-up');
-            var badgesHtml = '';
-            comp.awards.forEach(function (a) {
-              var icon = icons[a.type] || (isAwardSection ? '✨' : '📌');
-              var isPrize = ['대상', '최우수상', '우수상', '금상', '은상', '동상', '1등', '입선', '장려상'].indexOf(a.type) >= 0;
-              var cls = isPrize ? 'badge--award' : '';
-              badgesHtml += '<span class="badge ' + cls + '">' + icon + ' ' + a.type + (a.count && a.count > 1 ? ' (' + a.count + ')' : '') + '</span>';
+              if (awardItems.length) {
+                var label = document.createElement('p');
+                label.className = 'timeline-section-label'; label.textContent = '🏆 Awards';
+                container.appendChild(label);
+                awardItems.forEach(function (comp) {
+                  container.appendChild(createItemEl(comp, true));
+                });
+              }
+
+              if (expItems.length) {
+                var label2 = document.createElement('p');
+                label2.className = 'timeline-section-label'; label2.textContent = '📋 Experiences';
+                container.appendChild(label2);
+                expItems.forEach(function (comp) {
+                  container.appendChild(createItemEl(comp, false));
+                });
+              }
             });
-            item.innerHTML = '<div class="card"><p class="timeline-item__name">' + comp.name + '</p><div class="timeline-item__badges">' + badgesHtml + '</div></div>';
-            return item;
-          }
-        }).catch(function (err) {
-          console.error(err);
-          document.getElementById('timeline-container').innerHTML = '<p class="loading-text">데이터를 불러오지 못했습니다.</p>';
-        });
+
+            function createItemEl(comp, isAwardSection) {
+              var item = document.createElement('div');
+              item.className = 'timeline-item'; item.setAttribute('data-animate', 'fade-up');
+              var badgesHtml = '';
+              if (comp.badges) {
+                comp.badges.forEach(function (a) {
+                  var matchedKey = iconKeys.find(function(k) { return a.label.indexOf(k) >= 0; });
+                  var icon = matchedKey ? icons[matchedKey] : (isAwardSection ? '✨' : '📌');
+                  var isPrize = prizeTypes.some(function(pt) { return a.label.indexOf(pt) >= 0; });
+                  var cls = isPrize ? 'badge--award' : '';
+                  badgesHtml += '<span class="badge ' + cls + '">' + icon + ' ' + a.label + (a.count && a.count > 1 ? ' (' + a.count + ')' : '') + '</span>';
+                });
+              }
+              var dateStr = comp.date || '';
+              if (dateStr.indexOf('~') !== -1) {
+                var parts = dateStr.split('~');
+                var p0 = parts[0].trim();
+                var p1 = parts[1] ? parts[1].trim() : '';
+                dateStr = p1 ? p0 + '<br>~' + p1 : p0 + '<br>~';
+              }
+              var dateHtml = dateStr ? '<span class="timeline-date">' + dateStr + '</span>' : '';
+              var descHtml = comp.description ? '<span class="timeline-item__desc">' + comp.description + '</span>' : '';
+              var orgIcon = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px; display:inline-block; vertical-align:-1px;"><path d="M3 21h18"></path><path d="M3 10h18"></path><path d="M5 6l7-3 7 3v4H5V6z"></path><path d="M4 10v11"></path><path d="M20 10v11"></path><path d="M8 14v3"></path><path d="M12 14v3"></path><path d="M16 14v3"></path></svg>';
+              var orgHtml = comp.organization ? '<span class="timeline-item__org">' + orgIcon + comp.organization + '</span>' : '';
+              var metaHtml = (orgHtml || descHtml) ? '<div class="timeline-item__meta">' + orgHtml + descHtml + '</div>' : '';
+              item.innerHTML = dateHtml + '<div class="card">' + metaHtml + '<p class="timeline-item__name">' + comp.title + '</p><div class="timeline-item__badges">' + badgesHtml + '</div></div>';
+              return item;
+            }
+          }).catch(function (err) {
+            console.error(err);
+            document.getElementById('timeline-container').innerHTML = '<p class="loading-text">데이터를 불러오지 못했습니다.</p>';
+          });
       }
       document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', load) : load();
     })();

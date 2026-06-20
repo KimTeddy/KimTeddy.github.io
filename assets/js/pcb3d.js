@@ -12,14 +12,20 @@
   let animationId = null;
   let isInView = false;
   let revealComplete = false;
+  let turntableGroup; // Group for PCB and floor to rotate together
 
   // RGB LED animation state
-  let ledMeshes = [];       // Array of { mesh, originalMat } for LED emissive surfaces
+  let ledMeshes = [];       // Array of { mesh, originalMat } for RGB LED emissive surfaces
+  let singleLedMeshes = []; // Array of all single-color LEDs
+  window.sequenceLedMeshes = []; // Array of the 4 back LEDs for sequential animation
   let ledLights = [];       // PointLights placed under each LED for glow
+  let stageSpots = [];      // Stage spotlight rigs for dramatic PCB showcase
+  let lightIntroStartTime = null; // Track when the light intro animation starts
 
   // "Home" state — normal viewing in the showcase section
-  const homeCameraPos = new THREE.Vector3(0, 0.22, 0.20);
-  const homeModelY = 0.02;
+  // Y is the vertical axis in Three.js. Rotated 45 degrees in X-Z plane, and lowered.
+  const homeCameraPos = new THREE.Vector3(0.55, 0.10, 0.55); 
+  const homeModelY = 0.05; // Raised slightly so it doesn't clip the floor
 
   // Reveal state
   let revealRunning = false;
@@ -67,22 +73,25 @@
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
     controls.enableZoom = true;
-    controls.enablePan = false;
-    controls.autoRotate = true;
+    controls.enablePan = true; // 우클릭 시점 이동 허용
+    controls.autoRotate = false; // 트러스가 같이 도는 것을 막기 위해 카메라 자동 회전 비활성화
     controls.autoRotateSpeed = 1.5;
     controls.maxPolarAngle = Math.PI * 0.85;
     controls.minPolarAngle = Math.PI * 0.15;
     controls.minDistance = 0.1;
-    controls.maxDistance = 1.0;
+    controls.maxDistance = 5.0; // Allowed to zoom out to see the whole stage
 
     renderer.domElement.addEventListener('wheel', (e) => {
       if (!e.shiftKey) e.stopImmediatePropagation();
     }, true);
 
     // ── Lighting for main scene ──
-    addLighting(scene);
+    addLighting(scene, true); // Added `true` to register stage spots for animation
 
     // ── Floor + glow ring ──
+    turntableGroup = new THREE.Group();
+    scene.add(turntableGroup);
+
     const floorGeo = new THREE.CircleGeometry(0.8, 64);
     const floorMat = new THREE.MeshStandardMaterial({
       color: 0x111118, metalness: 0.8, roughness: 0.3,
@@ -92,7 +101,7 @@
     floor.rotation.x = -Math.PI / 2;
     floor.position.y = -0.05;
     floor.receiveShadow = true;
-    scene.add(floor);
+    turntableGroup.add(floor);
 
     const ringGeo = new THREE.RingGeometry(0.18, 0.2, 64);
     const ringMat = new THREE.MeshBasicMaterial({
@@ -101,7 +110,7 @@
     const ring = new THREE.Mesh(ringGeo, ringMat);
     ring.rotation.x = -Math.PI / 2;
     ring.position.y = -0.04;
-    scene.add(ring);
+    turntableGroup.add(ring);
 
     // ── Reveal Scene (separate, for fullscreen intro) ──
     revealScene = new THREE.Scene();
@@ -142,39 +151,263 @@
     }
   }
 
-  function addLighting(targetScene) {
-    targetScene.add(new THREE.AmbientLight(0xffffff, 0.8));
+  function addLighting(targetScene, isMainScene) {
+    // ── Dramatic Dark Stage Ambient ──
+    targetScene.add(new THREE.AmbientLight(0x0a0b1a, 0.4)); // Darker blue ambient
 
-    const dirLight = new THREE.DirectionalLight(0xffffff, 1.0);
-    dirLight.position.set(3, 5, 4);
-    dirLight.castShadow = true;
-    dirLight.shadow.mapSize.set(2048, 2048);
-    dirLight.shadow.bias = -0.0005;
-    dirLight.shadow.normalBias = 0.02;
-    dirLight.shadow.camera.near = 0.5;
-    dirLight.shadow.camera.far = 15;
-    dirLight.shadow.camera.left = -0.5;
-    dirLight.shadow.camera.right = 0.5;
-    dirLight.shadow.camera.top = 0.5;
-    dirLight.shadow.camera.bottom = -0.5;
-    targetScene.add(dirLight);
+    // ── Subtle fill from below ──
+    const fillBelow = new THREE.DirectionalLight(0x1a2a4a, 0.3);
+    fillBelow.position.set(0, -2, 1);
+    targetScene.add(fillBelow);
 
-    const accentLight = new THREE.PointLight(0xffffff, 0.6, 10);
-    accentLight.position.set(0, -0.3, 0.2);
-    targetScene.add(accentLight);
+    // ── Key Light (Diagonal from Left of Camera, ~30 degrees) ──
+    const keySpot = new THREE.SpotLight(0xffffff, 3.0, 5, 0.6, 0.5, 1);
+    keySpot.position.set(0.25, 0.5, 0.75); // ~30 degrees left of camera
+    keySpot.target.position.set(0, 0, 0);
+    keySpot.castShadow = true;
+    keySpot.shadow.mapSize.set(1024, 1024);
+    keySpot.shadow.bias = -0.001;
+    targetScene.add(keySpot);
+    targetScene.add(keySpot.target);
 
-    const fillLight = new THREE.DirectionalLight(0xffffff, 0.5);
-    fillLight.position.set(-3, 3, 5);
-    targetScene.add(fillLight);
+    // ── Build Square Metal Truss Structure ──
+    const trussSize = 0.30; // Smaller truss at the top
+    const trussY = 0.28; // Lowered slightly more
+    const trussGeo = new THREE.CylinderGeometry(0.007, 0.007, trussSize + 0.02, 8);
+    const trussMat = new THREE.MeshStandardMaterial({ color: 0x333333, metalness: 0.9, roughness: 0.4 });
+    
+    // Front, Back, Right, Left truss bars (Top and Bottom rails)
+    const bars = [
+      { x: 0, y: trussY + 0.02, z: trussSize/2, rot: Math.PI/2 }, 
+      { x: 0, y: trussY + 0.02, z: -trussSize/2, rot: Math.PI/2 }, 
+      { x: trussSize/2, y: trussY + 0.02, z: 0, rot: 0 }, 
+      { x: -trussSize/2, y: trussY + 0.02, z: 0, rot: 0 },
+      // Bottom rails
+      { x: 0, y: trussY - 0.02, z: trussSize/2, rot: Math.PI/2 }, 
+      { x: 0, y: trussY - 0.02, z: -trussSize/2, rot: Math.PI/2 }, 
+      { x: trussSize/2, y: trussY - 0.02, z: 0, rot: 0 }, 
+      { x: -trussSize/2, y: trussY - 0.02, z: 0, rot: 0 },
+      // Diagonal crossbars to support center light
+      { x: 0, y: trussY, z: 0, rot: Math.PI / 4, len: trussSize * 1.414 },
+      { x: 0, y: trussY, z: 0, rot: -Math.PI / 4, len: trussSize * 1.414 }
+    ];
+    for (const b of bars) {
+      const mesh = new THREE.Mesh(trussGeo, trussMat);
+      if (b.len) mesh.scale.y = b.len / (trussSize + 0.02);
+      mesh.position.set(b.x, b.y, b.z);
+      mesh.rotation.x = Math.PI / 2; // lie along Z
+      if (b.rot) mesh.rotation.z = b.rot; // rotate to align along X
+      targetScene.add(mesh);
+    }
 
-    const rimLight = new THREE.DirectionalLight(0x3b82f6, 0.5);
-    rimLight.position.set(-2, 2, -3);
-    targetScene.add(rimLight);
+    // ── 20 Stage Lights (16 Fake Visual Beams + 4 Real Spotlights) ──
+    const numPerSide = 6;
+    const half = trussSize / 2;
+    const step = trussSize / (numPerSide - 1);
+    const spotConfigs = [];
 
-    // Extra top light for drama
-    const topLight = new THREE.DirectionalLight(0xffffff, 0.3);
-    topLight.position.set(0, 8, 0);
-    targetScene.add(topLight);
+    // Generate positions along the perimeter of the square
+    for (let i = 0; i < numPerSide; i++) {
+      const pos = -half + i * step;
+      spotConfigs.push({ x: pos, z: half });
+      spotConfigs.push({ x: pos, z: -half });
+      if (i > 0 && i < numPerSide - 1) {
+        spotConfigs.push({ x: -half, z: pos });
+        spotConfigs.push({ x: half, z: pos });
+      }
+    }
+
+    if (isMainScene) stageSpots = []; // Clear array
+
+    // 3 Colors: Cool White, White, Warm White
+    const colors = [0xe0f0ff, 0xffffff, 0xfff4e0];
+
+    for (let i = 0; i < spotConfigs.length; i++) {
+      const cfg = spotConfigs[i];
+      const isCorner = Math.abs(cfg.x) > half - 0.01 && Math.abs(cfg.z) > half - 0.01;
+      const color = colors[i % 3]; // Alternate colors
+      
+      // ONLY use real THREE.SpotLight for corners to preserve 60FPS performance.
+      const isReal = isCorner; 
+      
+      // Fixture Group
+      const fixtureGroup = new THREE.Group();
+      fixtureGroup.position.set(cfg.x, trussY - 0.02, cfg.z); // Attach to bottom rail
+      
+      // U-Bracket
+      const bracketMat = new THREE.MeshStandardMaterial({ color: 0x222222, metalness: 0.8, roughness: 0.2 });
+      const bTopGeo = new THREE.BoxGeometry(0.028, 0.002, 0.01);
+      const bTop = new THREE.Mesh(bTopGeo, bracketMat);
+      bTop.position.y = 0.005;
+      fixtureGroup.add(bTop);
+      
+      const bArmGeo = new THREE.BoxGeometry(0.002, 0.02, 0.01);
+      const bArmL = new THREE.Mesh(bArmGeo, bracketMat);
+      bArmL.position.set(-0.013, -0.005, 0);
+      fixtureGroup.add(bArmL);
+      const bArmR = new THREE.Mesh(bArmGeo, bracketMat);
+      bArmR.position.set(0.013, -0.005, 0);
+      fixtureGroup.add(bArmR);
+
+      const headGroup = new THREE.Group();
+      headGroup.position.y = -0.01; // pivot point
+      fixtureGroup.add(headGroup);
+
+      const bodyMat = new THREE.MeshStandardMaterial({ color: 0x111111, metalness: 0.8, roughness: 0.3 });
+
+      // Main Cylindrical Body
+      const bodyGeo = new THREE.CylinderGeometry(0.011, 0.011, 0.04, 16);
+      bodyGeo.rotateX(Math.PI / 2);
+      const body = new THREE.Mesh(bodyGeo, bodyMat);
+      headGroup.add(body);
+
+      // Sharp Bezel Ring (Torus)
+      const bezelGeo = new THREE.TorusGeometry(0.012, 0.0015, 8, 16);
+      const bezel = new THREE.Mesh(bezelGeo, bodyMat);
+      bezel.position.z = -0.02; 
+      headGroup.add(bezel);
+
+      // Lens (Glowing face)
+      const lensGeo = new THREE.CircleGeometry(0.01, 16);
+      const lensMat = new THREE.MeshBasicMaterial({ color: color, side: THREE.DoubleSide });
+      const lens = new THREE.Mesh(lensGeo, lensMat);
+      lens.position.z = -0.0205; // sits slightly in front of the body face, inside the torus
+      headGroup.add(lens);
+
+      // Volumetric Beam (Fake Light)
+      const dist = 4.0; // Shoot far into the sky
+      const wide = 0.15; // Narrow, laser-like stage beam
+      // Truncated cone matching lens radius
+      const beamGeo = new THREE.CylinderGeometry(0.011, wide, dist, 32, 1, true);
+      beamGeo.rotateX(Math.PI / 2); // Top (+Y) to +Z. Base (-Y) to -Z.
+      beamGeo.translate(0, 0, -dist / 2 - 0.0205); 
+      
+      const beamMat = new THREE.MeshBasicMaterial({
+        color: color,
+        transparent: true,
+        opacity: isCorner ? 0.08 : 0.04, // slightly brighter for narrow beam
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        side: THREE.DoubleSide
+      });
+      const beam = new THREE.Mesh(beamGeo, beamMat);
+      headGroup.add(beam);
+      
+      targetScene.add(fixtureGroup);
+
+      // Target to aim at (180 degree opposite of previous UP-OUTWARD: now DOWN-INWARD criss-cross)
+      const target = new THREE.Object3D();
+      // Mathematically inverted target to preserve exact angle
+      const tx = -10.0 * cfg.x;
+      const tz = -10.0 * cfg.z;
+      target.position.set(tx, -3.6, tz); // Aim deep into the floor for criss-cross effect
+      targetScene.add(target);
+      
+      headGroup.lookAt(target.position);
+
+      if (isMainScene) {
+        const phaseOffset = (cfg.x + cfg.z) * 4; // Wave effect
+        stageSpots.push({ 
+          target: target, 
+          head: headGroup, 
+          beamMat: beamMat,
+          baseOpacity: isCorner ? 0.08 : 0.04,
+          baseX: tx,
+          baseZ: tz,
+          srcX: cfg.x,
+          srcZ: cfg.z
+        });
+      }
+    }
+
+    // ── Center Spotlight Shooting Straight Down ──
+    const centerGroup = new THREE.Group();
+    centerGroup.position.set(0, trussY + 0.025, 0); // raised above crossbars
+
+    // U-Bracket
+    const cBracketMat = new THREE.MeshStandardMaterial({ color: 0x222222, metalness: 0.8, roughness: 0.2 });
+    const cbTopGeo = new THREE.BoxGeometry(0.028, 0.002, 0.01);
+    const cbTop = new THREE.Mesh(cbTopGeo, cBracketMat);
+    cbTop.position.y = -0.005; // attach to truss
+    centerGroup.add(cbTop);
+    
+    const cbArmGeo = new THREE.BoxGeometry(0.002, 0.02, 0.01);
+    const cbArmL = new THREE.Mesh(cbArmGeo, cBracketMat);
+    cbArmL.position.set(-0.013, -0.015, 0);
+    centerGroup.add(cbArmL);
+    const cbArmR = new THREE.Mesh(cbArmGeo, cBracketMat);
+    cbArmR.position.set(0.013, -0.015, 0);
+    centerGroup.add(cbArmR);
+
+    const headGroup = new THREE.Group();
+    headGroup.position.y = -0.02; // pivot point
+    centerGroup.add(headGroup);
+
+    const cBodyMat = new THREE.MeshStandardMaterial({ color: 0x111111, metalness: 0.8, roughness: 0.3 });
+
+    const cBodyGeo = new THREE.CylinderGeometry(0.011, 0.011, 0.04, 16);
+    cBodyGeo.rotateX(Math.PI / 2);
+    const cBody = new THREE.Mesh(cBodyGeo, cBodyMat);
+    headGroup.add(cBody);
+
+    const cBezelGeo = new THREE.TorusGeometry(0.012, 0.0015, 8, 16);
+    const cBezel = new THREE.Mesh(cBezelGeo, cBodyMat);
+    cBezel.position.z = -0.02; 
+    headGroup.add(cBezel);
+
+    const cLensGeo = new THREE.CircleGeometry(0.01, 16);
+    const cLensMat = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
+    const cLens = new THREE.Mesh(cLensGeo, cLensMat);
+    cLens.position.z = -0.0205;
+    headGroup.add(cLens);
+
+    // Center beam (subtle volumetric light downwards)
+    const cDist = 4.0; // match perimeter lights
+    const cWide = 0.15; // match perimeter lights
+    const cBeamGeo = new THREE.CylinderGeometry(0.011, cWide, cDist, 32, 1, true);
+    cBeamGeo.rotateX(Math.PI / 2);
+    cBeamGeo.translate(0, 0, -cDist / 2 - 0.0205); 
+    const cBeamMat = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
+      transparent: true,
+      opacity: 0.04,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      side: THREE.DoubleSide
+    });
+    const cBeam = new THREE.Mesh(cBeamGeo, cBeamMat);
+    headGroup.add(cBeam); // added to headGroup so it rotates with head
+
+    targetScene.add(centerGroup);
+
+    const cTarget = new THREE.Object3D();
+    cTarget.position.set(0, -3.6, 0); // straight down to PCB
+    targetScene.add(cTarget);
+    headGroup.lookAt(cTarget.position); // Only head looks down, bracket stays fixed
+
+    // Real center SpotLight removed to enhance diagonal shadows
+    
+    if (isMainScene) {
+      stageSpots.push({ 
+        target: cTarget, 
+        head: headGroup, 
+        beamMat: cBeamMat,
+        baseOpacity: 0.04,
+        baseX: 0,
+        baseZ: 0,
+        srcX: 0,
+        srcZ: 0
+      });
+
+      // Sort lights counter-clockwise
+      stageSpots.sort((a, b) => {
+        if (a.srcX === 0 && a.srcZ === 0) return 1; // Center light goes last
+        if (b.srcX === 0 && b.srcZ === 0) return -1;
+        const angleA = Math.atan2(a.srcZ, a.srcX);
+        const angleB = Math.atan2(b.srcZ, b.srcX);
+        return angleA - angleB;
+      });
+    }
   }
 
   function loadModel() {
@@ -182,17 +415,23 @@
     const modelSrc = container.getAttribute('data-model-src') || 'assets/models/armi-pcb.glb';
 
     loader.load(modelSrc, (gltf) => {
-      pcbModel = gltf.scene;
+      const originalScene = gltf.scene;
+      pcbModel = new THREE.Group(); // wrapper to rotate around center
 
-      const box = new THREE.Box3().setFromObject(pcbModel);
+      const box = new THREE.Box3().setFromObject(originalScene);
       const size = box.getSize(new THREE.Vector3());
       const center = box.getCenter(new THREE.Vector3());
       const maxDim = Math.max(size.x, size.y, size.z);
-      const scale = 0.25 / maxDim;
-      pcbModel.scale.setScalar(scale);
+      const scale = 0.25 / maxDim; // PCB 본래 크기 유지
+      originalScene.scale.setScalar(scale);
 
       const scaledCenter = center.multiplyScalar(scale);
-      pcbModel.position.sub(scaledCenter);
+      originalScene.position.sub(scaledCenter);
+      
+      pcbModel.add(originalScene);
+
+      // Tilt like a smartphone on a display stand (45 degrees back)
+      pcbModel.rotation.x = Math.PI / 4; 
       pcbModel.position.y += homeModelY;
 
       const matCache = {};
@@ -218,59 +457,84 @@
                                allNames.includes('board_edge') || allNames.includes('board edge') ||
                                (allNames.includes('edge') && (allNames.includes('pcb') || allNames.includes('board')));
 
-             // ── Detect 5050 RGB LED: ONLY the LED_RGB_5050-6 group ──
-             // The 5050 LED group is named 'LED_RGB_5050-6' with meshes _1, _2, _3
-             const is5050LED = !isPcbEdge && (ancestorName.includes('led_rgb_5050') || 
-                               childName.includes('led_rgb_5050'));
+             // ── Detect 5050 RGB LED ──
+             const is5050Group = !isPcbEdge && (ancestorName.includes('led_rgb_5050') || childName.includes('led_rgb_5050'));
+             // The body is white plastic. Exclude it from the glowing lens.
+             const is5050Body = is5050Group && (mName.includes('white') || mName.includes('body') || childName.endsWith('_1'));
+             const is5050Pin = is5050Group && (mName.includes('metal') || mName.includes('pin') || mName.includes('copper') || mName.includes('solder') || childName.endsWith('_2'));
+             const is5050Lens = is5050Group && !is5050Body && !is5050Pin;
 
-             const isSwitchOrConnector = !is5050LED && !isPcbEdge && (ancestorName.match(/(?:^|\s)sw\d/) || ancestorName.match(/(?:^|\s)j\d/) || 
+             // ── Detect Single LEDs ──
+             const isSingleLEDGroup = !isPcbEdge && !is5050Group && (ancestorName.includes('led') || childName.includes('led') || mName.includes('led') || ancestorName.match(/d\d+/i));
+             const isSingleLEDPin = isSingleLEDGroup && (mName.includes('metal') || mName.includes('pin') || mName.includes('copper') || mName.includes('solder') || childName.endsWith('_2'));
+             const isSingleLEDBody = isSingleLEDGroup && !isSingleLEDPin && !mName.includes('black');
+
+             const isSwitchOrConnector = !is5050Group && !isSingleLEDGroup && !isPcbEdge && (ancestorName.match(/(?:^|\s)sw\d/) || ancestorName.match(/(?:^|\s)j\d/) || 
                                          ancestorName.includes('usb') || ancestorName.includes('button') || ancestorName.includes('switch') ||
                                          mName.includes('plastic-white') || mName.includes('button') || mName.includes('usb'));
              
-             const isCapacitor = !isSwitchOrConnector && !isPcbEdge && (mName.includes('cap') || mName.includes('ceramic') || mName.includes('mlcc') || 
+             const isCapacitor = !isSwitchOrConnector && !isSingleLEDGroup && !isPcbEdge && (mName.includes('cap') || mName.includes('ceramic') || mName.includes('mlcc') || 
                                                           mName.includes('tantalum') || mName.includes('tant') ||
                                                           mName.includes('plastic-yellow') || mName.includes('plastic-orange') ||
                                                           ancestorName.match(/(?:^|\s)c\d/));
 
-             const cacheKey = mat.uuid + '_' + (is5050LED ? 'led' : (isSwitchOrConnector ? 'sw' : (isCapacitor ? 'cap' : (isPcbEdge ? 'edge' : 'norm'))));
+             const cacheKey = mat.uuid + '_' + (is5050Lens ? 'led' : (isSingleLEDBody ? 'sled' : (isSwitchOrConnector ? 'sw' : (isCapacitor ? 'cap' : (isPcbEdge ? 'edge' : 'norm')))));
 
              // ── PCB Edge: Skip here, handled by splitPcbVias post-process ──
              if (isPcbEdge) {
                 // Don't modify or cache — splitPcbVias will apply FR4/gold separately
-             } else if (is5050LED) {
-                // 5050 RGB LED — give it rainbow emissive glow
+             } else if (is5050Lens) {
+                // 5050 RGB LED Lens — give it rainbow emissive glow
                 const ledMat = mat.clone();
                 child.material = ledMat;
                 ledMat.emissive = new THREE.Color(1, 0, 0);
                 ledMat.emissiveIntensity = 2.5;
-                // Keep the dark body color but let emissive shine through
                 ledMat.metalness = 0.0;
                 ledMat.roughness = 0.4;
                 ledMat.needsUpdate = true;
 
                 ledMeshes.push({ mesh: child, mat: ledMat });
 
-                // Add a SpotLight near the LED, aimed downward only (-Y)
-                // so RGB glow doesn't bleed through the PCB to top-side components
+                // Add a SpotLight correctly attached to the PCB model to prevent piercing and ensure it rotates with the board
                 if (ledLights.length === 0) {
                   const worldPos = new THREE.Vector3();
                   child.getWorldPosition(worldPos);
-                  // SpotLight(color, intensity, distance, angle, penumbra, decay)
-                  // angle: cone half-angle (PI/3 = 60°), penumbra: soft edge
-                  const ledLight = new THREE.SpotLight(0xff0000, 1.5, 0.25, Math.PI / 3, 0.5, 1);
-                  ledLight.position.copy(worldPos);
-                  ledLight.position.y -= 0.005; // just below the LED surface
+                  
+                  const localPos = new THREE.Vector3();
+                  localPos.copy(worldPos);
+                  pcbModel.worldToLocal(localPos);
 
-                  // Target positioned well below the LED to aim the cone downward
+                  // SpotLight with ~90 degree half-angle (hemisphere) to prevent backward bleeding
+                  const ledLight = new THREE.SpotLight(0xff0000, 1.5, 0.25, Math.PI / 2.1, 0.5, 1);
+                  ledLight.position.copy(localPos);
+                  
+                  // Aim it strictly OUTWARDS from the PCB center plane (Y=0)
                   const lightTarget = new THREE.Object3D();
-                  lightTarget.position.copy(worldPos);
-                  lightTarget.position.y -= 0.15;
-                  scene.add(lightTarget);
+                  lightTarget.position.copy(localPos);
+                  lightTarget.position.y += (localPos.y >= 0 ? 0.1 : -0.1); 
+
+                  pcbModel.add(ledLight);
+                  pcbModel.add(lightTarget);
                   ledLight.target = lightTarget;
 
-                  scene.add(ledLight);
                   ledLights.push(ledLight);
                 }
+             } else if (isSingleLEDBody) {
+                // Single color LEDs — initially off (black)
+                const ledMat = mat.clone();
+                child.material = ledMat;
+                ledMat.emissive = new THREE.Color(0, 0, 0);
+                ledMat.emissiveIntensity = 2.0;
+                ledMat.metalness = 0.1;
+                ledMat.roughness = 0.4;
+                ledMat.needsUpdate = true;
+                
+                const localPos = new THREE.Vector3();
+                child.getWorldPosition(localPos);
+                pcbModel.worldToLocal(localPos);
+
+                // Store all coordinates to classify them later
+                singleLedMeshes.push({ mesh: child, mat: ledMat, localX: localPos.x, localY: localPos.y, localZ: localPos.z });
              } else if (matCache[cacheKey]) {
                 child.material = matCache[cacheKey];
              } else {
@@ -326,7 +590,11 @@
                     m.roughness = Math.max(m.roughness, 0.6); 
                     if (m.color) {
                       const hsl = m.color.getHSL({});
-                      if (hsl.l > 0.01) m.color.setHSL(hsl.h, hsl.s, 0.01); 
+                      if (mName.includes('white')) {
+                        if (hsl.l < 0.85) m.color.setHSL(hsl.h, hsl.s, 0.85); // Keep it white
+                      } else {
+                        if (hsl.l > 0.01) m.color.setHSL(hsl.h, hsl.s, 0.01); // Turn it black
+                      }
                     }
                   }
                   m.needsUpdate = true;
@@ -337,7 +605,84 @@
       });
 
       // Log LED detection results
-      console.log(`[PCB3D] Found ${ledMeshes.length} RGB LED surface(s) in LED_RGB_5050-6 group`);
+      let sequenceLeds = [];
+      let frontRightLeds = [];
+      let farLeftLeds = [];
+
+      if (singleLedMeshes.length > 0) {
+         // Find the dominant X-column (where the 4-LED stacks are located on front & back)
+         const xCounts = {};
+         for (const sLed of singleLedMeshes) {
+            const roundedX = Math.round(sLed.localX * 100);
+            xCounts[roundedX] = (xCounts[roundedX] || 0) + 1;
+         }
+         let columnX = null;
+         let maxCount = 0;
+         for (const x in xCounts) {
+            if (xCounts[x] > maxCount) {
+               maxCount = xCounts[x];
+               columnX = parseInt(x);
+            }
+         }
+
+         for (const sLed of singleLedMeshes) {
+            const roundedX = Math.round(sLed.localX * 100);
+            const isInColumn = Math.abs(roundedX - columnX) <= 2;
+
+            if (isInColumn) {
+               sequenceLeds.push(sLed);
+            } else if (sLed.localX > 0) {
+               frontRightLeds.push(sLed);
+            } else {
+               farLeftLeds.push(sLed);
+            }
+         }
+      }
+
+      // Apply static colors to Front Right LEDs (Light Green)
+      for (const sLed of frontRightLeds) {
+         sLed.mat.emissive.setHex(0x88ff00);
+         sLed.mat.emissiveIntensity = 2.0;
+         sLed.mat.needsUpdate = true;
+      }
+
+      // Helper function to group multiple meshes (body + lens) belonging to the same physical LED
+      function groupLedsByZ(ledArray) {
+         const groups = [];
+         for (const sLed of ledArray) {
+            let found = false;
+            for (const g of groups) {
+               if (Math.abs(g.z - sLed.localZ) < 0.001) {
+                  g.meshes.push(sLed);
+                  found = true;
+                  break;
+               }
+            }
+            if (!found) groups.push({ z: sLed.localZ, meshes: [sLed] });
+         }
+         groups.sort((a, b) => b.z - a.z); // Bottom to top
+         return groups;
+      }
+
+      // Apply static colors to Far Left LEDs (Bottom two are D11=Red, D12=Green)
+      const farLeftGroups = groupLedsByZ(farLeftLeds);
+      for (let i = 0; i < farLeftGroups.length; i++) {
+         let hex = 0x000000;
+         let intensity = 0.0;
+         if (i === 0) { hex = 0xff0000; intensity = 2.0; } // D11 Red
+         else if (i === 1) { hex = 0x00ff00; intensity = 2.0; } // D12 Green
+         
+         for (const sLed of farLeftGroups[i].meshes) {
+            sLed.mat.emissive.setHex(hex);
+            sLed.mat.emissiveIntensity = intensity;
+            sLed.mat.needsUpdate = true;
+         }
+      }
+
+      // Prepare Sequence LEDs for animation (Group multi-mesh components)
+      window.sequenceLedGroups = groupLedsByZ(sequenceLeds);
+
+      console.log(`[PCB3D] Grouped: ${window.sequenceLedGroups.length} Sequence LEDs, ${farLeftGroups.length} Far Left LEDs`);
 
       // ── Debug: Log ALL mesh and material names in the model ──
       const debugMats = new Set();
@@ -352,7 +697,9 @@
       });
       console.log('[PCB3D] All meshes/materials:', [...debugMats].join('\n  '));
 
-      scene.add(pcbModel);
+      if (pcbModel) {
+        turntableGroup.add(pcbModel);
+      }
 
       // ── Post-process: Split PCB edge into via barrels (gold) and board edge (FR4) ──
       // Uses EDGE-based connectivity (faces sharing 2 vertices) so vias and
@@ -860,7 +1207,7 @@
 
     // Enable controls
     controls.enabled = true;
-    controls.autoRotate = true;
+    controls.autoRotate = false; // 카메라 고정 (트러스 고정)
     controls.target.set(0, homeModelY, 0);
     controls.update();
 
@@ -907,8 +1254,56 @@
     controls.update();
 
     if (pcbModel) {
+      if (lightIntroStartTime === null) {
+        lightIntroStartTime = Date.now();
+      }
+      
       const time = Date.now() * 0.001;
+      
+      const introElapsed = (Date.now() - lightIntroStartTime) / 1000.0; // in seconds
+      
+      // Phase 1: Sequential Turn-On (0.0 to 2.0 seconds)
+      const turnOnProgress = Math.min(Math.max(introElapsed / 2.0, 0), 1);
+      
+      // Phase 2: Simultaneous Swing-Down (2.0 to 3.5 seconds)
+      const swingElapsed = Math.max(introElapsed - 2.0, 0);
+      const swingProgress = Math.min(Math.max(swingElapsed / 1.5, 0), 1);
+      const ease = 1 - Math.pow(1 - swingProgress, 4);
+
       pcbModel.position.y = homeModelY + Math.sin(time * 1.2) * 0.005;
+      if (turntableGroup) {
+        turntableGroup.rotation.y += 0.003; // 바닥 원판과 PCB가 함께 회전
+      }
+
+      // ── Stage Spotlights: fade in and align animation ──
+      for (let i = 0; i < stageSpots.length; i++) {
+        const s = stageSpots[i];
+        
+        // Final fixed target position (criss-cross on the floor)
+        const sweepX = s.baseX;
+        const sweepZ = s.baseZ;
+        const sweepY = -3.6; 
+        
+        // Starting Keyframe: pointing straight up into the sky (180 degrees inverted)
+        const startX = s.srcX;
+        const startY = 5.0; // Pointing straight up
+        const startZ = s.srcZ;
+
+        // Interpolate between start and sweep using the ease curve
+        s.target.position.x = startX + (sweepX - startX) * ease;
+        s.target.position.y = startY + (sweepY - startY) * ease;
+        s.target.position.z = startZ + (sweepZ - startZ) * ease;
+        
+        s.head.lookAt(s.target.position);
+
+        // Update fake beam opacity: sequential fade in!
+        if (s.beamMat) {
+          const turnOnThreshold = i / Math.max(stageSpots.length - 1, 1);
+          // Very fast fade-in (over 10% of the Phase 1 duration per light)
+          const lightFade = Math.min(Math.max((turnOnProgress - turnOnThreshold) * 10, 0), 1);
+          s.beamMat.opacity = s.baseOpacity * lightFade;
+        }
+      }
 
       // ── Rainbow RGB LED Animation ──
       // Cycle hue through the full spectrum (0→1) over ~4 seconds
@@ -932,7 +1327,40 @@
           ledLights[i].intensity = 0.6 + Math.sin(time * 3) * 0.2;
         }
       }
-    }
+
+      // ── 4 Single LEDs Sequential Animation (Red, Orange, Green, Blue) ──
+      if (window.sequenceLedGroups && window.sequenceLedGroups.length > 0) {
+        // Boosted blue slightly for better visibility
+        const singleColors = [0xff0000, 0xffa500, 0x00ff00, 0x1144ff];
+        // Total cycle is 2.0 seconds (0.5s per LED)
+        const cycleTime = introElapsed % 2.0;
+        for (let i = 0; i < window.sequenceLedGroups.length; i++) {
+          const group = window.sequenceLedGroups[i];
+          const step = i % 4; // Map front and back LEDs to the 4 steps
+          const turnOnTime = step * 0.5;
+          const turnOffTime = turnOnTime + 0.5;
+          
+          let colorHex = 0x000000;
+          let intensity = 0.0;
+          
+          if (cycleTime >= turnOnTime && cycleTime < turnOffTime) {
+            // Smooth pulse from 0 -> 1 -> 0 over the 0.5 second interval
+            const pulse = Math.sin(((cycleTime - turnOnTime) / 0.5) * Math.PI);
+            colorHex = singleColors[step];
+            // Blue (step 3) needs higher intensity to match perceptual brightness
+            const maxIntensity = (step === 3) ? 6.0 : 3.0;
+            intensity = maxIntensity * pulse;
+          }
+          
+          // Apply animation to all meshes (body, lens, etc.) of this physical LED
+          for (const sLed of group.meshes) {
+            sLed.mat.emissive.setHex(colorHex);
+            sLed.mat.emissiveIntensity = intensity;
+            sLed.mat.needsUpdate = true;
+          }
+        }
+      }
+    } // End of if (pcbModel)
 
     renderer.render(scene, camera);
   }

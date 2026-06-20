@@ -85,8 +85,6 @@ experiences:
         organization: "한국정보산업연합회"
         badges:
           - label: "입선"
-          - label: "논문(학술대회)"
-          - label: "발표(영상)"
       - title: "제22회 임베디드 소프트웨어 경진대회 (자유공모 부문)"
         date: "24.11.29"
         description: "A.RM.I"
@@ -101,6 +99,13 @@ experiences:
         badges:
           - label: "전시"
           - label: "발표 및 시연"
+      - title: "ICT멘토링 학술대회 (ACK 2024)"
+        date: "24.11.07"
+        description: "ARM과 Cube.AI를 이용한 저전력 AI 객체인식 군사 경계 시스템, A.RM.I "
+        organization: "한국정보처리학회"
+        badges:
+          - label: "논문(학술대회)"
+          - label: "발표(영상)"
       - title: "네이버블로그 10만 방문자수 달성(24.08.04)"
         date: "24.08.04"
         description: ""

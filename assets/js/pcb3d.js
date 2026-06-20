@@ -13,6 +13,10 @@
   let isInView = false;
   let revealComplete = false;
 
+  // RGB LED animation state
+  let ledMeshes = [];       // Array of { mesh, originalMat } for LED emissive surfaces
+  let ledLights = [];       // PointLights placed under each LED for glow
+
   // "Home" state — normal viewing in the showcase section
   const homeCameraPos = new THREE.Vector3(0, 0.22, 0.20);
   const homeModelY = 0.02;
@@ -199,6 +203,7 @@
           const mat = child.material;
           if (mat) {
              const mName = mat.name ? mat.name.toLowerCase() : '';
+             const childName = (child.name || '').toLowerCase();
              
              let ancestorName = '';
              let curr = child;
@@ -207,18 +212,66 @@
                curr = curr.parent;
              }
 
-             const isSwitchOrConnector = ancestorName.match(/(?:^|\s)sw\d/) || ancestorName.match(/(?:^|\s)j\d/) || 
+             // ── Detect PCB edge mesh: check material name, mesh name, AND ancestor names ──
+             const allNames = mName + ' ' + childName + ' ' + ancestorName;
+             const isPcbEdge = allNames.includes('pcb_edge') || allNames.includes('pcb edge') ||
+                               allNames.includes('board_edge') || allNames.includes('board edge') ||
+                               (allNames.includes('edge') && (allNames.includes('pcb') || allNames.includes('board')));
+
+             // ── Detect 5050 RGB LED: ONLY the LED_RGB_5050-6 group ──
+             // The 5050 LED group is named 'LED_RGB_5050-6' with meshes _1, _2, _3
+             const is5050LED = !isPcbEdge && (ancestorName.includes('led_rgb_5050') || 
+                               childName.includes('led_rgb_5050'));
+
+             const isSwitchOrConnector = !is5050LED && !isPcbEdge && (ancestorName.match(/(?:^|\s)sw\d/) || ancestorName.match(/(?:^|\s)j\d/) || 
                                          ancestorName.includes('usb') || ancestorName.includes('button') || ancestorName.includes('switch') ||
-                                         mName.includes('plastic-white') || mName.includes('button') || mName.includes('usb');
+                                         mName.includes('plastic-white') || mName.includes('button') || mName.includes('usb'));
              
-             const isCapacitor = !isSwitchOrConnector && (mName.includes('cap') || mName.includes('ceramic') || mName.includes('mlcc') || 
+             const isCapacitor = !isSwitchOrConnector && !isPcbEdge && (mName.includes('cap') || mName.includes('ceramic') || mName.includes('mlcc') || 
                                                           mName.includes('tantalum') || mName.includes('tant') ||
                                                           mName.includes('plastic-yellow') || mName.includes('plastic-orange') ||
                                                           ancestorName.match(/(?:^|\s)c\d/));
 
-             const cacheKey = mat.uuid + '_' + (isSwitchOrConnector ? 'sw' : (isCapacitor ? 'cap' : 'norm'));
+             const cacheKey = mat.uuid + '_' + (is5050LED ? 'led' : (isSwitchOrConnector ? 'sw' : (isCapacitor ? 'cap' : (isPcbEdge ? 'edge' : 'norm'))));
 
-             if (matCache[cacheKey]) {
+             // ── PCB Edge: Skip here, handled by splitPcbVias post-process ──
+             if (isPcbEdge) {
+                // Don't modify or cache — splitPcbVias will apply FR4/gold separately
+             } else if (is5050LED) {
+                // 5050 RGB LED — give it rainbow emissive glow
+                const ledMat = mat.clone();
+                child.material = ledMat;
+                ledMat.emissive = new THREE.Color(1, 0, 0);
+                ledMat.emissiveIntensity = 2.5;
+                // Keep the dark body color but let emissive shine through
+                ledMat.metalness = 0.0;
+                ledMat.roughness = 0.4;
+                ledMat.needsUpdate = true;
+
+                ledMeshes.push({ mesh: child, mat: ledMat });
+
+                // Add a SpotLight near the LED, aimed downward only (-Y)
+                // so RGB glow doesn't bleed through the PCB to top-side components
+                if (ledLights.length === 0) {
+                  const worldPos = new THREE.Vector3();
+                  child.getWorldPosition(worldPos);
+                  // SpotLight(color, intensity, distance, angle, penumbra, decay)
+                  // angle: cone half-angle (PI/3 = 60°), penumbra: soft edge
+                  const ledLight = new THREE.SpotLight(0xff0000, 1.5, 0.25, Math.PI / 3, 0.5, 1);
+                  ledLight.position.copy(worldPos);
+                  ledLight.position.y -= 0.005; // just below the LED surface
+
+                  // Target positioned well below the LED to aim the cone downward
+                  const lightTarget = new THREE.Object3D();
+                  lightTarget.position.copy(worldPos);
+                  lightTarget.position.y -= 0.15;
+                  scene.add(lightTarget);
+                  ledLight.target = lightTarget;
+
+                  scene.add(ledLight);
+                  ledLights.push(ledLight);
+                }
+             } else if (matCache[cacheKey]) {
                 child.material = matCache[cacheKey];
              } else {
                 let newMat = mat;
@@ -283,9 +336,201 @@
         }
       });
 
+      // Log LED detection results
+      console.log(`[PCB3D] Found ${ledMeshes.length} RGB LED surface(s) in LED_RGB_5050-6 group`);
+
+      // ── Debug: Log ALL mesh and material names in the model ──
+      const debugMats = new Set();
+      pcbModel.traverse((c) => {
+        if (c.isMesh && c.material) {
+          const mats = Array.isArray(c.material) ? c.material : [c.material];
+          mats.forEach(m => {
+            const key = `mesh:"${c.name}" mat:"${m.name}" metalness:${m.metalness?.toFixed(2)} roughness:${m.roughness?.toFixed(2)}`;
+            debugMats.add(key);
+          });
+        }
+      });
+      console.log('[PCB3D] All meshes/materials:', [...debugMats].join('\n  '));
+
       scene.add(pcbModel);
 
-      // Precompile shaders for the main scene
+      // ── Post-process: Split PCB edge into via barrels (gold) and board edge (FR4) ──
+      // Uses EDGE-based connectivity (faces sharing 2 vertices) so vias and
+      // board edge are properly separated even if they share single vertices.
+      (function splitPcbVias() {
+        // Find ALL edge meshes by material name, mesh name, or ancestor group name
+        const edgeMeshes = [];
+        pcbModel.traverse((c) => {
+          if (c.isMesh && c.material) {
+            const mn = (c.material.name || '').toLowerCase();
+            const cn = (c.name || '').toLowerCase();
+            let ancestorNames = '';
+            let p = c.parent;
+            while (p) {
+              if (p.name) ancestorNames += p.name.toLowerCase() + ' ';
+              p = p.parent;
+            }
+            const allNames = mn + ' ' + cn + ' ' + ancestorNames;
+            if (allNames.includes('pcb_edge') || allNames.includes('pcb edge') || 
+                allNames.includes('board_edge') || allNames.includes('board edge') ||
+                (allNames.includes('edge') && (allNames.includes('pcb') || allNames.includes('board')))) {
+              edgeMeshes.push(c);
+            }
+          }
+        });
+
+        console.log(`[PCB3D] Found ${edgeMeshes.length} edge mesh(es)`);
+        if (edgeMeshes.length === 0) {
+          console.warn('[PCB3D] No edge mesh found! Check material/mesh names above.');
+          return;
+        }
+
+        // Get board XZ extent for via/edge classification
+        const boardBox = new THREE.Box3().setFromObject(pcbModel);
+        const boardXZSize = Math.max(
+          boardBox.max.x - boardBox.min.x,
+          boardBox.max.z - boardBox.min.z
+        );
+        // Components with XZ extent < 3% of board size are vias (tiny holes).
+        // Larger holes (mounting, cutouts) are treated as board edge (FR4).
+        const viaThreshold = boardXZSize * 0.03;
+
+        const fr4Mat = new THREE.MeshStandardMaterial({
+          color: new THREE.Color(0.55, 0.50, 0.30),
+          metalness: 0.0,
+          roughness: 0.85
+        });
+        const viaMat = new THREE.MeshStandardMaterial({
+          color: new THREE.Color(0.85, 0.72, 0.35),
+          metalness: 0.9,
+          roughness: 0.15
+        });
+
+        for (const edgeMesh of edgeMeshes) {
+          const geo = edgeMesh.geometry;
+          const pos = geo.attributes.position;
+          const idx = geo.index;
+
+          if (!idx) {
+            edgeMesh.material = fr4Mat.clone();
+            console.log(`[PCB3D] Edge mesh "${edgeMesh.name}": no index, FR4 applied`);
+            continue;
+          }
+
+          const faceCount = idx.count / 3;
+
+          // ── Build EDGE-based adjacency (faces sharing 2 vertices = shared edge) ──
+          const edgeToFaces = new Map();
+          for (let f = 0; f < faceCount; f++) {
+            const v0 = idx.getX(f * 3);
+            const v1 = idx.getX(f * 3 + 1);
+            const v2 = idx.getX(f * 3 + 2);
+            const edges = [
+              Math.min(v0, v1) + '-' + Math.max(v0, v1),
+              Math.min(v1, v2) + '-' + Math.max(v1, v2),
+              Math.min(v0, v2) + '-' + Math.max(v0, v2)
+            ];
+            for (const ek of edges) {
+              if (!edgeToFaces.has(ek)) edgeToFaces.set(ek, []);
+              edgeToFaces.get(ek).push(f);
+            }
+          }
+
+          // ── BFS using edge-based adjacency ──
+          const visited = new Uint8Array(faceCount);
+          const components = [];
+
+          for (let f = 0; f < faceCount; f++) {
+            if (visited[f]) continue;
+            const component = [];
+            const queue = [f];
+            visited[f] = 1;
+
+            while (queue.length > 0) {
+              const cf = queue.shift();
+              component.push(cf);
+              const cv0 = idx.getX(cf * 3);
+              const cv1 = idx.getX(cf * 3 + 1);
+              const cv2 = idx.getX(cf * 3 + 2);
+              const cEdges = [
+                Math.min(cv0, cv1) + '-' + Math.max(cv0, cv1),
+                Math.min(cv1, cv2) + '-' + Math.max(cv1, cv2),
+                Math.min(cv0, cv2) + '-' + Math.max(cv0, cv2)
+              ];
+              for (const ek of cEdges) {
+                const neighbors = edgeToFaces.get(ek);
+                for (const nf of neighbors) {
+                  if (!visited[nf]) {
+                    visited[nf] = 1;
+                    queue.push(nf);
+                  }
+                }
+              }
+            }
+            components.push(component);
+          }
+
+          console.log(`[PCB3D] Mesh "${edgeMesh.name}": ${components.length} edge-connected components`);
+
+          // ── Classify each component by XZ extent: small = via, large = board edge ──
+          const boardEdgeFaces = [];
+          const viaFaces = [];
+
+          for (const comp of components) {
+            let minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity;
+            for (const f of comp) {
+              for (let j = 0; j < 3; j++) {
+                const vi = idx.getX(f * 3 + j);
+                const x = pos.getX(vi);
+                const z = pos.getZ(vi);
+                if (x < minX) minX = x;
+                if (x > maxX) maxX = x;
+                if (z < minZ) minZ = z;
+                if (z > maxZ) maxZ = z;
+              }
+            }
+            const xzExtent = Math.max(maxX - minX, maxZ - minZ);
+
+            if (xzExtent < viaThreshold) {
+              // Small XZ extent → via barrel
+              for (const f of comp) {
+                viaFaces.push(idx.getX(f * 3), idx.getX(f * 3 + 1), idx.getX(f * 3 + 2));
+              }
+            } else {
+              // Large XZ extent → board edge
+              for (const f of comp) {
+                boardEdgeFaces.push(idx.getX(f * 3), idx.getX(f * 3 + 1), idx.getX(f * 3 + 2));
+              }
+            }
+          }
+
+          console.log(`[PCB3D] "${edgeMesh.name}": ${boardEdgeFaces.length / 3} edge faces (FR4), ${viaFaces.length / 3} via faces (gold)`);
+
+          if (viaFaces.length > 0 && boardEdgeFaces.length > 0) {
+            // Split: edge mesh keeps board edge, new mesh for vias
+            geo.setIndex(new THREE.BufferAttribute(new Uint32Array(boardEdgeFaces), 1));
+            edgeMesh.material = fr4Mat.clone();
+
+            const viaGeo = geo.clone();
+            viaGeo.setIndex(new THREE.BufferAttribute(new Uint32Array(viaFaces), 1));
+            const viaMesh = new THREE.Mesh(viaGeo, viaMat.clone());
+            viaMesh.position.copy(edgeMesh.position);
+            viaMesh.rotation.copy(edgeMesh.rotation);
+            viaMesh.scale.copy(edgeMesh.scale);
+            viaMesh.castShadow = true;
+            viaMesh.receiveShadow = true;
+            edgeMesh.parent.add(viaMesh);
+          } else if (boardEdgeFaces.length > 0) {
+            // All faces are board edge
+            edgeMesh.material = fr4Mat.clone();
+          } else {
+            // All faces are vias (small mesh)
+            edgeMesh.material = viaMat.clone();
+          }
+        }
+      })();
+
+      // Precompile shaders for the main scene (after via split adds new materials)
       renderer.compile(scene, camera);
 
       if (loadingEl) loadingEl.style.display = 'none';
@@ -664,6 +909,29 @@
     if (pcbModel) {
       const time = Date.now() * 0.001;
       pcbModel.position.y = homeModelY + Math.sin(time * 1.2) * 0.005;
+
+      // ── Rainbow RGB LED Animation ──
+      // Cycle hue through the full spectrum (0→1) over ~4 seconds
+      if (ledMeshes.length > 0) {
+        const hue = (time * 0.25) % 1.0; // full rainbow cycle every 4s
+        const ledColor = new THREE.Color();
+        ledColor.setHSL(hue, 1.0, 0.5);
+
+        for (let i = 0; i < ledMeshes.length; i++) {
+          const entry = ledMeshes[i];
+          // Emissive glow = rainbow color
+          entry.mat.emissive.copy(ledColor);
+          // Subtle pulsing intensity for liveliness
+          entry.mat.emissiveIntensity = 1.8 + Math.sin(time * 3) * 0.4;
+          entry.mat.needsUpdate = true;
+        }
+
+        // Update associated PointLights to match LED color
+        for (let i = 0; i < ledLights.length; i++) {
+          ledLights[i].color.copy(ledColor);
+          ledLights[i].intensity = 0.6 + Math.sin(time * 3) * 0.2;
+        }
+      }
     }
 
     renderer.render(scene, camera);

@@ -4,6 +4,9 @@
   const container = document.getElementById('pcb-3d-container');
   if (!container || typeof THREE === 'undefined') return;
 
+  // ── Mobile detection (module-level, reused throughout) ──
+  const isMobile = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
   const fallbackImg = document.getElementById('pcb-fallback-img');
   const loadingEl = document.getElementById('pcb-loading');
 
@@ -57,8 +60,7 @@
     );
     camera.position.copy(homeCameraPos);
 
-    const isMobile = window.innerWidth <= 768;
-    renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer = new THREE.WebGLRenderer({ alpha: true, antialias: !isMobile });
     renderer.setClearColor(0x000000, 0);
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
@@ -86,13 +88,14 @@
     }, true);
 
     // ── Lighting for main scene ──
-    addLighting(scene, true); // Added `true` to register stage spots for animation
+    addLighting(scene, true, isMobile); // Added `true` to register stage spots for animation
 
     // ── Floor + glow ring ──
     turntableGroup = new THREE.Group();
     scene.add(turntableGroup);
 
-    const floorGeo = new THREE.CircleGeometry(0.8, 64);
+    const floorSegments = isMobile ? 32 : 64;
+    const floorGeo = new THREE.CircleGeometry(0.8, floorSegments);
     const floorMat = new THREE.MeshStandardMaterial({
       color: 0x111118, metalness: 0.8, roughness: 0.3,
       transparent: true, opacity: 0.5
@@ -103,7 +106,7 @@
     floor.receiveShadow = true;
     turntableGroup.add(floor);
 
-    const ringGeo = new THREE.RingGeometry(0.18, 0.2, 64);
+    const ringGeo = new THREE.RingGeometry(0.18, 0.2, floorSegments);
     const ringMat = new THREE.MeshBasicMaterial({
       color: 0x00e5a0, transparent: true, opacity: 0.3, side: THREE.DoubleSide
     });
@@ -115,7 +118,13 @@
     // ── Reveal Scene (separate, for fullscreen intro) ──
     revealScene = new THREE.Scene();
     revealCamera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.01, 100);
-    addLighting(revealScene);
+    // Mobile: lightweight reveal lighting (PCB model only, no truss/stage lights)
+    // PC: full lighting with truss and stage structures
+    if (isMobile) {
+      addRevealLightingMobile(revealScene);
+    } else {
+      addLighting(revealScene);
+    }
 
     // Resize (only post-reveal)
     window.addEventListener('resize', onResize);
@@ -151,7 +160,31 @@
     }
   }
 
-  function addLighting(targetScene, isMainScene) {
+  // ── Mobile-only: Lightweight reveal lighting (no truss, no stage lights) ──
+  function addRevealLightingMobile(targetScene) {
+    // Simple ambient
+    targetScene.add(new THREE.AmbientLight(0x0a0b1a, 0.6));
+
+    // Fill from below (slightly stronger for mobile to compensate missing stage lights)
+    const fillBelow = new THREE.DirectionalLight(0x1a2a4a, 0.5);
+    fillBelow.position.set(0, -2, 1);
+    targetScene.add(fillBelow);
+
+    // Key Light — same position as PC but no shadow (mobile reveal doesn't need it)
+    const keySpot = new THREE.SpotLight(0xffffff, 3.0, 5, 0.6, 0.5, 1);
+    keySpot.position.set(0.25, 0.5, 0.75);
+    keySpot.target.position.set(0, 0, 0);
+    keySpot.castShadow = false; // No shadows in mobile reveal
+    targetScene.add(keySpot);
+    targetScene.add(keySpot.target);
+
+    // Rim light from behind for depth (replaces missing stage beams visually)
+    const rimLight = new THREE.DirectionalLight(0x00e5a0, 0.4);
+    rimLight.position.set(-0.3, 0.3, -0.5);
+    targetScene.add(rimLight);
+  }
+
+  function addLighting(targetScene, isMainScene, isMobileScene) {
     // ── Dramatic Dark Stage Ambient ──
     targetScene.add(new THREE.AmbientLight(0x0a0b1a, 0.4)); // Darker blue ambient
 
@@ -165,15 +198,17 @@
     keySpot.position.set(0.25, 0.5, 0.75); // ~30 degrees left of camera
     keySpot.target.position.set(0, 0, 0);
     keySpot.castShadow = true;
-    keySpot.shadow.mapSize.set(1024, 1024);
+    keySpot.shadow.mapSize.set(isMobileScene ? 512 : 1024, isMobileScene ? 512 : 1024);
     keySpot.shadow.bias = -0.001;
+    keySpot.shadow.normalBias = 0.02; // Fix shadow banding/acne on grazing angles
     targetScene.add(keySpot);
     targetScene.add(keySpot.target);
 
     // ── Build Square Metal Truss Structure ──
     const trussSize = 0.30; // Smaller truss at the top
     const trussY = 0.28; // Lowered slightly more
-    const trussGeo = new THREE.CylinderGeometry(0.007, 0.007, trussSize + 0.02, 8);
+    const trussSegments = isMobileScene ? 4 : 8;
+    const trussGeo = new THREE.CylinderGeometry(0.007, 0.007, trussSize + 0.02, trussSegments);
     const trussMat = new THREE.MeshStandardMaterial({ color: 0x333333, metalness: 0.9, roughness: 0.4 });
     
     // Front, Back, Right, Left truss bars (Top and Bottom rails)
@@ -200,8 +235,8 @@
       targetScene.add(mesh);
     }
 
-    // ── 20 Stage Lights (16 Fake Visual Beams + 4 Real Spotlights) ──
-    const numPerSide = 6;
+    // ── Stage Lights (mobile: reduced count for performance) ──
+    const numPerSide = isMobileScene ? 3 : 6;
     const half = trussSize / 2;
     const step = trussSize / (numPerSide - 1);
     const spotConfigs = [];
@@ -256,19 +291,21 @@
       const bodyMat = new THREE.MeshStandardMaterial({ color: 0x111111, metalness: 0.8, roughness: 0.3 });
 
       // Main Cylindrical Body
-      const bodyGeo = new THREE.CylinderGeometry(0.011, 0.011, 0.04, 16);
+      const bodySegments = isMobileScene ? 8 : 16;
+      const bodyGeo = new THREE.CylinderGeometry(0.011, 0.011, 0.04, bodySegments);
       bodyGeo.rotateX(Math.PI / 2);
       const body = new THREE.Mesh(bodyGeo, bodyMat);
       headGroup.add(body);
 
       // Sharp Bezel Ring (Torus)
-      const bezelGeo = new THREE.TorusGeometry(0.012, 0.0015, 8, 16);
+      const bezelSegments = isMobileScene ? 8 : 16;
+      const bezelGeo = new THREE.TorusGeometry(0.012, 0.0015, isMobileScene ? 4 : 8, bezelSegments);
       const bezel = new THREE.Mesh(bezelGeo, bodyMat);
       bezel.position.z = -0.02; 
       headGroup.add(bezel);
 
       // Lens (Glowing face)
-      const lensGeo = new THREE.CircleGeometry(0.01, 16);
+      const lensGeo = new THREE.CircleGeometry(0.01, isMobileScene ? 8 : 16);
       const lensMat = new THREE.MeshBasicMaterial({ color: color, side: THREE.DoubleSide });
       const lens = new THREE.Mesh(lensGeo, lensMat);
       lens.position.z = -0.0205; // sits slightly in front of the body face, inside the torus
@@ -278,7 +315,8 @@
       const dist = 4.0; // Shoot far into the sky
       const wide = 0.15; // Narrow, laser-like stage beam
       // Truncated cone matching lens radius
-      const beamGeo = new THREE.CylinderGeometry(0.011, wide, dist, 32, 1, true);
+      const beamSegments = isMobileScene ? 12 : 32;
+      const beamGeo = new THREE.CylinderGeometry(0.011, wide, dist, beamSegments, 1, true);
       beamGeo.rotateX(Math.PI / 2); // Top (+Y) to +Z. Base (-Y) to -Z.
       beamGeo.translate(0, 0, -dist / 2 - 0.0205); 
       
@@ -345,17 +383,18 @@
 
     const cBodyMat = new THREE.MeshStandardMaterial({ color: 0x111111, metalness: 0.8, roughness: 0.3 });
 
-    const cBodyGeo = new THREE.CylinderGeometry(0.011, 0.011, 0.04, 16);
+    const cBodySegments = isMobileScene ? 8 : 16;
+    const cBodyGeo = new THREE.CylinderGeometry(0.011, 0.011, 0.04, cBodySegments);
     cBodyGeo.rotateX(Math.PI / 2);
     const cBody = new THREE.Mesh(cBodyGeo, cBodyMat);
     headGroup.add(cBody);
 
-    const cBezelGeo = new THREE.TorusGeometry(0.012, 0.0015, 8, 16);
+    const cBezelGeo = new THREE.TorusGeometry(0.012, 0.0015, isMobileScene ? 4 : 8, isMobileScene ? 8 : 16);
     const cBezel = new THREE.Mesh(cBezelGeo, cBodyMat);
     cBezel.position.z = -0.02; 
     headGroup.add(cBezel);
 
-    const cLensGeo = new THREE.CircleGeometry(0.01, 16);
+    const cLensGeo = new THREE.CircleGeometry(0.01, isMobileScene ? 8 : 16);
     const cLensMat = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
     const cLens = new THREE.Mesh(cLensGeo, cLensMat);
     cLens.position.z = -0.0205;
@@ -364,7 +403,7 @@
     // Center beam (subtle volumetric light downwards)
     const cDist = 4.0; // match perimeter lights
     const cWide = 0.15; // match perimeter lights
-    const cBeamGeo = new THREE.CylinderGeometry(0.011, cWide, cDist, 32, 1, true);
+    const cBeamGeo = new THREE.CylinderGeometry(0.011, cWide, cDist, isMobileScene ? 12 : 32, 1, true);
     cBeamGeo.rotateX(Math.PI / 2);
     cBeamGeo.translate(0, 0, -cDist / 2 - 0.0205); 
     const cBeamMat = new THREE.MeshBasicMaterial({
@@ -412,9 +451,48 @@
 
   function loadModel() {
     const loader = new THREE.GLTFLoader();
-    const modelSrc = container.getAttribute('data-model-src') || 'assets/models/armi-pcb.glb';
 
-    loader.load(modelSrc, (gltf) => {
+    // Mobile: use DRACOLoader for compressed mobile model
+    if (isMobile && typeof THREE.DRACOLoader !== 'undefined') {
+      const dracoLoader = new THREE.DRACOLoader();
+      dracoLoader.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/draco/');
+      loader.setDRACOLoader(dracoLoader);
+    }
+
+    // Mobile: use lightweight mobile GLB, PC: use full-quality GLB
+    const defaultModel = isMobile ? 'assets/models/armi-pcb-mobile.glb' : 'assets/models/armi-pcb.glb';
+    const modelSrc = container.getAttribute('data-model-src') || defaultModel;
+
+    // Progress callback
+    function onProgress(progress) {
+      if (loadingEl && progress.total > 0) {
+        const pct = Math.round((progress.loaded / progress.total) * 100);
+        loadingEl.textContent = `PCB 모델 로딩 중... ${pct}%`;
+      }
+    }
+
+    // Error callback (with fallback for mobile)
+    function onError(error) {
+      console.error('GLB load error:', error);
+      if (loadingEl) loadingEl.style.display = 'none';
+      if (fallbackImg) fallbackImg.style.display = 'block';
+      renderer.domElement.style.display = 'none';
+    }
+
+    // Try loading the model. If mobile GLB fails (e.g., not yet generated), fall back to original.
+    function doLoad(src) {
+      loader.load(src, onSuccess, onProgress, (error) => {
+        if (isMobile && src.includes('-mobile.glb')) {
+          console.warn('[PCB3D] Mobile GLB not found, falling back to full-quality GLB');
+          const fallbackSrc = src.replace('-mobile.glb', '.glb');
+          doLoad(fallbackSrc);
+        } else {
+          onError(error);
+        }
+      });
+    }
+
+    function onSuccess(gltf) {
       const originalScene = gltf.scene;
       pcbModel = new THREE.Group(); // wrapper to rotate around center
 
@@ -891,21 +969,11 @@
       } else {
         startReveal();
       }
-    },
-    (progress) => {
-      if (loadingEl && progress.total > 0) {
-        const pct = Math.round((progress.loaded / progress.total) * 100);
-        loadingEl.textContent = `PCB 모델 로딩 중... ${pct}%`;
-      }
-    },
-    (error) => {
-      console.error('GLB load error:', error);
-      if (loadingEl) loadingEl.style.display = 'none';
-      if (fallbackImg) fallbackImg.style.display = 'block';
-      renderer.domElement.style.display = 'none';
-    });
-  }
+    } // end onSuccess
 
+    // Start loading
+    doLoad(modelSrc);
+  }
   // ─────────────────────────────────────────────
   //  REVEAL ANIMATION — Fullscreen, Elegant Sway
   // ─────────────────────────────────────────────
@@ -943,7 +1011,6 @@
     revealCamera.lookAt(0, 0, 0);
 
     // Create a separate fullscreen canvas for the reveal
-    const isMobile = window.innerWidth <= 768;
     const revealCanvas = document.createElement('canvas');
     revealCanvas.id = 'pcb-reveal-canvas';
     revealCanvas.style.cssText = `
@@ -958,21 +1025,30 @@
     document.body.appendChild(revealCanvas);
 
     // Create a second renderer for the reveal canvas
+    // Mobile: disable antialias and shadows for faster reveal rendering
     const revealRenderer = new THREE.WebGLRenderer({
       canvas: revealCanvas,
       alpha: true,
-      antialias: true
+      antialias: !isMobile
     });
     // Semi-transparent background
     revealRenderer.setClearColor(0x08080f, 0.75);
     revealRenderer.setSize(window.innerWidth, window.innerHeight);
-    revealRenderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
+    revealRenderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.0 : 2));
     revealRenderer.outputEncoding = THREE.sRGBEncoding;
-    revealRenderer.shadowMap.enabled = true;
-    revealRenderer.shadowMap.type = isMobile ? THREE.PCFShadowMap : THREE.PCFSoftShadowMap;
+    if (isMobile) {
+      // Mobile: no shadows in reveal (lightweight scene)
+      revealRenderer.shadowMap.enabled = false;
+    } else {
+      // PC: full quality shadows
+      revealRenderer.shadowMap.enabled = true;
+      revealRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    }
 
-    // Precompile reveal shaders
-    revealRenderer.compile(revealScene, revealCamera);
+    // Precompile reveal shaders (skip on mobile — JIT compile is fast enough for simple scene)
+    if (!isMobile) {
+      revealRenderer.compile(revealScene, revealCamera);
+    }
 
     // Fade in the reveal canvas
     requestAnimationFrame(() => {

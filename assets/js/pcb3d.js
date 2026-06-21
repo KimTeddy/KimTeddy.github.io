@@ -235,8 +235,8 @@
       targetScene.add(mesh);
     }
 
-    // ── Stage Lights (mobile: reduced count for performance) ──
-    const numPerSide = isMobileScene ? 3 : 6;
+    // ── Stage Lights ──
+    const numPerSide = 6;
     const half = trussSize / 2;
     const step = trussSize / (numPerSide - 1);
     const spotConfigs = [];
@@ -269,24 +269,36 @@
       const fixtureGroup = new THREE.Group();
       fixtureGroup.position.set(cfg.x, trussY - 0.02, cfg.z); // Attach to bottom rail
       
+      const panGroup = new THREE.Group();
+      fixtureGroup.add(panGroup);
+
       // U-Bracket
       const bracketMat = new THREE.MeshStandardMaterial({ color: 0x222222, metalness: 0.8, roughness: 0.2 });
-      const bTopGeo = new THREE.BoxGeometry(0.028, 0.002, 0.01);
-      const bTop = new THREE.Mesh(bTopGeo, bracketMat);
-      bTop.position.y = 0.005;
-      fixtureGroup.add(bTop);
       
-      const bArmGeo = new THREE.BoxGeometry(0.002, 0.02, 0.01);
+      // Top plate attaching to truss
+      const bTopGeo = new THREE.BoxGeometry(0.032, 0.002, 0.016);
+      const bTop = new THREE.Mesh(bTopGeo, bracketMat);
+      bTop.position.y = 0.0;
+      panGroup.add(bTop);
+      
+      // Arms (longer downward to prevent clipping when tilted)
+      const bArmGeo = new THREE.BoxGeometry(0.003, 0.035, 0.012);
       const bArmL = new THREE.Mesh(bArmGeo, bracketMat);
-      bArmL.position.set(-0.013, -0.005, 0);
-      fixtureGroup.add(bArmL);
+      bArmL.position.set(-0.0145, -0.0165, 0);
+      panGroup.add(bArmL);
       const bArmR = new THREE.Mesh(bArmGeo, bracketMat);
-      bArmR.position.set(0.013, -0.005, 0);
-      fixtureGroup.add(bArmR);
+      bArmR.position.set(0.0145, -0.0165, 0);
+      panGroup.add(bArmR);
 
       const headGroup = new THREE.Group();
-      headGroup.position.y = -0.01; // pivot point
-      fixtureGroup.add(headGroup);
+      headGroup.position.y = -0.03; // Lower pivot point (0.03 clearance handles 0.02 half-length of body)
+      panGroup.add(headGroup);
+
+      // Pivot pins connecting head to bracket
+      const pinGeo = new THREE.CylinderGeometry(0.003, 0.003, 0.034, 8);
+      pinGeo.rotateZ(Math.PI / 2);
+      const pin = new THREE.Mesh(pinGeo, bracketMat);
+      headGroup.add(pin);
 
       const bodyMat = new THREE.MeshStandardMaterial({ color: 0x111111, metalness: 0.8, roughness: 0.3 });
 
@@ -347,6 +359,7 @@
         const phaseOffset = (cfg.x + cfg.z) * 4; // Wave effect
         stageSpots.push({ 
           target: target, 
+          panGroup: panGroup,
           head: headGroup, 
           beamMat: beamMat,
           baseOpacity: isCorner ? 0.08 : 0.04,
@@ -362,24 +375,34 @@
     const centerGroup = new THREE.Group();
     centerGroup.position.set(0, trussY + 0.025, 0); // raised above crossbars
 
+    const cPanGroup = new THREE.Group();
+    centerGroup.add(cPanGroup);
+
     // U-Bracket
     const cBracketMat = new THREE.MeshStandardMaterial({ color: 0x222222, metalness: 0.8, roughness: 0.2 });
-    const cbTopGeo = new THREE.BoxGeometry(0.028, 0.002, 0.01);
+    const cbTopGeo = new THREE.BoxGeometry(0.032, 0.002, 0.016);
     const cbTop = new THREE.Mesh(cbTopGeo, cBracketMat);
     cbTop.position.y = -0.005; // attach to truss
-    centerGroup.add(cbTop);
+    cPanGroup.add(cbTop);
     
-    const cbArmGeo = new THREE.BoxGeometry(0.002, 0.02, 0.01);
+    // Arms (longer)
+    const cbArmGeo = new THREE.BoxGeometry(0.003, 0.035, 0.012);
     const cbArmL = new THREE.Mesh(cbArmGeo, cBracketMat);
-    cbArmL.position.set(-0.013, -0.015, 0);
-    centerGroup.add(cbArmL);
+    cbArmL.position.set(-0.0145, -0.0215, 0);
+    cPanGroup.add(cbArmL);
     const cbArmR = new THREE.Mesh(cbArmGeo, cBracketMat);
-    cbArmR.position.set(0.013, -0.015, 0);
-    centerGroup.add(cbArmR);
+    cbArmR.position.set(0.0145, -0.0215, 0);
+    cPanGroup.add(cbArmR);
 
     const headGroup = new THREE.Group();
-    headGroup.position.y = -0.02; // pivot point
-    centerGroup.add(headGroup);
+    headGroup.position.y = -0.035; // Lower pivot point
+    cPanGroup.add(headGroup);
+
+    // Pivot pins
+    const cPinGeo = new THREE.CylinderGeometry(0.003, 0.003, 0.034, 8);
+    cPinGeo.rotateZ(Math.PI / 2);
+    const cPin = new THREE.Mesh(cPinGeo, cBracketMat);
+    headGroup.add(cPin);
 
     const cBodyMat = new THREE.MeshStandardMaterial({ color: 0x111111, metalness: 0.8, roughness: 0.3 });
 
@@ -429,6 +452,7 @@
     if (isMainScene) {
       stageSpots.push({ 
         target: cTarget, 
+        panGroup: cPanGroup,
         head: headGroup, 
         beamMat: cBeamMat,
         baseOpacity: 0.04,
@@ -1360,16 +1384,23 @@
         const sweepZ = s.baseZ;
         const sweepY = -3.6; 
         
-        // Starting Keyframe: pointing straight up into the sky (180 degrees inverted)
-        const startX = s.srcX;
-        const startY = 5.0; // Pointing straight up
-        const startZ = s.srcZ;
+        // Starting Keyframe: target is high up and rotated 90 degrees sideways
+        // This forces the panGroup to start at a different horizontal angle and sweep smoothly!
+        const startX = -s.srcZ * 5.0;
+        const startY = 2.0; 
+        const startZ = s.srcX * 5.0;
 
         // Interpolate between start and sweep using the ease curve
         s.target.position.x = startX + (sweepX - startX) * ease;
         s.target.position.y = startY + (sweepY - startY) * ease;
         s.target.position.z = startZ + (sweepZ - startZ) * ease;
         
+        if (s.panGroup && s.panGroup.parent) {
+          const pPos = s.panGroup.parent.position;
+          if (Math.abs(s.target.position.x - pPos.x) > 0.001 || Math.abs(s.target.position.z - pPos.z) > 0.001) {
+            s.panGroup.lookAt(s.target.position.x, pPos.y, s.target.position.z);
+          }
+        }
         s.head.lookAt(s.target.position);
 
         // Update fake beam opacity: sequential fade in!

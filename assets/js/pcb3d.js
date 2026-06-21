@@ -1374,7 +1374,8 @@
 
         // Update fake beam opacity: sequential fade in!
         if (s.beamMat) {
-          const turnOnThreshold = i / Math.max(stageSpots.length - 1, 1);
+          // Max threshold should be 0.9 so the *10 multiplier reaches 1.0 perfectly at turnOnProgress = 1.0
+          const turnOnThreshold = i * (0.9 / Math.max(stageSpots.length - 1, 1));
           // Very fast fade-in (over 10% of the Phase 1 duration per light)
           const lightFade = Math.min(Math.max((turnOnProgress - turnOnThreshold) * 10, 0), 1);
           s.beamMat.opacity = s.baseOpacity * lightFade;

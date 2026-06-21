@@ -373,29 +373,32 @@
 
     // ── Center Spotlight Shooting Straight Down ──
     const centerGroup = new THREE.Group();
-    centerGroup.position.set(0, trussY + 0.025, 0); // raised above crossbars
+    // Center at the exact intersection of the crossbars
+    centerGroup.position.set(0, trussY, 0); 
 
     const cPanGroup = new THREE.Group();
     centerGroup.add(cPanGroup);
 
     // U-Bracket
     const cBracketMat = new THREE.MeshStandardMaterial({ color: 0x222222, metalness: 0.8, roughness: 0.2 });
-    const cbTopGeo = new THREE.BoxGeometry(0.032, 0.002, 0.016);
+    
+    // Top plate attaching to TOP of truss crossbars
+    const cbTopGeo = new THREE.CylinderGeometry(0.016, 0.016, 0.004, 16);
     const cbTop = new THREE.Mesh(cbTopGeo, cBracketMat);
-    cbTop.position.y = -0.005; // attach to truss
+    cbTop.position.y = 0.009; // Rest on top of crossbars (radius 0.007 + half thickness 0.002)
     cPanGroup.add(cbTop);
     
-    // Arms (longer)
-    const cbArmGeo = new THREE.BoxGeometry(0.003, 0.035, 0.012);
+    // Arms (reaching UPWARDS)
+    const cbArmGeo = new THREE.BoxGeometry(0.003, 0.045, 0.012);
     const cbArmL = new THREE.Mesh(cbArmGeo, cBracketMat);
-    cbArmL.position.set(-0.0145, -0.0215, 0);
+    cbArmL.position.set(-0.0145, 0.0335, 0);
     cPanGroup.add(cbArmL);
     const cbArmR = new THREE.Mesh(cbArmGeo, cBracketMat);
-    cbArmR.position.set(0.0145, -0.0215, 0);
+    cbArmR.position.set(0.0145, 0.0335, 0);
     cPanGroup.add(cbArmR);
 
     const headGroup = new THREE.Group();
-    headGroup.position.y = -0.035; // Lower pivot point
+    headGroup.position.y = 0.054; // Upper pivot point clears the arms
     cPanGroup.add(headGroup);
 
     // Pivot pins
@@ -1386,14 +1389,36 @@
         
         // Starting Keyframe: target is high up and rotated 90 degrees sideways
         // This forces the panGroup to start at a different horizontal angle and sweep smoothly!
-        const startX = -s.srcZ * 5.0;
-        const startY = 2.0; 
-        const startZ = s.srcX * 5.0;
+        let startX = -s.srcZ * 5.0;
+        let startY = 2.0; 
+        let startZ = s.srcX * 5.0;
+        
+        if (s.srcX === 0 && s.srcZ === 0) {
+          // Center light finishes earlier than the others (at 60% of the animation duration)
+          const centerSwingProgress = Math.min(swingProgress / 0.6, 1.0);
+          const centerEase = 1 - Math.pow(1 - centerSwingProgress, 4);
 
-        // Interpolate between start and sweep using the ease curve
-        s.target.position.x = startX + (sweepX - startX) * ease;
-        s.target.position.y = startY + (sweepY - startY) * ease;
-        s.target.position.z = startZ + (sweepZ - startZ) * ease;
+          // Center light: Start pointing UP (10.0) and spiral downwards to point straight DOWN (-5.0)
+          const startAngle = Math.PI; // 180 degrees opposite start
+          const endAngle = Math.PI + Math.PI * 2.5; // Spins around 1.25 times
+          const currentAngle = startAngle + (endAngle - startAngle) * centerEase;
+          
+          const startHeight = 10.0; // UP (180 opposite of DOWN)
+          const endHeight = -5.0;   // DOWN (180 opposite of UP)
+          const currentHeight = startHeight + (endHeight - startHeight) * centerEase;
+          
+          // Shrink radius to near zero at the end so it points perfectly straight down!
+          const currentRadius = 2.0 * (1.0 - centerEase) + 0.001; 
+          
+          s.target.position.x = Math.cos(currentAngle) * currentRadius;
+          s.target.position.y = currentHeight;
+          s.target.position.z = Math.sin(currentAngle) * currentRadius;
+        } else {
+          // Interpolate between start and sweep using the ease curve
+          s.target.position.x = startX + (sweepX - startX) * ease;
+          s.target.position.y = startY + (sweepY - startY) * ease;
+          s.target.position.z = startZ + (sweepZ - startZ) * ease;
+        }
         
         if (s.panGroup && s.panGroup.parent) {
           const pPos = s.panGroup.parent.position;

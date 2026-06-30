@@ -74,7 +74,7 @@
 
   function init() {
     const stored = getStoredTheme();
-    const theme = stored || getSystemTheme();
+    const theme = stored || 'dark';
     applyTheme(theme);
 
     document.addEventListener('click', function(e) {

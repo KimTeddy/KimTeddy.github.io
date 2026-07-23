@@ -1,0 +1,104 @@
+# ==============================================================================
+# PCB 전시관 데이터 파일 (pcb-models.yaml)
+# pcb.html의 3D 전시관에 표시할 PCB 모델 목록입니다.
+#
+# 각 모델은 다음과 같은 구조를 따라야 합니다:
+# ------------------------------------------------------------------------------
+# - id: "고유 아이디"              # 고유 식별자 (필수)
+#   title: "모델 이름"             # 좌대 위 전시물 이름 (필수)
+#   subtitle: "부제"               # 짧은 부제 (선택)
+#   year: "연도"                   # 제작 연도 (선택)
+#   description: "설명"            # 상세 설명 (선택)
+#   model: "GLB 경로"              # 데스크톱용 GLB 모델 경로 (placeholder가 아니면 필수)
+#   model_mobile: "GLB 경로"       # 모바일용 경량 GLB (선택, 없으면 model 사용)
+#   scale: 1.0                     # 모델 크기 배율 (선택, 기본 1.0)
+#   tags: ["태그", ...]            # 태그 목록 (선택)
+#   links:                         # 관련 링크 (선택)
+#     page: "상세 페이지 경로"      # 사이트 내 상세 페이지
+#     github: "깃허브 링크"
+#     youtube: "유튜브 링크"
+#     blog: "블로그 링크"
+#   placeholder: true              # true면 모델 없이 'Coming Soon' 홀로그램 좌대 표시 (선택)
+# ------------------------------------------------------------------------------
+# 새 모델 전시 방법 (좌대는 목록 수에 맞춰 자동으로 늘어남):
+# 1. Blender에서 assets/models/export_glb.py 로 GLB 내보내기
+#    (모바일용은 export_glb_mobile.py — 파일명은 "이름-mobile.glb" 규칙)
+# 2. assets/models/ 에 저장
+# 3. 아래 해당 항목에 model:(과 model_mobile:) 경로를 넣고 placeholder: true 를 삭제
+#
+# 배치 규칙: 첫 번째 항목이 홀 중앙 좌대, 이후 항목은 좌우로 번갈아 배치됩니다.
+# 모델이 많아져도 성능 걱정 없음 — 포커스된 좌대와 양옆만 로드하고
+# 나머지는 홀로그램으로 표시되며, 오래 안 본 모델은 메모리에서 해제됩니다.
+# ==============================================================================
+
+models:
+  # ── 홀 중앙: 대표 전시 ──
+  - id: "armi"
+    title: "A.RM.I Main Board"
+    subtitle: "졸업작품 — 분산형 저전력 객체인식 군용 경계 감시 시스템"
+    year: "2024"
+    description: "STM32 기반 온디바이스 AI 객체인식 엣지 디바이스의 메인 보드. KiCad로 Schematic부터 Artwork까지 직접 설계하고 손으로 납땜했습니다."
+    model: "assets/models/armi-pcb.glb"
+    model_mobile: "assets/models/armi-pcb-mobile.glb"
+    scale: 1.0
+    tags: ["KiCad", "STM32", "Cube.AI", "Hand Soldering", "2-Layer"]
+    links:
+      page: "projects/armi.html"
+      github: "https://github.com/KimTeddy/2024_A.RM.I_Public"
+
+  # ── 전시 예정 (GLB 준비되면 model: 경로 추가 후 placeholder: true 삭제) ──
+  - id: "jokbal2-shield"
+    title: "JokBal2 Raspberry Pi Shield"
+    subtitle: "후지 마비 동물을 위한 웨어러블 로봇 — 라즈베리파이 쉴드 PCB"
+    year: "2023"
+    description: "동아리 웨어러블 로봇 프로젝트 JokBal2의 라즈베리파이 쉴드 PCB. 직접 설계하고 납땜했습니다."
+    tags: ["KiCad", "Raspberry Pi", "Shield", "Hand Soldering"]
+    links:
+      page: "projects/jokbal.html"
+    placeholder: true
+
+  - id: "iot-led-v4"
+    title: "IoT LED Control PCB Ver.4"
+    subtitle: "ESP-01 + NMOS 기반 5~12V LED 조명 제어 보드"
+    year: "2021~"
+    description: "Home IoT 조명 제어를 위해 설계한 시리즈의 최신 버전."
+    tags: ["KiCad", "ESP-01", "NMOS", "IoT"]
+    links:
+      blog: "https://blog.naver.com/teddy_02/223019402838"
+    placeholder: true
+
+  - id: "iot-led-v3"
+    title: "IoT LED Control PCB Ver.3"
+    subtitle: "ESP-01 + NMOS 기반 5~12V LED 조명 제어 보드"
+    year: "2021~"
+    tags: ["KiCad", "ESP-01", "NMOS", "IoT"]
+    links:
+      blog: "https://blog.naver.com/teddy_02/223019402838"
+    placeholder: true
+
+  - id: "iot-led-v2"
+    title: "IoT LED Control PCB Ver.2"
+    subtitle: "ESP-01 + NMOS 기반 5~12V LED 조명 제어 보드"
+    year: "2021~"
+    tags: ["KiCad", "ESP-01", "NMOS", "IoT"]
+    links:
+      blog: "https://blog.naver.com/teddy_02/223019402838"
+    placeholder: true
+
+  - id: "iot-led-v1"
+    title: "IoT LED Control PCB Ver.1"
+    subtitle: "ESP-01 + NMOS 기반 5~12V LED 조명 제어 보드"
+    year: "2021"
+    tags: ["KiCad", "ESP-01", "NMOS", "IoT"]
+    links:
+      blog: "https://blog.naver.com/teddy_02/223019402838"
+    placeholder: true
+
+  - id: "jokbal1-main"
+    title: "JokBal1 Main Board"
+    subtitle: "강아지 의족 Ver.1 — 메인 기판"
+    year: "2022"
+    tags: ["Circuit Design", "Hand Soldering"]
+    links:
+      page: "projects/jokbal.html"
+    placeholder: true

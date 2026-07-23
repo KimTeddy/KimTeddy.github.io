@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Teddy Kim이 직접 설계한 PCB를 3D로 전시하는 갤러리.">
+  <meta property="og:title" content="PCB Exhibition — TeddyElectronics">
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="직접 설계한 PCB 기판을 3D 전시관에서 감상해 보세요.">
+  <meta property="og:image" content="https://kimteddy.github.io/assets/images/sections/projects/2024/armi.jpg">
+  <meta property="og:url" content="https://kimteddy.github.io/pcb.html">
+  <title>PCB — TeddyElectronics</title>
+  <link rel="icon" type="image/x-icon" href="assets/images/site/TeddyElectronics.ico">
+  <link rel="stylesheet" href="assets/css/globals.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pcb-gallery.css">
+</head>
+
+<body>
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="./" class="nav__logo">&lt;T/&gt; <span>TeddyElectronics</span></a>
+      <div class="nav__links">
+        <a href="./" class="nav__link">Home</a><a href="about.html" class="nav__link">About</a>
+        <a href="projects.html" class="nav__link">Projects</a><a href="pcb.html" class="nav__link">PCB</a>
+        <a href="experience.html" class="nav__link">Experience</a>
+        <a href="skills.html" class="nav__link">Skills</a><a href="seminars.html" class="nav__link">Seminars</a>
+        <a href="contact.html" class="nav__link">Contact</a>
+      </div>
+      <div class="nav__actions">
+        <button class="theme-toggle" aria-label="Toggle theme">☀️</button>
+        <div class="nav__burger"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+    <div class="nav__progress"></div>
+    <div class="nav__mobile-menu">
+      <a href="./" class="nav__link">Home</a><a href="about.html" class="nav__link">About</a>
+      <a href="projects.html" class="nav__link">Projects</a><a href="pcb.html" class="nav__link">PCB</a>
+      <a href="experience.html" class="nav__link">Experience</a>
+      <a href="skills.html" class="nav__link">Skills</a><a href="seminars.html" class="nav__link">Seminars</a>
+      <a href="contact.html" class="nav__link">Contact</a>
+    </div>
+  </nav>
+
+  <div class="page-wrapper" style="padding-bottom: 0;">
+
+    <!-- 3D Exhibition Hall -->
+    <section class="pcb-hall">
+      <div id="pcb-hall-container"></div>
+
+      <!-- Title overlay -->
+      <div class="pcb-hall__title">
+        <p class="section-label">PCB Exhibition</p>
+        <h1 class="pcb-hall__heading">PCB <span class="text-gradient">전시관</span></h1>
+        <p class="pcb-hall__subheading">직접 설계하고 납땜한 PCB를 3D로 감상해 보세요.</p>
+      </div>
+
+      <!-- Exhibit info panel -->
+      <div class="pcb-exhibit-info" id="pcb-exhibit-info"></div>
+
+      <!-- Pedestal navigation: side arrows + bottom-center dots -->
+      <button class="pcb-hall__arrow pcb-hall__arrow--prev" id="pcb-hall-prev" aria-label="이전 전시">‹</button>
+      <button class="pcb-hall__arrow pcb-hall__arrow--next" id="pcb-hall-next" aria-label="다음 전시">›</button>
+      <div class="pcb-hall__nav">
+        <div class="pcb-hall__dots" id="pcb-hall-dots"></div>
+      </div>
+
+      <!-- Overview + control hint -->
+      <button class="pcb-hall__overview" id="pcb-hall-overview">🏛️ 전체 보기</button>
+      <div class="pcb-hall__hint">
+        Move: <span class="key">Scroll / ← →</span><span class="sep">|</span>Rotate: <span class="key">Drag</span><span class="sep">|</span>Zoom: <span class="key">Shift+Scroll</span>
+      </div>
+
+      <!-- Loading + intro curtain -->
+      <div class="pcb-hall__loading" id="pcb-hall-loading">
+        <div class="pcb-hall__spinner"></div>
+        <p>ENTERING EXHIBITION HALL...</p>
+      </div>
+      <div class="pcb-hall__curtain" id="pcb-hall-curtain"></div>
+    </section>
+
+    <!-- Below the hall -->
+    <section class="section pcb-below">
+      <div class="container">
+        <p class="section-label" data-animate="fade-up">About This Hall</p>
+        <h2 class="section-title" data-animate="fade-up">전시관 소개</h2>
+        <p class="section-desc" data-animate="fade-up">
+          KiCad로 Schematic부터 Artwork까지 직접 설계하고, 손으로 납땜해 완성한 PCB들을 전시하는 공간입니다.
+          새로운 보드가 완성될 때마다 좌대가 하나씩 채워집니다.
+        </p>
+      </div>
+    </section>
+
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <button class="back-to-top" aria-label="Back to top">↑</button>
+
+  <!-- Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/navigation.js"></script>
+  <script src="assets/js/animations.js"></script>
+  <script src="assets/js/artistic.js"></script>
+  <!-- Three.js + helpers for the 3D hall -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/objects/Reflector.js"></script>
+  <script src="assets/js/pcb-gallery.js"></script>
+</body>
+
+</html>

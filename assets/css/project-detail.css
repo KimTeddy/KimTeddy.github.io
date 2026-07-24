@@ -751,10 +751,12 @@ body.light-mode .pcb-showcase__desc {
   }
 }
 
+/* 좌측 상단 — 우측 상단은 GitHub 배지, 하단 중앙은 제목/설명/태그가 차지합니다.
+   (기존 우측 하단 위치는 창 폭 ~769~1100px에서 태그 배지와 겹쳤습니다) */
 .pcb-showcase__hint {
   position: absolute;
-  bottom: var(--space-6);
-  right: var(--space-6);
+  top: var(--space-6);
+  left: var(--space-6);
   padding: var(--space-2) var(--space-4);
   background: rgba(10, 10, 15, 0.6);
   backdrop-filter: blur(10px);
@@ -813,6 +815,20 @@ body.light-mode .pcb-showcase__desc {
   transform: translateY(-2px);
 }
 
+/* 터치 기기 힌트 배치 — 화면 너비가 아니라 pcb3d.js의 기능 감지가 붙이는
+   .pcb-showcase__hint--touch 클래스로 제어합니다(태블릿 등 넓은 터치 화면 포함).
+   우측 상단 GitHub 배지와 나란히 두면 겹치므로 배지 아래로 한 줄 내립니다. */
+.pcb-showcase__hint--touch {
+  top: 72px;
+  left: var(--space-4);
+  right: auto;
+  max-width: calc(100% - var(--space-8));
+  font-size: 10px;
+  line-height: 1.6;
+  white-space: normal;
+  border-radius: var(--radius-lg);
+}
+
 @media(max-width:768px) {
   .pcb-showcase__3d-wrap {
     height: 45vh;
@@ -821,11 +837,5 @@ body.light-mode .pcb-showcase__desc {
 
   .pcb-showcase__title {
     font-size: var(--text-xl);
-  }
-
-  .pcb-showcase__hint {
-    bottom: var(--space-4);
-    right: var(--space-4);
-    font-size: 10px;
   }
 }

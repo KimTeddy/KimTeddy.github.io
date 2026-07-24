@@ -5,7 +5,18 @@
   if (!container || typeof THREE === 'undefined') return;
 
   // ── Mobile detection (module-level, reused throughout) ──
-  const isMobile = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  // 실제 모바일 여부 — "화질"이 아니라 아래 두 가지에만 사용합니다.
+  //   1) 모델 파일 선택: 경량 GLB 3.7MB vs 원본 14MB (셀룰러 데이터/첫 로딩 시간)
+  //   2) 리빌 오버레이에서 트러스·무대조명 구조물 제외 (좁은 화면에서 PCB를 가림)
+  const isMobileDevice = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  // 모바일 "화질" 저하 기능 비활성화 — 모바일에서도 PC와 동일한 품질로 렌더링합니다.
+  // false로 고정하면 아래 항목이 전부 PC 설정으로 통일됩니다:
+  //   안티에일리어싱 / 그림자 품질(PCFSoft·1024맵) / 폴리곤 분할 수 /
+  //   리빌 캔버스의 backdrop blur·셰이더 사전컴파일
+  // 원래대로(모바일 저화질) 되돌리려면 아래 두 줄의 주석을 서로 바꾸세요.
+  // const isMobile = isMobileDevice;
+  const isMobile = false;
 
   const fallbackImg = document.getElementById('pcb-fallback-img');
   const loadingEl = document.getElementById('pcb-loading');
@@ -34,6 +45,18 @@
   let revealRunning = false;
   let revealStartTime = 0;
   let skipBtn = null;
+
+  // ── Intro camera flight (curved zoom-in once the reveal overlay is gone) ──
+  // 구면 좌표(반경·고도·방위)를 함께 보간해서 직선이 아닌 호를 그리며 들어옵니다.
+  // 위에서 내려오지 않고, 옆에서 약간 멀리 떨어진 자리에서 수평으로 돌아 들어옵니다.
+  const INTRO_CAM_DURATION = 2600; // ms
+  const INTRO_CAM_START_DIST = 1.8;  // 시작 거리 배율 (home 대비) — 약간 멀리
+  const INTRO_CAM_START_LIFT = 0.0;  // 시작 고도 오프셋 (rad) — 0 = home과 같은 눈높이
+  const INTRO_CAM_START_SWING = 1.2; // 시작 방위 오프셋 (rad, ~69°) — 양수: 오른쪽에서 돌아 들어옴 (음수면 왼쪽)
+  let introCamRunning = false;
+  let introCamStartTime = 0;
+  const introFrom = new THREE.Spherical();
+  const introTo = new THREE.Spherical();
 
   // Reveal scene: separate scene + camera for the fullscreen intro
   let revealScene, revealCamera, revealModel;
@@ -120,7 +143,9 @@
     revealCamera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.01, 100);
     // Mobile: lightweight reveal lighting (PCB model only, no truss/stage lights)
     // PC: full lighting with truss and stage structures
-    if (isMobile) {
+    // 화질(isMobile)이 아니라 기기(isMobileDevice) 기준 — 좁은 화면에서 트러스·무대조명이
+    // 오버레이를 가려서, 모바일에서는 PCB만 보이도록 구조물을 뺍니다.
+    if (isMobileDevice) {
       addRevealLightingMobile(revealScene);
     } else {
       addLighting(revealScene);
@@ -147,16 +172,46 @@
     }, { threshold: 0.1 });
     observer.observe(container);
 
-    // Control hint
+    // Control hint — 터치 기기에서는 마우스 안내 대신 손가락 제스처 안내로 교체
+    // (about 페이지 Home IoT 섹션과 동일한 방식)
     const controlHint = document.getElementById('pcb-control-hint');
     if (controlHint) {
-      container.addEventListener('mouseenter', () => {
+      // 터치 지원 여부는 화면 너비가 아니라 기능 감지(코드)로 판단합니다.
+      // maxTouchPoints = 터치 포인트 개수, any-pointer:coarse = 손가락 등 거친 포인터 존재,
+      // ontouchstart = 구형 브라우저 폴백. 셋 중 하나라도 참이면 터치 기기로 봅니다.
+      const isTouchDevice =
+        (navigator.maxTouchPoints || navigator.msMaxTouchPoints || 0) > 0 ||
+        window.matchMedia('(any-pointer: coarse)').matches ||
+        'ontouchstart' in window;
+      if (isTouchDevice) {
+        controlHint.classList.add('pcb-showcase__hint--touch');
+        controlHint.innerHTML =
+          'Rotate: <span class="key">1-Finger</span><span class="sep">|</span>' +
+          'Pan: <span class="key">2-Fingers</span><span class="sep">|</span>' +
+          'Zoom: <span class="key">Pinch</span>';
+      }
+
+      const showHint = () => {
         controlHint.style.opacity = '1';
         controlHint.style.transform = 'translateY(0)';
-      });
-      container.addEventListener('mouseleave', () => {
+      };
+      const hideHint = () => {
         controlHint.style.opacity = '0.5';
-      });
+      };
+
+      container.addEventListener('mouseenter', showHint);
+      container.addEventListener('mouseleave', hideHint);
+
+      // 터치 기기엔 hover가 없으므로, 섹션이 화면에 들어오면 한 번 띄웁니다
+      if (isTouchDevice) {
+        const hintObserver = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting) {
+            showHint();
+            hintObserver.disconnect();
+          }
+        }, { threshold: 0.25 });
+        hintObserver.observe(container);
+      }
     }
   }
 
@@ -480,14 +535,15 @@
     const loader = new THREE.GLTFLoader();
 
     // Mobile: use DRACOLoader for compressed mobile model
-    if (isMobile && typeof THREE.DRACOLoader !== 'undefined') {
+    if (isMobileDevice && typeof THREE.DRACOLoader !== 'undefined') {
       const dracoLoader = new THREE.DRACOLoader();
       dracoLoader.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/draco/');
       loader.setDRACOLoader(dracoLoader);
     }
 
     // Mobile: use lightweight mobile GLB, PC: use full-quality GLB
-    const defaultModel = isMobile ? 'assets/models/armi-pcb-mobile.glb' : 'assets/models/armi-pcb.glb';
+    // (렌더링 품질은 PC와 동일하고, 데이터 절약을 위해 모델 파일만 경량으로 씁니다)
+    const defaultModel = isMobileDevice ? 'assets/models/armi-pcb-mobile.glb' : 'assets/models/armi-pcb.glb';
     const modelSrc = container.getAttribute('data-model-src') || defaultModel;
 
     // Progress callback
@@ -509,7 +565,7 @@
     // Try loading the model. If mobile GLB fails (e.g., not yet generated), fall back to original.
     function doLoad(src) {
       loader.load(src, onSuccess, onProgress, (error) => {
-        if (isMobile && src.includes('-mobile.glb')) {
+        if (isMobileDevice && src.includes('-mobile.glb')) {
           console.warn('[PCB3D] Mobile GLB not found, falling back to full-quality GLB');
           const fallbackSrc = src.replace('-mobile.glb', '.glb');
           doLoad(fallbackSrc);
@@ -1316,7 +1372,52 @@
 
     revealComplete = true;
     isInView = true;
+    startIntroFlight();
     animate();
+  }
+
+  // ── Curved zoom-in: sweep in from above/side and settle at the home view ──
+  function startIntroFlight() {
+    // 목적지 = home 뷰 (타겟 기준 상대 위치를 구면 좌표로)
+    introTo.setFromVector3(homeCameraPos.clone().sub(controls.target));
+    // 출발점 = 더 멀리·더 높이·옆으로 돌아간 자리
+    introFrom.radius = Math.min(introTo.radius * INTRO_CAM_START_DIST, controls.maxDistance);
+    introFrom.phi = Math.max(0.12, introTo.phi - INTRO_CAM_START_LIFT);
+    introFrom.theta = introTo.theta + INTRO_CAM_START_SWING;
+
+    camera.position.setFromSpherical(introFrom).add(controls.target);
+    camera.lookAt(controls.target);
+
+    introCamStartTime = performance.now();
+    introCamRunning = true;
+    controls.enabled = false; // 비행 중에는 조작 잠금 (끝나면 해제)
+
+    // 사용자가 만지면 즉시 중단하고 조작권을 넘김
+    renderer.domElement.addEventListener('pointerdown', endIntroFlight, { once: true });
+    renderer.domElement.addEventListener('wheel', endIntroFlight, { once: true, passive: true });
+  }
+
+  function endIntroFlight() {
+    if (!introCamRunning) return;
+    introCamRunning = false;
+    controls.enabled = true;
+    controls.update();
+  }
+
+  // animate()에서 매 프레임 호출 — controls.update() 뒤에 적용해야 덮어쓰기가 안 됨
+  function updateIntroFlight() {
+    if (!introCamRunning) return;
+    const k = Math.min((performance.now() - introCamStartTime) / INTRO_CAM_DURATION, 1);
+    const e = easeInOutCubic(k);
+    const s = new THREE.Spherical(
+      introFrom.radius + (introTo.radius - introFrom.radius) * e,
+      introFrom.phi + (introTo.phi - introFrom.phi) * e,
+      introFrom.theta + (introTo.theta - introFrom.theta) * e
+    );
+    s.makeSafe();
+    camera.position.setFromSpherical(s).add(controls.target);
+    camera.lookAt(controls.target);
+    if (k >= 1) endIntroFlight();
   }
 
   // ─────────────────────────────────────────────
@@ -1355,6 +1456,7 @@
     }
     animationId = requestAnimationFrame(animate);
     controls.update();
+    updateIntroFlight(); // 컨트롤이 계산한 위치를 인트로 비행 경로로 덮어씀
 
     if (pcbModel) {
       if (lightIntroStartTime === null) {

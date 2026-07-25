@@ -336,11 +336,15 @@
   // ─────────────────────────────────────────────────────────────
   // Pedestals + exhibits
   // ─────────────────────────────────────────────────────────────
-  // Slot i → arc angle: entry 0 center, then alternating right/left.
-  function slotAngle(i) {
+  // Slot i → arc angle: entry 0 center, then sequentially left to right
+  function slotAngle(i, totalCount) {
     if (i === 0) return 0;
-    const k = Math.ceil(i / 2);
-    return (i % 2 === 1 ? 1 : -1) * k * ARC_STEP;
+    const leftCount = Math.ceil((totalCount - 1) / 2);
+    if (i <= leftCount) {
+      return -(leftCount - i + 1) * ARC_STEP;
+    } else {
+      return (i - leftCount) * ARC_STEP;
+    }
   }
 
   function buildPedestals(entries) {
@@ -349,7 +353,7 @@
     const seg = isMobile ? 32 : 48;
 
     entries.forEach(function (entry, i) {
-      const angle = slotAngle(i);
+      const angle = slotAngle(i, entries.length);
       const px = Math.sin(angle) * ARC_RADIUS;
       const pz = (Math.cos(angle) - 1) * ARC_RADIUS;
       const pos = new THREE.Vector3(px, 0, pz);

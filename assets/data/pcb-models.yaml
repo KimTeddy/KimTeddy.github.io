@@ -43,7 +43,7 @@ models:
     model_mobile: "assets/models/armi-pcb-mobile.glb"
     scale: 1.0
     enhance: "armi"
-    tags: ["KiCad", "STM32", "Cube.AI", "Hand Soldering", "2-Layer"]
+    tags: ["KiCad", "STM32", "Cube.AI", "Hand Soldering", "4-Layer"]
     links:
       page: "projects/armi.html"
       github: "https://github.com/KimTeddy/2024_A.RM.I_Public"
@@ -54,53 +54,77 @@ models:
     subtitle: "후지 마비 동물을 위한 웨어러블 로봇 — 라즈베리파이 쉴드 PCB"
     year: "2023"
     description: "동아리 웨어러블 로봇 프로젝트 JokBal2의 라즈베리파이 쉴드 PCB. 직접 설계하고 납땜했습니다."
-    tags: ["KiCad", "Raspberry Pi", "Shield", "Hand Soldering"]
+    tags: ["KiCad", "Raspberry Pi", "Shield", "Hand Soldering", "2-Layer"]
     links:
       page: "projects/jokbal.html"
     placeholder: true
 
-  - id: "iot-led-v4"
-    title: "IoT LED Control PCB Ver.4"
-    subtitle: "ESP-01 + NMOS 기반 5~12V LED 조명 제어 보드"
-    year: "2021~"
-    description: "Home IoT 조명 제어를 위해 설계한 시리즈의 최신 버전."
+  - id: "2Lights_v1"
+    title: "2Lights_v1"
+    subtitle: "IoT LED Control PCB Ver.1"
+    description: "ESP-01 + NMOS 기반 5~12V 듀얼 LED 스트립 조명 제어 보드"
+    year: "2022.01"
+    tags: ["KiCad", "ESP-01", "NMOS", "IoT", "2-Layer"]
+    links:
+      blog: "https://blog.naver.com/teddy_02/223019334551"
+    placeholder: true
+
+  - id: "2Lights_v2"
+    title: "2Lights_v2"
+    subtitle: "IoT LED Control PCB Ver.2"
+    description: "ESP-01 + NMOS 기반 5~12V 듀얼 LED 스트립 조명 제어 보드"
+    year: "2022.12"
+    tags: ["KiCad", "ESP-01", "NMOS", "IoT", "2-Layer"]
+    links:
+      blog: "https://blog.naver.com/teddy_02/223019402838"
+    placeholder: true
+
+  - id: "ESP-01_Neopixel_v1"
+    title: "ESP-01_Neopixel_v1"
+    subtitle: "Neopixel Controller PCB Ver.1"
+    description: "ESP-01 + WS2812B Neopixel 기반 RGB LED 조명 제어 보드"
+    year: "2023"
+    tags: ["KiCad", "ESP-01", "WS2812B", "Neopixel", "IoT", "2-Layer"]
+    links:
+      blog: "https://blog.naver.com/teddy_02/223019402838"
+    placeholder: true
+
+  - id: "2Lights_v3"
+    title: "2Lights_v3"
+    subtitle: "IoT LED Control PCB Ver.3"
+    description: "ESP-01 + NMOS 기반 5~12V 듀얼 LED 스트립 조명 제어 보드"
+    year: "2023"
     tags: ["KiCad", "ESP-01", "NMOS", "IoT"]
     links:
       blog: "https://blog.naver.com/teddy_02/223019402838"
     placeholder: true
 
-  - id: "iot-led-v3"
-    title: "IoT LED Control PCB Ver.3"
-    subtitle: "ESP-01 + NMOS 기반 5~12V LED 조명 제어 보드"
-    year: "2021~"
-    tags: ["KiCad", "ESP-01", "NMOS", "IoT"]
+  - id: "2Lights_v4"
+    title: "2Lights_v4"
+    subtitle: "IoT LED Control PCB Ver.4"
+    description: "ESP8266 IC + NMOS 기반 5~12V 듀얼 LED 스트립 조명 제어 보드"
+    year: "2024.01"
+    tags: ["KiCad", "ESP8266", "NMOS", "IoT", "2-Layer"]
     links:
-      blog: "https://blog.naver.com/teddy_02/223019402838"
+      blog: "https://blog.naver.com/teddy_02/223634213100"
     placeholder: true
 
-  - id: "iot-led-v2"
-    title: "IoT LED Control PCB Ver.2"
-    subtitle: "ESP-01 + NMOS 기반 5~12V LED 조명 제어 보드"
-    year: "2021~"
-    tags: ["KiCad", "ESP-01", "NMOS", "IoT"]
+  - id: "2Lights_v5.0"
+    title: "2Lights_v5.0"
+    subtitle: "IoT LED Control PCB Ver.5.0"
+    description: "ESP-01 + 듀얼채널 NMOS 기반 5~24V 듀얼 LED 스트립 조명 제어 보드"
+    year: "2026.02"
+    tags: ["KiCad", "ESP-01", "NMOS", "IoT", "2-Layer"]
     links:
-      blog: "https://blog.naver.com/teddy_02/223019402838"
+      blog: "https://blog.naver.com/teddy_02/224186502346"
     placeholder: true
 
-  - id: "iot-led-v1"
-    title: "IoT LED Control PCB Ver.1"
-    subtitle: "ESP-01 + NMOS 기반 5~12V LED 조명 제어 보드"
-    year: "2021"
-    tags: ["KiCad", "ESP-01", "NMOS", "IoT"]
+  - id: "2Lights_v5.1"
+    title: "2Lights_v5.1"
+    subtitle: "IoT LED Control PCB Ver.5.1"
+    description: "ESP32-C3-supermini + 듀얼채널 NMOS 기반 5~24V 듀얼 LED 스트립 조명 제어 보드<br>Home IoT 조명 제어를 위해 설계한 시리즈의 최신 버전."
+    year: "2026.07"
+    tags: ["KiCad", "ESP32-C3-supermini", "NMOS", "IoT", "4-Layer"]
     links:
       blog: "https://blog.naver.com/teddy_02/223019402838"
-    placeholder: true
-
-  - id: "jokbal1-main"
-    title: "JokBal1 Main Board"
-    subtitle: "강아지 의족 Ver.1 — 메인 기판"
-    year: "2022"
-    tags: ["Circuit Design", "Hand Soldering"]
-    links:
-      page: "projects/jokbal.html"
     placeholder: true

@@ -12,6 +12,7 @@
 #   model: "GLB 경로"              # 데스크톱용 GLB 모델 경로 (placeholder가 아니면 필수)
 #   model_mobile: "GLB 경로"       # 모바일용 경량 GLB (선택, 없으면 model 사용)
 #   scale: 1.0                     # 모델 크기 배율 (선택, 기본 1.0)
+#   enhance: "armi"                 # 공유 향상 모듈 ID (선택, 'armi' = LED 애니메이션·재질·비아 분리)
 #   tags: ["태그", ...]            # 태그 목록 (선택)
 #   links:                         # 관련 링크 (선택)
 #     page: "상세 페이지 경로"      # 사이트 내 상세 페이지
@@ -41,6 +42,7 @@ models:
     model: "assets/models/armi-pcb.glb"
     model_mobile: "assets/models/armi-pcb-mobile.glb"
     scale: 1.0
+    enhance: "armi"
     tags: ["KiCad", "STM32", "Cube.AI", "Hand Soldering", "2-Layer"]
     links:
       page: "projects/armi.html"

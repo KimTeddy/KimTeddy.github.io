@@ -88,6 +88,8 @@
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
     renderer.outputEncoding = THREE.sRGBEncoding;
+    // Enable dithering to fix 8-bit banding/stepping artifacts on smooth subtle light breathing
+    renderer.dithering = true;
     renderer.shadowMap.enabled = !isMobile;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     container.appendChild(renderer.domElement);
@@ -107,7 +109,6 @@
 
     // Wheel steps between exhibits (Shift+wheel zooms); touch swipes navigate on mobile
     initWheelNav();
-    initTouchNav();
 
     // Idle → slow majestic auto-orbit
     controls.addEventListener('start', function () {
@@ -189,8 +190,8 @@
     }
     scene.add(rig.spot);
 
-    // Soft mint rim light behind the focused exhibit
-    rig.rim = new THREE.PointLight(ACCENT, 0.55, 5);
+    // Soft white rim light behind the focused exhibit
+    rig.rim = new THREE.PointLight(0xffffff, 0.55, 5);
     scene.add(rig.rim);
 
     // Two dim spots for the immediate neighbors (no shadows)
@@ -379,7 +380,7 @@
       // Glowing accent ring on the pedestal top
       const ringMat = new THREE.MeshBasicMaterial({
         color: ACCENT, transparent: true, opacity: 0.35,
-        blending: THREE.AdditiveBlending, depthWrite: false
+        blending: THREE.AdditiveBlending, depthWrite: false, dithering: true
       });
       const ring = new THREE.Mesh(new THREE.TorusGeometry(0.56, 0.018, 8, 64), ringMat);
       ring.rotation.x = Math.PI / 2;
@@ -391,7 +392,7 @@
       [{ rTop: 0.16, rBot: 1.35, o: 0.045 }, { rTop: 0.10, rBot: 0.85, o: 0.07 }].forEach(function (b) {
         const beamMat = new THREE.MeshBasicMaterial({
           color: 0xbfffe8, transparent: true, opacity: b.o,
-          blending: THREE.AdditiveBlending, side: THREE.DoubleSide, depthWrite: false
+          blending: THREE.AdditiveBlending, side: THREE.DoubleSide, depthWrite: false, dithering: true
         });
         const beam = new THREE.Mesh(
           new THREE.CylinderGeometry(b.rTop, b.rBot, 4.7, isMobile ? 16 : 24, 1, true), beamMat
@@ -486,6 +487,7 @@
       }
     });
     ped.modelGroup = null;
+    ped.armiState = null;
     addHologram(ped); // fall back to hologram until re-focused
   }
 
@@ -559,8 +561,15 @@
         }
       });
 
+      // Apply ARMI PCB enhancements (LED animation, material tweaks, via split)
+      if (ped.entry.enhance === 'armi' && typeof ArmiPcbEnhance !== 'undefined') {
+        ped.armiState = ArmiPcbEnhance.process(modelGroup, { castShadow: !isMobile, receiveShadow: !isMobile });
+      }
+
       // Display tilted like a framed artwork, floating above the pedestal
-      modelGroup.rotation.x = Math.PI / 5;
+      // Set order to YXZ so Y-rotation spins it like a turntable rather than a local axis
+      modelGroup.rotation.order = 'YXZ';
+      modelGroup.rotation.x = Math.PI / 3;
       modelGroup.position.y = MODEL_Y;
       modelGroup.scale.setScalar(0.001);       // grow-in entrance
       modelGroup.userData.grow = 0;
@@ -576,22 +585,49 @@
   // ─────────────────────────────────────────────────────────────
   // Floating dust motes in the light
   // ─────────────────────────────────────────────────────────────
+  function createTextTexture(text) {
+    const canvas = document.createElement('canvas');
+    canvas.width = 128;
+    canvas.height = 128;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, 128, 128);
+    ctx.font = '900 96px Arial, "Arial Black", sans-serif'; // 아주 굵은 글씨체
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(text, 64, 64);
+    
+    const texture = new THREE.CanvasTexture(canvas);
+    return texture;
+  }
+
   function buildDust() {
-    const count = isMobile ? 90 : Math.min(320, 140 + pedestals.length * 20);
+    const totalCount = isMobile ? 90 : Math.min(320, 140 + pedestals.length * 20);
     const spreadX = HALL_R * 1.6, spreadZ = HALL_R;
-    const pos = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * spreadX;
-      pos[i * 3 + 1] = Math.random() * 6;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * spreadZ - 1;
-      dustVels.push(0.0015 + Math.random() * 0.003);
-    }
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-    dust = new THREE.Points(geo, new THREE.PointsMaterial({
-      color: 0xcffff0, size: 0.028, transparent: true, opacity: 0.4,
-      blending: THREE.AdditiveBlending, depthWrite: false
-    }));
+    
+    const letters = ['P', 'C', 'B'];
+    dust = new THREE.Group();
+    
+    letters.forEach(function (letter) {
+      const count = Math.floor(totalCount / 3);
+      const pos = new Float32Array(count * 3);
+      for (let i = 0; i < count; i++) {
+        pos[i * 3] = (Math.random() - 0.5) * spreadX;
+        pos[i * 3 + 1] = Math.random() * 6;
+        pos[i * 3 + 2] = (Math.random() - 0.5) * spreadZ - 1;
+        dustVels.push(0.0015 + Math.random() * 0.003);
+      }
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+      
+      const mat = new THREE.PointsMaterial({
+        color: 0xcffff0, size: 0.1, transparent: true, opacity: 0.5,
+        blending: THREE.AdditiveBlending, depthWrite: false,
+        map: createTextTexture(letter)
+      });
+      dust.add(new THREE.Points(geo, mat));
+    });
+    
     scene.add(dust);
   }
 
@@ -731,65 +767,6 @@
     }, { capture: true, passive: false });
   }
 
-  // Mobile: vertical swipe = prev/next exhibit, horizontal drag = rotate,
-  // pinch = zoom. Swiping up past the LAST exhibit smooth-scrolls to the
-  // content below; on a scrolled page, swiping down returns to the hall.
-  function initTouchNav() {
-    if (!isMobile) return;
-    const el = renderer.domElement;
-    el.style.touchAction = 'none';               // we own all gestures on the canvas
-    let sx = 0, sy = 0, axis = null, navged = false;
-
-    el.addEventListener('touchstart', function (e) {
-      if (e.touches.length !== 1) { axis = 'multi'; return; } // pinch → OrbitControls
-      sx = e.touches[0].clientX; sy = e.touches[0].clientY;
-      axis = null; navged = false;
-    }, { capture: true, passive: true });
-
-    el.addEventListener('touchmove', function (e) {
-      if (axis === 'multi' || e.touches.length !== 1) return;
-      const dx = e.touches[0].clientX - sx, dy = e.touches[0].clientY - sy;
-      if (!axis) {
-        if (Math.abs(dx) < 12 && Math.abs(dy) < 12) return;
-        axis = Math.abs(dx) > Math.abs(dy) ? 'h' : 'v';
-        if (axis === 'v') controls.enabled = false; // cancel the rotate that already began
-      }
-      if (axis === 'h') return;                     // horizontal → rotate (OrbitControls)
-
-      e.stopImmediatePropagation();
-      e.preventDefault();
-      if (navged || camTween) return;
-
-      const rect = container.getBoundingClientRect();
-      const swipeUp = dy < 0;                       // swipe up = go to the next exhibit
-
-      if (rect.top < -12) {                         // page is scrolled below the hall
-        if (Math.abs(dy) < 60) return;
-        navged = true;
-        if (!swipeUp) window.scrollTo({ top: 0, behavior: 'smooth' }); // return to hall
-        return;
-      }
-
-      if (Math.abs(dy) < 60) return;
-      navged = true;
-      if (currentIndex < 0) { goTo(centerIndex); return; }
-      if (swipeUp) {
-        if (currentIndex === pedestals.length - 1) {
-          const below = document.querySelector('.pcb-below'); // end of tour → content below
-          if (below) below.scrollIntoView({ behavior: 'smooth' });
-        } else {
-          goTo(currentIndex + 1);
-        }
-      } else if (currentIndex > 0) {
-        goTo(currentIndex - 1);
-      }
-    }, { capture: true, passive: false });
-
-    el.addEventListener('touchend', function () {
-      if (axis === 'v' && !camTween) controls.enabled = true;
-      axis = null;
-    }, { capture: true, passive: true });
-  }
 
   // ─────────────────────────────────────────────────────────────
   // Click a pedestal to walk to it
@@ -812,11 +789,18 @@
       const groups = pedestals.map(function (p) { return p.group; });
       const hits = raycaster.intersectObjects(groups, true);
       if (!hits.length) return;
-      let obj = hits[0].object;
-      while (obj) {
-        const idx = groups.indexOf(obj);
-        if (idx !== -1) { if (idx !== currentIndex) goTo(idx); return; }
-        obj = obj.parent;
+      // Walk through ALL hits (not just [0]) — skip the currently focused
+      // pedestal so its model/beams don't block clicks on exhibits behind it.
+      for (let h = 0; h < hits.length; h++) {
+        var obj = hits[h].object;
+        while (obj) {
+          var idx = groups.indexOf(obj);
+          if (idx !== -1) {
+            if (idx !== currentIndex) { goTo(idx); return; }
+            break; // this hit belongs to the focused pedestal — skip to next hit
+          }
+          obj = obj.parent;
+        }
       }
     });
   }
@@ -852,8 +836,8 @@
       }
     }
 
-    // Rig breathing
-    if (rig) rig.spot.intensity = 1.9 + Math.sin(t * 3.1) * 0.08;
+    // Rig breathing - slowed down for smooth transition without stepped flickering
+    if (rig) rig.spot.intensity = 1.9 + Math.sin(t * 1.0) * 0.15;
 
     // Exhibits: rotation, bobbing, grow-in; rings pulse; beams breathe
     pedestals.forEach(function (ped, i) {
@@ -868,6 +852,11 @@
         }
         mg.rotation.y += focused ? 0.006 : 0.002;
         mg.position.y = MODEL_Y + Math.sin(t * 0.8 + ped.phase) * 0.045;
+
+        // ARMI LED animation (shared module)
+        if (ped.armiState && typeof ArmiPcbEnhance !== 'undefined') {
+          ArmiPcbEnhance.animate(ped.armiState, t, t);
+        }
       }
 
       if (ped.holo) {
@@ -879,21 +868,33 @@
         ped.holo.children[0].material.opacity = pulse;
       }
 
-      ped.ringMat.opacity = (focused ? 0.55 : 0.28) + Math.sin(t * 2 + ped.phase) * 0.12;
+      if (ped.focusProgress === undefined) ped.focusProgress = focused ? 1 : 0;
+      ped.focusProgress += ((focused ? 1 : 0) - ped.focusProgress) * Math.min(dt * 4.0, 1.0);
+
+      const ringBase = 0.28 + (0.55 - 0.28) * ped.focusProgress;
+      // Slowed down frequency (t * 1.0 instead of 2.0) for a smoother breath
+      ped.ringMat.opacity = ringBase + Math.sin(t * 1.0 + ped.phase) * 0.08;
+
       ped.beamMats.forEach(function (m, bi) {
         const base = bi === 0 ? 0.045 : 0.07;
-        m.opacity = (focused ? base * 1.7 : base) + Math.sin(t * 1.7 + ped.phase + bi) * 0.01;
+        const currentBase = base + (base * 1.7 - base) * ped.focusProgress;
+        // Slowed down frequency (t * 1.0) and slightly increased amplitude (0.02) to overcome 8-bit alpha stepping
+        m.opacity = currentBase + Math.sin(t * 1.0 + ped.phase + bi) * 0.02;
       });
     });
 
     // Dust drifts upward
     if (dust) {
-      const arr = dust.geometry.attributes.position.array;
-      for (let i = 0; i < dustVels.length; i++) {
-        arr[i * 3 + 1] += dustVels[i];
-        if (arr[i * 3 + 1] > 6.2) arr[i * 3 + 1] = 0;
-      }
-      dust.geometry.attributes.position.needsUpdate = true;
+      let vIdx = 0;
+      dust.children.forEach(function (points) {
+        const arr = points.geometry.attributes.position.array;
+        const count = arr.length / 3;
+        for (let i = 0; i < count; i++) {
+          arr[i * 3 + 1] += dustVels[vIdx++];
+          if (arr[i * 3 + 1] > 6) arr[i * 3 + 1] = -1;
+        }
+        points.geometry.attributes.position.needsUpdate = true;
+      });
     }
 
     controls.update();

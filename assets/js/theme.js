@@ -33,13 +33,23 @@
 
     const toggle = e.target.closest('.theme-toggle');
     const rect = toggle.getBoundingClientRect();
-    const x = rect.left + rect.width / 2;
-    const y = rect.top + rect.height / 2;
+    // Use actual click/touch coordinates for accuracy on mobile;
+    // fall back to button center for keyboard activation (clientX/Y = 0)
+    const x = (e.clientX || e.clientY) ? e.clientX : rect.left + rect.width / 2;
+    const y = (e.clientX || e.clientY) ? e.clientY : rect.top + rect.height / 2;
     const endRadius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+
+    // Disable nav's own CSS transition to prevent double-animation flicker
+    const nav = document.querySelector('.nav');
+    if (nav) nav.style.transition = 'none';
 
     const transition = document.startViewTransition(() => {
       applyTheme(newTheme);
       localStorage.setItem(STORAGE_KEY, newTheme);
+    });
+
+    transition.finished.then(() => {
+      if (nav) nav.style.transition = '';
     });
 
     transition.ready.then(() => {

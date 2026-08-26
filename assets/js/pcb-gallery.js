@@ -598,7 +598,14 @@
       modelGroup.position.y = modelGroup.userData.baseY;
 
       modelGroup.scale.setScalar(0.001);       // grow-in entrance
-      modelGroup.userData.grow = 0;
+      
+      // Delay entrance sequentially from center during initial load
+      const pedIdx = pedestals.indexOf(ped);
+      const dist = Math.abs(pedIdx - centerIndex);
+      const isInitial = clock.getElapsedTime() < 5.0; // only on first load
+      const delaySec = isInitial ? (dist * 0.4) : 0;
+      modelGroup.userData.grow = -(delaySec * 1.4); // grow speed is 1.4/sec
+
       removeHologram(ped);
       ped.group.add(modelGroup);
       ped.modelGroup = modelGroup;

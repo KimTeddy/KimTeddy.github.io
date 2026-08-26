@@ -311,8 +311,50 @@
 }
 
 @media (max-width: 480px) {
+  /* Stick the title closer to the top to avoid overlapping the 3D model */
+  .pcb-hall__title {
+    top: calc(var(--nav-height) + 8px);
+  }
   .pcb-hall__heading { font-size: var(--text-3xl); }
+  .pcb-hall__title .section-label { margin-bottom: 0; }
+  .pcb-hall__subheading { margin-top: 4px; font-size: var(--text-sm); }
+  
   .pcb-exhibit-info__subtitle { display: none; }
+  
+  /* Make the info panel compact so it doesn't obscure the PCB */
+  .pcb-exhibit-info {
+    bottom: 76px; /* push lower */
+    padding: var(--space-4);
+  }
+  .pcb-exhibit-info__year {
+    margin-bottom: var(--space-1);
+  }
+  .pcb-exhibit-info__title {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-2);
+  }
+  /* Prevent tags from wrapping to multiple lines, allow horizontal scroll */
+  .pcb-exhibit-info__tags {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    margin-bottom: var(--space-3);
+  }
+  .pcb-exhibit-info__tags::-webkit-scrollbar {
+    display: none;
+  }
+  .pcb-exhibit-info__tags .badge {
+    flex-shrink: 0;
+  }
+  
+  /* Lower the bottom navigation and overview button */
+  .pcb-hall__nav { bottom: var(--space-4); }
+  .pcb-hall__overview {
+    bottom: var(--space-4);
+    right: var(--space-3);
+    padding: 6px 12px;
+  }
 }
 
 /* ── Short viewports (small laptops, landscape phones) ──

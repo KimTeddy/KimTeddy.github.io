@@ -37,7 +37,7 @@
   const ACCENT = 0x00e5a0;
   const CHORD = 3.4;               // distance between neighboring pedestals
   const MAX_SPREAD = Math.PI * 1.15; // pedestals never wrap further than ~207°
-  const MAX_LOADED = isMobile ? 3 : 6; // LRU cap for simultaneously loaded GLBs
+  const MAX_LOADED = isMobile ? 5 : 10; // LRU cap for simultaneously loaded GLBs
 
   // ── Hall layout (computed from exhibit count in init) ──
   let ARC_STEP = 0.85;
@@ -128,6 +128,14 @@
     pedestals.sort(function (a, b) { return a.angle - b.angle; });
     centerIndex = pedestals.findIndex(function (p) { return p.angle === 0; });
     if (centerIndex < 0) centerIndex = 0;
+
+    // Pre-load ALL non-placeholder models BEFORE the curtain opens
+    // so every exhibit is already fetching during the cinematic camera descent.
+    // With the current exhibit count this fits within MAX_LOADED comfortably.
+    if (pedestals.length) {
+      for (var pi = 0; pi < pedestals.length; pi++) ensureLoaded(pi);
+      retargetRig(centerIndex);
+    }
 
     buildDust();
     buildUI();
@@ -543,12 +551,15 @@
       const obj = gltf.scene;
       const modelGroup = new THREE.Group();
 
-      // Normalize size and center on origin
+      // Scale to preserve real-world relative sizes across all PCBs.
+      // pcb2blender exports use consistent Blender units, so a fixed
+      // reference scale keeps proportions correct: the largest board
+      // (armi, ~0.10 units) fills MODEL_SIZE; smaller boards stay smaller.
+      const REFERENCE_DIM = 0.10; // largest model's max dimension (Blender units)
       const box = new THREE.Box3().setFromObject(obj);
       const size = box.getSize(new THREE.Vector3());
       const center = box.getCenter(new THREE.Vector3());
-      const maxDim = Math.max(size.x, size.y, size.z) || 1;
-      const s = (MODEL_SIZE * (ped.entry.scale || 1)) / maxDim;
+      const s = (MODEL_SIZE * (ped.entry.scale || 1)) / REFERENCE_DIM;
       obj.scale.setScalar(s);
       obj.position.sub(center.multiplyScalar(s));
       modelGroup.add(obj);
@@ -574,7 +585,18 @@
       // Set order to YXZ so Y-rotation spins it like a turntable rather than a local axis
       modelGroup.rotation.order = 'YXZ';
       modelGroup.rotation.x = Math.PI / 3;
-      modelGroup.position.y = MODEL_Y;
+
+      // Align by bottom edge so every PCB has the same gap above the
+      // pedestal, regardless of model size.
+      // Temporarily place at full scale to measure the rotated bounding box.
+      modelGroup.position.y = 0;
+      modelGroup.scale.setScalar(1);
+      modelGroup.updateMatrixWorld(true);
+      var rotatedBox = new THREE.Box3().setFromObject(modelGroup);
+      var FLOAT_BOTTOM = PEDESTAL_TOP_Y + 0.25; // consistent gap above pedestal
+      modelGroup.userData.baseY = FLOAT_BOTTOM - rotatedBox.min.y;
+      modelGroup.position.y = modelGroup.userData.baseY;
+
       modelGroup.scale.setScalar(0.001);       // grow-in entrance
       modelGroup.userData.grow = 0;
       removeHologram(ped);
@@ -855,7 +877,7 @@
           mg.scale.setScalar(Math.max(g, 0.001));
         }
         mg.rotation.y += focused ? 0.006 : 0.002;
-        mg.position.y = MODEL_Y + Math.sin(t * 0.8 + ped.phase) * 0.045;
+        mg.position.y = (mg.userData.baseY || MODEL_Y) + Math.sin(t * 0.8 + ped.phase) * 0.045;
 
         // ARMI LED animation (shared module)
         if (ped.armiState && typeof ArmiPcbEnhance !== 'undefined') {

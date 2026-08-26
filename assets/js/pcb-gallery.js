@@ -671,9 +671,16 @@
     const ped = pedestals[i];
     const arcCenter = new THREE.Vector3(0, 0, -ARC_RADIUS);
     const dir = ped.pos.clone().sub(arcCenter).setY(0).normalize();
-    const pos = ped.pos.clone().add(dir.multiplyScalar(3.05));
-    pos.y = 2.3;
-    return { pos: pos, target: new THREE.Vector3(ped.pos.x, 1.95, ped.pos.z) };
+    
+    // On mobile, pull back slightly and lower the target so the model
+    // shifts higher up on the screen, clear of the bottom info panel.
+    const dist = isMobile ? 3.4 : 3.05;
+    const camY = isMobile ? 2.1 : 2.3;
+    const targetY = isMobile ? 1.35 : 1.95;
+    
+    const pos = ped.pos.clone().add(dir.multiplyScalar(dist));
+    pos.y = camY;
+    return { pos: pos, target: new THREE.Vector3(ped.pos.x, targetY, ped.pos.z) };
   }
 
   function overviewView() {

@@ -33,10 +33,9 @@
 
     const toggle = e.target.closest('.theme-toggle');
     const rect = toggle.getBoundingClientRect();
-    // Use actual click/touch coordinates for accuracy on mobile;
-    // fall back to button center for keyboard activation (clientX/Y = 0)
-    const x = (e.clientX || e.clientY) ? e.clientX : rect.left + rect.width / 2;
-    const y = (e.clientX || e.clientY) ? e.clientY : rect.top + rect.height / 2;
+    // Always use button center for consistent circle origin
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
     const endRadius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
 
     // Disable nav's own CSS transition to prevent double-animation flicker

@@ -1,10 +1,5 @@
-/* theme.js — Dark/Light mode toggle with localStorage persistence */
+/* theme.js — Dark/Light mode toggle (always starts in dark mode) */
 (function() {
-  const STORAGE_KEY = 'teddy-theme';
-
-  function getSystemTheme() {
-    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-  }
 
   function applyTheme(theme) {
     if (theme === 'light') {
@@ -27,7 +22,6 @@
     // Check if View Transitions API is supported
     if (!document.startViewTransition) {
       applyTheme(newTheme);
-      localStorage.setItem(STORAGE_KEY, newTheme);
       return;
     }
 
@@ -44,7 +38,6 @@
 
     const transition = document.startViewTransition(() => {
       applyTheme(newTheme);
-      localStorage.setItem(STORAGE_KEY, newTheme);
     });
 
     transition.finished.then(() => {
@@ -77,33 +70,18 @@
     });
   }
 
-  function getStoredTheme() {
-    return localStorage.getItem(STORAGE_KEY);
-  }
-
   function init() {
-    const stored = getStoredTheme();
-    const theme = stored || 'dark';
-    applyTheme(theme);
+    // Always start in dark mode — ignore localStorage and system preference
+    applyTheme('dark');
 
     document.addEventListener('click', function(e) {
       if (e.target.closest('.theme-toggle')) {
         toggleTheme(e);
       }
     });
-
-    // Listen for system theme changes
-    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
-      if (!getStoredTheme()) {
-        applyTheme(e.matches ? 'light' : 'dark');
-      }
-    });
   }
 
-  // Run immediately to prevent flash
-  if (getStoredTheme() === 'light') {
-    document.body.classList.add('light-mode');
-  }
+  // No early light-mode class — always dark on load
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);

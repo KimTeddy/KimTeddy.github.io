@@ -25,7 +25,10 @@
       return;
     }
 
-    const toggle = e.target.closest('.theme-toggle');
+    // Always query the button directly from DOM for reliable positioning
+    // (event delegation can cause e.target to be a child element with different rect)
+    const toggle = document.querySelector('.theme-toggle');
+    if (!toggle) return;
     const rect = toggle.getBoundingClientRect();
     // Always use button center for consistent circle origin
     const x = rect.left + rect.width / 2;

@@ -433,16 +433,16 @@ window.ArmiPcbEnhance = (function () {
     // ── Sequential Single LEDs (Red → Orange → Green → Blue) ──
     if (state.sequenceLedGroups && state.sequenceLedGroups.length > 0) {
       var singleColors = [0xff0000, 0xffa500, 0x00ff00, 0x1144ff];
-      var cycleTime = elapsed % 2.0;           // 2 s total (0.5 s per LED)
+      var cycleTime = elapsed % 4.0;           // 4 s total (1.0 s per LED)
       for (var k = 0; k < state.sequenceLedGroups.length; k++) {
         var group = state.sequenceLedGroups[k];
         var step = k % 4;
-        var turnOn  = step * 0.5;
-        var turnOff = turnOn + 0.5;
+        var turnOn  = step * 1.0;
+        var turnOff = turnOn + 1.0;
         var colorHex = 0x000000, intensity = 0.0;
 
         if (cycleTime >= turnOn && cycleTime < turnOff) {
-          var pulse = Math.sin(((cycleTime - turnOn) / 0.5) * Math.PI);
+          var pulse = Math.sin(((cycleTime - turnOn) / 1.0) * Math.PI);
           colorHex = singleColors[step];
           intensity = ((step === 3) ? 6.0 : 3.0) * pulse;
         }

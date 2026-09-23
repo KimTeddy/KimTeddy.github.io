@@ -890,7 +890,7 @@
           const g = 1 - Math.pow(1 - mg.userData.grow, 3);
           mg.scale.setScalar(Math.max(g, 0.001));
         }
-        mg.rotation.y += focused ? 0.006 : 0.002;
+        mg.rotation.y += (focused ? 0.36 : 0.12) * dt;
         mg.position.y = (mg.userData.baseY || MODEL_Y) + Math.sin(t * 0.8 + ped.phase) * 0.045;
 
         // ARMI LED animation (shared module)
@@ -900,9 +900,9 @@
       }
 
       if (ped.holo) {
-        ped.holo.rotation.y += 0.01;
-        ped.holo.children[1].rotation.y -= 0.024;
-        ped.holo.children[1].rotation.x += 0.01;
+        ped.holo.rotation.y += 0.6 * dt;
+        ped.holo.children[1].rotation.y -= 1.44 * dt;
+        ped.holo.children[1].rotation.x += 0.6 * dt;
         ped.holo.position.y = MODEL_Y + Math.sin(t * 1.1 + ped.phase) * 0.06;
         const pulse = 0.35 + Math.sin(t * 2 + ped.phase) * 0.2;
         ped.holo.children[0].material.opacity = pulse;
@@ -930,7 +930,7 @@
         const arr = points.geometry.attributes.position.array;
         const count = arr.length / 3;
         for (let i = 0; i < count; i++) {
-          arr[i * 3 + 1] += dustVels[vIdx++];
+          arr[i * 3 + 1] += dustVels[vIdx++] * dt * 60;
           if (arr[i * 3 + 1] > 6) arr[i * 3 + 1] = -1;
         }
         points.geometry.attributes.position.needsUpdate = true;

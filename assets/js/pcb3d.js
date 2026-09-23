@@ -49,7 +49,7 @@
   const INTRO_CAM_DURATION = 2600; // ms
   const INTRO_CAM_START_DIST = 1.8;  // 시작 거리 배율 (home 대비) — 약간 멀리
   const INTRO_CAM_START_LIFT = 0.0;  // 시작 고도 오프셋 (rad) — 0 = home과 같은 눈높이
-  const INTRO_CAM_START_SWING = 1.2; // 시작 방위 오프셋 (rad, ~69°) — 양수: 오른쪽에서 돌아 들어옴 (음수면 왼쪽)
+  const INTRO_CAM_START_SWING = -1.2; // 시작 방위 오프셋 (rad, ~69°) — 음수: 왼쪽에서 돌아 들어옴
   let introCamRunning = false;
   let introCamStartTime = 0;
   const introFrom = new THREE.Spherical();
@@ -387,7 +387,7 @@
       const beamMat = new THREE.MeshBasicMaterial({
         color: color,
         transparent: true,
-        opacity: isCorner ? 0.08 : 0.04, // slightly brighter for narrow beam
+        opacity: isCorner ? 0.08 : 0.06, // both corner and side beams visible
         blending: THREE.AdditiveBlending,
         depthWrite: false,
         side: THREE.DoubleSide
@@ -414,7 +414,7 @@
           panGroup: panGroup,
           head: headGroup, 
           beamMat: beamMat,
-          baseOpacity: isCorner ? 0.08 : 0.04,
+          baseOpacity: isCorner ? 0.08 : 0.06,
           baseX: tx,
           baseZ: tz,
           srcX: cfg.x,
@@ -608,8 +608,9 @@
 
       if (loadingEl) loadingEl.style.display = 'none';
 
-      // Check reduced motion
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // Check reduced motion OR armi project page (skip reveal on project detail page)
+      const isArmiPage = /projects\/armi\.html/i.test(window.location.pathname);
+      if (isArmiPage || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         renderer.domElement.style.opacity = '1';
         revealComplete = true;
         controls.enabled = true;
@@ -1014,9 +1015,11 @@
     renderer.setSize(container.clientWidth, container.clientHeight);
   }
 
+  var _pcb3dLastTime = 0;
   function animate() {
     if (!isInView || !revealComplete) {
       animationId = null;
+      _pcb3dLastTime = 0;
       return;
     }
     animationId = requestAnimationFrame(animate);
@@ -1028,9 +1031,12 @@
         lightIntroStartTime = Date.now();
       }
       
-      const time = Date.now() * 0.001;
+      const now = Date.now();
+      const time = now * 0.001;
+      const dt = _pcb3dLastTime ? Math.min((now - _pcb3dLastTime) / 1000, 0.05) : 1/60;
+      _pcb3dLastTime = now;
       
-      const introElapsed = (Date.now() - lightIntroStartTime) / 1000.0; // in seconds
+      const introElapsed = (now - lightIntroStartTime) / 1000.0; // in seconds
       
       // Phase 1: Sequential Turn-On (0.0 to 2.0 seconds)
       const turnOnProgress = Math.min(Math.max(introElapsed / 2.0, 0), 1);
@@ -1042,7 +1048,7 @@
 
       pcbModel.position.y = homeModelY + Math.sin(time * 1.2) * 0.005;
       if (turntableGroup) {
-        turntableGroup.rotation.y += 0.003; // 바닥 원판과 PCB가 함께 회전
+        turntableGroup.rotation.y += 0.18 * dt; // 바닥 원판과 PCB가 함께 회전 (시간 기반)
       }
 
       // ── Stage Spotlights: fade in and align animation ──

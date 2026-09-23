@@ -24,9 +24,14 @@ class PhysicsObject {
         this.jitterCount = 0;
         this.jitterTimer = 0;
         this.lastVx = 0;
+        this._lastFrameTime = 0;
+        this._dt = 1;  // normalized dt (1.0 = 60fps)
+        this._dtSec = 1/60; // dt in seconds
     }
 
     update() {
+        const dt = this._dt; // normalized: 1.0 at 60fps
+
         // If hanging from subtitle, skip normal physics
         if (this.isHangingSubtitle) {
             this.updateSubtitleHang();
@@ -42,18 +47,18 @@ class PhysicsObject {
         }
 
         // Soccer kick cooldown
-        if (this.soccerKickCooldown > 0) this.soccerKickCooldown--;
+        if (this.soccerKickCooldown > 0) this.soccerKickCooldown -= dt;
 
         // Apply mobile tilt force
         if (this._tiltForce) {
-            this.vx += this._tiltForce;
+            this.vx += this._tiltForce * dt;
         }
 
-        this.vy += this.gravity;
-        this.vx *= this.friction;
+        this.vy += this.gravity * dt;
+        this.vx *= Math.pow(this.friction, dt);
 
-        this.x += this.vx;
-        this.y += this.vy;
+        this.x += this.vx * dt;
+        this.y += this.vy * dt;
 
         this.checkCollisions();
         this.checkSubtitleCollision();
@@ -71,15 +76,15 @@ class PhysicsObject {
 
         const dist = Math.sqrt(Math.pow(this.x - this.lastX, 2) + Math.pow(this.y - this.lastY, 2));
         if (dist < 1) {
-            this.stuckTimer++;
+            this.stuckTimer += this._dtSec;
         } else {
             this.stuckTimer = 0;
             this.lastX = this.x;
             this.lastY = this.y;
         }
 
-        // If stuck for 2 seconds (approx 120 frames at 60fps) - Lowered for faster response
-        if (this.stuckTimer > 120) {
+        // If stuck for 2 seconds
+        if (this.stuckTimer > 2.0) {
             this.stuckTimer = 0;
             // Jump out!
             this.vy = -11 - Math.random() * 5;
@@ -97,12 +102,12 @@ class PhysicsObject {
         // Check for direction change
         if ((this.lastVx > 0.1 && this.vx < -0.1) || (this.lastVx < -0.1 && this.vx > 0.1)) {
             this.jitterCount++;
-            this.jitterTimer = 60; // 1 second window
+            this.jitterTimer = 1.0; // 1 second window
         }
         this.lastVx = this.vx;
 
         if (this.jitterTimer > 0) {
-            this.jitterTimer--;
+            this.jitterTimer -= this._dtSec;
         } else {
             this.jitterCount = 0;
         }
@@ -196,18 +201,19 @@ class PhysicsObject {
             this.isChasingBall = true;
             const chaseSpeed = 2.0;
             if (Math.abs(dx) > 5) {
-                this.vx += (dx > 0 ? chaseSpeed : -chaseSpeed) * 0.15;
+                this.vx += (dx > 0 ? chaseSpeed : -chaseSpeed) * 0.15 * this._dt;
             }
         }
     }
 
     updateBallRide(ball) {
-        this.ballTrickTimer++;
-        this.ballTrickPhase += 0.05;
+        const dt = this._dt;
+        this.ballTrickTimer += this._dtSec;
+        this.ballTrickPhase += 0.05 * dt;
 
         // Ball-walk: bear walks on ball, rolling it across the floor
         if (this.ballTrickState === 'ball-walk') {
-            const walkSpeed = 1.2 * (this.ballFacingDir || 1);
+            const walkSpeed = (this.ballWalkSpeed || 1.2) * (this.ballFacingDir || 1);
             // Push ball horizontally
             ball.applyImpulse(walkSpeed * 0.12, 0);
 
@@ -231,9 +237,9 @@ class PhysicsObject {
                 this.ballFacingDir = -1;
             }
 
-            // Switch trick after cycle
-            const trickCycleDuration = 180; // 3 seconds for walk
-            if (this.ballTrickTimer % trickCycleDuration === 0) {
+            // Switch trick after 3 seconds
+            if (this.ballTrickTimer >= 3.0) {
+                this.ballTrickTimer = 0;
                 this.switchBallTrick();
             }
             return;
@@ -252,13 +258,13 @@ class PhysicsObject {
         this.x += sway;
 
         // Switch to a random trick every ~2 seconds
-        const trickCycleDuration = 120; // frames
-        if (this.ballTrickTimer % trickCycleDuration === 0) {
+        if (this.ballTrickTimer >= 2.0) {
+            this.ballTrickTimer = 0;
             this.switchBallTrick();
         }
 
         // Kick: dismount and boot the ball away!
-        if (this.ballTrickState === 'kick' && this.ballTrickTimer % trickCycleDuration === 0) {
+        if (this.ballTrickState === 'kick' && this.ballTrickTimer >= 2.0) {
             this.isRidingBall = false;
             this.ballTrickState = null;
             // Bear hops slightly
@@ -276,14 +282,20 @@ class PhysicsObject {
         this.isGrounded = false;
 
         // Slightly dampen ball velocity to show bear's weight
-        ball.applyImpulse(0, -0.05);
+        ball.applyImpulse(0, -0.05 * this._dt);
     }
 
     switchBallTrick() {
+        const BALL_WALK_MIN = 0.8;
+        const BALL_WALK_MAX = 1.2;
         const tricks = ['balance', 'wave', 'spin', 'kick', 'ball-walk', 'ball-walk'];
         this.ballTrickState = tricks[Math.floor(Math.random() * tricks.length)];
         // Randomly flip facing direction on trick change
         if (Math.random() > 0.5) this.ballFacingDir *= -1;
+        // Randomize ball-walk speed
+        if (this.ballTrickState === 'ball-walk') {
+            this.ballWalkSpeed = BALL_WALK_MIN + Math.random() * (BALL_WALK_MAX - BALL_WALK_MIN);
+        }
     }
 
     performSoccerKick(ball, dx) {
@@ -306,8 +318,8 @@ class PhysicsObject {
         this.isGrounded = false;
         this.soccerKicking = true;
 
-        // Set cooldown: wait ~40 frames before chasing again
-        this.soccerKickCooldown = 40;
+        // Set cooldown: wait ~0.67 seconds before chasing again
+        this.soccerKickCooldown = 0.67;
 
         // Clear kick animation after a short time
         setTimeout(() => { this.soccerKicking = false; }, 300);
@@ -351,11 +363,12 @@ class PhysicsObject {
     }
 
     updateSubtitleHang() {
-        this.hangSubtitleTimer++;
-        this.hangSwingPhase += 0.06;
+        const dt = this._dt;
+        this.hangSubtitleTimer += this._dtSec;
+        this.hangSwingPhase += 0.06 * dt;
 
         // Gentle swinging motion
-        const swingAmplitude = 3 * Math.max(0, 1 - this.hangSubtitleTimer / 180);
+        const swingAmplitude = 3 * Math.max(0, 1 - this.hangSubtitleTimer / 3.0);
         this.x = this.hangAnchorX + Math.sin(this.hangSwingPhase) * swingAmplitude;
 
         // Slight vertical bob
@@ -368,8 +381,8 @@ class PhysicsObject {
             this.y = subBottom - 4 + bob;
         }
 
-        // After ~3 seconds (180 frames at 60fps), let go
-        if (this.hangSubtitleTimer > 180) {
+        // After ~3 seconds, let go
+        if (this.hangSubtitleTimer > 3.0) {
             this.isHangingSubtitle = false;
             this.vy = 1; // Gentle drop
             this.vx = (Math.random() - 0.5) * 3;
@@ -453,7 +466,7 @@ class PhysicsObject {
         if (this.isGrounded) {
             this.y = bestGroundY - this.height;
             this.vy = 0;
-            this.vx += groundSlopeForce;
+            this.vx += groundSlopeForce * this._dt;
         }
 
         const viewportBottom = window.scrollY + window.innerHeight;
@@ -624,10 +637,15 @@ class PixelPet extends PhysicsObject {
         this.isGrounded = false;
     }
 
-    tick() {
+    tick(now) {
+        if (!now) now = performance.now();
+        const dtMs = this._lastFrameTime ? Math.min(now - this._lastFrameTime, 50) : 16.667;
+        this._lastFrameTime = now;
+        this._dt = dtMs / 16.667; // 1.0 at 60fps
+        this._dtSec = dtMs / 1000;
         this.update();
         this.updateAnimations();
-        requestAnimationFrame(() => this.tick());
+        requestAnimationFrame((t) => this.tick(t));
     }
 
     updateAnimations() {

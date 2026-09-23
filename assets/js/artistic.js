@@ -76,10 +76,11 @@
     let firstMove = true;
     let isFalling = false;
     let velX = 0, velY = 0;
-    const gravity = 0.5;
+    const GRAVITY = 30;           // px/s²  (was 0.5/frame → 0.5*60=30)
     const bounce = -0.7;
-    const friction = 0.995; // Reduced air resistance
-    const groundFriction = 0.98; // Reduced ground friction
+    const FRICTION = 0.74;        // per-second retain  (0.995^60 ≈ 0.74)
+    const GROUND_FRICTION = 0.30; // per-second retain  (0.98^60 ≈ 0.30)
+    let lastFrameTime = 0;
 
     // Expose cursor ball state globally for pixel-pet interaction
     window.__cursorBall = { x: 0, y: 0, vx: 0, vy: 0, isFalling: false, radius: 16,
@@ -88,24 +89,30 @@
       }
     };
 
-    function animateFollower() {
+    function animateFollower(now) {
+      if (!now) now = performance.now();
+      const dtMs = lastFrameTime ? Math.min(now - lastFrameTime, 50) : 16.667;
+      lastFrameTime = now;
+      const dt = dtMs / 1000; // seconds
+      const dtN = dtMs / 16.667; // normalized (1.0 at 60 fps)
+
       if (firstMove) {
         requestAnimationFrame(animateFollower);
         return;
       }
 
       if (isFalling) {
-        velY += gravity;
-        velX *= friction; // Air resistance
-        followerX += velX;
-        followerY += velY;
+        velY += GRAVITY * dt;
+        velX *= Math.pow(FRICTION, dt); // Air resistance
+        followerX += velX * dtN;
+        followerY += velY * dtN;
 
         const radius = 16;
         // Bounce off bottom
         if (followerY > window.innerHeight - radius) {
           followerY = window.innerHeight - radius;
           velY *= bounce;
-          velX *= groundFriction; // Ground friction
+          velX *= Math.pow(GROUND_FRICTION, dt); // Ground friction
         }
         // Bounce off sides
         if (followerX < radius) {
@@ -124,8 +131,9 @@
           velX = 0;
         }
       } else {
-        followerX += (mouseX - followerX) * 0.1;
-        followerY += (mouseY - followerY) * 0.1;
+        const lerpFactor = 1 - Math.pow(1 - 0.1, dtN);
+        followerX += (mouseX - followerX) * lerpFactor;
+        followerY += (mouseY - followerY) * lerpFactor;
       }
       
       let finalX = followerX;

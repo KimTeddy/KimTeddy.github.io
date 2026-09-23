@@ -193,9 +193,13 @@
       targetGyroY = Math.max(-0.2, Math.min(0.2, (event.beta - 45) * 0.003));
     };
 
-    if (gyroBtn) {
-      gyroBtn.addEventListener('click', () => {
-        if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+    const needsPermission = typeof DeviceOrientationEvent !== 'undefined' &&
+      typeof DeviceOrientationEvent.requestPermission === 'function';
+
+    if (needsPermission) {
+      // iOS 13+: Show button, require user tap for permission
+      if (gyroBtn) {
+        gyroBtn.addEventListener('click', () => {
           DeviceOrientationEvent.requestPermission()
             .then(state => {
               if (state === 'granted') {
@@ -206,13 +210,14 @@
               }
             })
             .catch(e => console.error(e));
-        } else {
-          window.addEventListener('deviceorientation', handleOrientation);
-          gyroBtn.innerHTML = '✅ Motion Active';
-          gyroBtn.style.background = 'rgba(0, 229, 160, 0.3)';
-          gyroBtn.style.borderColor = '#00e5a0';
-        }
-      });
+        });
+      }
+    } else if ('DeviceOrientationEvent' in window && isTouchDevice) {
+      // Android: Auto-activate gyro, hide button
+      window.addEventListener('deviceorientation', handleOrientation);
+      if (gyroBtn) {
+        gyroBtn.style.display = 'none';
+      }
     }
 
 

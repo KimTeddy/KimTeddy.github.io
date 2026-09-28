@@ -30,9 +30,14 @@
     const toggle = document.querySelector('.theme-toggle');
     if (!toggle) return;
     const rect = toggle.getBoundingClientRect();
-    // Always use button center for consistent circle origin
-    const x = rect.left + rect.width / 2;
-    const y = rect.top + rect.height / 2;
+    // getBoundingClientRect() returns layout-viewport coords, but the
+    // view-transition pseudo-elements live in visual-viewport space.
+    // On mobile the two diverge when the dynamic URL bar collapses/expands
+    // or when the user pinch-zooms — compensate with visualViewport offsets.
+    const vvOffsetX = window.visualViewport ? window.visualViewport.offsetLeft : 0;
+    const vvOffsetY = window.visualViewport ? window.visualViewport.offsetTop  : 0;
+    const x = rect.left + rect.width  / 2 - vvOffsetX;
+    const y = rect.top  + rect.height / 2 - vvOffsetY;
     const endRadius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
 
     // Disable nav's own CSS transition to prevent double-animation flicker

@@ -536,8 +536,11 @@ class PixelPet extends PhysicsObject {
             this._tiltForce = tiltAngle * 0.04; // Gentle sliding
         };
 
-        // iOS 13+ requires permission
-        if (typeof DeviceOrientationEvent !== 'undefined' &&
+        const isAndroid = /Android/i.test(navigator.userAgent);
+
+        // iOS 13+ requires permission (show button only for non-Android)
+        if (!isAndroid &&
+            typeof DeviceOrientationEvent !== 'undefined' &&
             typeof DeviceOrientationEvent.requestPermission === 'function') {
             // Create a one-time tap-to-enable prompt
             const enableBtn = document.createElement('button');
@@ -557,7 +560,7 @@ class PixelPet extends PhysicsObject {
                 enableBtn.remove();
             }, { once: true });
         } else if ('DeviceOrientationEvent' in window) {
-            // Android + non-Safari: just listen
+            // Android + non-Safari: auto-activate without button
             window.addEventListener('deviceorientation', handleOrientation);
         }
     }
